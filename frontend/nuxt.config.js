@@ -4,7 +4,7 @@ export default {
     env: env.parsed,
 
     head: {
-        titleTemplate: 'myRef - %s',
+        titleTemplate: 'myRef.top - %s',
         meta         : [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},

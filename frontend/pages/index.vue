@@ -8,6 +8,8 @@
 export default {
   name: "index",
 
+  layout: 'site',
+
   created() {
   },
 
