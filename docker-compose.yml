@@ -37,7 +37,7 @@ services:
       POSTGRES_PASSWORD: njhvjp12
   node:
     build: ./docker/node
-    container_name: ast-node
+    container_name: ref-node
     volumes:
       - ./frontend:/usr/src/app
     working_dir: /usr/src/app

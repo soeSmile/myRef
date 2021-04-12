@@ -4,7 +4,7 @@ export default {
     env: env.parsed,
 
     head: {
-        titleTemplate: 'AgriGato - %s',
+        titleTemplate: 'myRef - %s',
         meta         : [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -45,7 +45,7 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        'nuxt-buefy'
+        '@nuxtjs/vuetify',
     ],
 
     axios: {
