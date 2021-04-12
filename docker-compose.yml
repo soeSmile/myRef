@@ -1,0 +1,48 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.19
+    container_name: ref-nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/sites/:/etc/nginx/sites-available
+      - ./docker/nginx/logs:/var/log/nginx
+    working_dir: /var/www
+    links:
+      - app
+  app:
+    build: docker/app
+    container_name: ref-app
+    volumes:
+      - ./:/var/www
+      - ./docker/app/logs:/var/log/php-fpm
+      - ./docker/app/php-ini-overrides.ini:/usr/local/etc/php/conf.d/40-custom.ini
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=172.17.0.1 idekey=PHPSTORM start_with_request=yes
+      PHP_IDE_CONFIG: "serverName=Docker"
+      USER: 1000:1000
+    working_dir: /var/www
+    links:
+      - pg
+  pg:
+    build: ./docker/pg
+    container_name: ref-pg
+    ports:
+      - 127.0.0.1:32772:5432
+    environment:
+      POSTGRES_PASSWORD: njhvjp12
+  node:
+    build: ./docker/node
+    container_name: ast-node
+    volumes:
+      - ./frontend:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - 3000:3000
+    environment:
+      HOST: 0.0.0.0
+    command: bash -c "yarn && yarn dev"
