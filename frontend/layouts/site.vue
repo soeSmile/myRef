@@ -1,19 +1,38 @@
 <template>
   <v-app>
     <v-app-bar app flat>
+      <v-app-bar-nav-icon/>
+      <v-toolbar-title>Page title</v-toolbar-title>
 
-      <v-tabs centered
-              color="grey darken-1">
-        <v-tab v-for="link in links" :key="link">
-          {{ link }}
-        </v-tab>
-      </v-tabs>
+      <v-text-field flat
+                    hide-details
+                    label="Search"
+                    prepend-inner-icon="mdi-magnify"
+                    class="ma-4"
+                    clearable
+                    append-outer-icon="mdi-send"
+                    solo
+                    @click:append-outer="search"/>
 
-      <v-spacer></v-spacer>
+      <v-btn text>
+        <v-icon left>mdi-account</v-icon>
+        User Name
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-login-variant</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-logout-variant</v-icon>
+      </v-btn>
 
-      <v-avatar class="hidden-sm-and-down"
-                color="grey darken-1 shrink"
-                size="32"/>
+      <template v-slot:extension>
+        <v-tabs centered
+                color="grey darken-1">
+          <v-tab v-for="link in links" :key="link">
+            {{ link }}
+          </v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 
     <v-main>
@@ -55,6 +74,9 @@ export default {
 
   watch: {},
 
-  methods: {}
+  methods: {
+    search() {
+    }
+  }
 }
 </script>
