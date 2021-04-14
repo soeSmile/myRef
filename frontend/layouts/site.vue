@@ -1,23 +1,23 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-app-bar app dense fixed>
-        <v-toolbar-title>Page title</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+    <v-app-bar app flat>
 
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-      </v-app-bar>
+      <v-tabs centered
+              color="grey darken-1">
+        <v-tab v-for="link in links" :key="link">
+          {{ link }}
+        </v-tab>
+      </v-tabs>
+
+      <v-spacer></v-spacer>
+
+      <v-avatar class="hidden-sm-and-down"
+                color="grey darken-1 shrink"
+                size="32"/>
     </v-app-bar>
 
     <v-main>
-      <v-container>
-        Hello World
-      </v-container>
+      <nuxt/>
     </v-main>
 
     <v-footer padless>
@@ -41,7 +41,14 @@ export default {
   props: {},
 
   data() {
-    return {}
+    return {
+      links: [
+        'Dashboard',
+        'Messages',
+        'Profile',
+        'Updates',
+      ],
+    }
   },
 
   computed: {},

@@ -1,0 +1,80 @@
+// Width in px
+@for $i from 1 through 20 {
+  $value: $i * 50;
+  .#{$prefix}wpx-#{$value} {
+    max-width: $value*1px;
+    width: 100%;
+  }
+}
+
+// Width in %
+@for $i from 1 through 20 {
+  $value: $i * 5;
+  .#{$prefix}w-#{$value} {
+    max-width: $value*1%;
+    width: 100%;
+  }
+}
+
+// Height
+@for $i from 1 through 20 {
+  $value: $i * 5;
+  .#{$prefix}h-#{$value} {
+    height: $value*1%;
+  }
+}
+
+// Width in px
+@for $i from 1 through 20 {
+  $value: $i * 50;
+  .#{$prefix}hpx-#{$value} {
+    height: $value*1px;
+  }
+}
+
+// hide
+.#{$prefix}vh-100 {
+  min-height: 100vh;
+}
+
+// hide
+.#{$prefix}hide {
+  display: none !important;
+}
+
+// link
+.#{$prefix}link {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.#{$prefix}link-clear {
+  cursor: pointer;
+}
+
+// text center
+.#{$prefix}center {
+  text-align: center !important;
+}
+
+// text left
+.#{$prefix}left {
+  text-align: left !important;
+}
+
+// text right
+.#{$prefix}right {
+  text-align: right !important;
+}
+
+// link
+.#{$prefix}link {
+  cursor: pointer !important;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
