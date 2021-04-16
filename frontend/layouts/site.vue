@@ -29,7 +29,8 @@
 
         <v-spacer/>
 
-        <v-btn color="teal" class="mx-4">
+        <v-btn color="teal" class="mx-4"
+               @click="dialog.show = true">
           Add Ref
           <v-icon right dark>
             mdi-plus
@@ -71,12 +72,21 @@
         {{ new Date().getFullYear() }} — <strong>myRef.top</strong>
       </v-col>
     </v-footer>
+
+    <add-ref :dialog="dialog"/>
   </v-app>
 </template>
 
 <script>
+
+import addRef from "../components/ref/addRef";
+
 export default {
   name: "site",
+
+  components: {
+    addRef
+  },
 
   created() {
   },
@@ -88,6 +98,9 @@ export default {
 
   data() {
     return {
+      dialog        : {
+        show: false
+      },
       loading       : false,
       categories    : [
         {id: 1, name: 'Новости'},
