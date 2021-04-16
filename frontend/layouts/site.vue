@@ -5,10 +5,15 @@
                color="blue darken-4">
       <v-container class="py-0 fill-height">
 
-        <v-avatar class="mr-10"
-                  color="grey darken-1"
-                  size="32"/>
-        <v-toolbar-title>MyRef.top</v-toolbar-title>
+        <n-link to="/">
+          <v-avatar class="mr-4"
+                    color="grey darken-1"
+                    size="32"/>
+        </n-link>
+
+        <v-toolbar-title class="mx-4">
+          MyRef.top
+        </v-toolbar-title>
 
         <v-select hide-no-data
                   hide-details
@@ -24,7 +29,14 @@
 
         <v-spacer/>
 
-        <v-btn dark text>
+        <v-btn color="teal" class="mx-4">
+          Add Ref
+          <v-icon right dark>
+            mdi-plus
+          </v-icon>
+        </v-btn>
+
+        <v-btn dark text :nuxt="true" to="search">
           <v-icon left>mdi-cloud-search-outline</v-icon>
           Advanced Search
         </v-btn>
