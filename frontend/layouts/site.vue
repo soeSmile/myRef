@@ -52,11 +52,23 @@
               User Name
             </v-btn>
           </template>
-          <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index">
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
+
+          <v-list dense>
+            <v-list-item-group color="primary">
+              <v-list-item class="mx-2"
+                           nuxt
+                           :to="val.link"
+                           v-for="(val, i) in items" :key="i">
+                <v-list-item-icon>
+                  <v-icon v-text="val.icon"></v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title v-text="val.text"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
           </v-list>
+
         </v-menu>
 
       </v-container>
@@ -126,10 +138,9 @@ export default {
       selectCategory: null,
 
       items: [
-        {title: 'Click Me'},
-        {title: 'Click Me'},
-        {title: 'Click Me'},
-        {title: 'Click Me 2'},
+        {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
+        {text: 'Audience', icon: 'mdi-account', link: 'search'},
+        {text: 'Conversions', icon: 'mdi-flag', link: 'search'},
       ],
     }
   },
