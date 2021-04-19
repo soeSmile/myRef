@@ -7,6 +7,7 @@
       </v-toolbar-title>
 
       <v-btn dark text
+             class="ml-2"
              nuxt :to="val.link"
              v-for="(val,key) in menu" :key="val + key">
         <v-icon left>{{ val.icon }}</v-icon>
