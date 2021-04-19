@@ -7,6 +7,7 @@
       </v-toolbar-title>
 
       <v-btn dark text
+             nuxt :to="val.link"
              v-for="(val,key) in menu" :key="val + key">
         <v-icon left>{{ val.icon }}</v-icon>
         {{ val.text }}
@@ -102,8 +103,9 @@ export default {
   data() {
     return {
       menu    : [
-        {text: 'Топ', icon: 'mdi-clock', link: 'search'},
-        {text: 'Новые', icon: 'mdi-account', link: 'search'},
+        {text: 'Главная', icon: 'mdi-home', link: '/'},
+        {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1'},
+        {text: 'Новые', icon: 'mdi-alert-decagram', link: '/?new=1'},
       ],
       userMenu: [
         {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
