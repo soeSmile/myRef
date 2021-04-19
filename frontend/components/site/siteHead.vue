@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app dark color="blue darken-4">
-    <v-container class="py-0 fill-height">
+    <div class="layout-main-container sm-flex middle">
 
       <n-link to="/">
         <v-avatar class="mr-4"
@@ -61,7 +61,7 @@
         </v-list>
       </v-menu>
 
-    </v-container>
+    </div>
   </v-app-bar>
 </template>
 

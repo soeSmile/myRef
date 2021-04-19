@@ -4,17 +4,17 @@
     <siteHead/>
 
     <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col cols="3">
+      <div class="layout-main-container">
+        <div class="sm-flex wrap">
+          <div class="layout-left">
             <site-user-block/>
             <site-search/>
-          </v-col>
-          <v-col>
+          </div>
+          <div class="layout-content">
             <nuxt/>
-          </v-col>
-        </v-row>
-      </v-container>
+          </div>
+        </div>
+      </div>
     </v-main>
 
     <v-footer padless fixed>
@@ -31,7 +31,6 @@
 
 import addRef from "../components/ref/addRef";
 import siteHead from "../components/site/siteHead";
-import search from "../pages/search";
 import SiteSearch from "../components/site/siteSearch";
 import siteUserBlock from "../components/site/siteUserBlock";
 
@@ -42,7 +41,6 @@ export default {
     SiteSearch,
     addRef,
     siteHead,
-    search,
     siteUserBlock
   },
 

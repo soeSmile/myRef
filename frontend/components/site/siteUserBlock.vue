@@ -12,9 +12,6 @@
       <v-list-item nuxt exact
                    :to="{ name: '', query: { category: val.id }}"
                    v-for="(val,key) in categories" :key="key">
-        <v-list-item-icon>
-          <v-icon v-text="val.icon"></v-icon>
-        </v-list-item-icon>
         <v-list-item-title v-text="val.name"></v-list-item-title>
       </v-list-item>
     </v-list-group>
