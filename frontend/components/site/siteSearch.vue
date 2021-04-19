@@ -7,18 +7,30 @@
                   item-text="name"
                   item-value="id"
                   return-object
+                  v-model="selectCategory"
                   @input="insertCategory"/>
-
         <v-chip class="ma-2"
                 close
-                @click:close="clearCategory(key)"
-                v-for="(val,key) in selectCategory" :key="key">
+                @click:close="clearItem(key)"
+                v-for="(val,key) in selectCategories" :key="key + 'cat'">
           {{ val.name }}
         </v-chip>
 
-        <v-autocomplete :items="tags"
+        <v-autocomplete class="mt-4"
+                        :items="tags"
                         label="Теги"
-                        clearable/>
+                        item-text="name"
+                        item-value="id"
+                        return-object
+                        clearable
+                        v-model="selectTag"
+                        @input="insertTag"/>
+        <v-chip class="ma-2"
+                close
+                @click:close="clearItem(key,'selectTag')"
+                v-for="(val,key) in selectTags" :key="key + 'tag'">
+          {{ val.name }}
+        </v-chip>
       </v-card-text>
 
       <v-card-actions>
@@ -26,7 +38,8 @@
           Поиск
           <v-icon right>mdi-cloud-search-outline</v-icon>
         </v-btn>
-        <v-btn text color="blue darken-4">
+        <v-btn text color="blue darken-4"
+               @click="clear">
           Очистить
           <v-icon right>mdi-close</v-icon>
         </v-btn>
@@ -49,8 +62,8 @@ export default {
 
   data() {
     return {
-      loading       : false,
-      categories    : [
+      loading         : false,
+      categories      : [
         {id: 1, name: 'Новости'},
         {id: 2, name: 'Наука'},
         {id: 3, name: 'Техника'},
@@ -71,15 +84,21 @@ export default {
         {id: 18, name: 'Личное'},
         {id: 19, name: 'Посмотреть позже'}
       ],
-      selectCategory: [],
-
-      tags: ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California']
+      selectCategories: [],
+      tags            : [
+        {id: 1, name: 'php'},
+        {id: 2, name: 'css'},
+        {id: 3, name: 'go'},
+      ],
+      selectTags      : [],
+      selectCategory  : null,
+      selectTag       : null
     }
   },
 
   computed: {
     filterCategory() {
-      return this.categories.filter(x => !this.selectCategory.includes(x))
+      return this.categories.filter(x => !this.selectCategories.includes(x))
     }
   },
 
@@ -90,11 +109,31 @@ export default {
      * @param item
      */
     insertCategory(item) {
-      this.selectCategory.push(item)
+      this.selectCategories.push(item)
     },
 
-    clearCategory(key) {
-      this.selectCategory.splice(key, 1)
+    /**
+     * @param item
+     */
+    insertTag(item) {
+      if (item !== null && !this.selectTags.includes(item)) {
+        this.selectTags.push(item)
+      }
+    },
+
+    /**
+     * @param key
+     * @param item
+     */
+    clearItem(key, item = 'selectCategory') {
+      this[item].splice(key, 1)
+    },
+
+    clear() {
+      this.selectCategory = null
+      this.selectTag = null
+      this.selectCategories = []
+      this.selectTags = []
     }
   }
 }
