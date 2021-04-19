@@ -1,6 +1,6 @@
 <template>
   <v-card max-width="280"
-          class="ma-4">
+          class="ma-2">
 
     <v-img height="100"
            width="280"

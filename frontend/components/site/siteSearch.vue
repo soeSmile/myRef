@@ -1,62 +1,59 @@
 <template>
-  <v-container>
-    <v-card class="mt-4">
-      <v-card-text>
-        <v-card-title>
-          Поиск
-        </v-card-title>
+  <v-card class="mt-4">
+    <v-card-title>
+      Поиск
+    </v-card-title>
+    <v-card-text>
+      <v-switch v-model="byRef" dense hide-details label="Поиск по закадкам"/>
+      <v-switch v-model="byNote" dense hide-details label="Поиск по заметкам"/>
 
-        <v-switch v-model="byRef" dense hide-details label="Поиск по закадкам"/>
-        <v-switch v-model="byNote" dense hide-details label="Поиск по заметкам"/>
+      <v-select class="mt-4"
+                :items="filterCategory"
+                label="Категории"
+                item-text="name"
+                item-value="id"
+                return-object
+                v-model="selectCategory"
+                @input="insertCategory"/>
+      <v-chip class="ma-2"
+              close
+              @click:close="clearItem(key)"
+              v-for="(val,key) in selectCategories" :key="key + 'cat'">
+        {{ val.name }}
+      </v-chip>
 
-        <v-select class="mt-4"
-                  :items="filterCategory"
-                  label="Категории"
-                  item-text="name"
-                  item-value="id"
-                  return-object
-                  v-model="selectCategory"
-                  @input="insertCategory"/>
-        <v-chip class="ma-2"
-                close
-                @click:close="clearItem(key)"
-                v-for="(val,key) in selectCategories" :key="key + 'cat'">
-          {{ val.name }}
-        </v-chip>
+      <v-autocomplete class="mt-4"
+                      :items="tags"
+                      label="Теги"
+                      item-text="name"
+                      item-value="id"
+                      return-object
+                      clearable
+                      v-model="selectTag"
+                      @input="insertTag"/>
+      <v-chip class="ma-2"
+              close
+              @click:close="clearItem(key,'selectTags')"
+              v-for="(val,key) in selectTags" :key="key + 'tag'">
+        {{ val.name }}
+      </v-chip>
 
-        <v-autocomplete class="mt-4"
-                        :items="tags"
-                        label="Теги"
-                        item-text="name"
-                        item-value="id"
-                        return-object
-                        clearable
-                        v-model="selectTag"
-                        @input="insertTag"/>
-        <v-chip class="ma-2"
-                close
-                @click:close="clearItem(key,'selectTags')"
-                v-for="(val,key) in selectTags" :key="key + 'tag'">
-          {{ val.name }}
-        </v-chip>
+      <v-switch v-model="byDate" dense hide-details label="По дате"/>
+      <v-switch v-model="byTop" dense hide-details label="Самые посещаемые"/>
+    </v-card-text>
 
-        <v-switch v-model="byDate" dense hide-details label="По дате"/>
-        <v-switch v-model="byTop" dense hide-details label="Самые посещаемые"/>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-btn text color="blue darken-4">
-          Поиск
-          <v-icon right>mdi-cloud-search-outline</v-icon>
-        </v-btn>
-        <v-btn text color="blue darken-4"
-               @click="clear">
-          Очистить
-          <v-icon right>mdi-close</v-icon>
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-container>
+    <v-card-actions>
+      <v-btn text color="blue darken-4">
+        Поиск
+        <v-icon right>mdi-cloud-search-outline</v-icon>
+      </v-btn>
+      <v-btn text color="blue darken-4"
+             @click="clear">
+        Очистить
+        <v-icon right>mdi-close</v-icon>
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>

@@ -7,6 +7,7 @@
       <v-container>
         <v-row>
           <v-col cols="3">
+            <site-user-block/>
             <site-search/>
           </v-col>
           <v-col>
@@ -32,6 +33,7 @@ import addRef from "../components/ref/addRef";
 import siteHead from "../components/site/siteHead";
 import search from "../pages/search";
 import SiteSearch from "../components/site/siteSearch";
+import siteUserBlock from "../components/site/siteUserBlock";
 
 export default {
   name: "site",
@@ -40,7 +42,8 @@ export default {
     SiteSearch,
     addRef,
     siteHead,
-    search
+    search,
+    siteUserBlock
   },
 
   created() {
