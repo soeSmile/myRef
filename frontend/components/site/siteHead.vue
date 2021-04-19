@@ -2,15 +2,11 @@
   <v-app-bar app dark color="blue darken-4">
     <div class="layout-main-container sm-flex middle">
 
-      <n-link to="/">
-        <v-avatar class="mr-4"
-                  color="grey darken-1"
-                  size="32"/>
-      </n-link>
-
       <v-toolbar-title class="mx-6">
         MyRef.top
       </v-toolbar-title>
+
+      <v-spacer/>
 
       <v-btn dark text
              v-for="(val,key) in menu" :key="val + key">
@@ -21,17 +17,17 @@
       <v-spacer/>
 
       <v-btn color="amber" class="mx-4">
-        Добавить заметку
-        <v-icon right dark>
+        <v-icon left dark>
           mdi-plus
         </v-icon>
+        Заметку
       </v-btn>
 
       <v-btn color="teal" class="mx-4">
-        Добавить закладку
-        <v-icon right dark>
+        <v-icon left dark>
           mdi-plus
         </v-icon>
+        Ссылку
       </v-btn>
 
       <v-menu offset-y>
@@ -60,6 +56,14 @@
           </v-list-item-group>
         </v-list>
       </v-menu>
+
+      <v-spacer/>
+
+      <n-link to="/">
+        <v-avatar>
+          <img src="/logo.svg" alt="John">
+        </v-avatar>
+      </n-link>
 
     </div>
   </v-app-bar>
