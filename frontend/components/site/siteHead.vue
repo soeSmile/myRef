@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark color="blue darken-4">
+  <v-app-bar app dark color="blue darken-1">
     <div class="layout-main-container sm-flex middle">
 
       <v-toolbar-title class="mr-4">
@@ -14,14 +14,14 @@
 
       <v-spacer/>
 
-      <v-btn color="amber" class="mx-2">
+      <v-btn color="amber" class="mx-2" disabled>
         <v-icon left dark>
           mdi-plus
         </v-icon>
         Заметку
       </v-btn>
 
-      <v-btn color="teal" class="mx-2">
+      <v-btn color="teal" class="mx-2" disabled>
         <v-icon left dark>
           mdi-plus
         </v-icon>
@@ -63,13 +63,13 @@
       </v-menu>
 
       <div v-else>
-        <v-btn text class="mx-2">
+        <v-btn text class="mx-2" nuxt to="login">
           <v-icon left dark>
             mdi-login-variant
           </v-icon>
           Вход
         </v-btn>
-        <v-btn text class="mx-2">
+        <v-btn text class="mx-2" nuxt to="register">
           <v-icon left dark>
             mdi-account-plus-outline
           </v-icon>

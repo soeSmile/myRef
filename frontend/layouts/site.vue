@@ -1,9 +1,9 @@
 <template>
   <v-app>
 
-    <siteHead/>
+    <site-head/>
 
-    <v-main class="grey lighten-3">
+    <v-main>
       <div class="layout-main-container">
         <div class="sm-flex wrap">
           <div class="layout-left">
@@ -17,11 +17,7 @@
       </div>
     </v-main>
 
-    <v-footer padless fixed>
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>myRef.top</strong>
-      </v-col>
-    </v-footer>
+    <site-footer/>
 
     <add-ref :dialog="dialog"/>
   </v-app>
@@ -33,6 +29,7 @@ import addRef from "../components/ref/addRef";
 import siteHead from "../components/site/siteHead";
 import SiteSearch from "../components/site/siteSearch";
 import siteUserBlock from "../components/site/siteUserBlock";
+import siteFooter from "../components/site/siteFooter";
 
 export default {
   name: "site",
@@ -41,7 +38,8 @@ export default {
     SiteSearch,
     addRef,
     siteHead,
-    siteUserBlock
+    siteUserBlock,
+    siteFooter
   },
 
   created() {
