@@ -4,9 +4,7 @@
     <site-head/>
 
     <v-main>
-      <div class="layout-main-container">
-        <nuxt/>
-      </div>
+      <nuxt/>
     </v-main>
 
     <site-footer/>
