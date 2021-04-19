@@ -28,7 +28,8 @@
         Ссылку
       </v-btn>
 
-      <v-menu offset-y>
+      <v-menu offset-y
+              v-if="isAuth">
         <template v-slot:activator="{ on, attrs }">
           <v-btn dark text
                  v-bind="attrs"
@@ -53,7 +54,28 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
+        <v-btn text class="mx-2">
+          <v-icon left dark>
+            mdi-logout-variant
+          </v-icon>
+          Выход
+        </v-btn>
       </v-menu>
+
+      <div v-else>
+        <v-btn text class="mx-2">
+          <v-icon left dark>
+            mdi-login-variant
+          </v-icon>
+          Вход
+        </v-btn>
+        <v-btn text class="mx-2">
+          <v-icon left dark>
+            mdi-account-plus-outline
+          </v-icon>
+          Регистрация
+        </v-btn>
+      </div>
 
       <n-link to="/" class="ml-4">
         <v-avatar>
