@@ -31,6 +31,9 @@
                 v-for="(val,key) in selectTags" :key="key + 'tag'">
           {{ val.name }}
         </v-chip>
+
+        <v-switch v-model="byDate" dense hide-details label="По дате"/>
+        <v-switch v-model="byTop" dense hide-details label="Самые посещаемые"/>
       </v-card-text>
 
       <v-card-actions>
@@ -92,7 +95,9 @@ export default {
       ],
       selectTags      : [],
       selectCategory  : null,
-      selectTag       : null
+      selectTag       : null,
+      byDate          : false,
+      byTop           : false
     }
   },
 
@@ -134,6 +139,8 @@ export default {
       this.selectTag = null
       this.selectCategories = []
       this.selectTags = []
+      this.byDate = false
+      this.byTop = false
     }
   }
 }
