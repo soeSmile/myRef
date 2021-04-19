@@ -17,9 +17,6 @@ export default {
     tmplRef
   },
 
-  asyncData(ctx) {
-  },
-
   props: {},
 
   data() {
@@ -28,11 +25,7 @@ export default {
 
   computed: {},
 
-  watch: {
-    '$route.query': function (val) {
-      console.log(val)
-    }
-  },
+  watch: {},
 
   methods: {}
 }
