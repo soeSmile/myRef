@@ -2,7 +2,15 @@
   <v-container>
     <v-card class="mt-4">
       <v-card-text>
-        <v-select :items="filterCategory"
+        <v-card-title>
+          Поиск
+        </v-card-title>
+
+        <v-switch v-model="byRef" dense hide-details label="Поиск по закадкам"/>
+        <v-switch v-model="byNote" dense hide-details label="Поиск по заметкам"/>
+
+        <v-select class="mt-4"
+                  :items="filterCategory"
                   label="Категории"
                   item-text="name"
                   item-value="id"
@@ -27,7 +35,7 @@
                         @input="insertTag"/>
         <v-chip class="ma-2"
                 close
-                @click:close="clearItem(key,'selectTag')"
+                @click:close="clearItem(key,'selectTags')"
                 v-for="(val,key) in selectTags" :key="key + 'tag'">
           {{ val.name }}
         </v-chip>
@@ -97,7 +105,9 @@ export default {
       selectCategory  : null,
       selectTag       : null,
       byDate          : false,
-      byTop           : false
+      byTop           : false,
+      byRef           : true,
+      byNote          : true
     }
   },
 
@@ -130,7 +140,7 @@ export default {
      * @param key
      * @param item
      */
-    clearItem(key, item = 'selectCategory') {
+    clearItem(key, item = 'selectCategories') {
       this[item].splice(key, 1)
     },
 
@@ -141,6 +151,8 @@ export default {
       this.selectTags = []
       this.byDate = false
       this.byTop = false
+      this.byRef = true
+      this.byNote = true
     }
   }
 }

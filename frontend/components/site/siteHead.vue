@@ -12,8 +12,6 @@
         MyRef.top
       </v-toolbar-title>
 
-      <v-spacer/>
-
       <v-btn dark text
              v-for="(val,key) in menu" :key="val + key">
         <v-icon left>{{ val.icon }}</v-icon>
@@ -22,8 +20,15 @@
 
       <v-spacer/>
 
+      <v-btn color="amber" class="mx-4">
+        Добавить заметку
+        <v-icon right dark>
+          mdi-plus
+        </v-icon>
+      </v-btn>
+
       <v-btn color="teal" class="mx-4">
-        Add Ref
+        Добавить закладку
         <v-icon right dark>
           mdi-plus
         </v-icon>
@@ -75,9 +80,8 @@ export default {
   data() {
     return {
       menu    : [
-        {text: 'Top', icon: 'mdi-clock', link: 'search'},
-        {text: 'New', icon: 'mdi-account', link: 'search'},
-        {text: 'New', icon: 'mdi-account', link: 'search'},
+        {text: 'Топ', icon: 'mdi-clock', link: 'search'},
+        {text: 'Новые', icon: 'mdi-account', link: 'search'},
       ],
       userMenu: [
         {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
