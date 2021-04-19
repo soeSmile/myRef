@@ -17,7 +17,7 @@ export const mutations = {
     SET_TOKEN(state, data = {}) {
         state.token = data.token;
         state.expiresIn = data.expiresIn;
-        // set head
+        // set site
         this.$axios.setToken(data.token, 'Bearer');
         // set cookie
         this.$cookies.set('token', data.token, {maxAge: data.expiresIn, path: '/'});

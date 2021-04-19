@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="sm-flex center wrap">
-      <tmpl-ref v-for="n in 22"/>
+      <tmpl-ref v-for="n in 22" :key="n + 'ref'"/>
     </div>
   </v-container>
 </template>
