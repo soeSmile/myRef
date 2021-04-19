@@ -2,9 +2,9 @@
   "name": "pms",
   "license": "MIT",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start"
+    "dev": "nuxt --max_old_space_size=8192 --optimize_for_size",
+    "build": "nuxt build --max_old_space_size=8192 --optimize_for_size",
+    "start": "nuxt start --max_old_space_size=8192 --optimize_for_size"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",

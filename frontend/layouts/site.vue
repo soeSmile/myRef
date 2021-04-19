@@ -7,7 +7,7 @@
       <div class="layout-main-container">
         <div class="sm-flex wrap">
           <div class="layout-left">
-            <site-user-block/>
+            <site-user-block v-if="isAuth"/>
             <site-search/>
           </div>
           <div class="layout-content">

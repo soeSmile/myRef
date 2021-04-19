@@ -45,5 +45,4 @@ services:
       - 3000:3000
     environment:
       HOST: 0.0.0.0
-      NODE_OPTIONS: --max-old-space-size=8192
     command: bash -c "yarn && yarn dev"
