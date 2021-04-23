@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless fixed>
+  <v-footer padless fixed color="white">
     <v-col class="text-center" cols="12">
       {{ new Date().getFullYear() }} — <strong>myRef.top</strong>
     </v-col>
