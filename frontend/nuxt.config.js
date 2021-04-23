@@ -45,7 +45,15 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        '@nuxtjs/vuetify',
+        ['@nuxtjs/vuetify', {
+            theme: {
+                themes: {
+                    light: {
+                        primary: '#0D47A1',
+                    }
+                },
+            },
+        }]
     ],
 
     axios: {

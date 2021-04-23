@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark color="blue darken-1">
+  <v-app-bar app dark color="primary">
     <div class="layout-main-container sm-flex middle">
 
       <v-toolbar-title class="mr-4">
