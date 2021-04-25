@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Providers;
 
@@ -7,6 +8,10 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+/**
+ * Class EventServiceProvider
+ * @package App\Providers
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -15,8 +20,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
+        Registered::class                                     => [
             SendEmailVerificationNotification::class,
+        ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
         ],
     ];
 
@@ -25,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
