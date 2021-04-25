@@ -6,7 +6,8 @@
       <v-list dense nav>
         <v-list-item v-for="item in menus"
                      :key="item.name"
-                     link>
+                     nuxt
+                     :to="item.link">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -46,10 +47,11 @@ export default {
     return {
       drawer: true,
       menus : [
-        {name: 'Настройки', icon: 'mdi-cogs'},
-        {name: 'Категории', icon: 'mdi-shape'},
-        {name: 'Теги', icon: 'mdi-tag-multiple'},
-        {name: 'Пользователи', icon: 'mdi-account-supervisor'},
+        {name: 'Главная', icon: 'mdi-home', link: '/'},
+        {name: 'Настройки', icon: 'mdi-cogs', link: ''},
+        {name: 'Категории', icon: 'mdi-shape', link: ''},
+        {name: 'Теги', icon: 'mdi-tag-multiple', link: ''},
+        {name: 'Пользователи', icon: 'mdi-account-supervisor', link: ''},
       ]
     }
   },
