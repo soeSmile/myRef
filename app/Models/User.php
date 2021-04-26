@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Traits\DataTimeTrait;
+use App\Models\Traits\UuidIdTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +16,21 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, UuidIdTrait, DataTimeTrait;
+
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_CLIENT = 'client';
+    public const ROLE_NEW = 'new';
+
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * @var array
+     */
+    protected $guarded = ['id'];
 
     /**
      * @var array
@@ -25,9 +41,38 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     /**
+     * @var string
+     */
+    protected $keyType = 'uuid';
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClient(): bool
+    {
+        return $this->role === self::ROLE_CLIENT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->role === self::ROLE_NEW;
+    }
+
+    /**
      * @return mixed
      */
-    public function getJWTIdentifier()
+    public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
