@@ -41,7 +41,6 @@ export const actions = {
                 commit('auth/SET_USER', {user: user.data.data});
             }
             catch (e) {
-                console.log(e)
                 commit('auth/SET_TOKEN');
                 redirect('/')
             }
