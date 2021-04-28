@@ -16,14 +16,14 @@
 
       <v-spacer/>
 
-      <v-btn color="amber" class="mx-2" :disabled="!isAuth">
+      <v-btn color="amber" class="mx-2" :disabled="!isClient">
         <v-icon left dark>
           mdi-plus
         </v-icon>
         Заметку
       </v-btn>
 
-      <v-btn color="teal" class="mx-2" :disabled="!isAuth">
+      <v-btn color="teal" class="mx-2" :disabled="!isClient">
         <v-icon left dark>
           mdi-plus
         </v-icon>
