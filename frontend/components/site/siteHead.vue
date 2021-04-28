@@ -60,13 +60,27 @@
         <v-divider></v-divider>
 
         <v-list dense>
-          <v-list-item link
+          <v-list-item v-if="isAdmin"
+                       nuxt
+                       to="/admin"
                        class="mx-2">
+            <v-list-item-icon>
+              <v-icon>mdi-security</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                Admin panel
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link
+                       class="mx-2"
+                       @click="$store.dispatch('auth/logout')">
             <v-list-item-icon>
               <v-icon>mdi-logout-variant</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title @click="$store.dispatch('auth/logout')">
+              <v-list-item-title>
                 Выход
               </v-list-item-title>
             </v-list-item-content>

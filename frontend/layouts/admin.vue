@@ -35,6 +35,8 @@
 export default {
   name: "admin",
 
+  middleware: ['auth', 'authAdmin'],
+
   created() {
   },
 
