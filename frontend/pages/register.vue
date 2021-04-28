@@ -40,10 +40,6 @@
           </v-btn>
         </v-card-actions>
 
-        <v-card-title class="mt-4">
-          Вход c помощью
-        </v-card-title>
-        <auth-login-social/>
       </v-card>
 
     </v-row>
