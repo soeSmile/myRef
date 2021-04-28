@@ -22,11 +22,28 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"/>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Admin Panel</v-toolbar-title>
+
+      <v-spacer/>
+
+      <v-btn text class="mx-2">
+        <v-icon left dark>
+          mdi-account
+        </v-icon>
+        {{ user.name }}
+      </v-btn>
+      <v-btn text class="mx-2"
+             @click="$store.dispatch('auth/logout')">
+        <v-icon left dark>
+          mdi-login-variant
+        </v-icon>
+        Вход
+      </v-btn>
+
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <nuxt/>
     </v-main>
   </v-app>
 </template>
@@ -50,15 +67,19 @@ export default {
       drawer: true,
       menus : [
         {name: 'Главная', icon: 'mdi-home', link: '/'},
-        {name: 'Настройки', icon: 'mdi-cogs', link: ''},
-        {name: 'Категории', icon: 'mdi-shape', link: ''},
-        {name: 'Теги', icon: 'mdi-tag-multiple', link: ''},
-        {name: 'Пользователи', icon: 'mdi-account-supervisor', link: ''},
+        {name: 'Настройки', icon: 'mdi-cogs', link: '/admin/setting'},
+        {name: 'Категории', icon: 'mdi-shape', link: '/admin/category'},
+        {name: 'Теги', icon: 'mdi-tag-multiple', link: '/admin/tag'},
+        {name: 'Пользователи', icon: 'mdi-account-supervisor', link: '/admin/user'},
       ]
     }
   },
 
-  computed: {},
+  computed: {
+    user() {
+      return this.$store.getters['auth/user'];
+    }
+  },
 
   watch: {},
 

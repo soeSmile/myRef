@@ -41,7 +41,7 @@
           </v-btn>
         </template>
 
-        <v-list dense>
+        <v-list dense v-if="isClient">
           <v-list-item-group color="primary">
             <v-list-item class="mx-2"
                          nuxt
@@ -57,7 +57,7 @@
           </v-list-item-group>
         </v-list>
 
-        <v-divider></v-divider>
+        <v-divider/>
 
         <v-list dense>
           <v-list-item v-if="isAdmin"
