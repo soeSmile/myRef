@@ -1,10 +1,10 @@
 export const state = () => (
     {
-        token: null,
+        token    : null,
         expiresIn: null,
-        user: {},
-        errors: {},
-        link: '/'
+        user     : {},
+        errors   : {},
+        link     : '/'
     }
 );
 
@@ -55,10 +55,10 @@ export const mutations = {
 };
 
 export const getters = {
-    user: s => s.user,
-    errors: s => s.errors,
+    user    : s => s.user,
+    errors  : s => s.errors,
     hasToken: s => !!s.token,
-    link: s => s.link,
+    link    : s => s.link,
 };
 
 export const actions = {
@@ -75,7 +75,7 @@ export const actions = {
             commit('SET_USER', response.data);
             commit('SET_TOKEN', response.data);
 
-            return this.$router.push(response.data.user.type);
+            return this.$router.push('/');
         } catch (e) {
             commit('SET_ERRORS', e.response.data.errors);
         }

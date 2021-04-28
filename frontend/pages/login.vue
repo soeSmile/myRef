@@ -90,7 +90,19 @@ export default {
 
     login() {
       if (this.valid) {
+        this.$store.dispatch('auth/login', this.prepareData(this.user));
+      }
+    },
 
+    /**
+     * @param item
+     * @return {{password: (null|string|*), timeZone: number, email: (null|RegExp|string|*)}}
+     */
+    prepareData(item) {
+      return {
+        email   : item.email,
+        password: item.password,
+        timeZone: -new Date().getTimezoneOffset() / 60 || 0,
       }
     }
   }
