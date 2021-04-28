@@ -60,8 +60,7 @@ export default {
         baseURL: process.env.APP_URL,
         headers: {
             'Accept': 'application/json'
-        },
-        debug  : true
+        }
     },
 
     build: {}
