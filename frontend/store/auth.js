@@ -3,8 +3,7 @@ export const state = () => (
         token    : null,
         expiresIn: null,
         user     : {},
-        errors   : {},
-        link     : '/'
+        errors   : {}
     }
 );
 
@@ -30,7 +29,6 @@ export const mutations = {
      */
     SET_USER(state, data = {}) {
         state.user = data.user;
-        state.link = data.user.type;
     },
     /**
      * set errors
@@ -57,8 +55,7 @@ export const mutations = {
 export const getters = {
     user    : s => s.user,
     errors  : s => s.errors,
-    hasToken: s => !!s.token,
-    link    : s => s.link,
+    hasToken: s => !!s.token
 };
 
 export const actions = {
