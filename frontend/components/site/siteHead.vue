@@ -16,14 +16,14 @@
 
       <v-spacer/>
 
-      <v-btn color="amber" class="mx-2" disabled>
+      <v-btn color="amber" class="mx-2" :disabled="!isAuth">
         <v-icon left dark>
           mdi-plus
         </v-icon>
         Заметку
       </v-btn>
 
-      <v-btn color="teal" class="mx-2" disabled>
+      <v-btn color="teal" class="mx-2" :disabled="!isAuth">
         <v-icon left dark>
           mdi-plus
         </v-icon>
@@ -37,7 +37,7 @@
                  v-bind="attrs"
                  v-on="on">
             <v-icon left>mdi-account</v-icon>
-            User Name
+            {{ user.name }}
           </v-btn>
         </template>
 
@@ -56,12 +56,22 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
-        <v-btn text class="mx-2">
-          <v-icon left dark>
-            mdi-logout-variant
-          </v-icon>
-          Выход
-        </v-btn>
+
+        <v-divider></v-divider>
+
+        <v-list dense>
+          <v-list-item link
+                       class="mx-2">
+            <v-list-item-icon>
+              <v-icon>mdi-logout-variant</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title @click="$store.dispatch('auth/logout')">
+                Выход
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-menu>
 
       <div v-else>
@@ -116,7 +126,11 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    user() {
+      return this.$store.getters['auth/user'];
+    }
+  },
 
   watch: {},
 
