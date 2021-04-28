@@ -2,7 +2,7 @@
   <v-container fill-height fluid>
     <v-row align="center" justify="center">
 
-      <v-card flat width="300">
+      <v-card flat width="320" color="transparent">
         <v-card-title>
           Вход
         </v-card-title>

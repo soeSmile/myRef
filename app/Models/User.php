@@ -1,30 +1,38 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\DataTimeTrait;
+use App\Models\Traits\UuidIdTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * @package App\Models
+ */
+class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, UuidIdTrait, DataTimeTrait;
+
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_CLIENT = 'client';
+    public const ROLE_NEW = 'new';
 
     /**
-     * The attributes that are mass assignable.
-     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id'];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
     protected $hidden = [
@@ -33,11 +41,47 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @var string
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $keyType = 'uuid';
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClient(): bool
+    {
+        return $this->role === self::ROLE_CLIENT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNew(): bool
+    {
+        return $this->role === self::ROLE_NEW;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 }
