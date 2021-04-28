@@ -35,10 +35,10 @@ export const actions = {
 
         if (token) {
             commit('auth/SET_TOKEN', {token: token});
-            console.log(token)
 
             try {
                 const user = await this.$axios.post('api/me');
+                console.log(user)
                 commit('auth/SET_USER', {user: user.data.data});
             }
             catch (e) {
