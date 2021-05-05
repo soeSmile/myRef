@@ -43,7 +43,9 @@
     </v-app-bar>
 
     <v-main>
-      <nuxt/>
+      <div class="pa-4">
+        <nuxt/>
+      </div>
     </v-main>
   </v-app>
 </template>
