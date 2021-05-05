@@ -34,7 +34,6 @@ final class ApiAuthController
         return $this->respondWithToken($token);
     }
 
-
     /**
      * @return UserLoginResource
      */
@@ -42,7 +41,6 @@ final class ApiAuthController
     {
         return new UserLoginResource(auth()->user());
     }
-
 
     /**
      * @return JsonResponse
@@ -54,7 +52,6 @@ final class ApiAuthController
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-
     /**
      * @return JsonResponse
      */
@@ -62,7 +59,6 @@ final class ApiAuthController
     {
         return $this->respondWithToken(auth()->refresh());
     }
-
 
     /**
      * @param $token
