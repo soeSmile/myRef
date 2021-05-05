@@ -126,6 +126,7 @@ export default {
             this.categories = response.data.data;
           })
           .catch(error => {
+            console.log(error)
           })
           .finally(() => {
             this.loading = false
