@@ -30,7 +30,7 @@
         :search="search">
       <template v-slot:item.actions="{ item }">
         <v-btn icon class="mx-2"
-               :to="'./category/' + item.id">
+               :to="'/admin/category/' + item.id">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>

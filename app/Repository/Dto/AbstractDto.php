@@ -31,7 +31,7 @@ abstract class AbstractDto
      * @param AbstractRepository|null $abstractRepository
      * @return array
      */
-    public function getData(?AbstractRepository $abstractRepository): array
+    public function getData(?AbstractRepository $abstractRepository = null): array
     {
         if ($abstractRepository) {
             $this->setData($this->getDiffData($abstractRepository));

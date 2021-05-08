@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Category\CategoryStoreRequest;
+use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Http\Resources\Category\CategoryResource;
 use App\Repository\CategoryRepository;
+use App\Repository\Dto\CategoryDto;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -46,11 +50,24 @@ final class ApiCategoryController
         return new CategoryResource($this->repository->get($id));
     }
 
-    public function store()
+    /**
+     * @param CategoryStoreRequest $request
+     * @return CategoryResource
+     */
+    public function store(CategoryStoreRequest $request): CategoryResource
     {
+        return new CategoryResource($this->repository->store(new CategoryDto($request->all())));
     }
 
-    public function update()
+    /**
+     * @param $id
+     * @param CategoryUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, CategoryUpdateRequest $request): JsonResponse
     {
+        $result = (bool)$this->repository->update($id, new CategoryDto($request->all()));
+
+        return response()->json(['success' => $result], $result ? 200 : 400);
     }
 }
