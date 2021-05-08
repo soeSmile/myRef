@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "_id",
+  name: "category_id",
 
   layout: 'admin',
 

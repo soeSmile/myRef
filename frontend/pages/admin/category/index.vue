@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: "index",
+  name: "category_index",
 
   layout: 'admin',
 

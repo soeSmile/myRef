@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "index",
+  name: "tag_index",
 
   layout: 'admin',
 
