@@ -1,11 +1,13 @@
 <template>
   <v-card>
+
     <v-card-title>
       <v-btn icon class="mx-2"
              @click="getAll()">
         <v-icon>mdi-cached</v-icon>
       </v-btn>
-      <v-btn text class="mx-2" @click="add">
+      <v-btn text class="mx-2"
+             to="./category/new">
         <v-icon left>
           mdi-plus
         </v-icon>
@@ -19,6 +21,7 @@
           single-line
           hide-details/>
     </v-card-title>
+
     <v-data-table
         :loading="loading"
         :headers="headers"
@@ -26,7 +29,8 @@
         :options.sync="options"
         :search="search">
       <template v-slot:item.actions="{ item }">
-        <v-btn icon class="mx-2" @click="edit(item)">
+        <v-btn icon class="mx-2"
+               :to="'./category/' + item.id">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
@@ -36,37 +40,6 @@
         </v-icon>
       </template>
     </v-data-table>
-
-    <v-dialog v-model="dialog" persistent
-              max-width="400px">
-      <v-card>
-        <v-toolbar dark flat color="primary" height="50">
-          <v-btn icon dark @click="dialog=false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>
-            Category
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text>
-              Save
-            </v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-card-text>
-          <v-container>
-            <v-text-field label="RU*" required
-                          v-model="category.ru"/>
-            <v-text-field label="EN"
-                          v-model="category.en"/>
-            <v-checkbox
-                label="Active"
-                v-model="category.active"/>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
 
   </v-card>
 </template>
@@ -104,13 +77,7 @@ export default {
         {text: 'Active', value: 'active'},
         {text: 'Updated', value: 'updatedAt'},
       ],
-      categories: [],
-      dialog    : false,
-      category  : {
-        ru    : null,
-        en    : null,
-        active: true
-      }
+      categories: []
     }
   },
 
@@ -131,21 +98,6 @@ export default {
           .finally(() => {
             this.loading = false
           })
-    },
-
-    /**
-     * @param item
-     */
-    edit(item) {
-      this.category = Object.assign({}, item)
-      this.dialog = true
-    },
-
-    add() {
-      this.category = {
-        active: true
-      }
-      this.dialog = true
     }
   }
 }

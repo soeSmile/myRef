@@ -39,8 +39,7 @@ export const actions = {
             try {
                 const user = await this.$axios.post('api/me');
                 commit('auth/SET_USER', {user: user.data.data});
-            }
-            catch (e) {
+            } catch (e) {
                 commit('auth/SET_TOKEN');
                 redirect('/')
             }

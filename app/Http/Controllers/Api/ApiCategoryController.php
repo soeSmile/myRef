@@ -37,8 +37,13 @@ final class ApiCategoryController
         return CategoryResource::collection($this->repository->all($request->all()));
     }
 
-    public function show($id)
+    /**
+     * @param $id
+     * @return CategoryResource
+     */
+    public function show($id): CategoryResource
     {
+        return new CategoryResource($this->repository->get($id));
     }
 
     public function store()
