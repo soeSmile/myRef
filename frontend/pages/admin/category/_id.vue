@@ -23,8 +23,8 @@
         <v-col cols="4">
           <v-text-field
               v-model="category.ru"
-              :rules="nameRules"
               label="Category name RU"
+              :error-messages="errors['ru']"
               required/>
           <v-text-field
               v-model="category.en"
@@ -70,14 +70,12 @@ export default {
 
   data() {
     return {
-      category : {
+      category: {
         ru    : null,
         en    : null,
         active: true
       },
-      nameRules: [
-        v => !!v || 'Name is required'
-      ],
+      errors  : {}
     }
   },
 

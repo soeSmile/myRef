@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Models\Category;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class CategoryRepository
@@ -18,5 +20,17 @@ final class CategoryRepository extends AbstractRepository
     public function __construct(Category $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * @param array $data
+     * @param array|string[] $columns
+     * @return Collection|LengthAwarePaginator|array
+     */
+    public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
+    {
+        $this->getQuery()->orderBy('id');
+
+        return parent::all($data, $columns);
     }
 }
