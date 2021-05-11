@@ -1,15 +1,45 @@
 <template>
-    <section class="hero is-medium">
-        <div class="hero-body">
-            <div class="columns is-mobile is-centered">
-                <h1 class="is-size-6 has-text-weight-bold">Error 404</h1>
-            </div>
-        </div>
-    </section>
+  <v-app>
+
+    <site-head/>
+
+    <v-main>
+      <v-container fill-height fluid>
+        <v-row align="center" justify="center">
+
+          <v-card flat color="transparent">
+            <v-card-text>
+              <div class="text-h1">
+                Error 404
+              </div>
+            </v-card-text>
+          </v-card>
+
+        </v-row>
+      </v-container>
+    </v-main>
+
+    <site-footer/>
+
+  </v-app>
 </template>
 
 <script>
-	export default {
-		name: "error",
-	}
+import siteHead from "../components/site/siteHead";
+import siteFooter from "../components/site/siteFooter";
+
+export default {
+  name: "error",
+
+  components: {
+    siteHead,
+    siteFooter
+  },
+
+  head() {
+    return {
+      title: 'Error 404'
+    }
+  },
+}
 </script>

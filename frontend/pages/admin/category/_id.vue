@@ -29,6 +29,7 @@
           <v-text-field
               v-model="category.en"
               label="Category name EN"
+              :error-messages="errors['en']"
               required/>
           <v-checkbox
               v-model="category.active"
