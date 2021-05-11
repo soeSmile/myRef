@@ -106,9 +106,20 @@ export default {
             if (close) {
               this.$router.push('/admin/category/')
             }
+
+            this.$toast.success({
+              title  : 'Success',
+              message: 'Saved',
+            })
           })
           .catch(e => {
             this.errors = e.response.data.errors;
+
+            this.$toast.error({
+              title  : 'Error',
+              useHtml: true,
+              message: this.$messageToStr(this.errors),
+            })
           });
     },
 

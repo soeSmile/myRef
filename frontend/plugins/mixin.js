@@ -1,9 +1,5 @@
-import Vue from 'vue';
+import Vue from 'vue'
 
-
-/**
- * Mixins
- */
 Vue.mixin(
     {
         computed: {

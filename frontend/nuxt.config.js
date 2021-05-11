@@ -39,7 +39,8 @@ export default {
         '~/plugins/auth',
         '~/plugins/axios',
         '~/plugins/builder',
-        '~/plugins/mixin'
+        '~/plugins/mixin',
+        '~/plugins/toast'
     ],
 
     modules: [
