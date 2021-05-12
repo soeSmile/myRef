@@ -18,7 +18,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="4">
           <v-text-field
