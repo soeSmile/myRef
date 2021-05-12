@@ -2,11 +2,18 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\ApiCategoryController;
+use App\Http\Controllers\Api\ApiTagController;
 use App\Http\Controllers\Api\Auth\ApiAuthController;
 use Illuminate\Support\Facades\Route;
 
 // login
 Route::post('login', [ApiAuthController::class, 'login'])->name('auth.login');
+
+/**
+ * Public Routers
+ */
+Route::apiResource('categories', ApiCategoryController::class)->only('index', 'show');
+Route::apiResource('tags', ApiTagController::class)->only('index', 'show');
 
 /**
  * Auth Routers
@@ -16,8 +23,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::post('logout', [ApiAuthController::class, 'logout'])->name('auth.logout');
     Route::post('refresh', [ApiAuthController::class, 'refresh'])->name('auth.refresh');
     Route::post('me', [ApiAuthController::class, 'me'])->name('auth.me');
-
-    Route::apiResource('categories', ApiCategoryController::class)->only('index', 'show');
+    Route::apiResource('tags', ApiTagController::class)->only('store');
 
     /**
      * Client Routers
@@ -31,5 +37,6 @@ Route::group(['middleware' => 'auth'], static function () {
      */
     Route::group(['middleware' => 'is-user:admin'], static function () {
         Route::apiResource('categories', ApiCategoryController::class)->only('store', 'update');
+        Route::apiResource('tags', ApiTagController::class)->only('update');
     });
 });
