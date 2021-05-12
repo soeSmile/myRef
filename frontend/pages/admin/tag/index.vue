@@ -26,7 +26,9 @@
         :loading="loading"
         :headers="headers"
         :items="tags"
-        :options.sync="options"
+        :options.sync="pagination"
+        :server-items-length="pagination.total"
+        :footer-props="{'items-per-page-options': [20, 40, 60]}"
         :search="search">
       <template v-slot:item.actions="{ item }">
         <v-btn icon class="mx-2"
@@ -64,22 +66,38 @@ export default {
 
   data() {
     return {
-      loading: false,
-      options: {},
-      query  : {
+      loading   : false,
+      pagination: {
+        itemsPerPage: 20,
+        total       : 0
+      },
+      query     : {
         count: 20,
         page : 1
       },
-      search : '',
-      headers: [
+      search    : '',
+      headers   : [
         {text: '', value: 'actions', sortable: false, width: 50},
         {text: 'id', value: 'id'},
         {text: 'Name', value: 'name'},
         {text: 'Active', value: 'active'},
         {text: 'Updated', value: 'updatedAt'},
       ],
-      tags   : []
+      tags      : []
     }
+  },
+
+  watch: {
+    pagination: {
+      handler(newVal, oldVal) {
+        if (oldVal.page) {
+          this.query.page = newVal.page;
+          this.query.count = newVal.itemsPerPage;
+          this.getAll();
+        }
+      },
+      deep: true,
+    },
   },
 
   methods: {
@@ -92,6 +110,12 @@ export default {
       this.$axios.get('/api/tags', {params: this.query})
           .then(response => {
             this.tags = response.data.data;
+
+            if (this.query.count) {
+              this.pagination.page = parseInt(response.data.meta.current_page);
+              this.pagination.itemsPerPage = parseInt(response.data.meta.per_page);
+              this.pagination.total = parseInt(response.data.meta.total);
+            }
           })
           .catch(error => {
             console.log(error)
