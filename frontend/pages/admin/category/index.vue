@@ -7,7 +7,7 @@
         <v-icon>mdi-cached</v-icon>
       </v-btn>
       <v-btn text class="mx-2"
-             to="./category/new">
+             to="/admin/category/new">
         <v-icon left>
           mdi-plus
         </v-icon>

@@ -83,12 +83,11 @@ export default {
 
       this.$axios[method](link, this.prepareData(this.tag))
           .then(response => {
-            if (method === 'post') {
-              this.tag = response.data.data;
-              this.$router.replace('/admin/tag/' + response.data.data.id);
-            }
             if (close) {
               this.$router.push('/admin/tag/')
+            } else if (method === 'post') {
+              this.tag = response.data.data;
+              this.$router.replace('/admin/tag/' + response.data.data.id);
             }
 
             this.$toast.success({
