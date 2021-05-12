@@ -22,25 +22,25 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        $categories = [
-            ['en' => '', 'ru' => 'Новости', 'icon' => 'mdi-newspaper'],
-            ['en' => '', 'ru' => 'Наука', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Техника', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Бизнес и Работа', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Образование', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Медицина', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Юмор', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Еда', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Хобби и Досуг', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Музыка', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Кино', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Путешествия', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Покупки', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Домоводство', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Животные', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Дети', 'icon' => 'mdi-home'],
-            ['en' => '', 'ru' => 'Религия и Эзотерика', 'icon' => 'mdi-home'],
-        ];
+        DB::table('categories')->insert([
+            ['en' => 'News', 'ru' => 'Новости', 'icon' => 'mdi-newspaper'],
+            ['en' => 'Science', 'ru' => 'Наука', 'icon' => 'mdi-atom'],
+            ['en' => 'Technology', 'ru' => 'Техника', 'icon' => 'mdi-rocket-launch-outline'],
+            ['en' => 'Business', 'ru' => 'Бизнес и Работа', 'icon' => 'mdi-cash-multiple'],
+            ['en' => 'Education', 'ru' => 'Образование', 'icon' => 'mdi-head-cog-outline'],
+            ['en' => 'Medicine', 'ru' => 'Медицина', 'icon' => 'mdi-medical-bag'],
+            ['en' => 'Humor', 'ru' => 'Юмор', 'icon' => 'mdi-emoticon-lol-outline'],
+            ['en' => 'Food', 'ru' => 'Еда', 'icon' => 'mdi-silverware-variant'],
+            ['en' => 'Hobbies and Leisure', 'ru' => 'Хобби и Досуг', 'icon' => 'mdi-controller-classic'],
+            ['en' => 'Music', 'ru' => 'Музыка', 'icon' => 'mdi-headphones'],
+            ['en' => 'Cinema', 'ru' => 'Кино', 'icon' => 'mdi-video-vintage'],
+            ['en' => 'Travel', 'ru' => 'Путешествия', 'icon' => 'mdi-airplane'],
+            ['en' => 'Shopping', 'ru' => 'Покупки', 'icon' => 'mdi-cart'],
+            ['en' => 'Housekeeping', 'ru' => 'Домоводство', 'icon' => 'mdi-home-flood'],
+            ['en' => 'Animals', 'ru' => 'Животные', 'icon' => 'mdi-dog-side'],
+            ['en' => 'Children', 'ru' => 'Дети', 'icon' => 'mdi-baby-carriage'],
+            ['en' => 'Religion and Esoteric', 'ru' => 'Религия и Эзотерика', 'icon' => 'mdi-celtic-cross'],
+        ]);
     }
 
     /**
