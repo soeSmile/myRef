@@ -2,7 +2,7 @@
   <v-card>
     <v-app-bar flat dense>
       <v-btn text exact class="mx-2"
-             to="/admin/category">
+             to="/admin/tag">
         <v-icon left>mdi-close</v-icon>
         Cancel
       </v-btn>
@@ -76,15 +76,15 @@ export default {
       let method = 'post',
           link   = 'api/tags';
 
-      if (this.category.id) {
+      if (this.tag.id) {
         method = 'put';
-        link = 'api/tags/' + this.category.id;
+        link = 'api/tags/' + this.tag.id;
       }
 
       this.$axios[method](link, this.prepareData(this.tag))
           .then(response => {
             if (method === 'post') {
-              this.city = response.data.data;
+              this.tag = response.data.data;
               this.$router.replace('/admin/tag/' + response.data.data.id);
             }
             if (close) {

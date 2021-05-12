@@ -18,11 +18,18 @@ class TagResource extends JsonResource
      */
     public function toArray($request): array
     {
+        if (!isAdmin()) {
+            return [
+                'id'   => $this->id,
+                'name' => $this->name,
+            ];
+        }
+
         return [
-            'id'                     => $this->id,
-            'name'                   => $this->name,
-            isAdmin() && 'active'    => $this->active,
-            isAdmin() && 'updatedAt' => $this->updated_at
+            'id'        => $this->id,
+            'name'      => $this->name,
+            'active'    => $this->active,
+            'updatedAt' => $this->updated_at
         ];
     }
 }

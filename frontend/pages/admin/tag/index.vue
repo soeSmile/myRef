@@ -91,7 +91,7 @@ export default {
 
       this.$axios.get('/api/tags', {params: this.query})
           .then(response => {
-            this.categories = response.data.data;
+            this.tags = response.data.data;
           })
           .catch(error => {
             console.log(error)

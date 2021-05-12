@@ -102,7 +102,7 @@ export default {
       this.$axios[method](link, this.prepareData(this.category))
           .then(response => {
             if (method === 'post') {
-              this.city = response.data.data;
+              this.category = response.data.data;
               this.$router.replace('/admin/category/' + response.data.data.id);
             }
             if (close) {

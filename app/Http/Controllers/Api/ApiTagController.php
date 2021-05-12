@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Tag\TagStoreRequest;
+use App\Http\Requests\Tag\TagUpdateRequest;
 use App\Http\Resources\Tag\TagResource;
+use App\Repository\Dto\TagDto;
 use App\Repository\TagRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -46,11 +50,24 @@ final class ApiTagController
         return new TagResource($this->repository->get($id));
     }
 
-    public function store()
+    /**
+     * @param TagStoreRequest $request
+     * @return TagResource
+     */
+    public function store(TagStoreRequest $request): TagResource
     {
+        return new TagResource($this->repository->store(new TagDto($request->all())));
     }
 
-    public function update()
+    /**
+     * @param $id
+     * @param TagUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, TagUpdateRequest $request): JsonResponse
     {
+        $result = (bool)$this->repository->update($id, new TagDto($request->all()));
+
+        return response()->json(['success' => $result], $result ? 200 : 400);
     }
 }
