@@ -22,22 +22,12 @@
       <v-row>
         <v-col cols="4">
           <v-text-field
-              v-model="category.ru"
-              label="Category name RU"
-              :error-messages="errors['ru']"
-              required/>
-          <v-text-field
-              v-model="category.en"
-              label="Category name EN"
-              :error-messages="errors['en']"
-              required/>
-          <v-text-field
-              v-model="category.icon"
-              label="MDI icon"
-              :error-messages="errors['icon']"
+              v-model="tag.name"
+              label="Tag name"
+              :error-messages="errors['name']"
               required/>
           <v-checkbox
-              v-model="category.active"
+              v-model="tag.active"
               label="Active"/>
         </v-col>
       </v-row>
@@ -47,42 +37,34 @@
 
 <script>
 export default {
-  name: "category_id",
+  name: "tag_id",
 
   layout: 'admin',
 
   head() {
     return {
-      title: 'Category'
+      title: 'Tag'
     }
   },
 
   async fetch() {
     if (this.$route.params.id && this.$route.params.id !== 'new') {
-      await this.$axios.get('api/categories/' + this.$route.params.id)
+      await this.$axios.get('api/tags/' + this.$route.params.id)
           .then(response => {
-            this.category = response.data.data;
+            this.tag = response.data.data;
           });
     }
-  },
-
-  created() {
-  },
-
-  mounted() {
   },
 
   props: {},
 
   data() {
     return {
-      category: {
-        ru    : null,
-        en    : null,
-        active: true,
-        icon  : null
+      tag   : {
+        name  : null,
+        active: true
       },
-      errors  : {}
+      errors: {}
     }
   },
 
@@ -92,21 +74,21 @@ export default {
      */
     store(close = false) {
       let method = 'post',
-          link   = 'api/categories';
+          link   = 'api/tags';
 
       if (this.category.id) {
         method = 'put';
-        link = 'api/categories/' + this.category.id;
+        link = 'api/tags/' + this.category.id;
       }
 
-      this.$axios[method](link, this.prepareData(this.category))
+      this.$axios[method](link, this.prepareData(this.tag))
           .then(response => {
             if (method === 'post') {
               this.city = response.data.data;
-              this.$router.replace('/admin/category/' + response.data.data.id);
+              this.$router.replace('/admin/tag/' + response.data.data.id);
             }
             if (close) {
-              this.$router.push('/admin/category/')
+              this.$router.push('/admin/tag/')
             }
 
             this.$toast.success({
@@ -132,10 +114,8 @@ export default {
     prepareData(item) {
       return {
         id    : item.id,
-        ru    : item.ru,
-        en    : item.en,
+        name  : item.name,
         active: item.active,
-        icon  : item.icon
       }
     }
   }

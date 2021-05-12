@@ -7,7 +7,7 @@
         <v-icon>mdi-cached</v-icon>
       </v-btn>
       <v-btn text class="mx-2"
-             to="./category/new">
+             to="./tag/new">
         <v-icon left>
           mdi-plus
         </v-icon>
@@ -30,7 +30,7 @@
         :search="search">
       <template v-slot:item.actions="{ item }">
         <v-btn icon class="mx-2"
-               :to="'/admin/category/' + item.id">
+               :to="'/admin/tag/' + item.id">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
