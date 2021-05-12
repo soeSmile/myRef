@@ -70,6 +70,7 @@ export default {
       menus : [
         {name: 'Главная', icon: 'mdi-home', link: '/'},
         {name: 'Настройки', icon: 'mdi-cogs', link: '/admin/setting'},
+        {name: 'Ссылки', icon: 'mdi-link', link: '/admin/link'},
         {name: 'Категории', icon: 'mdi-shape', link: '/admin/category'},
         {name: 'Теги', icon: 'mdi-tag-multiple', link: '/admin/tag'},
         {name: 'Пользователи', icon: 'mdi-account-supervisor', link: '/admin/user'},
