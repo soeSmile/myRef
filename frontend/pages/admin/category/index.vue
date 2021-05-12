@@ -34,6 +34,9 @@
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </template>
+      <template v-slot:item.icon="{ item }">
+        <v-icon>{{ item.icon }}</v-icon>
+      </template>
       <template v-slot:item.active="{ item }">
         <v-icon :color="item.active ? 'teal' : 'red'">
           {{ item.active ? 'mdi-checkbox-marked-circle-outline' : 'mdi-close-circle-outline' }}
@@ -72,6 +75,7 @@ export default {
       headers   : [
         {text: '', value: 'actions', sortable: false, width: 50},
         {text: 'id', value: 'id'},
+        {text: 'Icon', value: 'icon'},
         {text: 'RU', value: 'ru'},
         {text: 'EN', value: 'en'},
         {text: 'Active', value: 'active'},

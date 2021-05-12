@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
             'id'        => $this->id,
             'ru'        => $this->ru,
             'en'        => $this->en,
+            'icon'      => $this->icon,
             'active'    => $this->active,
             'updatedAt' => $this->updated_at
         ];

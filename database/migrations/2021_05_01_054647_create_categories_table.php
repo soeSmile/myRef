@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('ru')->unique();
             $table->string('en')->nullable()->unique();
             $table->boolean('active')->default(true);
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

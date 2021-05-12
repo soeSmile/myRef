@@ -31,6 +31,11 @@
               label="Category name EN"
               :error-messages="errors['en']"
               required/>
+          <v-text-field
+              v-model="category.icon"
+              label="MDI icon"
+              :error-messages="errors['icon']"
+              required/>
           <v-checkbox
               v-model="category.active"
               label="Active"/>
@@ -74,7 +79,8 @@ export default {
       category: {
         ru    : null,
         en    : null,
-        active: true
+        active: true,
+        icon  : null
       },
       errors  : {}
     }
@@ -132,7 +138,8 @@ export default {
         id    : item.id,
         ru    : item.ru,
         en    : item.en,
-        active: item.active
+        active: item.active,
+        icon  : item.icon
       }
     }
   }
