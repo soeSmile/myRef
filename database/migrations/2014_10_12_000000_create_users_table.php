@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->uuid('confirm_key')->nullable()->unique();
             $table->integer('time_zone')->default(3);
             $table->string('role', 10)->default('new');
+            $table->boolean('show')->default(false)->comment('User can show\hide name');
+            $table->text('link')->nullable()->comment('User can show name and make link');
             $table->timestamps();
         });
 
