@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\User\UserFullResource;
-use App\Http\Resources\User\UserSortResource;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -13,7 +12,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  * Class ApiUserController
  * @package App\Http\Controllers\Api
  */
-class ApiUserController
+final class ApiUserController
 {
     /**
      * @var UserRepository
@@ -35,10 +34,23 @@ class ApiUserController
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        if (isAdmin()) {
-            return UserFullResource::collection($this->repository->all($request->all()));
-        }
+        return UserFullResource::collection($this->repository->all($request->all()));
+    }
 
-        return UserSortResource::collection($this->repository->all($request->all()));
+    /**
+     * @param $id
+     * @return UserFullResource
+     */
+    public function show($id): UserFullResource
+    {
+        return new UserFullResource($this->repository->get($id));
+    }
+
+    public function store()
+    {
+    }
+
+    public function update()
+    {
     }
 }
