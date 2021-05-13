@@ -22,7 +22,7 @@ class CreateLinksTable extends Migration
             $table->text('img')->nullable();
             $table->integer('category_id')->nullable();
             $table->uuid('user_id');
-            $table->string('status', 10)->default('new')->comment('NEW,PUBLIC,PRIVAT');
+            $table->string('flag', 10)->default('new')->comment('NEW,PUBLIC,PRIVAT');
             $table->text('comment')->nullable()->comment('User comment');
             $table->boolean('cache')->default(false)->comment('Need cache this link');
             $table->timestamps();
