@@ -19,12 +19,12 @@ class Link extends Model
     /**
      * @var string
      */
-    public const STATUS_NEW = 'new';
+    public const FLAG_NEW = 'new';
 
     /**
      * @var string
      */
-    public const STATUS_PRIVAT = 'privat';
+    public const FLAG_PRIVAT = 'privat';
 
     /**
      * @var string
