@@ -6,7 +6,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserFullResource;
+use App\Repository\Dto\UserDto;
 use App\Repository\UserRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -48,11 +50,24 @@ final class ApiUserController
         return new UserFullResource($this->repository->get($id));
     }
 
-    public function store(UserStoreRequest $request)
+    /**
+     * @param UserStoreRequest $request
+     * @return UserFullResource
+     */
+    public function store(UserStoreRequest $request): UserFullResource
     {
+        return new UserFullResource($this->repository->store(new UserDto($request->all())));
     }
 
-    public function update($id, UserUpdateRequest $request)
+    /**
+     * @param $id
+     * @param UserUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, UserUpdateRequest $request): JsonResponse
     {
+        $result = (bool)$this->repository->update($id, new UserDto($request->all()));
+
+        return response()->json(['success' => $result], $result ? 200 : 400);
     }
 }

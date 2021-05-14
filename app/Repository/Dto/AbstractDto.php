@@ -67,6 +67,43 @@ abstract class AbstractDto
     }
 
     /**
+     * @param string $key
+     */
+    public function removeKey(string $key): void
+    {
+        if ($this->hasKey($key)) {
+            unset($this->data[$key]);
+        }
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasKey(string $key): bool
+    {
+        return \array_key_exists($key, $this->data);
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasNull(string $key): bool
+    {
+        return !(bool)$this->getDataByKey($key);
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasKeyAndNull(string $key): bool
+    {
+        return $this->hasKey($key) && $this->hasNull($key);
+    }
+
+    /**
      * @param AbstractRepository $abstractRepository
      * @return array
      */
@@ -83,7 +120,7 @@ abstract class AbstractDto
      */
     public function getDiffData(AbstractRepository $abstractRepository): array
     {
-        return \array_intersect_key($this->getData(), $this->getFields($abstractRepository));
+        return \array_intersect_key($this->data, $this->getFields($abstractRepository));
     }
 
     /**
