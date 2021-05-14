@@ -154,6 +154,7 @@ export default {
      */
     prepareData(item) {
       return {
+        id      : item.id,
         name    : item.name,
         email   : item.email,
         password: item.password,

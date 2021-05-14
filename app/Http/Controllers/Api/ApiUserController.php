@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Http\Resources\User\UserFullResource;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
@@ -46,11 +48,11 @@ final class ApiUserController
         return new UserFullResource($this->repository->get($id));
     }
 
-    public function store()
+    public function store(UserStoreRequest $request)
     {
     }
 
-    public function update()
+    public function update($id, UserUpdateRequest $request)
     {
     }
 }
