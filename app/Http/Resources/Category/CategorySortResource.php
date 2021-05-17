@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class CategoryResource
+ * Class CategorySortResource
  * @package App\Http\Resources\Category
  */
-class CategoryResource extends JsonResource
+class CategorySortResource extends JsonResource
 {
     /**
      * @param Request $request
@@ -19,12 +19,9 @@ class CategoryResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'        => $this->id,
-            'ru'        => $this->ru,
-            'en'        => $this->en,
-            'icon'      => $this->icon,
-            'active'    => $this->active,
-            'updatedAt' => $this->updated_at
+            'id'   => $this->id,
+            'name' => $this->ru,
+            'icon' => $this->icon,
         ];
     }
 }

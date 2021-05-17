@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Category\CategoryStoreRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategorySortResource;
 use App\Repository\CategoryRepository;
 use App\Repository\Dto\CategoryDto;
 use Illuminate\Http\JsonResponse;
@@ -38,7 +39,11 @@ final class ApiCategoryController
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        return CategoryResource::collection($this->repository->all($request->all()));
+        if (isAdmin()) {
+            return CategoryResource::collection($this->repository->all($request->all()));
+        }
+
+        return CategorySortResource::collection($this->repository->all($request->all()));
     }
 
     /**

@@ -42,14 +42,6 @@ export default {
     siteFooter
   },
 
-  created() {
-  },
-
-  mounted() {
-  },
-
-  props: {},
-
   data() {
     return {
       dialog        : {
@@ -59,8 +51,6 @@ export default {
       selectCategory: null,
     }
   },
-
-  computed: {},
 
   watch: {
     '$route.query': function (val) {

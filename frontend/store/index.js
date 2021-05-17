@@ -6,7 +6,6 @@ export const state = () => (
 
 export const mutations = {
     /**
-     * set lang
      * @param state
      * @param trans
      * @constructor
@@ -22,7 +21,6 @@ export const getters = {
 
 export const actions = {
     /**
-     * init data
      * @param commit
      * @param app
      * @param store
@@ -30,6 +28,9 @@ export const actions = {
      * @return {Promise<void>}
      */
     async nuxtServerInit({commit}, {app, store, redirect}) {
+
+        await store.dispatch('category/getCategories')
+
         // user && token
         const token = app.$cookies.get('token');
 

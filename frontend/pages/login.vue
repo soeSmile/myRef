@@ -79,10 +79,6 @@ export default {
     }
   },
 
-  computed: {},
-
-  watch: {},
-
   methods: {
     reset() {
       this.$refs.login.reset()

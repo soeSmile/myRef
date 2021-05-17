@@ -59,14 +59,6 @@ export default {
     authLoginSocial
   },
 
-  created() {
-  },
-
-  mounted() {
-  },
-
-  props: {},
-
   data() {
     return {
       valid     : true,
@@ -84,10 +76,6 @@ export default {
       ]
     }
   },
-
-  computed: {},
-
-  watch: {},
 
   methods: {
     reset() {

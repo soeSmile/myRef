@@ -60,7 +60,6 @@ export const getters = {
 
 export const actions = {
     /**
-     * login
      * @param commit
      * @param user
      */
@@ -79,7 +78,6 @@ export const actions = {
     },
 
     /**
-     * logout
      * @param commit
      * @param redirect
      */
