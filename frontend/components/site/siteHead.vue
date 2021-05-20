@@ -25,7 +25,7 @@
 
       <v-btn color="green" class="mx-2"
              :disabled="!isClient"
-             @click="dialog.show = true">
+             @click="dialogAddRef.show = true">
         <v-icon left dark>
           mdi-plus
         </v-icon>
@@ -111,7 +111,8 @@
         </v-avatar>
       </n-link>
 
-      <add-ref :dialog="dialog"/>
+      <add-ref v-if="dialogAddRef.show"
+               :dialog="dialogAddRef"/>
     </div>
   </v-app-bar>
 </template>
@@ -137,15 +138,15 @@ export default {
 
   data() {
     return {
-      dialog  : {
+      dialogAddRef: {
         show: false
       },
-      menu    : [
+      menu        : [
         {text: 'Главная', icon: 'mdi-home', link: '/'},
         {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1'},
         {text: 'Новые', icon: 'mdi-alert-decagram', link: '/?new=1'},
       ],
-      userMenu: [
+      userMenu    : [
         {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
         {text: 'Audience', icon: 'mdi-account', link: 'search'},
         {text: 'Conversions', icon: 'mdi-flag', link: 'search'},
