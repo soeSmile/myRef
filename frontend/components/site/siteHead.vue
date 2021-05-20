@@ -23,7 +23,9 @@
         Заметку
       </v-btn>
 
-      <v-btn color="teal" class="mx-2" :disabled="!isClient">
+      <v-btn color="green" class="mx-2"
+             :disabled="!isClient"
+             @click="dialog.show = true">
         <v-icon left dark>
           mdi-plus
         </v-icon>
@@ -109,13 +111,21 @@
         </v-avatar>
       </n-link>
 
+      <add-ref :dialog="dialog"/>
     </div>
   </v-app-bar>
 </template>
 
 <script>
+
+import addRef from "../ref/addRef";
+
 export default {
   name: "siteHead",
+
+  components: {
+    addRef
+  },
 
   created() {
   },
@@ -127,6 +137,9 @@ export default {
 
   data() {
     return {
+      dialog  : {
+        show: false
+      },
       menu    : [
         {text: 'Главная', icon: 'mdi-home', link: '/'},
         {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1'},
