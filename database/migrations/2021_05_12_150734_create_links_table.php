@@ -19,6 +19,7 @@ class CreateLinksTable extends Migration
             $table->text('title')->nullable();
             $table->text('desc')->nullable();
             $table->text('url');
+            $table->text('img')->nullable();
             $table->integer('category_id')->nullable();
             $table->uuid('user_id');
             $table->string('flag', 10)->default('new')->comment('NEW,PUBLIC,PRIVAT');
