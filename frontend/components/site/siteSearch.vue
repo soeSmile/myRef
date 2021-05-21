@@ -72,11 +72,7 @@ export default {
     return {
       loading         : false,
       selectCategories: [],
-      tags            : [
-        {id: 1, name: 'php'},
-        {id: 2, name: 'css'},
-        {id: 3, name: 'go'},
-      ],
+      tags            : [],
       selectTags      : [],
       selectCategory  : null,
       selectTag       : null,
