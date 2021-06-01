@@ -70,6 +70,13 @@
                              no-title
                              @input="showDate = false"/>
             </v-menu>
+            <v-checkbox v-model="myRef.cache"
+                        label="Кешировать"/>
+            <v-textarea class="mt-4"
+                        label="Коментарий"
+                        clearable
+                        no-resize
+                        v-model="myRef.comment"/>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -98,7 +105,9 @@ export default {
         url     : null,
         category: null,
         tags    : [],
-        date    : null
+        date    : null,
+        comment : null,
+        cache   : false
       },
       searchTag: null,
       tags     : []
