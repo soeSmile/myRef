@@ -15,7 +15,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  * Class ApiLinkController
  * @package App\Http\Controllers\Api
  */
-class ApiLinkController
+final class ApiLinkController
 {
     /**
      * @var LinkRepository
