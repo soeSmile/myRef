@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Link;
 
+use App\Http\Resources\User\UserFullResource;
+use App\Http\Resources\User\UserLinkResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,11 +28,12 @@ class LinkResource extends JsonResource
             'img'       => $this->img,
             'category'  => $this->category,
             'updatedAt' => $this->updated_at,
+            'user'      => $this->getUser(),
         ];
 
         if (isClient()) {
             $public = \array_merge($public, [
-                'user'    => $this->user,
+                'user'    => $this->getUser(),
                 'comment' => $this->comment,
                 'cache'   => $this->cache,
             ]);
@@ -38,7 +41,7 @@ class LinkResource extends JsonResource
 
         if (isAdmin()) {
             $public = \array_merge($public, [
-                'user'    => $this->user,
+                'user'    => new UserFullResource($this->user),
                 'flag'    => $this->flag,
                 'comment' => $this->comment,
                 'cache'   => $this->cache,
@@ -46,5 +49,17 @@ class LinkResource extends JsonResource
         }
 
         return $public;
+    }
+
+    /**
+     * @return UserLinkResource|null
+     */
+    private function getUser(): ?UserLinkResource
+    {
+        if ($this->user->show) {
+            return new UserLinkResource($this->user);
+        }
+
+        return null;
     }
 }
