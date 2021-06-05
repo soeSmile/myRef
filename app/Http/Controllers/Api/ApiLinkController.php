@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Link\LinkStoreRequest;
 use App\Http\Resources\Link\LinkResource;
-use App\Repository\Dto\LinkDto;
+use App\Repository\Dto\LinkStoreDto;
 use App\Repository\LinkRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,7 +55,7 @@ class ApiLinkController
      */
     public function store(LinkStoreRequest $request): JsonResponse
     {
-        $this->link->store(new LinkDto($request->all()));
+        $this->link->store(new LinkStoreDto($request->all()));
 
         return response()->json(['success' => true]);
     }

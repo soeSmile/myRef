@@ -6,19 +6,17 @@ namespace App\Repository\Dto;
 use App\Models\Link;
 use App\Repository\AbstractRepository;
 use App\Services\ParseUrl\ParseUrl;
-use DiDom\Document;
-use DiDom\Exceptions\InvalidSelectorException;
 
 /**
- * Class LinkDto
+ * Class LinkStoreDto
  * @package App\Repository\Dto
  */
-final class LinkDto extends AbstractDto
+final class LinkStoreDto extends AbstractDto
 {
     /**
      * @var ParseUrl
      */
-    private $parser;
+    private ParseUrl $parser;
 
     /**
      * LinkDto constructor.
