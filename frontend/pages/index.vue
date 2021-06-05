@@ -1,6 +1,11 @@
 <template>
   <div class="sm-flex center wrap mt-2">
-    <tmpl-ref v-for="n in 22" :key="n + 'ref'"/>
+    <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
+              :url="val.url"
+              :title="val.title"
+              :desc="val.desc"
+              :img="val.img"
+    />
   </div>
 </template>
 
@@ -23,7 +28,11 @@ export default {
     return {}
   },
 
-  computed: {},
+  computed: {
+    links() {
+      return this.$store.getters['links/links'];
+    }
+  },
 
   watch: {},
 

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Link;
 
+use App\Http\Resources\Category\CategorySortResource;
 use App\Http\Resources\User\UserFullResource;
 use App\Http\Resources\User\UserLinkResource;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class LinkResource extends JsonResource
             'desc'      => $this->desc,
             'url'       => $this->url,
             'img'       => $this->img,
-            'category'  => $this->category,
+            'category'  => new CategorySortResource($this->category),
             'updatedAt' => $this->updated_at,
             'user'      => $this->getUser(),
         ];
