@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn text
-                 @click="dialog.show = false">
+                 @click="store">
             Сохранить
           </v-btn>
         </v-toolbar-items>
@@ -23,6 +23,7 @@
       <v-card-text>
         <v-text-field label="Url"
                       clearable
+                      :error-messages="errors['url']"
                       v-model="myRef.url"/>
       </v-card-text>
 
@@ -110,8 +111,10 @@ export default {
         cache   : false
       },
       searchTag: null,
-      tags     : []
+      tags     : [],
+      errors   : {}
     }
+
   },
 
   computed: {
@@ -122,6 +125,34 @@ export default {
 
   watch: {},
 
-  methods: {}
+  methods: {
+    store() {
+      this.$axios.post('api/links', this.prepareData(this.myRef))
+          .then(response => {
+            this.$toast.success({
+              title  : 'Success',
+              message: 'Saved',
+            })
+            this.dialog.show = false
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+    },
+
+    /**
+     * @return {{}}
+     */
+    prepareData(ref) {
+      return {
+        url       : ref.url,
+        categoryId: ref.category,
+        tags      : ref.tags.length === 0 ? null : ref.tags,
+        date      : ref.date,
+        comment   : ref.comment,
+        cache     : ref.cache
+      }
+    }
+  }
 }
 </script>

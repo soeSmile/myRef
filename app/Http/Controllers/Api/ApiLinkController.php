@@ -3,8 +3,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Link\LinkStoreRequest;
+use App\Http\Resources\Link\LinkResource;
+use App\Repository\Dto\LinkDto;
 use App\Repository\LinkRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * Class ApiLinkController
@@ -26,8 +31,32 @@ class ApiLinkController
         $this->link = $linkRepository;
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return $this->link->all($request->all());
+        return LinkResource::collection($this->link->all($request->all()));
+    }
+
+    /**
+     * @param $id
+     * @return LinkResource
+     */
+    public function show($id): LinkResource
+    {
+        return new LinkResource($this->link->get($id));
+    }
+
+    /**
+     * @param LinkStoreRequest $request
+     * @return JsonResponse
+     */
+    public function store(LinkStoreRequest $request): JsonResponse
+    {
+        $this->link->store(new LinkDto($request->all()));
+
+        return response()->json(['success' => true]);
     }
 }

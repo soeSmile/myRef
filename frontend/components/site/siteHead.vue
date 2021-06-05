@@ -143,8 +143,8 @@ export default {
       },
       menu        : [
         {text: 'Главная', icon: 'mdi-home', link: '/'},
-        {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1'},
-        {text: 'Новые', icon: 'mdi-alert-decagram', link: '/?new=1'},
+        {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1&count=20'},
+        {text: 'Новые', icon: 'mdi-alert-decagram', link: '/?new=1&count=20'},
       ],
       userMenu    : [
         {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
