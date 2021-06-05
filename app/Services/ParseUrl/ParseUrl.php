@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Services\ParseUrl;
 
 use DiDom\Document;
+use DiDom\Exceptions\InvalidSelectorException;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class ParseUrl
@@ -15,42 +17,81 @@ class ParseUrl
      * @param string $url
      * @return array
      */
-    public function parseUrl(string $url): array
-    {
+    #[ArrayShape(['url' => "string", 'title' => "string", 'desc' => "string", 'img' => "string"])]
+    public function parseUrl(
+        string $url
+    ): array {
         $doc = new Document($url, true);
+
+        try {
+            $head = $doc->first('head');
+        } catch (InvalidSelectorException $e) {
+            $head = null;
+        }
 
         return [
             'url'   => $url,
-            'title' => $this->getTitle($doc),
-            'desc'  => $this->getDescription($doc),
-            'img'   => $this->getImage($doc),
+            'title' => $this->getTitle($url, $head),
+            'desc'  => $this->getDescription($head),
+            'img'   => $this->getImage($head),
         ];
     }
 
     /**
-     * @param Document $document
+     * @param string $url
+     * @param null $head
      * @return string
      */
-    private function getTitle(Document $document): string
+    private function getTitle(string $url, $head = null): string
     {
-        return '';
+        $title = $url;
+
+        if ($head) {
+            $titles = $head->find('title');
+
+            foreach ($titles as $node) {
+                $title = $node->text();
+            }
+        }
+
+        return $title;
     }
 
     /**
-     * @param Document $document
+     * @param null $head
      * @return string
      */
-    private function getDescription(Document $document): string
+    private function getDescription($head = null): string
     {
-        return '';
+        $desc = '';
+
+        if ($head) {
+            $descriptions = $head->find('meta[name=description]');
+
+            foreach ($descriptions as $description) {
+                $desc = $description->attr('content');
+            }
+        }
+
+        return $desc;
     }
 
     /**
-     * @param Document $document
+     * @param $head
      * @return string
      */
-    private function getImage(Document $document): string
+    private function getImage($head): string
     {
-        return '';
+        $icon = '';
+
+        if ($head) {
+            $icons = $head->find('link[rel=icon]');
+
+            foreach ($icons as $description) {
+                $icon = $description->attr('href');
+            }
+        }
+
+        return $icon;
     }
 }

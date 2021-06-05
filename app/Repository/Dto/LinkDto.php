@@ -38,7 +38,7 @@ final class LinkDto extends AbstractDto
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
         $data = $this->parser->parseUrl($this->getDataByKey('url'));
-        $this->setData($data);
+        $this->mergeData($data);
         $this->setDataByKey('user_id', auth()->id());
         $this->setDataByKey('flag', Link::FLAG_PRIVAT);
 
