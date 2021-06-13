@@ -29,8 +29,24 @@ final class LinkRepository extends AbstractRepository
      */
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
+        $this->getQuery()->with('category', 'user');
+
         if (!auth()->check()) {
             $this->getQuery()->where('flag', Link::STATUS_PUBLIC);
+        }
+
+        if (isset($data['cats'])) {
+            try {
+                $cats = \json_decode($data['cats'], true, 512, JSON_THROW_ON_ERROR);
+            } catch (\JsonException $e) {
+                $cats = [];
+            }
+
+            $this->getQuery()->with([
+                'category' => static function ($query) use ($cats) {
+                    $query->whereIn('id', $cats);
+                }
+            ]);
         }
 
         return parent::all($data, $columns);

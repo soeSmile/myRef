@@ -1,7 +1,6 @@
 export const state = () => (
     {
-        links  : [],
-        request: {}
+        links: []
     }
 )
 
@@ -17,15 +16,6 @@ export const mutations = {
      */
     SET_LINKS(state, links) {
         state.links = links;
-    },
-
-    /**
-     * @param state
-     * @param data
-     * @constructor
-     */
-    SET_REQUEST(state, data) {
-        state.request = data;
     }
 }
 
@@ -38,10 +28,25 @@ export const actions = {
      */
     async getLinks({commit, state}, data = {}) {
         try {
-            const response = await this.$axios.get('api/links', {params: this.$qBuilder(state.request, data)});
+            const response = await this.$axios.get('api/links', {params: this.$qBuilder({}, data)});
             commit('SET_LINKS', response.data.data);
         } catch (e) {
         }
+    },
+
+    /**
+     * @param commit
+     * @param state
+     * @param data
+     */
+    setUrl({commit, state}, data) {
+        if (data.clear) {
+            this.$router.push({path: '/', query: {}})
+        } else {
+            this.$router.push({path: '/', query: data.params})
+        }
+
+        this.dispatch('links/getLinks', data.params)
     }
 }
 

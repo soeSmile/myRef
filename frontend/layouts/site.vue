@@ -53,9 +53,9 @@ export default {
   },
 
   watch: {
-    '$route.query': function (val) {
-      this.$store.dispatch('links/getLinks', val)
-    }
+    // '$route.query': function (val) {
+    //   this.$store.dispatch('links/setUrl', val)
+    // }
   },
 
   methods: {}
