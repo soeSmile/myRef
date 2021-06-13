@@ -15,22 +15,11 @@
     </a>
 
     <v-card-text>
-      <p>Категория: {{ myRef.category.name }}</p>
+      <v-icon>
+        {{ myRef.category.icon }}
+      </v-icon>
+      {{ myRef.category.name }}
     </v-card-text>
-
-    <v-card-actions>
-      <v-btn icon>
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-bookmark</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-share-variant</v-icon>
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
