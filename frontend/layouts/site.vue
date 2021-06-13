@@ -50,14 +50,6 @@ export default {
       loading       : false,
       selectCategory: null,
     }
-  },
-
-  watch: {
-    // '$route.query': function (val) {
-    //   this.$store.dispatch('links/setUrl', val)
-    // }
-  },
-
-  methods: {}
+  }
 }
 </script>

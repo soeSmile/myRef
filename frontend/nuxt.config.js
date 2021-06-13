@@ -40,7 +40,8 @@ export default {
         '~/plugins/axios',
         '~/plugins/builder',
         '~/plugins/mixin',
-        '~/plugins/toast'
+        '~/plugins/toast',
+        '~/plugins/helper',
     ],
 
     modules: [
