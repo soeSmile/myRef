@@ -159,7 +159,6 @@ export default {
           result[i] = this.request[i]
         }
       }
-      console.log(result)
 
       return result
     }

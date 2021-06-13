@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\Models\Link;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -36,19 +37,28 @@ final class LinkRepository extends AbstractRepository
         }
 
         if (isset($data['cats'])) {
-            try {
-                $cats = \json_decode($data['cats'], true, 512, JSON_THROW_ON_ERROR);
-            } catch (\JsonException $e) {
-                $cats = [];
-            }
+            $cats = $this->parseStrArray($data['cats']);
 
-            $this->getQuery()->with([
-                'category' => static function ($query) use ($cats) {
-                    $query->whereIn('id', $cats);
-                }
-            ]);
+            $this->getQuery()->whereHas('category', static function (Builder $query) use ($cats) {
+                $query->whereIn('id', $cats);
+            });
         }
 
         return parent::all($data, $columns);
+    }
+
+    /**
+     * @param string $str
+     * @return array
+     */
+    private function parseStrArray(string $str): array
+    {
+        try {
+            $result = \json_decode($str, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            $result = [];
+        }
+
+        return $result;
     }
 }
