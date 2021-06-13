@@ -129,12 +129,6 @@ export default {
     addRef
   },
 
-  created() {
-    this.$store.dispatch('links/setUrl', {params: this.$route.query})
-  },
-
-  props: {},
-
   data() {
     return {
       dialogAddRef: {

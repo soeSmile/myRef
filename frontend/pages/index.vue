@@ -19,7 +19,9 @@ export default {
     tmplRef
   },
 
-  props: {},
+  created() {
+    this.$store.dispatch('links/setUrl', {params: this.$route.query})
+  },
 
   data() {
     return {}

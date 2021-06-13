@@ -17,7 +17,7 @@
                 @input="insertCategory"/>
       <v-chip class="ma-2"
               close
-              @click:close="clearItem(key)"
+              @click:close="removeFromCats(key)"
               v-for="(val,key) in request.cats" :key="key + 'cat'">
         {{ val.name }}
       </v-chip>
@@ -116,10 +116,9 @@ export default {
 
     /**
      * @param key
-     * @param item
      */
-    clearItem(key, item = 'selectCategories') {
-      this[item].splice(key, 1)
+    removeFromCats(key) {
+      this.request.cats.splice(key, 1)
     },
 
     /**
@@ -141,6 +140,8 @@ export default {
         cats: [],
         tags: []
       }
+      this.selectCategory = null
+      this.selectTag = null
       this.$store.dispatch('links/setUrl', {params: {}, clear: true})
     },
 
