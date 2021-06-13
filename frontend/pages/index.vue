@@ -1,10 +1,7 @@
 <template>
   <div class="sm-flex center wrap mt-2">
     <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
-              :url="val.url"
-              :title="val.title"
-              :desc="val.desc"
-              :img="val.img"
+              :myRef="val"
     />
   </div>
 </template>
