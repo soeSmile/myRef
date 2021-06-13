@@ -88,7 +88,7 @@ export default {
 
   computed: {
     filterCategory() {
-      return this.categories.filter(x => !this.selectCategories.includes(x))
+      return this.categories.filter(x => !this.request.cats.includes(x))
     },
     categories() {
       return this.$store.getters['category/categories'];
