@@ -98,7 +98,7 @@ export default {
   },
 
   watch: {
-    searchTag: function (newVal, oldVal) {
+    searchTag: function (newVal) {
       if (newVal && newVal.length > 2) {
         this.getTags()
       }

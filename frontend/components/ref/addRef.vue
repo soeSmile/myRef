@@ -43,6 +43,8 @@
             <v-combobox
                 v-model="myRef.tags"
                 :items="tags"
+                item-text="name"
+                item-value="id"
                 :search-input.sync="searchTag"
                 hide-selected
                 label="Теги"
@@ -123,7 +125,13 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    searchTag: function (newVal) {
+      if (newVal && newVal.length > 2) {
+        this.getTags()
+      }
+    }
+  },
 
   methods: {
     store() {
@@ -152,7 +160,20 @@ export default {
         comment   : ref.comment,
         cache     : ref.cache
       }
-    }
+    },
+
+    /**
+     * get tags
+     */
+    getTags() {
+      this.$axios.get('/api/tags', {params: {tag: this.searchTag}})
+          .then(response => {
+            this.tags = response.data.data;
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
   }
 }
 </script>
