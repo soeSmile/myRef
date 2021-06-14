@@ -61,8 +61,8 @@ final class LinkSearchDto extends AbstractDto
         $result = [];
 
         foreach ($this->getData() as $key => $item) {
-            if (\array_key_exists($key, self::FIELDS) && \preg_match(self::FIELDS[$key]['regexp'], $item)) {
-                $result[$key] = $item;
+            if (\array_key_exists($key, self::FIELDS)) {
+                $result[$key] = $this->parseValue($key);
             }
         }
 
@@ -70,16 +70,26 @@ final class LinkSearchDto extends AbstractDto
     }
 
     /**
-     * @param string $str
-     * @return array
+     * @param string $key
+     * @return mixed
      */
-    private function parseStrArray(string $str): array
+    private function parseValue(string $key): mixed
     {
-        try {
-            $result = \json_decode($str, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            $result = [];
+        $value = $this->getDataByKey($key);
+        $result = self::FIELDS[$key]['default'];
+
+        if (\preg_match(self::FIELDS[$key]['regexp'], $value)) {
+            $result = $value;
+
+            if (\in_array($key, ['cats', 'tags'])) {
+                try {
+                    $result = \json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+                } catch (\JsonException $e) {
+                    $result = [];
+                }
+            }
         }
+
 
         return $result;
     }
