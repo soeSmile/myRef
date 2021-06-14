@@ -36,11 +36,11 @@ final class LinkRepository extends AbstractRepository
         }
 
         if ($dto->hasKey('cats')) {
-            $cats = $dto->getDataByKey('cats');
+            $this->getQuery()->whereIn('category_id', $dto->getDataByKey('cats'));
+        }
 
-            $this->getQuery()->whereHas('category', static function (Builder $query) use ($cats) {
-                $query->whereIn('id', $cats);
-            });
+        if ($dto->hasKey('cat')) {
+            $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
         }
 
         return $this->getQuery()->paginate($data['count'] ?? self::COUNT);

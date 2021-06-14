@@ -1,13 +1,16 @@
 export const state = () => (
     {
         links   : [],
-        paginate: {}
+        paginate: {},
+        current : 1
     }
 )
 
 export const getters = {
     links   : s => s.links,
-    paginate: s => s.paginate
+    paginate: s => s.paginate,
+    current : s => s.current
+
 }
 
 export const mutations = {
@@ -27,6 +30,15 @@ export const mutations = {
      */
     SET_PAGINATE(state, data) {
         state.paginate = data
+    },
+
+    /**
+     * @param state
+     * @param data
+     * @constructor
+     */
+    SET_CURRENT(state, data) {
+        state.current = data
     }
 }
 
@@ -43,6 +55,7 @@ export const actions = {
             commit('SET_LINKS', response.data.data);
             if (response.data.meta) {
                 commit('SET_PAGINATE', response.data.meta);
+                commit('SET_CURRENT', response.data.meta.current_page);
             }
         } catch (e) {
         }

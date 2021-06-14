@@ -3,10 +3,13 @@
     <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
               :myRef="val"/>
 
-    <v-pagination v-if="Object.keys(paginate).length > 0"
-                  v-model="page"
-                  @input="paginateMove"
-                  :length="paginate.last_page"/>
+    <div class="text-center mt-2">
+      <v-pagination v-if="Object.keys(paginate).length > 0"
+                    v-model="page"
+                    @input="paginateMove"
+                    :total-visible="10"
+                    :length="paginate.last_page"/>
+    </div>
   </div>
 </template>
 
@@ -28,9 +31,7 @@ export default {
   },
 
   data() {
-    return {
-      page: 1
-    }
+    return {}
   },
 
   computed: {
@@ -39,6 +40,14 @@ export default {
     },
     paginate() {
       return this.$store.getters['links/paginate'];
+    },
+    page: {
+      get() {
+        return this.$store.getters['links/current']
+      },
+      set(value) {
+        this.$store.commit('links/SET_CURRENT', value)
+      }
     }
   },
 
@@ -49,7 +58,9 @@ export default {
      * @param val
      */
     paginateMove(val) {
-      let query = Object.assign(this.$route.query, {page: val})
+      let query = this.$route.query
+      query.page = val
+
       this.$store.dispatch('links/setUrl', {params: query})
     }
   }

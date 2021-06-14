@@ -40,6 +40,10 @@ final class LinkSearchDto extends AbstractDto
             'regexp'  => '/^\d+/',
             'default' => AbstractRepository::COUNT
         ],
+        'cat'   => [
+            'regexp'  => '/^\d+/',
+            'default' => 0
+        ],
     ];
 
     /**
