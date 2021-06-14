@@ -106,6 +106,14 @@ class ParseUrl
             foreach ($icons as $description) {
                 $icon = $description->attr('href');
             }
+
+            if (!$icon) {
+                $icons = $head->find('link[rel=shortcut icon]');
+
+                foreach ($icons as $description) {
+                    $icon = $description->attr('href');
+                }
+            }
         }
 
         return $this->hasUrl($icon) ? $icon : $this->urlRoot . $icon;
