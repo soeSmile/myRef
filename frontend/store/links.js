@@ -1,11 +1,13 @@
 export const state = () => (
     {
-        links: []
+        links   : [],
+        paginate: {}
     }
 )
 
 export const getters = {
-    links: s => s.links
+    links   : s => s.links,
+    paginate: s => s.paginate
 }
 
 export const mutations = {
@@ -16,6 +18,15 @@ export const mutations = {
      */
     SET_LINKS(state, links) {
         state.links = links;
+    },
+
+    /**
+     * @param state
+     * @param data
+     * @constructor
+     */
+    SET_PAGINATE(state, data) {
+        state.paginate = data
     }
 }
 
@@ -30,6 +41,9 @@ export const actions = {
         try {
             const response = await this.$axios.get('api/links', {params: this.$qBuilder({}, data)});
             commit('SET_LINKS', response.data.data);
+            if (response.data.meta) {
+                commit('SET_PAGINATE', response.data.meta);
+            }
         } catch (e) {
         }
     },

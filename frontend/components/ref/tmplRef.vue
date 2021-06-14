@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="220"
+  <v-card width="200"
           class="ma-2">
 
     <a :href="myRef.url" target="_blank" class="sm-link">
