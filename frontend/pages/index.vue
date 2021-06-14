@@ -45,6 +45,9 @@ export default {
   watch: {},
 
   methods: {
+    /**
+     * @param val
+     */
     paginateMove(val) {
       let query = Object.assign(this.$route.query, {page: val})
       this.$store.dispatch('links/setUrl', {params: query})
