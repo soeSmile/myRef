@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Link\LinkStoreRequest;
 use App\Http\Resources\Link\LinkResource;
+use App\Repository\Dto\LinkSearchDto;
 use App\Repository\Dto\LinkStoreDto;
 use App\Repository\LinkRepository;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +38,7 @@ final class ApiLinkController
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        return LinkResource::collection($this->link->all($request->all()));
+        return LinkResource::collection($this->link->search(new LinkSearchDto($request->all())));
     }
 
     /**
