@@ -7,7 +7,6 @@ use App\Models\Link;
 use App\Repository\Dto\AbstractDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class LinkRepository

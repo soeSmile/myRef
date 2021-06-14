@@ -24,6 +24,7 @@
 
       <v-autocomplete class="mt-4"
                       :items="tags"
+                      :search-input.sync="searchTag"
                       label="Теги"
                       item-text="name"
                       item-value="id"
@@ -33,7 +34,7 @@
                       @input="insertTag"/>
       <v-chip class="ma-2"
               close
-              @click:close="clearItem(key,'selectTags')"
+              @click:close="removeFromTags(key)"
               v-for="(val,key) in request.tags" :key="key + 'tag'">
         {{ val.name }}
       </v-chip>
@@ -72,6 +73,7 @@ export default {
   data() {
     return {
       loading       : false,
+      searchTag     : null,
       tags          : [],
       selectCategory: null,
       selectTag     : null,
@@ -95,7 +97,13 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    searchTag: function (newVal, oldVal) {
+      if (newVal && newVal.length > 2) {
+        this.getTags()
+      }
+    }
+  },
 
   methods: {
     /**
@@ -109,8 +117,12 @@ export default {
      * @param item
      */
     insertTag(item) {
-      if (item !== null && !this.request.tags.includes(item)) {
-        this.request.tags.push(item)
+      if (item !== null) {
+        let id = this.request.tags.find(x => x.id === item.id)
+
+        if (!id) {
+          this.request.tags.push(item)
+        }
       }
     },
 
@@ -119,6 +131,13 @@ export default {
      */
     removeFromCats(key) {
       this.request.cats.splice(key, 1)
+    },
+
+    /**
+     * @param key
+     */
+    removeFromTags(key) {
+      this.request.tags.splice(key, 1)
     },
 
     /**
@@ -164,6 +183,19 @@ export default {
       result.count = this.$const.COUNT_PAGE
 
       return result
+    },
+
+    /**
+     * get tags
+     */
+    getTags() {
+      this.$axios.get('/api/tags', {params: {tag: this.searchTag}})
+          .then(response => {
+            this.tags = response.data.data;
+          })
+          .catch(error => {
+            console.log(error)
+          })
     }
   }
 }
