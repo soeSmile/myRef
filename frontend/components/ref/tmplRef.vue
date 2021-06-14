@@ -15,10 +15,12 @@
     </a>
 
     <v-card-text>
-      <v-icon>
-        {{ myRef.category.icon }}
-      </v-icon>
-      {{ myRef.category.name }}
+      <span v-if="myRef.category">
+        <v-icon>
+          {{ myRef.category.icon }}
+        </v-icon>
+        {{ myRef.category.name }}
+      </span>
     </v-card-text>
   </v-card>
 </template>

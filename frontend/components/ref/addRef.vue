@@ -145,6 +145,12 @@ export default {
           })
           .catch(e => {
             this.errors = e.response.data.errors;
+
+            this.$toast.error({
+              title  : 'Error',
+              useHtml: true,
+              message: this.$messageToStr(this.errors),
+            })
           });
     },
 

@@ -14,19 +14,24 @@ use JetBrains\PhpStorm\ArrayShape;
 class ParseUrl
 {
     /**
+     * @var string
+     */
+    protected string $urlRoot = '';
+
+    /**
      * @param string $url
      * @return array
      */
-    #[ArrayShape(['url' => "string", 'title' => "string", 'desc' => "string", 'img' => "string"])]
-    public function parseUrl(
-        string $url
-    ): array {
-        $doc = new Document($url, true);
-
+    public function parseUrl(string $url): array
+    {
         try {
+            $doc = new Document($url, true);
+            $this->urlRoot = $this->getRootUrl($url);
             $head = $doc->first('head');
-        } catch (InvalidSelectorException $e) {
-            $head = null;
+        } catch (\Throwable $exception) {
+            return [
+                'error' => $exception->getMessage()
+            ];
         }
 
         return [
@@ -35,6 +40,17 @@ class ParseUrl
             'desc'  => $this->getDescription($head),
             'img'   => $this->getImage($head),
         ];
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function getRootUrl(string $url): string
+    {
+        $parse = \parse_url($url);
+
+        return $parse['scheme'] . $parse['host'];
     }
 
     /**
@@ -85,7 +101,7 @@ class ParseUrl
         $icon = '';
 
         if ($head) {
-            $icons = $head->find('link[rel=icon]');
+            $icons = $head->find('link[href$=ico]');
 
             foreach ($icons as $description) {
                 $icon = $description->attr('href');
