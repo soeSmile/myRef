@@ -142,6 +142,7 @@ export default {
               message: 'Saved',
             })
             this.dialog.show = false
+            this.$store.dispatch('links/setUrl', {params: this.$route.query})
           })
           .catch(e => {
             this.errors = e.response.data.errors;

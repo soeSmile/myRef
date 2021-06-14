@@ -50,7 +50,7 @@ class ParseUrl
     {
         $parse = \parse_url($url);
 
-        return $parse['scheme'] . $parse['host'];
+        return $parse['scheme'] . '://' . $parse['host'];
     }
 
     /**
@@ -108,6 +108,17 @@ class ParseUrl
             }
         }
 
-        return $icon;
+        return $this->hasUrl($icon) ? $icon : $this->urlRoot . $icon;
+    }
+
+    /**
+     * @param string $str
+     * @return bool
+     */
+    private function hasUrl(string $str): bool
+    {
+        $parse = \parse_url($str);
+
+        return isset($parse['scheme']);
     }
 }
