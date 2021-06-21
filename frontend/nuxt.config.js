@@ -40,22 +40,12 @@ export default {
         '~/plugins/axios',
         '~/plugins/builder',
         '~/plugins/mixin',
-        '~/plugins/toast',
         '~/plugins/helper',
     ],
 
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        ['@nuxtjs/vuetify', {
-            theme: {
-                themes: {
-                    light: {
-                        primary: '#0D47A1',
-                    }
-                },
-            },
-        }]
     ],
 
     axios: {
