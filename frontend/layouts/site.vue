@@ -1,54 +1,38 @@
 <template>
-  <v-app>
+  <div class="center examplex">
+    <vs-navbar center-collapsed v-model="active">
+      <template #left>
 
-    <site-head/>
+      </template>
+      <vs-navbar-item :active="active === 'guide'" id="guide">
+        Guide
+      </vs-navbar-item>
+      <vs-navbar-item :active="active === 'docs'" id="docs">
+        Documents
+      </vs-navbar-item>
+      <vs-navbar-item :active="active === 'components'" id="components">
+        Components
+      </vs-navbar-item>
+      <vs-navbar-item :active="active === 'license'" id="license">
+        license
+      </vs-navbar-item>
+      <template #right>
+        <vs-button flat>Login</vs-button>
+        <vs-button>Get Started</vs-button>
+      </template>
+    </vs-navbar>
 
-    <v-main>
-      <div class="layout-main-container">
-        <div class="sm-flex wrap">
-          <div class="layout-left">
-            <site-user-block v-if="isClient"/>
-            <site-search/>
-          </div>
-          <div class="layout-content">
-            <nuxt/>
-          </div>
-        </div>
-      </div>
-    </v-main>
-
-    <site-footer/>
-
-    <add-ref :dialog="dialog"/>
-  </v-app>
+  </div>
 </template>
 
 <script>
 
-import addRef from "../components/ref/addRef";
-import siteHead from "../components/site/siteHead";
-import SiteSearch from "../components/site/siteSearch";
-import siteUserBlock from "../components/site/siteUserBlock";
-import siteFooter from "../components/site/siteFooter";
-
 export default {
   name: "site",
 
-  components: {
-    SiteSearch,
-    addRef,
-    siteHead,
-    siteUserBlock,
-    siteFooter
-  },
-
   data() {
     return {
-      dialog        : {
-        show: false
-      },
-      loading       : false,
-      selectCategory: null,
+      active: 'guide'
     }
   }
 }

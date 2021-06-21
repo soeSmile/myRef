@@ -35,7 +35,8 @@ export default {
         {
             src : "~/assets/scss/app.scss",
             lang: "scss"
-        }
+        },
+        'vuesax/dist/vuesax.css'
     ],
 
     plugins: [
