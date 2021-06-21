@@ -8,7 +8,10 @@ export default {
         meta         : [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-            {hid: 'description', name: 'description', content: 'Meta description'}
+            {hid: 'description', name: 'description', content: ''}
+        ],
+        link         : [
+            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ]
     },
 
@@ -41,7 +44,10 @@ export default {
         '~/plugins/builder',
         '~/plugins/mixin',
         '~/plugins/helper',
+        '~/plugins/vuesax'
     ],
+
+    components: true,
 
     modules: [
         '@nuxtjs/axios',
