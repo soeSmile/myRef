@@ -4,8 +4,8 @@
       Поиск
     </v-card-title>
     <v-card-text>
-      <v-switch v-model="byRef" dense hide-details label="Поиск по закадкам"/>
-      <v-switch v-model="byNote" dense hide-details label="Поиск по заметкам"/>
+      <v-switch v-model="request.ref" dense hide-details label="Поиск по закадкам"/>
+      <v-switch v-model="request.note" dense hide-details label="Поиск по заметкам"/>
 
       <v-select class="mt-4"
                 :items="filterCategory"
@@ -17,13 +17,14 @@
                 @input="insertCategory"/>
       <v-chip class="ma-2"
               close
-              @click:close="clearItem(key)"
-              v-for="(val,key) in selectCategories" :key="key + 'cat'">
+              @click:close="removeFromCats(key)"
+              v-for="(val,key) in request.cats" :key="key + 'cat'">
         {{ val.name }}
       </v-chip>
 
       <v-autocomplete class="mt-4"
                       :items="tags"
+                      :search-input.sync="searchTag"
                       label="Теги"
                       item-text="name"
                       item-value="id"
@@ -33,17 +34,18 @@
                       @input="insertTag"/>
       <v-chip class="ma-2"
               close
-              @click:close="clearItem(key,'selectTags')"
-              v-for="(val,key) in selectTags" :key="key + 'tag'">
+              @click:close="removeFromTags(key)"
+              v-for="(val,key) in request.tags" :key="key + 'tag'">
         {{ val.name }}
       </v-chip>
 
-      <v-switch v-model="byDate" dense hide-details label="По дате"/>
-      <v-switch v-model="byTop" dense hide-details label="Самые посещаемые"/>
+      <v-switch v-model="request.date" dense hide-details label="По дате"/>
+      <v-switch v-model="request.top" dense hide-details label="Самые посещаемые"/>
     </v-card-text>
 
     <v-card-actions>
-      <v-btn text color="blue darken-4">
+      <v-btn text color="blue darken-4"
+             @click="search">
         Поиск
         <v-icon right>mdi-cloud-search-outline</v-icon>
       </v-btn>
@@ -70,64 +72,130 @@ export default {
 
   data() {
     return {
-      loading         : false,
-      selectCategories: [],
-      tags            : [],
-      selectTags      : [],
-      selectCategory  : null,
-      selectTag       : null,
-      byDate          : false,
-      byTop           : false,
-      byRef           : true,
-      byNote          : true
+      loading       : false,
+      searchTag     : null,
+      tags          : [],
+      selectCategory: null,
+      selectTag     : null,
+      request       : {
+        ref : true,
+        note: true,
+        date: false,
+        top : false,
+        cats: [],
+        tags: [],
+      }
     }
   },
 
   computed: {
     filterCategory() {
-      return this.categories.filter(x => !this.selectCategories.includes(x))
+      return this.categories.filter(x => !this.request.cats.includes(x))
     },
     categories() {
       return this.$store.getters['category/categories'];
     }
   },
 
-  watch: {},
+  watch: {
+    searchTag: function (newVal) {
+      if (newVal && newVal.length > 2) {
+        this.getTags()
+      }
+    }
+  },
 
   methods: {
     /**
      * @param item
      */
     insertCategory(item) {
-      this.selectCategories.push(item)
+      this.request.cats.push(item)
     },
 
     /**
      * @param item
      */
     insertTag(item) {
-      if (item !== null && !this.selectTags.includes(item)) {
-        this.selectTags.push(item)
+      if (item !== null) {
+        let id = this.request.tags.find(x => x.id === item.id)
+
+        if (!id) {
+          this.request.tags.push(item)
+        }
       }
     },
 
     /**
      * @param key
-     * @param item
      */
-    clearItem(key, item = 'selectCategories') {
-      this[item].splice(key, 1)
+    removeFromCats(key) {
+      this.request.cats.splice(key, 1)
     },
 
+    /**
+     * @param key
+     */
+    removeFromTags(key) {
+      this.request.tags.splice(key, 1)
+    },
+
+    /**
+     * search
+     */
+    search() {
+      this.$store.dispatch('links/setUrl', {params: this.makeRequest()})
+    },
+
+    /**
+     * clear request
+     */
     clear() {
+      this.request = {
+        ref : true,
+        note: true,
+        date: false,
+        top : false,
+        cats: [],
+        tags: []
+      }
       this.selectCategory = null
       this.selectTag = null
-      this.selectCategories = []
-      this.selectTags = []
-      this.byDate = false
-      this.byTop = false
-      this.byRef = true
-      this.byNote = true
+      this.$store.dispatch('links/setUrl', {params: {}, clear: true})
+    },
+
+    /**
+     * @return {{}}
+     */
+    makeRequest() {
+      let result = {}
+
+      for (let i in this.request) {
+        if (this.request[i] instanceof Array) {
+          if (this.request[i].length > 0) {
+            result[i] = JSON.stringify(this.request[i].map((item) => item.id))
+          }
+        } else if (this.request[i]) {
+          result[i] = this.request[i]
+        }
+      }
+
+      result.count = this.$const.COUNT_PAGE
+
+      return result
+    },
+
+    /**
+     * get tags
+     */
+    getTags() {
+      this.$axios.get('/api/tags', {params: {tag: this.searchTag}})
+          .then(response => {
+            this.tags = response.data.data;
+          })
+          .catch(error => {
+            console.log(error)
+          })
     }
   }
 }

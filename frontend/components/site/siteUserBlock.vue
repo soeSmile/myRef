@@ -10,7 +10,8 @@
       </template>
 
       <v-list-item nuxt exact
-                   :to="{ name: '', query: { category: val.id }}"
+                   :to="{ name: '', query: { cat: val.id }}"
+                   @click="request"
                    v-for="(val,key) in categories" :key="key">
         <v-list-item-title v-text="val.name"></v-list-item-title>
       </v-list-item>
@@ -42,6 +43,10 @@ export default {
 
   watch: {},
 
-  methods: {}
+  methods: {
+    request() {
+      this.$store.dispatch('links/setUrl', {params: this.$route.query})
+    }
+  }
 }
 </script>

@@ -45,6 +45,7 @@
 // link
 .#{$prefix}link {
   cursor: pointer;
+  text-decoration: none !important;
 
   &:hover {
     opacity: 0.6;
@@ -52,6 +53,7 @@
 }
 
 .#{$prefix}link-clear {
+  text-decoration: none !important;
   cursor: pointer;
 }
 

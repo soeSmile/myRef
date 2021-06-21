@@ -51,29 +51,49 @@ abstract class AbstractDto
 
     /**
      * @param array $data
+     * @return AbstractDto
      */
-    public function setData(array $data): void
+    public function setData(array $data): AbstractDto
     {
         $this->data = $data;
+
+        return $this;
     }
 
     /**
      * @param string $key
      * @param $value
+     * @return AbstractDto
      */
-    public function setDataByKey(string $key, $value): void
+    public function setDataByKey(string $key, $value): AbstractDto
     {
         $this->data[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param array $data
+     * @return AbstractDto
+     */
+    public function mergeData(array $data): AbstractDto
+    {
+        $this->data = \array_merge($this->data, $data);
+
+        return $this;
     }
 
     /**
      * @param string $key
+     * @return AbstractDto
      */
-    public function removeKey(string $key): void
+    public function removeKey(string $key): AbstractDto
     {
         if ($this->hasKey($key)) {
             unset($this->data[$key]);
         }
+
+        return $this;
     }
 
     /**

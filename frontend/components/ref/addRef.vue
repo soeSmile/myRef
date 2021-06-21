@@ -14,7 +14,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn text
-                 @click="dialog.show = false">
+                 @click="store">
             Сохранить
           </v-btn>
         </v-toolbar-items>
@@ -23,6 +23,7 @@
       <v-card-text>
         <v-text-field label="Url"
                       clearable
+                      :error-messages="errors['url']"
                       v-model="myRef.url"/>
       </v-card-text>
 
@@ -42,6 +43,8 @@
             <v-combobox
                 v-model="myRef.tags"
                 :items="tags"
+                item-text="name"
+                item-value="id"
                 :search-input.sync="searchTag"
                 hide-selected
                 label="Теги"
@@ -70,6 +73,13 @@
                              no-title
                              @input="showDate = false"/>
             </v-menu>
+            <v-checkbox v-model="myRef.cache"
+                        label="Кешировать"/>
+            <v-textarea class="mt-4"
+                        label="Коментарий"
+                        clearable
+                        no-resize
+                        v-model="myRef.comment"/>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -98,11 +108,15 @@ export default {
         url     : null,
         category: null,
         tags    : [],
-        date    : null
+        date    : null,
+        comment : null,
+        cache   : false
       },
       searchTag: null,
-      tags     : []
+      tags     : [],
+      errors   : {}
     }
+
   },
 
   computed: {
@@ -111,8 +125,62 @@ export default {
     }
   },
 
-  watch: {},
+  watch: {
+    searchTag: function (newVal) {
+      if (newVal && newVal.length > 2) {
+        this.getTags()
+      }
+    }
+  },
 
-  methods: {}
+  methods: {
+    store() {
+      this.$axios.post('api/links', this.prepareData(this.myRef))
+          .then(response => {
+            this.$toast.success({
+              title  : 'Success',
+              message: 'Saved',
+            })
+            this.dialog.show = false
+            this.$store.dispatch('links/setUrl', {params: this.$route.query})
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+
+            this.$toast.error({
+              title  : 'Error',
+              useHtml: true,
+              message: this.$messageToStr(this.errors),
+            })
+          });
+    },
+
+    /**
+     * @return {{}}
+     */
+    prepareData(ref) {
+      return {
+        url       : ref.url,
+        categoryId: ref.category,
+        tags      : ref.tags.length === 0 ? null : ref.tags,
+        date      : ref.date,
+        comment   : ref.comment,
+        cache     : ref.cache
+      }
+    },
+
+    /**
+     * get tags
+     */
+    getTags() {
+      this.$axios.get('/api/tags', {params: {tag: this.searchTag}})
+          .then(response => {
+            this.tags = response.data.data;
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },
+  }
 }
 </script>

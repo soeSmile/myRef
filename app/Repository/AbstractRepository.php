@@ -17,6 +17,11 @@ use Illuminate\Database\Eloquent\Model;
 abstract class AbstractRepository
 {
     /**
+     * @var int
+     */
+    public const COUNT = 20;
+
+    /**
      * @var Model
      */
     private Model $model;
@@ -71,7 +76,7 @@ abstract class AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['count']) && $data['count'] > 0) {
-            return $this->query->paginate($data['count'] ?? 20, $columns);
+            return $this->query->paginate($data['count'] ?? self::COUNT, $columns);
         }
 
         return $this->query->get($columns);

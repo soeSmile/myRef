@@ -50,14 +50,6 @@ export default {
       loading       : false,
       selectCategory: null,
     }
-  },
-
-  watch: {
-    '$route.query': function (val) {
-      console.log(val)
-    }
-  },
-
-  methods: {}
+  }
 }
 </script>

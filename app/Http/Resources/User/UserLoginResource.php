@@ -19,6 +19,8 @@ class UserLoginResource extends JsonResource
             'name'     => $this->name,
             'email'    => $this->email,
             'timeZone' => $this->time_zone,
+            'show'     => $this->show,
+            'link'     => $this->link,
             'isAdmin'  => $this->isAdmin(),
             'isClient' => $this->isClient(),
         ];

@@ -9,6 +9,7 @@
       <v-btn dark text
              class="ml-2"
              nuxt :to="val.link"
+             @click="request(val.params)"
              v-for="(val,key) in menu" :key="val + key">
         <v-icon left>{{ val.icon }}</v-icon>
         {{ val.text }}
@@ -128,23 +129,25 @@ export default {
     addRef
   },
 
-  created() {
-  },
-
-  mounted() {
-  },
-
-  props: {},
-
   data() {
     return {
       dialogAddRef: {
         show: false
       },
       menu        : [
-        {text: 'Главная', icon: 'mdi-home', link: '/'},
-        {text: 'Топ', icon: 'mdi-arrow-up-bold', link: '/?top=1'},
-        {text: 'Новые', icon: 'mdi-alert-decagram', link: '/?new=1'},
+        {text: 'Главная', icon: 'mdi-home', link: '/', params: {}},
+        {
+          text  : 'Топ',
+          icon  : 'mdi-arrow-up-bold',
+          link  : '/?top=1&count=20',
+          params: {top: true, count: this.$const.COUNT_PAGE}
+        },
+        {
+          text  : 'Новые',
+          icon  : 'mdi-alert-decagram',
+          link  : '/?new=1&count=20',
+          params: {new: true, count: this.$const.COUNT_PAGE}
+        },
       ],
       userMenu    : [
         {text: 'Real-Time', icon: 'mdi-clock', link: 'search'},
@@ -162,6 +165,14 @@ export default {
 
   watch: {},
 
-  methods: {}
+  methods: {
+    /**
+     * request
+     * @param params
+     */
+    request(params) {
+      this.$store.dispatch('links/setUrl', {params: params})
+    }
+  }
 }
 </script>
