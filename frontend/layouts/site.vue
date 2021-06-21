@@ -1,8 +1,7 @@
 <template>
   <div class="center examplex">
-    <vs-navbar center-collapsed v-model="active">
+    <vs-navbar center-collapsed square v-model="active">
       <template #left>
-
       </template>
       <vs-navbar-item :active="active === 'guide'" id="guide">
         Guide
@@ -18,7 +17,7 @@
       </vs-navbar-item>
       <template #right>
         <vs-button flat>Login</vs-button>
-        <vs-button>Get Started</vs-button>
+        <vs-button flat>Get Started</vs-button>
       </template>
     </vs-navbar>
 
