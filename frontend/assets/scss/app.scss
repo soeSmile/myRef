@@ -1,5 +1,10 @@
+@import "reset";
 @import "sm/sm";
-@import "layout";
+@import "fonts";
+
+html{
+  font-family: $fontRegular;
+}
 
 .page-enter-active, .page-leave-active {
   transition: opacity .2s;

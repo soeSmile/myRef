@@ -1,0 +1,34 @@
+.#{$prefix}layout {
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+}
+
+.#{$prefix}layout-start {
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.#{$prefix}layout-content {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+.#{$prefix}layout-menu {
+  flex: 0 1 auto;
+}
+
+.#{$prefix}layout-footer {
+  flex: 0 0 auto;
+}
+
+.#{$prefix}container {
+  max-width: 1200px;
+  width: 100%;
+
+  &.center {
+    margin: 0 auto;
+  }
+}

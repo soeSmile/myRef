@@ -1,0 +1,52 @@
+// Path fonts
+$font-path: '../fonts';
+
+@font-face {
+  font-family: 'Comfortaa-Regular';
+  src: url('#{$font-path}/Comfortaa-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comfortaa-Light';
+  src: url('#{$font-path}/Comfortaa-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comfortaa-Bold';
+  src: url('#{$font-path}/Comfortaa-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Fonts
+$fontLight: 'Comfortaa-Light';
+$fontRegular: 'Comfortaa-Regular';
+$fontBold: 'Comfortaa-Bold';
+
+// Font size
+$fontSize: 0.75rem !default;
+
+.#{$prefix}fnt {
+  &.light {
+    font-family: $fontLight;
+  }
+
+  &.regular {
+    font-family: $fontRegular;
+  }
+
+  &.bold {
+    font-family: $fontBold;
+  }
+
+  @for $i from 0 through 9 {
+    &.size-#{$i} {
+      font-size: $fontSize !important;
+    }
+    $fontSize: $fontSize + 0.25;
+  }
+}
