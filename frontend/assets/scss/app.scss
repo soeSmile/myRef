@@ -2,8 +2,12 @@
 @import "sm/sm";
 @import "fonts";
 
-html{
+html {
   font-family: $fontRegular;
+}
+
+html, body, #__nuxt, #__layout {
+  height: 100%;
 }
 
 .page-enter-active, .page-leave-active {

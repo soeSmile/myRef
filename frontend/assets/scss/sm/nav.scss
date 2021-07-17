@@ -1,0 +1,45 @@
+.#{$prefix}nav {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.#{$prefix}nav-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.#{$prefix}nav-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.#{$prefix}nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.#{$prefix}nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: map_get($sizes, 2);
+  padding-right: map_get($sizes, 2);
+
+  &.link {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+      @include animateHover;
+    }
+  }
+}

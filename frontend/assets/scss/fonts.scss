@@ -2,30 +2,30 @@
 $font-path: '../fonts';
 
 @font-face {
-  font-family: 'Comfortaa-Regular';
-  src: url('#{$font-path}/Comfortaa-Regular.ttf') format('truetype');
+  font-family: 'Rubik-Regular';
+  src: url('#{$font-path}/Rubik-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Comfortaa-Light';
-  src: url('#{$font-path}/Comfortaa-Light.ttf') format('truetype');
+  font-family: 'Rubik-Light';
+  src: url('#{$font-path}/Rubik-Light.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Comfortaa-Bold';
-  src: url('#{$font-path}/Comfortaa-Bold.ttf') format('truetype');
+  font-family: 'Rubik-Bold';
+  src: url('#{$font-path}/Rubik-Bold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 // Fonts
-$fontLight: 'Comfortaa-Light';
-$fontRegular: 'Comfortaa-Regular';
-$fontBold: 'Comfortaa-Bold';
+$fontLight: 'Rubik-Light';
+$fontRegular: 'Rubik-Regular';
+$fontBold: 'Rubik-Bold';
 
 // Font size
 $fontSize: 0.75rem !default;
