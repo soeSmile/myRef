@@ -20,7 +20,7 @@
 
       <div class="sm-nav-item sm-link sm-hover-color-3"
            @click="$store.dispatch('auth/logout')">
-        <i class='bx bx-user'></i>
+        <i class='mdi mdi-user'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ exit }}
         </span>
@@ -31,7 +31,7 @@
          class="sm-nav-end">
       <n-link to="/login"
               class="sm-nav-item sm-hover-color-3">
-        <i class='bx bx-exit'></i>
+        <i class='mdi mdi-login'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ login }}
         </span>
@@ -41,7 +41,7 @@
 
       <n-link to="/register"
               class="sm-nav-item sm-hover-color-3">
-        <i class='bx bxs-key'></i>
+        <i class='mdi mdi-key'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ register }}
         </span>

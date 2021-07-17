@@ -34,9 +34,9 @@ export default {
     css: [
         {
             src : "~/assets/scss/app.scss",
-            lang: "scss"
+            lang: "scss",
         },
-        'vuesax/dist/vuesax.css'
+        '@mdi/font/css/materialdesignicons.min.css'
     ],
 
     plugins: [
@@ -45,7 +45,7 @@ export default {
         '~/plugins/builder',
         '~/plugins/mixin',
         '~/plugins/helper',
-        '~/plugins/vuesax'
+        '~/plugins/element',
     ],
 
     components: true,

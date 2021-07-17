@@ -1,6 +1,8 @@
+$prefix: 'sm-';
+
 @import "reset";
-@import "sm/sm";
 @import "fonts";
+@import "sm/sm";
 
 html {
   font-family: $fontRegular;

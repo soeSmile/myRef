@@ -1,0 +1,43 @@
+.#{$prefix}button-site {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+  padding: 0.8rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-family: $fontRegular;
+  font-weight: bold;
+  font-size: map-get($sizes, 4);
+  color: map-get($colors, 'white');
+  background: map-get($colors, 'color-3');
+
+  &:hover {
+    opacity: 0.8;
+    transition: all 1s cubic-bezier(.25, .8, .25, 1);
+  }
+}
+
+.#{$prefix}button-site-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+  padding: 0.8rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-family: $fontRegular;
+  font-weight: bold;
+  font-size: map-get($sizes, 4);
+  color: map-get($colors, 'color-3');
+  background: map-get($colors, 'color-5');
+
+  &:hover {
+    opacity: 0.8;
+    transition: all 1s cubic-bezier(.25, .8, .25, 1);
+  }
+}

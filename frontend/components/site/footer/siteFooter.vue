@@ -4,7 +4,7 @@
     </div>
     <div class="sm-nav-center"></div>
     <div class="sm-nav-end">
-      2021 — myRef.top
+      2021 - myRef.top
     </div>
   </nav>
 </template>

@@ -7,7 +7,14 @@
     </header>
 
     <section class="sm-layout-content">
-      <aside></aside>
+      <div class="sm-container center sm-flex row">
+        <div class="sm-w-25">
+          <site-search/>
+        </div>
+        <div class="sm-w-75">
+
+        </div>
+      </div>
     </section>
 
     <footer class="sm-layout-footer sm-bg-color-1 sm-color-white">
@@ -22,13 +29,15 @@
 
 import siteHeader from "../components/site/header/siteHeader";
 import siteFooter from "../components/site/footer/siteFooter";
+import siteSearch from "../components/site/search/siteSearch";
 
 export default {
   name: "site",
 
   components: {
     siteHeader,
-    siteFooter
+    siteFooter,
+    siteSearch
   },
 
   data() {
