@@ -41,3 +41,12 @@ $colors: (
     border-color: $value !important;
   }
 }
+
+@each $name, $value in $colors {
+  .#{$prefix}hover-#{$name} {
+    &:hover {
+      color: $value !important;
+      transition: all 1s cubic-bezier(.25, .8, .25, 1);
+    }
+  }
+}
