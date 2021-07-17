@@ -1,6 +1,6 @@
 <template>
-  <aside class="sm-flex sm-p-2 col">
-    <h2 class="sm-mt-4 sm-fnt bold">
+  <aside class="sm-flex col sm-mt-8">
+    <h2 class="sm-fnt bold sm-color-color-1 sm-mb-4">
       Поиск
     </h2>
     <div class="sm-flex col">
