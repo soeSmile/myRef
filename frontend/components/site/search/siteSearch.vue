@@ -1,16 +1,17 @@
 <template>
   <aside class="sm-flex col sm-mt-8">
-    <h2 class="sm-fnt bold sm-color-color-1 sm-mb-4">
-      Поиск
-    </h2>
     <div class="sm-flex col">
       <div class="sm-mt-4">
         <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">Поиск по закадкам</p>
-        <el-switch v-model="request.ref"></el-switch>
+        <el-switch v-model="request.ref"
+                   active-color="#16a085">
+        </el-switch>
       </div>
       <div class="sm-mt-4">
         <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">Поиск по заметкам</p>
-        <el-switch v-model="request.note"></el-switch>
+        <el-switch v-model="request.note"
+                   active-color="#16a085">
+        </el-switch>
       </div>
       <div class="sm-mt-4">
         <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">Выбор категории</p>
@@ -27,7 +28,7 @@
           </el-option>
         </el-select>
       </div>
-      <div class="sm-mt-4">
+      <div class="sm-mt-4" v-if="request.cats.length > 0">
         <el-tag class="sm-m-1"
                 v-for="(val,key) in request.cats"
                 :key="key"
@@ -54,7 +55,7 @@
           </el-option>
         </el-select>
       </div>
-      <div class="sm-mt-4">
+      <div class="sm-mt-4" v-if="request.tags.length > 0">
         <el-tag class="sm-m-1"
                 v-for="(val,key) in request.tags"
                 :key="key"
@@ -66,11 +67,11 @@
     </div>
     <div class="sm-mt-8">
       <button class="sm-button-site"
-                 @click="search">
+              @click="search">
         <i class="mdi mdi-cloud-search-outline sm-mr-2"></i>
         Поиск
       </button>
-      <button class="sm-button-site-light"
+      <button class="sm-button-site-light sm-ml-2"
               @click="clear">
         <i class="mdi mdi-close sm-mr-2"></i>
         Очистить
