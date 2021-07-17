@@ -1,9 +1,12 @@
 <template>
-  <v-footer padless fixed color="blue-grey lighten-4">
-    <v-col class="text-center" cols="12">
-      {{ new Date().getFullYear() }} — <strong>myRef.top</strong>
-    </v-col>
-  </v-footer>
+  <nav class="sm-nav sm-p-4">
+    <div class="ms-nav-start">
+    </div>
+    <div class="sm-nav-center"></div>
+    <div class="sm-nav-end">
+      2021 — myRef.top
+    </div>
+  </nav>
 </template>
 
 <script>

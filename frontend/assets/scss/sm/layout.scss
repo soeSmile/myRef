@@ -17,6 +17,11 @@
   flex: 0 0 auto;
 }
 
+.#{$prefix}footer-line {
+  border-bottom: 1px solid map_get($colors, 'grey');
+  margin-top: map_get($sizes, 2);
+}
+
 .#{$prefix}container {
   max-width: 1200px;
   width: 100%;

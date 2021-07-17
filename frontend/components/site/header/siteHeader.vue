@@ -9,7 +9,7 @@
 
     <div v-if="isAuth"
          class="sm-nav-end">
-      <div class="sm-nav-item">
+      <div class="sm-nav-item sm-link sm-hover-color-3">
         <i class='bx bx-user'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ user.name }}
@@ -18,7 +18,7 @@
 
       <span class="sm-ml-1 sm-mr-1">|</span>
 
-      <div class="sm-nav-item sm-link sm-hover-color-4"
+      <div class="sm-nav-item sm-link sm-hover-color-3"
            @click="$store.dispatch('auth/logout')">
         <i class='bx bx-user'></i>
         <span class="sm-ml-2 sm-fnt light">
@@ -30,7 +30,7 @@
     <div v-else
          class="sm-nav-end">
       <n-link to="/login"
-              class="sm-nav-item sm-hover-color-4">
+              class="sm-nav-item sm-hover-color-3">
         <i class='bx bx-exit'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ login }}
@@ -40,7 +40,7 @@
       <span class="sm-ml-1 sm-mr-1">|</span>
 
       <n-link to="/register"
-              class="sm-nav-item sm-hover-color-4">
+              class="sm-nav-item sm-hover-color-3">
         <i class='bx bxs-key'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ register }}

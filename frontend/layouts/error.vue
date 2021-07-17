@@ -19,21 +19,17 @@
       </v-container>
     </v-main>
 
-    <site-footer/>
-
   </v-app>
 </template>
 
 <script>
 import siteHead from "../components/site/siteHead";
-import siteFooter from "../components/site/siteFooter";
 
 export default {
   name: "error",
 
   components: {
-    siteHead,
-    siteFooter
+    siteHead
   },
 
   head() {
