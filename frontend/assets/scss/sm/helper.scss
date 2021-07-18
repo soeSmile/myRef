@@ -42,10 +42,6 @@
   display: none !important;
 }
 
-.#{$prefix}link-clear {
-  cursor: pointer;
-}
-
 // text center
 .#{$prefix}center {
   text-align: center !important;
@@ -64,4 +60,13 @@
 // link
 .#{$prefix}link {
   cursor: pointer !important;
+}
+
+.#{$prefix}link-hover {
+  cursor: pointer;
+
+  &:hover{
+    opacity: 0.6;
+    transition: all 1s cubic-bezier(.25, .8, .25, 1);
+  }
 }

@@ -13,7 +13,7 @@
     <div v-if="isAuth"
          class="sm-nav-end">
       <div class="sm-nav-item sm-link sm-hover-color-3">
-        <i class='bx bx-user'></i>
+        <i class='mdi mdi-account'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ user.name }}
         </span>
@@ -23,7 +23,7 @@
 
       <div class="sm-nav-item sm-link sm-hover-color-3"
            @click="$store.dispatch('auth/logout')">
-        <i class='mdi mdi-user'></i>
+        <i class='mdi mdi-location-exit'></i>
         <span class="sm-ml-2 sm-fnt light">
           {{ exit }}
         </span>

@@ -11,8 +11,13 @@
         <div class="sm-w-25">
           <site-search/>
         </div>
-        <div class="sm-w-75">
+        <div class="sm-w-75 sm-flex col sm-pl-2">
+          <div>
+            <site-control/>
+          </div>
+          <div>
 
+          </div>
         </div>
       </div>
     </section>
@@ -30,6 +35,7 @@
 import siteHeader from "../components/site/header/siteHeader";
 import siteFooter from "../components/site/footer/siteFooter";
 import siteSearch from "../components/site/search/siteSearch";
+import siteControl from "../components/site/control/siteControl";
 
 export default {
   name: "site",
@@ -37,7 +43,8 @@ export default {
   components: {
     siteHeader,
     siteFooter,
-    siteSearch
+    siteSearch,
+    siteControl
   },
 
   data() {

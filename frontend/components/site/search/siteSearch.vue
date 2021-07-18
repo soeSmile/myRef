@@ -1,16 +1,16 @@
 <template>
-  <aside class="sm-flex col sm-mt-8">
+  <aside class="sm-flex col sm-mt-4">
     <div class="sm-flex col">
       <div class="sm-mt-4">
         <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">Поиск по закадкам</p>
         <el-switch v-model="request.ref"
-                   active-color="#16a085">
+                   active-color="#72670C">
         </el-switch>
       </div>
       <div class="sm-mt-4">
         <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">Поиск по заметкам</p>
         <el-switch v-model="request.note"
-                   active-color="#16a085">
+                   active-color="#72670C">
         </el-switch>
       </div>
       <div class="sm-mt-4">
@@ -66,12 +66,12 @@
       </div>
     </div>
     <div class="sm-mt-8">
-      <button class="sm-button-site"
+      <button class="sm-button-site sm-bg-color-4 sm-color-white"
               @click="search">
         <i class="mdi mdi-cloud-search-outline sm-mr-2"></i>
         Поиск
       </button>
-      <button class="sm-button-site-light sm-ml-2"
+      <button class="sm-button-site sm-ml-2 sm-bg-color-5 sm-color-color-3"
               @click="clear">
         <i class="mdi mdi-close sm-mr-2"></i>
         Очистить
