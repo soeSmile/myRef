@@ -1,89 +1,98 @@
 <template>
-  <v-container fill-height fluid>
-    <v-row align="center" justify="center">
+  <div class="sm-h-100 sm-flex center middle">
+    <div class="sm-wpx-300 sm-flex col">
+      <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">
+        Имя
+      </p>
+      <div class="sm-form-input">
+        <el-input placeholder="Имя"
+                  v-model="user.name"/>
+        <div class="sm-form-error">
+          {{ errors.name }}
+        </div>
+      </div>
 
-      <v-card flat width="320" color="transparent">
-        <v-card-title>
-          Ругистрация
-        </v-card-title>
-        <v-card-text>
+      <p class="sm-mb-1 sm-mt-6 sm-color-color-2 sm-fnt bold">
+        E-mail
+      </p>
+      <div class="sm-form-input">
+        <el-input placeholder="E-mail"
+                  v-model="user.email"/>
+        <div class="sm-form-error">
+          {{ errors.email }}
+        </div>
+      </div>
 
-          <v-form ref="reg"
-                  v-model="valid"
-                  lazy-validation>
-            <v-text-field v-model="user.name"
-                          :rules="required"
-                          clearable
-                          label="Имя"
-                          required/>
-            <v-text-field v-model="user.email"
-                          :rules="emailRules"
-                          clearable
-                          label="Почта"
-                          required/>
-            <v-text-field v-model="user.password"
-                          type="password"
-                          :rules="required"
-                          clearable
-                          label="Пароль"
-                          required/>
-          </v-form>
+      <p class="sm-mb-1 sm-mt-6 sm-color-color-2 sm-fnt bold">
+        Пароль
+      </p>
+      <div class="sm-form-input">
+        <el-input placeholder="Пароль"
+                  v-model="user.password"
+                  show-password/>
+        <div class="sm-form-error">
+          {{ errors.password }}
+        </div>
+      </div>
 
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary"
-                 @click="register">
-            Регистрация
-          </v-btn>
-          <v-btn @click="reset">
-            Сброс
-          </v-btn>
-        </v-card-actions>
+      <div class="sm-mt-8">
+        <el-button type="primary"
+                   @click="register">
+          Вход
+        </el-button>
+        <el-button @click="reset">
+          Сброс
+        </el-button>
+      </div>
 
-      </v-card>
-
-    </v-row>
-  </v-container>
+      <div class="sm-form-input sm-mt-4">
+        <div class="sm-form-error"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 
-import authLoginSocial from "../components/auth/authLoginSocial";
-
 export default {
   name: "register",
 
-  layout: 'auth',
-
-  components: {
-    authLoginSocial
-  },
+  layout: 'sitePage',
 
   data() {
     return {
-      valid     : true,
-      user      : {
+      user  : {
         name    : null,
         email   : null,
         password: null
       },
-      emailRules: [
-        v => !!v || 'Обязательное поле',
-        v => /.+@.+\..+/.test(v) || 'Не валидная почта',
-      ],
-      required  : [
-        v => !!v || 'Обязательное поле',
-      ]
+      errors: {}
     }
   },
 
   methods: {
     reset() {
-      this.$refs.reg.reset()
+      this.user.name = null
+      this.user.email = null
+      this.user.password = null
+      this.errors = {}
+    },
+
+    validForm() {
+      let result = true
+
+      for (let i in this.user) {
+        if (!this.user[i]) {
+          result = false
+          this.$set(this.errors, i, 'Обязательное поле')
+        }
+      }
+
+      return result
     },
 
     register() {
-      if (this.valid) {
+      if (this.validForm()) {
 
       }
     }

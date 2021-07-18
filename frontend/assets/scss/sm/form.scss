@@ -1,0 +1,14 @@
+.#{$prefix}form-input {
+  position: relative;
+}
+
+.#{$prefix}form-error {
+  font-family: $fontLight;
+  font-size: map-get($sizes, 3);
+  color: map-get($colors, 'red');
+  line-height: 1;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding-top:  map-get($sizes, 1);
+}

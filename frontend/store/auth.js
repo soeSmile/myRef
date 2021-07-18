@@ -9,7 +9,6 @@ export const state = () => (
 
 export const mutations = {
     /**
-     * set token
      * @param state
      * @param data
      */
@@ -21,8 +20,8 @@ export const mutations = {
         // set cookie
         this.$cookies.set('token', data.token, {maxAge: data.expiresIn, path: '/'});
     },
+
     /**
-     * set user
      * @param state
      * @param data
      * @constructor
@@ -30,8 +29,8 @@ export const mutations = {
     SET_USER(state, data = {}) {
         state.user = data.user;
     },
+
     /**
-     * set errors
      * @param state
      * @param errors
      * @constructor
@@ -39,8 +38,8 @@ export const mutations = {
     SET_ERRORS(state, errors = {}) {
         state.errors = errors;
     },
+
     /**
-     * clear user and token
      * @param state
      * @constructor
      */
@@ -93,7 +92,6 @@ export const actions = {
     },
 
     /**
-     * clear User
      * @param commit
      * @return {*|number}
      */
@@ -101,5 +99,12 @@ export const actions = {
         commit('CLEAR_TOKEN');
 
         return this.$router.push('/')
+    },
+
+    /**
+     * @param commit
+     */
+    clearError({commit}) {
+        commit('SET_ERRORS', {})
     }
 };

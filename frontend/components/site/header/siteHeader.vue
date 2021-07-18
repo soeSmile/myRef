@@ -2,7 +2,10 @@
   <nav class="sm-nav">
     <div class="sm-nav-start">
       <span class="sm-fnt bold size-2">
-        MyRef.top
+        <n-link to="/"
+                class="sm-nav-item sm-hover-color-3">
+          MyRef.top
+        </n-link>
       </span>
     </div>
     <div class="sm-nav-center"></div>
