@@ -19,7 +19,7 @@ abstract class AbstractRepository
     /**
      * @var int
      */
-    public const COUNT = 40;
+    public const COUNT = 20;
 
     /**
      * @var int

@@ -23,7 +23,7 @@ class LinkResource extends JsonResource
     {
         $public = [
             'id'        => $this->id,
-            'title'     => $this->title ? \mb_strimwidth($this->title, 0, 200, '...') : '',
+            'title'     => $this->title ? \mb_strimwidth($this->title, 0, 70, ' ...') : '',
             'desc'      => $this->desc,
             'url'       => $this->url,
             'img'       => $this->img,
