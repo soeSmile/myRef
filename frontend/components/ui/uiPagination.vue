@@ -81,6 +81,7 @@ export default {
       for (let i = left; i <= right; i++) {
         pagesArray.push(i);
       }
+
       return pagesArray;
     },
   },

@@ -36,29 +36,9 @@ export default {
     },
     paginate() {
       return this.$store.getters['links/paginate'];
-    },
-    page: {
-      get() {
-        return this.$store.getters['links/current']
-      },
-      set(value) {
-        this.$store.commit('links/SET_CURRENT', value)
-      }
     }
   },
 
-  watch: {},
-
-  methods: {
-    /**
-     * @param val
-     */
-    paginateMove(val) {
-      let query = this.$route.query
-      query.page = val
-
-      this.$store.dispatch('links/setUrl', {params: query})
-    }
-  }
+  methods: {}
 }
 </script>
