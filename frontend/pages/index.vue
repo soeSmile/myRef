@@ -2,12 +2,15 @@
   <div class="sm-flex center wrap sm-mt-2">
     <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
               :myRef="val"/>
+
+    <ui-pagination :pagination="paginate" store="links/setUrl"/>
   </div>
 </template>
 
 <script>
 
 import tmplRef from "../components/ref/tmplRef";
+import uiPagination from "../components/ui/uiPagination";
 
 export default {
   name: "index",
@@ -15,7 +18,8 @@ export default {
   layout: 'site',
 
   components: {
-    tmplRef
+    tmplRef,
+    uiPagination
   },
 
   created() {
