@@ -1,1 +1,1 @@
-export const COUNT_PAGE = 20;
+export const COUNT_PAGE = 40;

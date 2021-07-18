@@ -1,15 +1,7 @@
 <template>
-  <div class="sm-flex center wrap mt-2">
+  <div class="sm-flex center wrap sm-mt-2">
     <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
               :myRef="val"/>
-
-    <div class="text-center mt-2">
-      <v-pagination v-if="Object.keys(paginate).length > 0"
-                    v-model="page"
-                    @input="paginateMove"
-                    :total-visible="10"
-                    :length="paginate.last_page"/>
-    </div>
   </div>
 </template>
 

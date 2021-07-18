@@ -16,7 +16,7 @@
             <site-control/>
           </div>
           <div>
-
+            <nuxt/>
           </div>
         </div>
       </div>

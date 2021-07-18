@@ -19,7 +19,12 @@ abstract class AbstractRepository
     /**
      * @var int
      */
-    public const COUNT = 20;
+    public const COUNT = 40;
+
+    /**
+     * @var int
+     */
+    public const MAX_COUNT = 100;
 
     /**
      * @var Model
@@ -76,10 +81,19 @@ abstract class AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['count']) && $data['count'] > 0) {
-            return $this->query->paginate($data['count'] ?? self::COUNT, $columns);
+            return $this->query->paginate($this->getCountPaginate($data['count']), $columns);
         }
 
         return $this->query->get($columns);
+    }
+
+    /**
+     * @param int $count
+     * @return int
+     */
+    public function getCountPaginate(int $count): int
+    {
+        return $count > self::MAX_COUNT ? self::COUNT : $count;
     }
 
     /**
