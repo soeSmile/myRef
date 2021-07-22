@@ -4,9 +4,6 @@
       <el-form-item label="Ссылка">
         <el-input v-model="myRef.url" autocomplete="off"></el-input>
       </el-form-item>
-
-      <el-form-item label="Дополнительно"/>
-
       <el-form-item label="Категория">
         <el-select v-model="myRef.category"
                    filterable
