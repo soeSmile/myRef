@@ -4,7 +4,8 @@
     <div class="sm-nav-center"></div>
     <div class="sm-nav-end">
       <div class="sm-nav-item">
-        <button class="sm-button-site sm-bg-color-7 sm-color-white">
+        <button class="sm-button-site sm-bg-color-7 sm-color-white"
+                @click="showAddRef.show = true">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Закладку
         </button>
@@ -16,17 +17,28 @@
         </button>
       </div>
     </div>
+
+    <add-ref :show-add-ref="showAddRef"/>
   </nav>
 </template>
 
 <script>
+
+import addRef from "../../ref/addRef";
+
 export default {
   name: "siteControl",
 
-  props: {},
+  components: {
+    addRef
+  },
 
   data() {
-    return {}
+    return {
+      showAddRef: {
+        show: false
+      }
+    }
   },
 
   computed: {},

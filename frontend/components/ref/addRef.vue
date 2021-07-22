@@ -1,104 +1,29 @@
 <template>
-  <v-dialog v-model="dialog.show"
-            max-width="600px">
-    <v-card>
-      <v-toolbar dark flat color="green"
-                 height="50" class="mb-4">
-        <v-btn icon dark
-               @click="dialog.show = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-toolbar-title>
-          Добавить ссылку
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn text
-                 @click="store">
-            Сохранить
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
-
-      <v-card-text>
-        <v-text-field label="Url"
-                      clearable
-                      :error-messages="errors['url']"
-                      v-model="myRef.url"/>
-      </v-card-text>
-
-      <v-expansion-panels accordion flat>
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            Дополнительно
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-select :items="categories"
-                      clearable
-                      item-text="name"
-                      item-value="id"
-                      label="Категории"
-                      v-model="myRef.category"/>
-
-            <v-combobox
-                v-model="myRef.tags"
-                :items="tags"
-                item-text="name"
-                item-value="id"
-                :search-input.sync="searchTag"
-                hide-selected
-                label="Теги"
-                multiple
-                clearable
-                persistent-hint
-                small-chips/>
-
-            <v-menu v-model="showDate"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="auto">
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                    v-model="myRef.date"
-                    label="Дата напоминания"
-                    prepend-icon="mdi-calendar"
-                    clearable
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"/>
-              </template>
-              <v-date-picker v-model="myRef.date"
-                             no-title
-                             @input="showDate = false"/>
-            </v-menu>
-            <v-checkbox v-model="myRef.cache"
-                        label="Кешировать"/>
-            <v-textarea class="mt-4"
-                        label="Коментарий"
-                        clearable
-                        no-resize
-                        v-model="myRef.comment"/>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </v-card>
-  </v-dialog>
+  <el-dialog title="Shipping address" :visible.sync="showAddRef.show">
+    <el-form :model="myRef">
+      <el-form-item label="Promotion name">
+        <el-input v-model="myRef.url" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Zones">
+        <el-select v-model="myRef.category" placeholder="Please select a zone">
+          <el-option label="Zone No.1" value="shanghai"></el-option>
+          <el-option label="Zone No.2" value="beijing"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">Cancel</el-button>
+    <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+  </span>
+  </el-dialog>
 </template>
 
 <script>
 export default {
   name: "addRef",
 
-  created() {
-  },
-
-  mounted() {
-  },
-
   props: {
-    dialog: {}
+    showAddRef: {}
   },
 
   data() {
