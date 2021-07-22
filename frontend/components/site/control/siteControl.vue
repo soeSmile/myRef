@@ -18,7 +18,8 @@
       </div>
     </div>
 
-    <add-ref :show-add-ref="showAddRef"/>
+    <add-ref v-if="showAddRef.show"
+             :showAddRef="showAddRef"/>
   </nav>
 </template>
 

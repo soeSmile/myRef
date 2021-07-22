@@ -1,19 +1,71 @@
 <template>
-  <el-dialog title="Shipping address" :visible.sync="showAddRef.show">
+  <el-dialog title="Добавить ссылку" :visible.sync="showAddRef.show">
     <el-form :model="myRef">
-      <el-form-item label="Promotion name">
+      <el-form-item label="Ссылка">
         <el-input v-model="myRef.url" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="Zones">
-        <el-select v-model="myRef.category" placeholder="Please select a zone">
-          <el-option label="Zone No.1" value="shanghai"></el-option>
-          <el-option label="Zone No.2" value="beijing"></el-option>
+
+      <el-form-item label="Дополнительно"/>
+
+      <el-form-item label="Категория">
+        <el-select v-model="myRef.category"
+                   filterable
+                   placeholder="Категория">
+          <el-option
+              v-for="item in categories"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+          </el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="Категория">
+        <el-select class="sm-w-100"
+                   v-model="selectTag"
+                   filterable
+                   remote
+                   reserve-keyword
+                   placeholder="Тэг"
+                   :remote-method="getTags"
+                   @change="insertTag"
+                   :loading="loading">
+          <el-option v-for="(item,k) in myRef.tags"
+                     :key="item.name"
+                     :label="item.name"
+                     :value="item">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="Дата напоминания">
+        <el-date-picker
+            v-model="myRef.date"
+            type="date"
+            format="dd-MM-yyyy"
+            placeholder="Дата напоминания">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="Кешировать">
+        <el-switch v-model="myRef.cache"
+                   active-color="#72670C">
+        </el-switch>
+      </el-form-item>
+      <el-form-item label="Коментарий">
+        <el-input type="textarea"
+                  :rows="3"
+                  placeholder="Коментарий"
+                  resize="none"
+                  v-model="myRef.comment">
+        </el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+    <el-button @click="showAddRef.show = false">
+      Отмена
+    </el-button>
+    <el-button type="primary"
+               @click="showAddRef.show = false">
+      Сохранить
+    </el-button>
   </span>
   </el-dialog>
 </template>
@@ -37,7 +89,7 @@ export default {
         comment : null,
         cache   : false
       },
-      searchTag: null,
+      selectTag: null,
       tags     : [],
       errors   : {}
     }
@@ -95,16 +147,34 @@ export default {
     },
 
     /**
-     * get tags
+     * @param tag
      */
-    getTags() {
-      this.$axios.get('/api/tags', {params: {tag: this.searchTag}})
+    getTags(tag) {
+      this.$axios.get('/api/tags', {params: {tag: tag}})
           .then(response => {
             this.tags = response.data.data;
           })
           .catch(error => {
-            console.log(error)
           })
+    },
+
+    /**
+     * @param item
+     */
+    insertTag(item) {
+      this.selectTag = null
+      let id = this.request.tags.find(x => x.id === item.id)
+
+      if (!id) {
+        this.request.tags.push(item)
+      }
+    },
+
+    /**
+     * @param key
+     */
+    removeFromTags(key) {
+      this.request.tags.splice(key, 1)
     },
   }
 }
