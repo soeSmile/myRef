@@ -1,7 +1,7 @@
 <template>
   <div class="sm-h-100 sm-flex center middle">
     <div class="sm-wpx-300 sm-flex col">
-      <p class="sm-mb-1 sm-color-color-2 sm-fnt bold">
+      <p class="sm-mb-1 sm-color-dark">
         Имя
       </p>
       <div class="sm-form-input">
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <p class="sm-mb-1 sm-mt-6 sm-color-color-2 sm-fnt bold">
+      <p class="sm-mb-1 sm-mt-6 sm-color-dark">
         E-mail
       </p>
       <div class="sm-form-input">
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <p class="sm-mb-1 sm-mt-6 sm-color-color-2 sm-fnt bold">
+      <p class="sm-mb-1 sm-mt-6 sm-color-dark">
         Пароль
       </p>
       <div class="sm-form-input">
