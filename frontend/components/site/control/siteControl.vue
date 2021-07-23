@@ -5,32 +5,41 @@
     <div class="sm-nav-end">
       <div class="sm-nav-item">
         <button class="sm-button-site sm-bg-color-7 sm-color-white"
-                :class="{ 'disabled' : !isClient }"
-                :disabled="!isClient">
+                @click="showAddRef.show = true">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Закладку
         </button>
       </div>
       <div class="sm-nav-item">
-        <button class="sm-button-site sm-bg-color-9 sm-color-white"
-                :class="{ 'disabled' : !isClient }"
-                :disabled="!isClient">
+        <button class="sm-button-site sm-bg-color-9 sm-color-white">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Заметку
         </button>
       </div>
     </div>
+
+    <add-ref v-if="showAddRef.show"
+             :showAddRef="showAddRef"/>
   </nav>
 </template>
 
 <script>
+
+import addRef from "../../ref/addRef";
+
 export default {
   name: "siteControl",
 
-  props: {},
+  components: {
+    addRef
+  },
 
   data() {
-    return {}
+    return {
+      showAddRef: {
+        show: false
+      }
+    }
   },
 
   computed: {},

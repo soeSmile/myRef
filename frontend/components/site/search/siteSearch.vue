@@ -215,7 +215,6 @@ export default {
             this.tags = response.data.data;
           })
           .catch(error => {
-            console.log(error)
           })
     }
   }
