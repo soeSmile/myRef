@@ -4,17 +4,17 @@
     <div class="sm-nav-center"></div>
     <div class="sm-nav-end">
       <div class="sm-nav-item">
-        <button class="sm-button-site sm-bg-color-7 sm-color-white"
-                @click="showAddRef.show = true">
+        <el-button type="success"
+                   @click="showAddRef.show = true">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Закладку
-        </button>
+        </el-button>
       </div>
       <div class="sm-nav-item">
-        <button class="sm-button-site sm-bg-color-9 sm-color-white">
+        <el-button type="warning">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Заметку
-        </button>
+        </el-button>
       </div>
     </div>
 
