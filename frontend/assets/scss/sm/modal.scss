@@ -38,7 +38,7 @@
   }
 
   & .head {
-    padding: map_get($sizes, 2) map_get($sizes, 5);
+    padding: map_get($sizes, 5);
     font-family: $fontBold;
     position: relative;
     display: flex;
@@ -63,13 +63,12 @@
 
   & .content {
     font-family: $fontRegular;
-    margin-top: map_get($sizes, 3);
-    padding: map_get($sizes, 5) map_get($sizes, 5) map_get($sizes, 3) map_get($sizes, 5);
+    padding: map_get($sizes, 5);
   }
 
   & .content-dailog {
     font-family: $fontRegular;
-    padding: map_get($sizes, 3) map_get($sizes, 4);
+    padding: map_get($sizes, 5);
     text-align: center;
   }
 

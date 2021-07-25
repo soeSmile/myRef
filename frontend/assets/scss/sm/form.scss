@@ -10,5 +10,9 @@
   position: absolute;
   top: 100%;
   left: 0;
-  padding-top:  map-get($sizes, 1);
+  padding-top: map-get($sizes, 1);
+}
+
+.#{$prefix}label {
+  padding: map-get($sizes, 1);
 }

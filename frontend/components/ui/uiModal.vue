@@ -1,7 +1,7 @@
 <template>
   <section v-if="show"
            class="sm-modal-wrap">
-    <div class="sm-modal sm-bg-white animated fadeIn"
+    <div class="sm-modal sm-bg-white sm-fadeIn"
          :class="fullWindow">
       <div class="head"
            :class="classes[view]">
@@ -40,7 +40,7 @@ export default {
     },
     view   : {
       type   : String,
-      default: 'teal'
+      default: 'default'
     },
     wpx    : {
       type   : Number,
@@ -55,13 +55,7 @@ export default {
   data() {
     return {
       classes: {
-        white : 'sm-bg-white sm-color-dark',
-        blue  : 'sm-bg-blue-l sm-color-blue',
-        red   : 'sm-bg-red-l sm-color-red',
-        orange: 'sm-bg-orange-l sm-color-orange',
-        teal  : 'sm-bg-teal-l sm-color-teal',
-        grey  : 'sm-bg-grey-l sm-color-grey',
-        dark  : 'sm-bg-dark-l sm-color-dark'
+        default : 'sm-bg-white sm-color-color-1',
       }
     }
   },
