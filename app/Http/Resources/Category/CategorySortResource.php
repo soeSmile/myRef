@@ -18,9 +18,11 @@ class CategorySortResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $lang = app()->getLocale();
+
         return [
             'id'   => $this->id,
-            'name' => $this->ru,
+            'name' => $this->$lang,
             'icon' => $this->icon,
         ];
     }
