@@ -1,49 +1,43 @@
 <template>
-  <v-card>
-
-    <v-card-title>
-      <v-btn icon class="mx-2"
+  <section>
+    <nav class="sm-nav sm-bg-color-10 sm-color-color-9">
+      <div class="sm-nav-start">
+        <div class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-10 sm-hover-bg-color-9"
              @click="getAll()">
-        <v-icon>mdi-cached</v-icon>
-      </v-btn>
-      <v-btn text class="mx-2"
-             to="/admin/tag/new">
-        <v-icon left>
-          mdi-plus
-        </v-icon>
-        Add
-      </v-btn>
-      <v-spacer/>
-      <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details/>
-    </v-card-title>
+          <i class="mdi mdi-reload sm-mr-1"></i>
+          <span>Reload</span>
+        </div>
+        <n-link to="/admin/user/new"
+                class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9">
+          <i class="mdi mdi-plus sm-mr-1"></i>
+          <span>Add Tag</span>
+        </n-link>
+      </div>
+    </nav>
 
-    <v-data-table
-        :loading="loading"
-        :headers="headers"
-        :items="tags"
-        :options.sync="pagination"
-        :server-items-length="pagination.total"
-        :footer-props="{'items-per-page-options': [20, 40, 60]}"
-        :search="search">
-      <template v-slot:item.actions="{ item }">
-        <v-btn icon class="mx-2"
-               :to="'/admin/tag/' + item.id">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:item.active="{ item }">
-        <v-icon :color="item.active ? 'teal' : 'red'">
-          {{ item.active ? 'mdi-checkbox-marked-circle-outline' : 'mdi-close-circle-outline' }}
-        </v-icon>
-      </template>
-    </v-data-table>
-
-  </v-card>
+    <div class="sm-mt-8">
+      <el-table :data="tags"
+                style="width: 100%">
+        <el-table-column width="40"/>
+        <el-table-column prop="id"
+                         width="40"
+                         label="id"/>
+        <el-table-column prop="name"
+                         label="Name"/>
+        <el-table-column prop="active"
+                         label="Active">
+          <template slot-scope="scope">
+            <i v-if="scope.row.active"
+               class="mdi mdi-check sm-color-green"></i>
+            <i v-else
+               class="mdi mdi-close sm-color-red"></i>
+          </template>
+        </el-table-column>
+        <el-table-column prop="updatedAt"
+                         label="Updated"/>
+      </el-table>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -75,29 +69,8 @@ export default {
         count: 20,
         page : 1
       },
-      search    : '',
-      headers   : [
-        {text: '', value: 'actions', sortable: false, width: 50},
-        {text: 'id', value: 'id'},
-        {text: 'Name', value: 'name'},
-        {text: 'Active', value: 'active'},
-        {text: 'Updated', value: 'updatedAt'},
-      ],
       tags      : []
     }
-  },
-
-  watch: {
-    pagination: {
-      handler(newVal, oldVal) {
-        if (oldVal.page) {
-          this.query.page = newVal.page;
-          this.query.count = newVal.itemsPerPage;
-          this.getAll();
-        }
-      },
-      deep: true,
-    },
   },
 
   methods: {

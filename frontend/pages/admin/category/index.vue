@@ -29,7 +29,14 @@
         <el-table-column prop="en"
                          label="EN"/>
         <el-table-column prop="active"
-                         label="Active"/>
+                         label="Active">
+          <template slot-scope="scope">
+            <i v-if="scope.row.active"
+               class="mdi mdi-check sm-color-green"></i>
+            <i v-else
+               class="mdi mdi-close sm-color-red"></i>
+          </template>
+        </el-table-column>
         <el-table-column prop="updatedAt"
                          label="Updated"/>
       </el-table>
