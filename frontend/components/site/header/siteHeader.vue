@@ -1,7 +1,8 @@
 <template>
   <nav class="sm-nav">
     <div class="sm-nav-start">
-      <div class="sm-nav-item sm-link sm-hover-color-7 sm-show-mobile">
+      <div v-if="$route.path === '/'"
+           class="sm-nav-item sm-link sm-hover-color-7 sm-show-mobile">
         <i class='mdi mdi-menu'></i>
       </div>
       <div class="sm-nav-item">
