@@ -36,8 +36,7 @@
                      reserve-keyword
                      placeholder="Тэг"
                      :remote-method="getTags"
-                     @change="insertTag"
-                     :loading="loading">
+                     @change="insertTag">
             <el-option v-for="(item,k) in myRef.tags"
                        :key="item.name"
                        :label="item.name"
