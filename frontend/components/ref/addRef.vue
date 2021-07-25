@@ -1,75 +1,19 @@
 <template>
-  <el-dialog title="Добавить ссылку" :visible.sync="showAddRef.show">
-    <el-form :model="myRef">
-      <el-form-item label="Ссылка">
-        <el-input v-model="myRef.url" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="Категория">
-        <el-select v-model="myRef.category"
-                   filterable
-                   placeholder="Категория">
-          <el-option
-              v-for="item in categories"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Категория">
-        <el-select class="sm-w-100"
-                   v-model="selectTag"
-                   filterable
-                   remote
-                   reserve-keyword
-                   placeholder="Тэг"
-                   :remote-method="getTags"
-                   @change="insertTag"
-                   :loading="loading">
-          <el-option v-for="(item,k) in myRef.tags"
-                     :key="item.name"
-                     :label="item.name"
-                     :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="Дата напоминания">
-        <el-date-picker
-            v-model="myRef.date"
-            type="date"
-            format="dd-MM-yyyy"
-            placeholder="Дата напоминания">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="Кешировать">
-        <el-switch v-model="myRef.cache"
-                   active-color="#72670C">
-        </el-switch>
-      </el-form-item>
-      <el-form-item label="Коментарий">
-        <el-input type="textarea"
-                  :rows="3"
-                  placeholder="Коментарий"
-                  resize="none"
-                  v-model="myRef.comment">
-        </el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-    <el-button @click="showAddRef.show = false">
-      Отмена
-    </el-button>
-    <el-button type="primary"
-               @click="showAddRef.show = false">
-      Сохранить
-    </el-button>
-  </span>
-  </el-dialog>
+  <ui-modal :onClose="() => showAddRef.show = !showAddRef.show">
+
+  </ui-modal>
 </template>
 
 <script>
+
+import uiModal from "../ui/uiModal";
+
 export default {
   name: "addRef",
+
+  components: {
+    uiModal
+  },
 
   props: {
     showAddRef: {}
