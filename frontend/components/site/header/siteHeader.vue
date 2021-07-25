@@ -18,12 +18,13 @@
 
     <div v-if="isAuth"
          class="sm-nav-end">
-      <div class="sm-nav-item sm-link sm-hover-color-7">
+      <n-link :to="isAdmin ? '/admin' : '/'"
+              class="sm-nav-item sm-link sm-hover-color-7">
         <i class='mdi mdi-account'></i>
         <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
           {{ user.name }}
         </span>
-      </div>
+      </n-link>
 
       <span class="sm-ml-1 sm-mr-1">|</span>
 

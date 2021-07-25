@@ -1,0 +1,4 @@
+.#{$prefix}admin-active {
+  background: map-get($colors, 'color-9');
+  color: map_get($colors, 'white');
+}

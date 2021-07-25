@@ -1,53 +1,46 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer
-        v-model="drawer"
-        app>
-      <v-list dense nav>
-        <v-list-item v-for="item in menus"
-                     :key="item.name"
-                     nuxt
-                     :to="item.link">
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"/>
-
-      <v-toolbar-title>Admin Panel</v-toolbar-title>
-
-      <v-spacer/>
-
-      <v-btn text class="mx-2">
-        <v-icon left dark>
-          mdi-account
-        </v-icon>
-        {{ user.name }}
-      </v-btn>
-      <v-btn text class="mx-2"
-             @click="$store.dispatch('auth/logout')">
-        <v-icon left dark>
-          mdi-login-variant
-        </v-icon>
-        Вход
-      </v-btn>
-
-    </v-app-bar>
-
-    <v-main>
-      <div class="pa-4">
+  <section class="sm-layout">
+    <header class="sm-layout-header sm-bg-color-1 sm-p-4">
+      <nav class="sm-nav">
+        <div class="sm-nav-start"></div>
+        <div class="sm-nav-center"></div>
+        <div class="sm-nav-end sm-color-white">
+          <n-link :to="isAdmin ? '/admin' : '/'"
+                  class="sm-nav-item sm-link sm-hover-color-7">
+            <i class='mdi mdi-account'></i>
+            <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
+              {{ user.name }}
+            </span>
+          </n-link>
+          <span class="sm-ml-1 sm-mr-1">|</span>
+          <div class="sm-nav-item sm-link sm-hover-color-7"
+               @click="$store.dispatch('auth/logout')">
+            <i class='mdi mdi-location-exit'></i>
+            <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
+              Exit
+            </span>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <section class="sm-layout-content">
+      <div class="sm-wpx-250 sm-h-100 sm-bg-smoke">
+        <nav class="sm-flex col sm-p-2">
+          <n-link :to="val.link"
+                  exact-active-class="sm-admin-active"
+                  class="sm-flex row middle sm-p-4 sm-hover-bg-color-9 sm-hover-white"
+                  v-for="(val,key) in menus" :key="key">
+            <i class="sm-mr-2 mdi " :class="val.icon"></i>
+            <span>{{ val.name }}</span>
+          </n-link>
+        </nav>
+      </div>
+      <div class="sm-flex col sm-h-100">
         <nuxt/>
       </div>
-    </v-main>
-  </v-app>
+    </section>
+    <footer class="sm-layout-footer sm-bg-color-1 sm-p-4"></footer>
+  </section>
 </template>
 
 <script>

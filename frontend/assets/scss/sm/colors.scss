@@ -57,3 +57,12 @@ $colors: (
     }
   }
 }
+
+@each $name, $value in $colors {
+  .#{$prefix}hover-bg-#{$name} {
+    &:hover {
+      background: $value !important;
+      transition: all 1s cubic-bezier(.25, .8, .25, 1);
+    }
+  }
+}
