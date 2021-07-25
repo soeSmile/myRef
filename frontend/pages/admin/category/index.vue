@@ -1,52 +1,40 @@
 <template>
-  <v-card>
-
-    <v-card-title>
-      <v-btn icon class="mx-2"
+  <section>
+    <nav class="sm-nav sm-bg-color-10 sm-color-color-9">
+      <div class="sm-nav-start">
+        <div class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-10 sm-hover-bg-color-9"
              @click="getAll()">
-        <v-icon>mdi-cached</v-icon>
-      </v-btn>
-      <v-btn text class="mx-2"
-             to="/admin/category/new">
-        <v-icon left>
-          mdi-plus
-        </v-icon>
-        Add
-      </v-btn>
-      <v-spacer/>
-      <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details/>
-    </v-card-title>
+          <i class="mdi mdi-reload sm-mr-1"></i>
+          <span>Reload</span>
+        </div>
+        <n-link to="/admin/user/new"
+                class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9">
+          <i class="mdi mdi-plus sm-mr-1"></i>
+          <span>Add Category</span>
+        </n-link>
+      </div>
+    </nav>
 
-    <v-data-table
-        :loading="loading"
-        :headers="headers"
-        :items="categories"
-        :options.sync="pagination"
-        :server-items-length="pagination.total"
-        :footer-props="{'items-per-page-options': [20, 40, 60]}"
-        :search="search">
-      <template v-slot:item.actions="{ item }">
-        <v-btn icon class="mx-2"
-               :to="'/admin/category/' + item.id">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:item.icon="{ item }">
-        <v-icon>{{ item.icon }}</v-icon>
-      </template>
-      <template v-slot:item.active="{ item }">
-        <v-icon :color="item.active ? 'teal' : 'red'">
-          {{ item.active ? 'mdi-checkbox-marked-circle-outline' : 'mdi-close-circle-outline' }}
-        </v-icon>
-      </template>
-    </v-data-table>
-
-  </v-card>
+    <div class="sm-mt-8">
+      <el-table :data="categories"
+                style="width: 100%">
+        <el-table-column width="40"/>
+        <el-table-column prop="id"
+                         width="40"
+                         label="id"/>
+        <el-table-column prop="icon"
+                         label="Icon"/>
+        <el-table-column prop="ru"
+                         label="RU"/>
+        <el-table-column prop="en"
+                         label="EN"/>
+        <el-table-column prop="active"
+                         label="Active"/>
+        <el-table-column prop="updatedAt"
+                         label="Updated"/>
+      </el-table>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -76,31 +64,8 @@ export default {
         count: 20,
         page : 1
       },
-      search    : '',
-      headers   : [
-        {text: '', value: 'actions', sortable: false, width: 50},
-        {text: 'id', value: 'id'},
-        {text: 'Icon', value: 'icon'},
-        {text: 'RU', value: 'ru'},
-        {text: 'EN', value: 'en'},
-        {text: 'Active', value: 'active'},
-        {text: 'Updated', value: 'updatedAt'},
-      ],
       categories: []
     }
-  },
-
-  watch: {
-    pagination: {
-      handler(newVal, oldVal) {
-        if (oldVal.page) {
-          this.query.page = newVal.page;
-          this.query.count = newVal.itemsPerPage;
-          this.getAll();
-        }
-      },
-      deep: true,
-    },
   },
 
   methods: {

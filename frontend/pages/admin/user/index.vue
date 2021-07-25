@@ -18,8 +18,7 @@
     <div class="sm-mt-8">
       <el-table :data="users"
                 style="width: 100%">
-        <el-table-column prop="date"
-                         width="40"/>
+        <el-table-column width="40"/>
         <el-table-column prop="id"
                          label="id"/>
         <el-table-column prop="name"
@@ -73,32 +72,8 @@ export default {
         count: 20,
         page : 1
       },
-      search    : '',
-      headers   : [
-        {text: '', value: 'actions', sortable: false, width: 50},
-        {text: 'id', value: 'id'},
-        {text: 'Name', value: 'name'},
-        {text: 'Email', value: 'email'},
-        {text: 'Confirm', value: 'confirm'},
-        {text: 'Time Zone', value: 'timeZone'},
-        {text: 'Role', value: 'role'},
-        {text: 'Updated', value: 'updatedAt'},
-      ],
       users     : []
     }
-  },
-
-  watch: {
-    pagination: {
-      handler(newVal, oldVal) {
-        if (oldVal.page) {
-          this.query.page = newVal.page;
-          this.query.count = newVal.itemsPerPage;
-          this.getAll();
-        }
-      },
-      deep: true,
-    },
   },
 
   methods: {
