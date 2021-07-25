@@ -30,6 +30,7 @@
       align-items: center;
       justify-content: center;
       margin-right: 0.2rem;
+      user-select: none;
 
       &:hover {
         opacity: 0.6;

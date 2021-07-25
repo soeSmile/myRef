@@ -26,7 +26,7 @@ class LinkResource extends JsonResource
             'title'     => $this->title ? \mb_strimwidth($this->title, 0, 70, ' ...') : '',
             'desc'      => $this->desc,
             'url'       => $this->url,
-            'img'       => $this->img,
+            'img'       => $this->img ?? 'no-image.png',
             'category'  => new CategorySortResource($this->category),
             'updatedAt' => $this->updated_at,
             'user'      => $this->getUser(),

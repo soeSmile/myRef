@@ -1,5 +1,6 @@
 .#{$prefix}modal-wrap {
   position: fixed;
+  z-index: $z-popup;
 }
 
 .#{$prefix}modal {
