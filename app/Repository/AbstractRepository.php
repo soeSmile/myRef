@@ -81,7 +81,7 @@ abstract class AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['count']) && $data['count'] > 0) {
-            return $this->query->paginate($this->getCountPaginate($data['count']), $columns);
+            return $this->query->paginate($this->getCountPaginate((int)$data['count']), $columns);
         }
 
         return $this->query->get($columns);
