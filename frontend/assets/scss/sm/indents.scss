@@ -38,7 +38,7 @@ $distance: (
 @each $class, $value in $distance {
   @each $id, $size in $sizes {
     .#{$class}-#{$id} {
-      #{$value}: $size;
+      #{$value}: $size !important;
     }
   }
 }

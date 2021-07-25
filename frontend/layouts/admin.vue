@@ -23,7 +23,7 @@
         </div>
       </nav>
     </header>
-    <section class="sm-layout-content">
+    <section class="sm-layout-content sm-flex">
       <div class="sm-wpx-250 sm-h-100 sm-bg-smoke">
         <nav class="sm-flex col sm-p-2">
           <n-link :to="val.link"
@@ -35,10 +35,12 @@
           </n-link>
         </nav>
       </div>
-      <div class="sm-flex col sm-h-100">
+
+      <div class="sm-flex col sm-h-100 sm-w-100 sm-p-4">
         <nuxt/>
       </div>
     </section>
+
     <footer class="sm-layout-footer sm-bg-color-1 sm-p-4"></footer>
   </section>
 </template>

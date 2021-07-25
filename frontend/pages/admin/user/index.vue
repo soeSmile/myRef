@@ -1,49 +1,20 @@
 <template>
-  <v-card>
-
-    <v-card-title>
-      <v-btn icon class="mx-2"
+  <div>
+    <nav class="sm-nav sm-bg-color-4 sm-color-color-3">
+      <div class="sm-nav-start">
+        <div class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-4 sm-hover-bg-color-3"
              @click="getAll()">
-        <v-icon>mdi-cached</v-icon>
-      </v-btn>
-      <v-btn text class="mx-2"
-             to="/admin/user/new">
-        <v-icon left>
-          mdi-plus
-        </v-icon>
-        Add
-      </v-btn>
-      <v-spacer/>
-      <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details/>
-    </v-card-title>
-
-    <v-data-table
-        :loading="loading"
-        :headers="headers"
-        :items="users"
-        :options.sync="pagination"
-        :server-items-length="pagination.total"
-        :footer-props="{'items-per-page-options': [20, 40, 60]}"
-        :search="search">
-      <template v-slot:item.actions="{ item }">
-        <v-btn icon class="mx-2"
-               :to="'/admin/user/' + item.id">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </template>
-      <template v-slot:item.confirm="{ item }">
-        <v-icon :color="item.confirm ? 'teal' : 'red'">
-          {{ item.confirm ? 'mdi-checkbox-marked-circle-outline' : 'mdi-close-circle-outline' }}
-        </v-icon>
-      </template>
-    </v-data-table>
-
-  </v-card>
+          <i class="mdi mdi-reload sm-mr-1"></i>
+          <span>Reload</span>
+        </div>
+        <n-link to="/admin/user/new"
+                class="sm-nav-item sm-p-4 sm-link sm-hover-color-4 sm-hover-bg-color-3">
+          <i class="mdi mdi-plus sm-mr-1"></i>
+          <span>Add User</span>
+        </n-link>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
