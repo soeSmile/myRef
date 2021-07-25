@@ -1,8 +1,33 @@
 $prefix: 'sm-';
 
+// Padding && margin step
+$size: 0.25rem;
+
+// Font size start
+$fontSize: 0.75rem;
+
+// Response size
+$screen: (
+        "xs":("min-width":180px),
+        "sm":("min-width":576px),
+        "md":("min-width":768px),
+        "lg":("min-width":992px),
+        "xl":("min-width":1200px)
+);
+
+// Z-index
+$z-layout: 2;
+$z-menugb: 900;
+$z-menu: 901;
+$z-popbg: 998;
+$z-popup: 999;
+$z-popbg-alert: 1000;
+$z-popup-alert: 1001;
+
 @import "reset";
 @import "fonts";
 @import "sm/sm";
+@import "layout";
 
 html {
   font-family: $fontRegular;

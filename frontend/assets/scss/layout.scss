@@ -1,0 +1,21 @@
+.#{$prefix}search-block {
+  width: 25%;
+  padding: 1rem;
+
+  @each $key, $value in $screen {
+    @if ($key != xl) {
+      @media only screen and (max-width: map-get($value, "min-width")) {
+        width: 100%;
+        position: fixed;
+        left: 0;
+        background: white;
+        height: 100%;
+        z-index: $z-menu;
+      }
+    }
+  }
+}
+
+.#{$prefix}list-block {
+  width: 75%;
+}

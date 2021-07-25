@@ -1,12 +1,17 @@
 <template>
   <nav class="sm-nav">
     <div class="sm-nav-start">
+      <div class="sm-nav-item sm-link sm-hover-color-7">
+        <i class='mdi mdi-menu'></i>
+      </div>
+      <div class="sm-nav-item">
       <span class="sm-fnt bold size-2">
         <n-link to="/"
                 class="sm-nav-item sm-hover-color-7">
           MyRef.top
         </n-link>
       </span>
+      </div>
     </div>
     <div class="sm-nav-center"></div>
 
@@ -14,7 +19,7 @@
          class="sm-nav-end">
       <div class="sm-nav-item sm-link sm-hover-color-7">
         <i class='mdi mdi-account'></i>
-        <span class="sm-ml-2 sm-fnt light">
+        <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
           {{ user.name }}
         </span>
       </div>
@@ -24,7 +29,7 @@
       <div class="sm-nav-item sm-link sm-hover-color-7"
            @click="$store.dispatch('auth/logout')">
         <i class='mdi mdi-location-exit'></i>
-        <span class="sm-ml-2 sm-fnt light">
+        <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
           {{ exit }}
         </span>
       </div>
@@ -35,7 +40,7 @@
       <n-link to="/login"
               class="sm-nav-item sm-hover-color-7">
         <i class='mdi mdi-login'></i>
-        <span class="sm-ml-2 sm-fnt light">
+        <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
           {{ login }}
         </span>
       </n-link>
@@ -45,7 +50,7 @@
       <n-link to="/register"
               class="sm-nav-item sm-hover-color-7">
         <i class='mdi mdi-key'></i>
-        <span class="sm-ml-2 sm-fnt light">
+        <span class="sm-ml-2 sm-fnt light sm-hide-mobile">
           {{ register }}
         </span>
       </n-link>

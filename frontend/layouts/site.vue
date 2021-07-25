@@ -8,10 +8,10 @@
 
     <section class="sm-layout-content">
       <div class="sm-container center sm-flex row sm-h-100">
-        <div class="sm-w-25 sm-h-100">
+        <div class="sm-search-block sm-h-100">
           <site-search/>
         </div>
-        <div class="sm-w-75 sm-flex col sm-pl-2 sm-h-100">
+        <div class="sm-list-block sm-flex col sm-h-100">
           <site-control/>
           <nuxt/>
         </div>

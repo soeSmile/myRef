@@ -42,6 +42,26 @@
   display: none !important;
 }
 
+.#{$prefix}hide-mobile {
+  @each $key, $value in $screen {
+    @if ($key != xl) {
+      @media only screen and (max-width: map-get($value, "min-width")) {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.#{$prefix}show-mobile {
+  @each $key, $value in $screen {
+    @if ($key != xl) {
+      @media only screen and (max-width: map-get($value, "min-width")) {
+        display: block !important;
+      }
+    }
+  }
+}
+
 // text center
 .#{$prefix}center {
   text-align: center !important;
@@ -65,7 +85,7 @@
 .#{$prefix}link-hover {
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     opacity: 0.6;
     transition: all 1s cubic-bezier(.25, .8, .25, 1);
   }
