@@ -4,7 +4,7 @@
 
   @each $key, $value in $screen {
     @if ($key != xl) {
-      @media only screen and (max-width: map-get($value, "min-width")) {
+      @media only screen and (max-width: map-get($value, "width")) {
         width: 100%;
         position: fixed;
         left: 0;

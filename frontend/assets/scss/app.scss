@@ -8,11 +8,11 @@ $fontSize: 0.75rem;
 
 // Response size
 $screen: (
-        "xs":("min-width":180px),
-        "sm":("min-width":576px),
-        "md":("min-width":768px),
-        "lg":("min-width":992px),
-        "xl":("min-width":1200px)
+        "xs":("width":180px),
+        "sm":("width":576px),
+        "md":("width":768px),
+        "lg":("width":992px),
+        "xl":("width":1200px)
 );
 
 // Z-index

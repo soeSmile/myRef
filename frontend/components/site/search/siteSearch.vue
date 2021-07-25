@@ -66,11 +66,9 @@
     <div class="sm-mt-8">
       <el-button type="primary"
                  @click="search">
-        <i class="mdi mdi-cloud-search-outline sm-mr-2"></i>
-        Success
+        Поиск
       </el-button>
       <el-button @click="clear">
-        <i class="mdi mdi-close sm-mr-2"></i>
         Очистить
       </el-button>
     </div>

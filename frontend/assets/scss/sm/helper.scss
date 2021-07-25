@@ -44,8 +44,8 @@
 
 .#{$prefix}hide-mobile {
   @each $key, $value in $screen {
-    @if ($key != xl) {
-      @media only screen and (max-width: map-get($value, "min-width")) {
+    @if ($key != 'xl') {
+      @media only screen and (max-width: map-get($value, "width")) {
         display: none !important;
       }
     }
@@ -54,9 +54,9 @@
 
 .#{$prefix}show-mobile {
   @each $key, $value in $screen {
-    @if ($key != xl) {
-      @media only screen and (max-width: map-get($value, "min-width")) {
-        display: block !important;
+    @if ($key == 'lg') {
+      @media only screen and (min-width: map-get($value, "width")) {
+        display: none !important;
       }
     }
   }
