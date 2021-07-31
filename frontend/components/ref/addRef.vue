@@ -196,7 +196,7 @@ export default {
               if (response.data.data.length > 0) {
                 this.tags = response.data.data;
               } else {
-                this.tags.push({id: 0, name: tag})
+                this.tags.push({id: tag, name: tag})
               }
             })
             .catch(error => {
@@ -208,7 +208,6 @@ export default {
      * @param item
      */
     insertTag(item) {
-      console.log(item)
       this.selectTag = null
       let id = this.myRef.tags.find(x => x.id === item.id)
 
