@@ -74,12 +74,12 @@
       </div>
     </template>
     <template slot="foot">
+      <el-button type="primary"
+                 @click="store">
+        Сохранить
+      </el-button>
       <el-button @click="showAddRef.show = false">
         Отмена
-      </el-button>
-      <el-button type="primary"
-                 @click="showAddRef.show = false">
-        Сохранить
       </el-button>
     </template>
   </ui-modal>
@@ -136,20 +136,19 @@ export default {
     store() {
       this.$axios.post('api/links', this.prepareData(this.myRef))
           .then(response => {
-            this.$toast.success({
-              title  : 'Success',
-              message: 'Saved',
+            this.$message({
+              message: 'Saved !',
+              type   : 'success'
             })
-            this.dialog.show = false
+            this.showAddRef.show = false
             this.$store.dispatch('links/setUrl', {params: this.$route.query})
           })
           .catch(e => {
             this.errors = e.response.data.errors;
-
-            this.$toast.error({
-              title  : 'Error',
-              useHtml: true,
-              message: this.$messageToStr(this.errors),
+            this.$message({
+              type                    : 'error',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
             })
           });
     },
