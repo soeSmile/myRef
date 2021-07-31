@@ -65,10 +65,10 @@ final class LinkRepository extends AbstractRepository
 
     /**
      * @param AbstractDto $dto
-     * @return Model
+     * @return Model|null
      * @throws Throwable
      */
-    public function storeTransaction(AbstractDto $dto): Model
+    public function storeTransaction(AbstractDto $dto): ?Model
     {
         return $this->transaction->store($this, $dto);
     }

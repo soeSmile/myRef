@@ -16,9 +16,9 @@ abstract class AbstractTransaction
     /**
      * @param AbstractRepository $repository
      * @param AbstractDto $dto
-     * @return Model
+     * @return Model|null
      */
-    abstract public function store(AbstractRepository $repository, AbstractDto $dto): Model;
+    abstract public function store(AbstractRepository $repository, AbstractDto $dto): ?Model;
 
     /**
      * @param AbstractRepository $repository
