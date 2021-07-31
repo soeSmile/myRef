@@ -23,6 +23,7 @@ class CreateCategoriesTable extends Migration
         });
 
         DB::table('categories')->insert([
+            ['en' => 'Information Technology', 'ru' => 'Информационные технологии', 'icon' => 'mdi-laptop'],
             ['en' => 'News', 'ru' => 'Новости', 'icon' => 'mdi-newspaper'],
             ['en' => 'Science', 'ru' => 'Наука', 'icon' => 'mdi-atom'],
             ['en' => 'Technology', 'ru' => 'Техника', 'icon' => 'mdi-rocket-launch-outline'],
