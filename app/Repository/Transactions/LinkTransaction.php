@@ -29,11 +29,11 @@ final class LinkTransaction extends AbstractTransaction
         try {
             $item = $repository->store($dto);
 
-            if ($dto->hasNull('tags', true)) {
+            if (!$dto->hasNull('tags', true)) {
                 $tags = $repository->tag->store(new TagDto($dto->getDataByKey('tags', true)));
             }
 
-            if ($dto->hasNull('date', true)) {
+            if (!$dto->hasNull('date', true)) {
                 $repository->timeLink->store(new TimeLinkDto([
                     'link_id' => $item->id,
                     'time'    => Carbon::parse($dto->getDataByKey('date', true),
