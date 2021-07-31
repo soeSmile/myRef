@@ -70,6 +70,7 @@ final class ApiLinkController
             } catch (\Throwable $e) {
                 $result = false;
                 $data['error'] = 'Error! See logs!';
+                \Log::error($e->getMessage());
             }
         }
 

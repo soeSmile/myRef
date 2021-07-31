@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Models\Tag;
+use App\Repository\Dto\AbstractDto;
+use App\Repository\Dto\TagDto;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -34,5 +36,20 @@ final class TagRepository extends AbstractRepository
         }
 
         return parent::all($data, $columns);
+    }
+
+    /**
+     * @param array $tags
+     * @return array
+     */
+    public function storeOnlyNew(array $tags): array
+    {
+        $ids = [];
+
+        foreach ($tags as $item) {
+            $ids[] = isset($item['new']) ? $this->store(new TagDto($item))->id : $item['id'];
+        }
+
+        return $ids;
     }
 }

@@ -7,6 +7,7 @@ use App\Repository\AbstractRepository;
 use App\Repository\Dto\AbstractDto;
 use App\Repository\Dto\TagDto;
 use App\Repository\Dto\TimeLinkDto;
+use App\Repository\LinkRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
@@ -17,12 +18,12 @@ use Throwable;
 final class LinkTransaction extends AbstractTransaction
 {
     /**
-     * @param AbstractRepository $repository
+     * @param LinkRepository|AbstractRepository $repository
      * @param AbstractDto $dto
      * @return Model
      * @throws Throwable
      */
-    public function store(AbstractRepository $repository, AbstractDto $dto): Model
+    public function store(LinkRepository|AbstractRepository $repository, AbstractDto $dto): Model
     {
         \DB::beginTransaction();
 
@@ -30,7 +31,15 @@ final class LinkTransaction extends AbstractTransaction
             $item = $repository->store($dto);
 
             if (!$dto->hasNull('tags', true)) {
-                $tags = $repository->tag->store(new TagDto($dto->getDataByKey('tags', true)));
+                $tags = $repository->tag->storeOnlyNew($dto->getDataByKey('tags', true));
+
+                $array = [];
+                foreach ($tags as $key => $tag) {
+                    $array[$key]['link_id'] = $item->id;
+                    $array[$key]['tag_id'] = $tag;
+                }
+
+                $repository->storeTag($array);
             }
 
             if (!$dto->hasNull('date', true)) {

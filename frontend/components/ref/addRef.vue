@@ -196,7 +196,7 @@ export default {
               if (response.data.data.length > 0) {
                 this.tags = response.data.data;
               } else {
-                this.tags.push({id: tag, name: tag})
+                this.tags.push({id: tag, name: tag, new: true})
               }
             })
             .catch(error => {
