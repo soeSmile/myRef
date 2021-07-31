@@ -52,7 +52,8 @@
               type="date"
               format="dd-MM-yyyy"
               value-format="yyyy-MM-dd"
-              placeholder="Дата напоминания">
+              placeholder="Дата напоминания"
+              :picker-options="pickerOptions">
           </el-date-picker>
         </div>
 
@@ -103,8 +104,8 @@ export default {
 
   data() {
     return {
-      showDate : false,
-      myRef    : {
+      showDate     : false,
+      myRef        : {
         url     : null,
         category: null,
         tags    : [],
@@ -112,9 +113,14 @@ export default {
         comment : null,
         cache   : false
       },
-      selectTag: null,
-      tags     : [],
-      errors   : {}
+      selectTag    : null,
+      tags         : [],
+      errors       : {},
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        },
+      }
     }
 
   },
