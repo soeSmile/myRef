@@ -19,12 +19,23 @@ abstract class AbstractDto
     private array $data;
 
     /**
+     * @var array
+     */
+    private array $raw;
+
+    /**
+     * @var array
+     */
+    private array $dataFull;
+
+    /**
      * AbstractSerialize constructor.
      * @param array $data
      */
     public function __construct(array $data)
     {
         $this->data = $this->snakeKeys($data);
+        $this->raw = $data;
     }
 
     /**
@@ -33,6 +44,8 @@ abstract class AbstractDto
      */
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
+        $this->dataFull = $this->data;
+
         if ($abstractRepository) {
             $this->setData($this->getDiffData($abstractRepository));
         }
@@ -41,12 +54,35 @@ abstract class AbstractDto
     }
 
     /**
+     * @return array
+     */
+    public function getDataFull(): array
+    {
+        return $this->dataFull;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRaw(): array
+    {
+        return $this->raw;
+    }
+
+    /**
      * @param string $key
+     * @param bool $full
      * @return mixed
      */
-    public function getDataByKey(string $key): mixed
+    public function getDataByKey(string $key, bool $full = false): mixed
     {
-        return $this->data[$key] ?? null;
+        $data = $this->data;
+
+        if ($full) {
+            $data = $this->dataFull;
+        }
+
+        return $data[$key] ?? null;
     }
 
     /**
@@ -98,11 +134,18 @@ abstract class AbstractDto
 
     /**
      * @param string $key
+     * @param bool $full
      * @return bool
      */
-    public function hasKey(string $key): bool
+    public function hasKey(string $key, bool $full = false): bool
     {
-        return \array_key_exists($key, $this->data);
+        $data = $this->data;
+
+        if ($full) {
+            $data = $this->dataFull;
+        }
+
+        return \array_key_exists($key, $data);
     }
 
     /**

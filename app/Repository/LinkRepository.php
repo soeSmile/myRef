@@ -5,8 +5,11 @@ namespace App\Repository;
 
 use App\Models\Link;
 use App\Repository\Dto\AbstractDto;
+use App\Repository\Transactions\AbstractTransaction;
+use App\Repository\Transactions\LinkTransaction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Throwable;
 
 /**
  * Class LinkRepository
@@ -15,11 +18,25 @@ use Illuminate\Database\Eloquent\Builder;
 final class LinkRepository extends AbstractRepository
 {
     /**
-     * LinkRepository constructor.
-     * @param Link $model
+     * @var TimeLinkRepository
      */
-    public function __construct(Link $model)
+    public TimeLinkRepository $timeLink;
+
+    /**
+     * @var LinkTransaction
+     */
+    private LinkTransaction $transaction;
+
+    /**
+     * @param Link $model
+     * @param TimeLinkRepository $linkRepository
+     * @param LinkTransaction $linkTransaction
+     */
+    public function __construct(Link $model, TimeLinkRepository $linkRepository, LinkTransaction $linkTransaction)
     {
+        $this->timeLink = $linkRepository;
+        $this->transaction = $linkTransaction;
+
         parent::__construct($model);
     }
 
@@ -44,5 +61,15 @@ final class LinkRepository extends AbstractRepository
         }
 
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);
+    }
+
+    /**
+     * @param AbstractDto $dto
+     * @return Model
+     * @throws Throwable
+     */
+    public function storeTransaction(AbstractDto $dto): Model
+    {
+        return $this->transaction->store($this, $dto);
     }
 }

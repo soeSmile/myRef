@@ -24,7 +24,7 @@ final class ApiLinkController
      */
     private LinkRepository $link;
 
-    private ParseUrl $paseUrl;
+    private ParseUrl $parseUrl;
 
     /**
      * ApiLinkController constructor.
@@ -34,7 +34,7 @@ final class ApiLinkController
     public function __construct(LinkRepository $linkRepository, ParseUrl $parseUrl)
     {
         $this->link = $linkRepository;
-        $this->paseUrl = $parseUrl;
+        $this->parseUrl = $parseUrl;
     }
 
     /**
@@ -61,11 +61,16 @@ final class ApiLinkController
      */
     public function store(LinkStoreRequest $request): JsonResponse
     {
-        $data = $this->paseUrl->parseUrl($request->url);
+        $data = $this->parseUrl->parseUrl($request->url);
         $result = false;
 
         if (!isset($data['error'])) {
-            $result = (bool)$this->link->store(new LinkStoreDto(\array_merge($data, $request->all())));
+            try {
+                $result = (bool)$this->link->storeTransaction(new LinkStoreDto(\array_merge($data, $request->all())));
+            } catch (\Throwable $e) {
+                $result = false;
+                $data['error'] = $e->getMessage();
+            }
         }
 
         return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
