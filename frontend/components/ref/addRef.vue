@@ -37,12 +37,22 @@
                      placeholder="Тэг"
                      :remote-method="getTags"
                      @change="insertTag">
-            <el-option v-for="(item,k) in myRef.tags"
+            <el-option v-for="(item,k) in tags"
                        :key="item.name"
                        :label="item.name"
                        :value="item">
             </el-option>
           </el-select>
+
+          <div class="sm-mt-4" v-if="myRef.tags.length > 0">
+            <el-tag class="sm-m-1"
+                    v-for="(val,key) in myRef.tags"
+                    :key="key"
+                    closable
+                    @close="removeFromTags(key)">
+              {{ val.name }}
+            </el-tag>
+          </div>
         </div>
 
         <div class="sm-flex middle row sm-mb-4">
@@ -178,23 +188,32 @@ export default {
      * @param tag
      */
     getTags(tag) {
-      this.$axios.get('/api/tags', {params: {tag: tag}})
-          .then(response => {
-            this.tags = response.data.data;
-          })
-          .catch(error => {
-          })
+      if (tag.length >= this.$const.TAG_LENGTH) {
+        this.tags = []
+
+        this.$axios.get('/api/tags', {params: {tag: tag}})
+            .then(response => {
+              if (response.data.data.length > 0) {
+                this.tags = response.data.data;
+              } else {
+                this.tags.push({id: 0, name: tag})
+              }
+            })
+            .catch(error => {
+            })
+      }
     },
 
     /**
      * @param item
      */
     insertTag(item) {
+      console.log(item)
       this.selectTag = null
-      let id = this.request.tags.find(x => x.id === item.id)
+      let id = this.myRef.tags.find(x => x.id === item.id)
 
       if (!id) {
-        this.request.tags.push(item)
+        this.myRef.tags.push(item)
       }
     },
 
@@ -202,7 +221,7 @@ export default {
      * @param key
      */
     removeFromTags(key) {
-      this.request.tags.splice(key, 1)
+      this.myRef.tags.splice(key, 1)
     },
   }
 }
