@@ -51,6 +51,7 @@
               v-model="myRef.date"
               type="date"
               format="dd-MM-yyyy"
+              value-format="yyyy-MM-dd"
               placeholder="Дата напоминания">
           </el-date-picker>
         </div>
