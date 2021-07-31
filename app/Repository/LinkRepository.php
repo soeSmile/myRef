@@ -5,7 +5,6 @@ namespace App\Repository;
 
 use App\Models\Link;
 use App\Repository\Dto\AbstractDto;
-use App\Repository\Transactions\AbstractTransaction;
 use App\Repository\Transactions\LinkTransaction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
