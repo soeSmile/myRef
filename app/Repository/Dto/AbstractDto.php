@@ -150,11 +150,12 @@ abstract class AbstractDto
 
     /**
      * @param string $key
+     * @param bool $full
      * @return bool
      */
-    public function hasNull(string $key): bool
+    public function hasNull(string $key, bool $full = false): bool
     {
-        return !(bool)$this->getDataByKey($key);
+        return !(bool)$this->getDataByKey($key, $full);
     }
 
     /**

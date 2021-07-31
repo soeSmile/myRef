@@ -69,7 +69,7 @@ final class ApiLinkController
                 $result = (bool)$this->link->storeTransaction(new LinkStoreDto(\array_merge($data, $request->all())));
             } catch (\Throwable $e) {
                 $result = false;
-                $data['error'] = $e->getMessage();
+                $data['error'] = 'Error! See logs!';
             }
         }
 

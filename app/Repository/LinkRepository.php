@@ -23,6 +23,11 @@ final class LinkRepository extends AbstractRepository
     public TimeLinkRepository $timeLink;
 
     /**
+     * @var TagRepository
+     */
+    public TagRepository $tag;
+
+    /**
      * @var LinkTransaction
      */
     private LinkTransaction $transaction;
@@ -30,11 +35,17 @@ final class LinkRepository extends AbstractRepository
     /**
      * @param Link $model
      * @param TimeLinkRepository $linkRepository
+     * @param TagRepository $tagRepository
      * @param LinkTransaction $linkTransaction
      */
-    public function __construct(Link $model, TimeLinkRepository $linkRepository, LinkTransaction $linkTransaction)
-    {
+    public function __construct(
+        Link $model,
+        TimeLinkRepository $linkRepository,
+        TagRepository $tagRepository,
+        LinkTransaction $linkTransaction
+    ) {
         $this->timeLink = $linkRepository;
+        $this->tag = $tagRepository;
         $this->transaction = $linkTransaction;
 
         parent::__construct($model);
@@ -71,5 +82,15 @@ final class LinkRepository extends AbstractRepository
     public function storeTransaction(AbstractDto $dto): ?Model
     {
         return $this->transaction->store($this, $dto);
+    }
+
+    /**
+     * @param array $linkToTag
+     * @return bool
+     */
+    public function storeTag(array $linkToTag): bool
+    {
+        return \DB::table(Link::TAG_TABLE)
+            ->insert($linkToTag);
     }
 }

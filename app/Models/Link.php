@@ -8,6 +8,7 @@ use App\Models\Traits\UuidIdTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Link
@@ -31,6 +32,11 @@ class Link extends Model
      * @var string
      */
     public const STATUS_PUBLIC = 'public';
+
+    /**
+     * @var string
+     */
+    public const TAG_TABLE = 'link_to_tag';
 
     /**
      * @var bool
@@ -61,6 +67,14 @@ class Link extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, self::TAG_TABLE);
     }
 
     /**

@@ -6,7 +6,7 @@ namespace App\Repository\Dto;
 /**
  * Class TimeLinkDto
  */
-class TimeLinkDto extends AbstractDto
+final class TimeLinkDto extends AbstractDto
 {
 
 }

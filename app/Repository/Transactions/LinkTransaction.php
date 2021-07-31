@@ -5,6 +5,7 @@ namespace App\Repository\Transactions;
 
 use App\Repository\AbstractRepository;
 use App\Repository\Dto\AbstractDto;
+use App\Repository\Dto\TagDto;
 use App\Repository\Dto\TimeLinkDto;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -18,27 +19,33 @@ final class LinkTransaction extends AbstractTransaction
     /**
      * @param AbstractRepository $repository
      * @param AbstractDto $dto
-     * @return Model|null
+     * @return Model
      * @throws Throwable
      */
-    public function store(AbstractRepository $repository, AbstractDto $dto): ?Model
+    public function store(AbstractRepository $repository, AbstractDto $dto): Model
     {
         \DB::beginTransaction();
 
         try {
             $item = $repository->store($dto);
 
-            if ($dto->hasKey('date', true)) {
+            if ($dto->hasNull('tags', true)) {
+                $tags = $repository->tag->store(new TagDto($dto->getDataByKey('tags', true)));
+            }
+
+            if ($dto->hasNull('date', true)) {
                 $repository->timeLink->store(new TimeLinkDto([
                     'link_id' => $item->id,
-                    'time'    => Carbon::parse($dto->getDataByKey('date', true), auth()->user()->time_zone)->format('Y-m-d')
+                    'time'    => Carbon::parse($dto->getDataByKey('date', true),
+                        auth()->user()->time_zone)->format('Y-m-d')
                 ]));
             }
 
             \DB::commit();
         } catch (Throwable $e) {
             \DB::rollBack();
-            $item = null;
+
+            throw $e;
         }
 
         return $item;
