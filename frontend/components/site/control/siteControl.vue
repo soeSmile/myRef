@@ -5,13 +5,15 @@
     <div class="sm-nav-end">
       <div class="sm-nav-item">
         <el-button type="success"
-                   @click="showAddRef.show = true">
+                   @click="showAddRef.show = true"
+                   :disabled="!isClient">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Закладку
         </el-button>
       </div>
       <div class="sm-nav-item">
-        <el-button type="warning">
+        <el-button type="warning"
+                   :disabled="!isClient">
           <i class="mdi mdi-plus-box sm-mr-1"></i>
           Заметку
         </el-button>
