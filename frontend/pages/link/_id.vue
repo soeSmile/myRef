@@ -1,5 +1,7 @@
 <template>
   <section class="sm-site-ref">
+    <img class="sm-site-ref-img"
+         :src="link.img" alt="">
     <h1 class="sm-site-ref-title sm-site-ref-item">
       {{ link.title }}
     </h1>

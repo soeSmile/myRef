@@ -26,7 +26,7 @@
 }
 
 .#{$prefix}site-ref {
-  padding:  map-get($sizes, 4);
+  padding: map-get($sizes, 4);
 }
 
 .#{$prefix}site-ref-title {
@@ -35,6 +35,12 @@
   color: map-get($colors, 'dark');
 }
 
-.#{$prefix}site-ref-item{
+.#{$prefix}site-ref-item {
   margin-top: map-get($sizes, 8);
+}
+
+.#{$prefix}site-ref-img {
+  max-height: 50px;
+  width: auto;
+  height: 100%;
 }
