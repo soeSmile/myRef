@@ -7,7 +7,7 @@
              :src="myRef.img ? myRef.img : ''"
              alt="">
         <h4 class="sm-ref-title sm-mt-2">
-          {{ myRef.title }}
+          {{ getTitle(myRef.title) }}
         </h4>
       </a>
       <div class="sm-ref-line"></div>
@@ -25,7 +25,7 @@
         <div class="sm-nav-end">
           <div class="sm-nav-item">
             <n-link :to="'/link/' + myRef.id"
-                    class="sm-hover-color-3 sm-link">
+                    class="sm-hover-color-7 sm-link">
               Подробнее
             </n-link>
           </div>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+
 export default {
   name: "tmplRef",
 
@@ -46,6 +47,16 @@ export default {
 
   data() {
     return {}
+  },
+
+  methods: {
+    /**
+     * @param title
+     * @return {string}
+     */
+    getTitle(title) {
+      return title.trim().slice(0, this.$const.TITLE_LENGTH) + ' ...'
+    }
   }
 }
 </script>

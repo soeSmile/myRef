@@ -24,7 +24,7 @@ class LinkResource extends JsonResource
     {
         $public = [
             'id'        => $this->id,
-            'title'     => $this->title ? \mb_strimwidth($this->title, 0, 70, ' ...') : '',
+            'title'     => $this->title ?? '',
             'desc'      => $this->desc,
             'url'       => $this->url,
             'img'       => $this->img ?? 'no-image.png',
@@ -36,7 +36,7 @@ class LinkResource extends JsonResource
 
         if (isClient()) {
             $public = \array_merge($public, [
-                'user'    => $this->getUser(),
+                'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
                 'cache'   => $this->cache,
             ]);
