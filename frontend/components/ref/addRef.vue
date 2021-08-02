@@ -87,10 +87,12 @@
     </template>
     <template slot="foot">
       <el-button type="primary"
-                 @click="store">
+                 @click="store"
+                 :disabled="loading">
         Сохранить
       </el-button>
-      <el-button @click="showAddRef.show = false">
+      <el-button @click="showAddRef.show = false"
+                 :disabled="loading">
         Отмена
       </el-button>
     </template>
@@ -114,6 +116,7 @@ export default {
 
   data() {
     return {
+      loading      : false,
       showDate     : false,
       myRef        : {
         url     : null,
@@ -151,6 +154,8 @@ export default {
 
   methods: {
     store() {
+      this.loading = true
+
       this.$axios.post('api/links', this.prepareData(this.myRef))
           .then(response => {
             this.$message({
@@ -167,7 +172,10 @@ export default {
               dangerouslyUseHTMLString: true,
               message                 : this.$messageToStr(this.errors),
             })
-          });
+          })
+          .finally(() => {
+            this.loading = false
+          })
     },
 
     /**

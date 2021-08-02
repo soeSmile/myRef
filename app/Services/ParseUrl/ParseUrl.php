@@ -5,6 +5,7 @@ namespace App\Services\ParseUrl;
 
 use DiDom\Document;
 use DiDom\Exceptions\InvalidSelectorException;
+use Http;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
@@ -25,7 +26,8 @@ class ParseUrl
     public function parseUrl(string $url): array
     {
         try {
-            $doc = new Document($url, true);
+            $response = Http::get($url);
+            $doc = new Document($response->body());
             $this->urlRoot = $this->getRootUrl($url);
             $head = $doc->first('head');
         } catch (\Throwable $exception) {
