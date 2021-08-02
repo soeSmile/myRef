@@ -34,7 +34,7 @@ services:
     ports:
       - '127.0.0.1:32772:5432'
     environment:
-      POSTGRES_PASSWORD: ''
+      POSTGRES_PASSWORD: 'njhvjp12'
   node:
     build: ./docker/node
     container_name: ref-node
