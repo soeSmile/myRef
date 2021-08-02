@@ -42,10 +42,11 @@ final class LinkTransaction extends AbstractTransaction
             }
 
             if (!$dto->hasNull('date', true)) {
+                $time = Carbon::parse($dto->getDataByKey('date', true), auth()->user()->time_zone)->format('Y-m-d');
+
                 $repository->timeLink->store(new TimeLinkDto([
                     'link_id' => $item->id,
-                    'time'    => Carbon::parse($dto->getDataByKey('date', true),
-                        auth()->user()->time_zone)->format('Y-m-d')
+                    'time'    => $time
                 ]));
             }
 
