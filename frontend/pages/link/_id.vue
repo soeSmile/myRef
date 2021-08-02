@@ -49,7 +49,10 @@
         Категория
       </div>
       <div class="sm-mt-2">
-        {{ link.category ? link.category.name : '' }}
+        <section v-if="link.category">
+          <i :class="'mdi '+ link.category.icon"></i>
+          {{ link.category.name }}
+        </section>
       </div>
     </div>
     <div class="sm-site-ref-item">

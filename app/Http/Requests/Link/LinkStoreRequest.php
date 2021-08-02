@@ -16,7 +16,7 @@ class LinkStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return isClient();
     }
 
     /**

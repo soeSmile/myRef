@@ -88,4 +88,16 @@ class Link extends Model
 
         return false;
     }
+
+    /**
+     * @return bool
+     */
+    public function canEdit(): bool
+    {
+        if (auth()->check()) {
+            return $this->user_id === auth()->id();
+        }
+
+        return false;
+    }
 }

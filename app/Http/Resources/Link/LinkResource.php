@@ -27,7 +27,7 @@ class LinkResource extends JsonResource
             'title'     => $this->title ?? '',
             'desc'      => $this->desc,
             'url'       => $this->url,
-            'img'       => $this->img ?? 'no-image.png',
+            'img'       => $this->img ?? '/no-image.png',
             'category'  => new CategorySortResource($this->category),
             'updatedAt' => $this->updated_at,
             'user'      => $this->getUser(),
@@ -39,6 +39,7 @@ class LinkResource extends JsonResource
                 'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
                 'cache'   => $this->cache,
+                'canEdit' => $this->canEdit()
             ]);
         }
 

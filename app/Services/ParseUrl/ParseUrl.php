@@ -29,8 +29,13 @@ class ParseUrl
             $this->urlRoot = $this->getRootUrl($url);
             $head = $doc->first('head');
         } catch (\Throwable $exception) {
+
+            \Log::error($exception->getMessage());
+
             return [
-                'error' => $exception->getMessage()
+                'url'   => $url,
+                'title' => $this->getTitle($url),
+                'desc'  => $url
             ];
         }
 
