@@ -24,3 +24,17 @@
 .#{$prefix}ref-category {
   height: 18px;
 }
+
+.#{$prefix}site-ref {
+  padding:  map-get($sizes, 4);
+}
+
+.#{$prefix}site-ref-title {
+  font-family: $fontBold;
+  font-size: map-get($sizes, 6);
+  color: map-get($colors, 'dark');
+}
+
+.#{$prefix}site-ref-item{
+  margin-top: map-get($sizes, 8);
+}

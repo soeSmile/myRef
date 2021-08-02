@@ -1,11 +1,71 @@
 <template>
-  <section class="sm-p-4">
-    <h1 class="sm-fnt bold size-4">
+  <section class="sm-site-ref">
+    <h1 class="sm-site-ref-title sm-site-ref-item">
       {{ link.title }}
     </h1>
-    <p class="sm-mt-4">
-      {{ link.desc }}
-    </p>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Описание
+      </div>
+      <div class="sm-mt-2">
+        {{ link.desc }}
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Комментарий
+      </div>
+      <div class="sm-mt-2">
+        {{ link.comment }}
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Ссылка
+      </div>
+      <div class="sm-mt-2">
+        <a :href="link.url" target="_blank"
+           class="sm-link-hover sm-color-color-1">
+          {{ link.url }}
+        </a>
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Тэги
+      </div>
+      <div class="sm-mt-2">
+        <el-tag class="sm-mr-1"
+                v-for="(val,key) in link.tags"
+                :key="key">
+          {{ val.name }}
+        </el-tag>
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Категория
+      </div>
+      <div class="sm-mt-2">
+        {{ link.category ? link.category.name : '' }}
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Пользователь
+      </div>
+      <div class="sm-mt-2">
+        {{ link.user ? link.user.name : '' }}
+      </div>
+    </div>
+    <div class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Ссылка в кеше
+      </div>
+      <div class="sm-mt-2">
+        {{ link.cache ? 'Да' : 'Нет' }}
+      </div>
+    </div>
   </section>
 </template>
 
@@ -40,8 +100,8 @@ export default {
         desc    : null,
         url     : null,
         img     : null,
-        category: null,
-        user    : null,
+        category: {},
+        user    : {},
         tags    : [],
         comment : null,
         cache   : null

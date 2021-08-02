@@ -45,7 +45,7 @@
           </el-select>
 
           <div class="sm-mt-4" v-if="myRef.tags.length > 0">
-            <el-tag class="sm-m-1"
+            <el-tag class="sm-mr-1"
                     v-for="(val,key) in myRef.tags"
                     :key="key"
                     closable
