@@ -31,6 +31,10 @@ final class CategoryRepository extends AbstractRepository
     {
         $this->getQuery()->orderBy('id');
 
+        if (isset($data['name'])) {
+            $this->getQuery()->where(app()->getLocale(), 'like', $data['name'] . '%');
+        }
+
         return parent::all($data, $columns);
     }
 }
