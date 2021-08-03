@@ -5,18 +5,19 @@
         <div class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-10 sm-hover-bg-color-9"
              @click="getAll()">
           <i class="mdi mdi-reload sm-mr-1"></i>
-          <span>Reload</span>
+          <span>Обновить</span>
         </div>
         <n-link to="/admin/user/new"
                 class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9">
           <i class="mdi mdi-plus sm-mr-1"></i>
-          <span>Add User</span>
+          <span>Добавить</span>
         </n-link>
       </div>
     </nav>
 
     <div class="sm-mt-8">
       <el-table :data="users"
+                v-loading="loading"
                 style="width: 100%">
         <el-table-column width="40"/>
         <el-table-column prop="id"
