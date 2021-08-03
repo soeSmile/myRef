@@ -29,7 +29,14 @@
       <el-table :data="tags"
                 v-loading="loading"
                 style="width: 100%">
-        <el-table-column width="40"/>
+        <el-table-column width="40">
+          <template slot-scope="scope">
+            <n-link :to="'/admin/tag/' + scope.row.id"
+                    class="sm-hover-color-7">
+              <i class="mdi mdi-pencil"></i>
+            </n-link>
+          </template>
+        </el-table-column>
         <el-table-column prop="id"
                          width="40"
                          label="id"/>
