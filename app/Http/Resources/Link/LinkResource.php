@@ -35,7 +35,7 @@ class LinkResource extends JsonResource
             'canEdit'   => $this->canEdit()
         ];
 
-        if (isClient()) {
+        if (isClient() && $this->isOwner()) {
             $public = \array_merge($public, [
                 'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
