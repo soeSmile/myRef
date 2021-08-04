@@ -1,5 +1,30 @@
 <template>
   <section class="sm-site-ref">
+    <nav v-if="link.canEdit"
+         class="sm-nav sm-bg-smoke sm-color-grey sm-mt-2 sm-mb-2">
+      <div class="sm-nav-start"></div>
+      <div class="sm-nav-end">
+        <div v-if="!modeEdit"
+             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey"
+             @click="modeEdit = true">
+          <i class="mdi mdi-pencil sm-mr-1"></i>
+          <span>Редактировать</span>
+        </div>
+        <div v-if="modeEdit"
+             @click="store"
+             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+          <i class="mdi mdi-content-save sm-mr-1"></i>
+          <span>Сохранить</span>
+        </div>
+        <div v-if="modeEdit"
+             @click="cancelEdit"
+             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+          <i class="mdi mdi-close sm-mr-1"></i>
+          <span>Отмена</span>
+        </div>
+      </div>
+    </nav>
+
     <img class="sm-site-ref-img"
          :src="link.img" alt="">
     <h1 class="sm-site-ref-title sm-site-ref-item">
@@ -63,14 +88,7 @@
         {{ link.user ? link.user.name : '' }}
       </div>
     </div>
-    <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
-        Ссылка в кеше
-      </div>
-      <div class="sm-mt-2">
-        {{ link.cache ? 'Да' : 'Нет' }}
-      </div>
-    </div>
+
   </section>
 </template>
 
@@ -91,6 +109,7 @@ export default {
       await this.$axios.get('api/links/' + this.$route.params.id)
           .then(response => {
             this.link = response.data.data;
+            this.copyLink = response.data.data;
           });
     }
   },
@@ -100,7 +119,7 @@ export default {
 
   data() {
     return {
-      link: {
+      link    : {
         title   : null,
         desc    : null,
         url     : null,
@@ -109,15 +128,22 @@ export default {
         user    : {},
         tags    : [],
         comment : null,
-        cache   : null
-      }
+        canEdit : false,
+      },
+      copyLink: {},
+      modeEdit: false,
     }
   },
 
-  computed: {},
+  methods: {
+    cancelEdit() {
+      this.link = this.copyLink
+      this.modeEdit = false
+    },
 
-  watch: {},
+    store() {
 
-  methods: {}
+    },
+  }
 }
 </script>

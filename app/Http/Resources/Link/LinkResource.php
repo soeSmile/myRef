@@ -32,14 +32,13 @@ class LinkResource extends JsonResource
             'updatedAt' => $this->updated_at,
             'user'      => $this->getUser(),
             'tags'      => TagResource::collection($this->tags),
+            'canEdit'   => $this->canEdit()
         ];
 
         if (isClient()) {
             $public = \array_merge($public, [
                 'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
-                'cache'   => $this->cache,
-                'canEdit' => $this->canEdit()
             ]);
         }
 
@@ -48,7 +47,6 @@ class LinkResource extends JsonResource
                 'user'    => new UserFullResource($this->user),
                 'flag'    => $this->flag,
                 'comment' => $this->comment,
-                'cache'   => $this->cache,
             ]);
         }
 
