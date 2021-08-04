@@ -8,6 +8,7 @@ use App\Repository\Dto\AbstractDto;
 use App\Repository\Transactions\LinkTransaction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 /**
@@ -88,6 +89,27 @@ final class LinkRepository extends AbstractRepository
     public function storeTransaction(AbstractDto $dto): ?Model
     {
         return $this->transaction->store($this, $dto);
+    }
+
+    /**
+     * @param AbstractDto $dto
+     * @return bool
+     * @throws Throwable
+     */
+    public function updateTransaction(AbstractDto $dto): bool
+    {
+        return $this->transaction->update($this, $dto);
+    }
+
+    /**
+     * @param $linkId
+     * @return int
+     */
+    public function clearTag($linkId): int
+    {
+        return \DB::table(Link::TAG_TABLE)
+            ->where('link_id', $linkId)
+            ->delete();
     }
 
     /**

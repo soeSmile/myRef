@@ -202,7 +202,8 @@ export default {
       copyLink : {},
       modeEdit : false,
       selectTag: null,
-      tags     : []
+      tags     : [],
+      errors   : {}
     }
   },
 
@@ -255,8 +256,9 @@ export default {
      */
     prepareData(ref) {
       return {
+        id        : ref.id,
         url       : ref.url,
-        categoryId: ref.category,
+        categoryId: ref.category.id,
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
         comment   : ref.comment,

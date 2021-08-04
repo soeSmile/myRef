@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Link\LinkStoreRequest;
+use App\Http\Requests\Link\LinkUpdateRequest;
 use App\Http\Resources\Link\LinkResource;
 use App\Repository\Dto\LinkSearchDto;
 use App\Repository\Dto\LinkStoreDto;
@@ -24,6 +25,9 @@ final class ApiLinkController
      */
     private LinkRepository $link;
 
+    /**
+     * @var ParseUrl
+     */
     private ParseUrl $parseUrl;
 
     /**
@@ -72,6 +76,24 @@ final class ApiLinkController
                 $data['error'] = 'Error! See logs!';
                 \Log::error($e->getMessage());
             }
+        }
+
+        return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
+    }
+
+    /**
+     * @param $id
+     * @param LinkUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, LinkUpdateRequest $request): JsonResponse
+    {
+        try {
+            $result = $this->link->updateTransaction(new LinkStoreDto($request->all()));
+        } catch (\Throwable $exception) {
+            $result = false;
+            $data['error'] = 'Error! See logs!';
+            \Log::error($exception->getMessage());
         }
 
         return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
