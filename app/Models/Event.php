@@ -15,7 +15,22 @@ class Event extends Model
     use HasFactory;
 
     /**
-     * @var string[]
+     * @var int
+     */
+    public const EVENT_CACHE = 1;
+
+    /**
+     * @var int
+     */
+    public const EVENT_DATE = 2;
+
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * @var array
      */
     protected $guarded = ['id'];
 }

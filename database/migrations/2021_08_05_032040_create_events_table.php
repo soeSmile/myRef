@@ -15,7 +15,9 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->uuidMorphs('item');
+            $table->tinyInteger('event')->unsigned();
+            $table->timestamp('date')->nullable();
         });
     }
 
