@@ -22,6 +22,11 @@ final class LinkRepository extends AbstractRepository
     public TagRepository $tag;
 
     /**
+     * @var EventRepository
+     */
+    public EventRepository $event;
+
+    /**
      * @var LinkTransaction
      */
     private LinkTransaction $transaction;
@@ -30,14 +35,17 @@ final class LinkRepository extends AbstractRepository
      * @param Link $model
      * @param TagRepository $tagRepository
      * @param LinkTransaction $linkTransaction
+     * @param EventRepository $eventRepository
      */
     public function __construct(
         Link $model,
         TagRepository $tagRepository,
-        LinkTransaction $linkTransaction
+        LinkTransaction $linkTransaction,
+        EventRepository $eventRepository
     ) {
         $this->tag = $tagRepository;
         $this->transaction = $linkTransaction;
+        $this->event = $eventRepository;
 
         parent::__construct($model);
     }
