@@ -197,6 +197,8 @@ export default {
         user    : {},
         tags    : [],
         comment : null,
+        date    : null,
+        cache   : false,
         canEdit : false,
       },
       copyLink : {},

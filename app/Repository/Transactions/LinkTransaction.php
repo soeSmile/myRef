@@ -113,7 +113,7 @@ final class LinkTransaction extends AbstractTransaction
             ];
         }
 
-        if (!$dto->hasNull('cache', true)) {
+        if (!$dto->hasNull('cache', true) && $dto->getDataByKey('cache', true)) {
             $array[] = [
                 'item_type' => $repository->getModel()::class,
                 'item_id'   => $id,

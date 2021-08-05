@@ -155,7 +155,7 @@ abstract class AbstractDto
      */
     public function hasNull(string $key, bool $full = false): bool
     {
-        return !(bool)$this->getDataByKey($key, $full);
+        return $this->getDataByKey($key, $full) === null;
     }
 
     /**
