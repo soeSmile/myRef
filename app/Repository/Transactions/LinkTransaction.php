@@ -54,9 +54,8 @@ final class LinkTransaction extends AbstractTransaction
         try {
             $id = $dto->getDataByKey('id');
             $repository->update($id, $dto);
-            $repository->clearTag($id);
-            $this->storeTag($dto, $repository, $id);
-            $this->storeEvent($dto, $repository, $id);
+            $this->storeTag($dto, $repository, $id, true);
+            $this->storeEvent($dto, $repository, $id, true);
 
             \DB::commit();
         } catch (Throwable $exception) {
@@ -72,8 +71,9 @@ final class LinkTransaction extends AbstractTransaction
      * @param AbstractDto $dto
      * @param LinkRepository $repository
      * @param $id
+     * @param bool $clear
      */
-    private function storeTag(AbstractDto $dto, LinkRepository $repository, $id): void
+    private function storeTag(AbstractDto $dto, LinkRepository $repository, $id, bool $clear = false): void
     {
         $array = [];
 
@@ -85,6 +85,10 @@ final class LinkTransaction extends AbstractTransaction
                 $array[$key]['tag_id'] = $tag;
             }
 
+            if ($clear) {
+                $repository->clearTag($id);
+            }
+
             $repository->storeTag($array);
         }
     }
@@ -93,8 +97,9 @@ final class LinkTransaction extends AbstractTransaction
      * @param AbstractDto $dto
      * @param LinkRepository $repository
      * @param $id
+     * @param bool $clear
      */
-    private function storeEvent(AbstractDto $dto, LinkRepository $repository, $id): void
+    private function storeEvent(AbstractDto $dto, LinkRepository $repository, $id, bool $clear = false): void
     {
         $array = [];
 
@@ -118,6 +123,11 @@ final class LinkTransaction extends AbstractTransaction
         }
 
         if ($array !== []) {
+            if ($clear) {
+                $events = \array_column($array, 'event');
+                $repository->event->clearEventByItem($repository->getModel()::class, $id, $events);
+            }
+
             $repository->event->storeDb($array);
         }
     }
