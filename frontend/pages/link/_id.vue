@@ -158,6 +158,40 @@
       </div>
     </div>
 
+    <div v-if="modeEdit"
+         class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Дата напоминания
+      </div>
+      <el-date-picker
+          class="sm-mt-2"
+          v-model="link.date"
+          type="date"
+          format="dd-MM-yyyy"
+          value-format="yyyy-MM-dd"
+          placeholder="Дата напоминания"
+          :picker-options="pickerOptions">
+      </el-date-picker>
+    </div>
+
+    <div v-if="modeEdit"
+         class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Кешировать
+      </div>
+      <el-switch class="sm-mt-2"
+                 v-model="link.cache"/>
+    </div>
+
+    <div v-if="link.canEdit"
+         class="sm-site-ref-item">
+      <div class="sm-fnt bold sm-color-grey">
+        Кеш
+      </div>
+      <div class="sm-mt-2"
+           v-html="link.cache"></div>
+    </div>
+
   </section>
 </template>
 
@@ -187,8 +221,8 @@ export default {
 
   data() {
     return {
-      loading  : false,
-      link     : {
+      loading      : false,
+      link         : {
         title   : null,
         desc    : null,
         url     : null,
@@ -201,11 +235,16 @@ export default {
         cache   : false,
         canEdit : false,
       },
-      copyLink : {},
-      modeEdit : false,
-      selectTag: null,
-      tags     : [],
-      errors   : {}
+      copyLink     : {},
+      modeEdit     : false,
+      selectTag    : null,
+      tags         : [],
+      errors       : {},
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        },
+      }
     }
   },
 

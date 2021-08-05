@@ -38,7 +38,7 @@ final class EventRepository extends AbstractRepository
      * @param array $events
      * @return int
      */
-    public function clearEventByItem(string $itemId, string $itemType, array $events): int
+    public function clearEventByItem(string $itemType, string $itemId, array $events): int
     {
         return \DB::table($this->getModel()->getTable())
             ->where('item_type', $itemType)

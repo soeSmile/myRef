@@ -25,6 +25,14 @@ class Event extends Model
     public const EVENT_DATE = 2;
 
     /**
+     * @var array
+     */
+    public const EVENTS = [
+        self::EVENT_CACHE,
+        self::EVENT_DATE
+    ];
+
+    /**
      * @var bool
      */
     public $timestamps = false;

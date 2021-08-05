@@ -39,6 +39,7 @@ class LinkResource extends JsonResource
             $public = \array_merge($public, [
                 'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
+                'cache'   => \htmlspecialchars_decode('&lt;div&gt;Тут должен быть кеш&lt;/div&gt;'),
             ]);
         }
 
