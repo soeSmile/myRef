@@ -8,7 +8,6 @@ use App\Repository\Dto\AbstractDto;
 use App\Repository\Transactions\LinkTransaction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
-use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 /**
@@ -17,11 +16,6 @@ use Throwable;
  */
 final class LinkRepository extends AbstractRepository
 {
-    /**
-     * @var TimeLinkRepository
-     */
-    public TimeLinkRepository $timeLink;
-
     /**
      * @var TagRepository
      */
@@ -34,17 +28,14 @@ final class LinkRepository extends AbstractRepository
 
     /**
      * @param Link $model
-     * @param TimeLinkRepository $linkRepository
      * @param TagRepository $tagRepository
      * @param LinkTransaction $linkTransaction
      */
     public function __construct(
         Link $model,
-        TimeLinkRepository $linkRepository,
         TagRepository $tagRepository,
         LinkTransaction $linkTransaction
     ) {
-        $this->timeLink = $linkRepository;
         $this->tag = $tagRepository;
         $this->transaction = $linkTransaction;
 

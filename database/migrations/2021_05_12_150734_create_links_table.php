@@ -24,7 +24,6 @@ class CreateLinksTable extends Migration
             $table->uuid('user_id');
             $table->string('flag', 10)->default('new')->comment('NEW,PUBLIC,PRIVAT');
             $table->text('comment')->nullable()->comment('User comment');
-            $table->boolean('cache')->default(false)->comment('Need cache this link');
             $table->timestamps();
         });
 

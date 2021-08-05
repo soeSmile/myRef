@@ -5,9 +5,7 @@ namespace App\Repository\Transactions;
 
 use App\Repository\AbstractRepository;
 use App\Repository\Dto\AbstractDto;
-use App\Repository\Dto\TimeLinkDto;
 use App\Repository\LinkRepository;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
 
@@ -39,15 +37,6 @@ final class LinkTransaction extends AbstractTransaction
                 }
 
                 $repository->storeTag($array);
-            }
-
-            if (!$dto->hasNull('date', true)) {
-                $time = Carbon::parse($dto->getDataByKey('date', true), auth()->user()->time_zone)->format('Y-m-d');
-
-                $repository->timeLink->store(new TimeLinkDto([
-                    'link_id' => $item->id,
-                    'time'    => $time
-                ]));
             }
 
             \DB::commit();

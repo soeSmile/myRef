@@ -3,20 +3,19 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Models\Traits\DataTimeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class TimeLink
+ * Class Event
  * @package App\Models
  */
-class TimeLink extends Model
+class Event extends Model
 {
-    use HasFactory, DataTimeTrait;
+    use HasFactory;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $guarded = ['id'];
 }
