@@ -6,7 +6,6 @@ namespace App\Services\ParseUrl;
 use DiDom\Document;
 use DiDom\Exceptions\InvalidSelectorException;
 use Http;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class ParseUrl
