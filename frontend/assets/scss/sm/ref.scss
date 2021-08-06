@@ -27,6 +27,7 @@
 
 .#{$prefix}site-ref {
   padding: map-get($sizes, 4);
+  margin-bottom: map-get($sizes, 8);
 }
 
 .#{$prefix}site-ref-title {
@@ -36,7 +37,17 @@
 }
 
 .#{$prefix}site-ref-item {
-  margin-top: map-get($sizes, 8);
+  margin-top: map-get($sizes, 4);
+
+  & .title {
+    font-family: $fontBold;
+    color: map-get($colors, 'dark');
+  }
+
+  & .content {
+    color: map-get($colors, 'grey');
+    margin-top: map-get($sizes, 2);
+  }
 }
 
 .#{$prefix}site-ref-img {

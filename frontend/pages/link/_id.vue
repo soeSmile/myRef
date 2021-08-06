@@ -36,7 +36,7 @@
     </h1>
 
     <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Описание
       </div>
       <el-input v-if="modeEdit"
@@ -46,14 +46,14 @@
                 resize="none"
                 v-model="link.desc"/>
       <div v-else
-           class="sm-mt-2">
+           class="content">
         {{ link.desc }}
       </div>
     </div>
 
     <div v-if="link.comment"
          class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Комментарий
       </div>
       <el-input v-if="modeEdit"
@@ -63,20 +63,20 @@
                 resize="none"
                 v-model="link.comment"/>
       <div v-else
-           class="sm-mt-2">
+           class="content">
         {{ link.comment }}
       </div>
     </div>
 
     <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Ссылка
       </div>
       <el-input v-if="modeEdit"
                 class="sm-mt-2"
                 v-model="link.url"/>
       <div v-else
-           class="sm-mt-2">
+           class="content">
         <a :href="link.url" target="_blank"
            class="sm-link-hover sm-color-color-1">
           {{ link.url }}
@@ -85,7 +85,7 @@
     </div>
 
     <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Тэги
       </div>
       <div v-if="modeEdit" class="sm-mt-2">
@@ -115,7 +115,7 @@
       </div>
 
       <div v-else
-           class="sm-mt-2">
+           class="content">
         <el-tag class="sm-mr-1"
                 v-for="(val,key) in link.tags"
                 :key="key">
@@ -125,7 +125,7 @@
     </div>
 
     <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Категория
       </div>
       <div class="sm-mt-2"
@@ -143,17 +143,17 @@
         </el-select>
       </div>
       <div v-else-if="!modeEdit && link.category"
-           class="sm-mt-2">
+           class="content">
         <i :class="'mdi '+ link.category.icon"></i>
         {{ link.category.name }}
       </div>
     </div>
 
     <div class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Пользователь
       </div>
-      <div class="sm-mt-2">
+      <div class="content">
         {{ link.user ? link.user.name : '' }}
       </div>
     </div>
@@ -176,7 +176,22 @@
 
     <div v-if="modeEdit"
          class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
+        Статус
+      </div>
+      <el-select v-model="link.flag"
+                 placeholder="Статус">
+        <el-option v-for="val in flags"
+                   :key="val"
+                   :label="val"
+                   :value="val">
+        </el-option>
+      </el-select>
+    </div>
+
+    <div v-if="modeEdit"
+         class="sm-site-ref-item">
+      <div class="title">
         Кешировать
       </div>
       <el-switch class="sm-mt-2"
@@ -185,10 +200,10 @@
 
     <div v-if="link.canEdit"
          class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Кеш
       </div>
-      <div class="sm-mt-2"
+      <div class="content"
            v-html="link.cache"></div>
     </div>
 
@@ -234,11 +249,13 @@ export default {
         date    : null,
         cache   : false,
         canEdit : false,
+        flag    : null
       },
       copyLink     : {},
       modeEdit     : false,
       selectTag    : null,
       tags         : [],
+      flags        : ['privat', 'public'],
       errors       : {},
       pickerOptions: {
         disabledDate(time) {
