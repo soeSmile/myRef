@@ -37,7 +37,7 @@
                      placeholder="Тэг"
                      :remote-method="getTags"
                      @change="insertTag">
-            <el-option v-for="(item,k) in tags"
+            <el-option v-for="item in tags"
                        :key="item.name"
                        :label="item.name"
                        :value="item">
@@ -232,6 +232,7 @@ export default {
      */
     insertTag(item) {
       this.selectTag = null
+      this.tags = []
       let id = this.myRef.tags.find(x => x.id === item.id)
 
       if (!id) {

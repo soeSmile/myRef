@@ -135,6 +135,7 @@ export default {
      */
     insertTag(item) {
       this.selectTag = null
+      this.tags = []
       let id = this.request.tags.find(x => x.id === item.id)
 
       if (!id) {
