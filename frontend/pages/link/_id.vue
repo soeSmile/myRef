@@ -321,7 +321,8 @@ export default {
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
         comment   : ref.comment,
-        cache     : ref.cache
+        cache     : ref.cache,
+        flag      : ref.flag
       }
     },
 
