@@ -203,8 +203,9 @@
       <div class="title">
         Кеш
       </div>
-      <div class="content"
-           v-html="link.cache"></div>
+      <div v-if="link.cache"
+           class="content"
+           v-html="link.cache.data"></div>
     </div>
 
   </section>

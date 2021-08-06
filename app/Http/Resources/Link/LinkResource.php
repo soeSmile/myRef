@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Resources\Link;
 
 use App\Http\Resources\Category\CategorySortResource;
+use App\Http\Resources\LinkCache\LinkShortCacheResource;
 use App\Http\Resources\Tag\TagResource;
 use App\Http\Resources\User\UserFullResource;
 use App\Http\Resources\User\UserLinkResource;
@@ -40,7 +41,7 @@ class LinkResource extends JsonResource
             $public = \array_merge($public, [
                 'user'    => new UserLinkResource($this->user),
                 'comment' => $this->comment,
-                'cache'   => \htmlspecialchars_decode('&lt;div&gt;Тут должен быть кеш&lt;/div&gt;'),
+                'cache'   => new LinkShortCacheResource($this->cache),
             ]);
         }
 

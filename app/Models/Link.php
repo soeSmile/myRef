@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Link
@@ -75,6 +76,14 @@ class Link extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, self::TAG_TABLE);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function cache(): HasOne
+    {
+        return $this->hasOne(LinkCache::class);
     }
 
     /**
