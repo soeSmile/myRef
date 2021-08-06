@@ -83,6 +83,18 @@
           </el-input>
         </div>
 
+        <div class="sm-flex col sm-mb-2">
+          <label class="sm-label">Статус</label>
+          <el-select v-model="myRef.flag"
+                     placeholder="Статус">
+            <el-option v-for="val in flags"
+                       :key="val"
+                       :label="val"
+                       :value="val">
+            </el-option>
+          </el-select>
+        </div>
+
       </div>
     </template>
     <template slot="foot">
@@ -124,10 +136,12 @@ export default {
         tags    : [],
         date    : null,
         comment : null,
-        cache   : false
+        cache   : false,
+        flag    : null
       },
       selectTag    : null,
       tags         : [],
+      flags        : ['privat', 'public'],
       errors       : {},
       pickerOptions: {
         disabledDate(time) {
@@ -188,7 +202,8 @@ export default {
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
         comment   : ref.comment,
-        cache     : ref.cache
+        cache     : ref.cache,
+        flag      : ref.flag
       }
     },
 

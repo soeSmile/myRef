@@ -109,6 +109,20 @@ abstract class AbstractDto
     }
 
     /**
+     * @param string $key
+     * @param $value
+     * @return AbstractDto
+     */
+    public function setDataByKeyIfNull(string $key, $value): AbstractDto
+    {
+        if ($this->hasKeyAndNull($key)) {
+            $this->data[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array $data
      * @return AbstractDto
      */

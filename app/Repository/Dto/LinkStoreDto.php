@@ -19,7 +19,7 @@ final class LinkStoreDto extends AbstractDto
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
         $this->setDataByKey('user_id', auth()->id());
-        $this->setDataByKey('flag', Link::FLAG_PRIVAT);
+        $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVAT);
 
         if ($this->hasKeyAndNull('category_id')) {
             $this->setDataByKey('flag', Link::FLAG_NEW);

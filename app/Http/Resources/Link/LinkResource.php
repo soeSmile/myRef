@@ -32,7 +32,8 @@ class LinkResource extends JsonResource
             'updatedAt' => $this->updated_at,
             'user'      => $this->getUser(),
             'tags'      => TagResource::collection($this->tags),
-            'canEdit'   => $this->canEdit()
+            'canEdit'   => $this->canEdit(),
+            'flag'      => $this->flag,
         ];
 
         if (isClient() && $this->isOwner()) {
