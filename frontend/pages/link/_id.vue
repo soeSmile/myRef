@@ -149,7 +149,8 @@
       </div>
     </div>
 
-    <div class="sm-site-ref-item">
+    <div v-if="link.user"
+         class="sm-site-ref-item">
       <div class="title">
         Пользователь
       </div>
