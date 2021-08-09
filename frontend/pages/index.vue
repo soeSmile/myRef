@@ -17,6 +17,10 @@ export default {
 
   layout: 'site',
 
+  head: {
+    title: 'Refs'
+  },
+
   components: {
     tmplRef,
     uiPagination

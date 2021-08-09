@@ -233,7 +233,6 @@ export default {
     }
   },
 
-
   props: {},
 
   data() {
