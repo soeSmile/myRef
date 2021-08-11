@@ -58,14 +58,20 @@ final class LinkRepository extends AbstractRepository
     {
         $this->getQuery()->with('category', 'user', 'tags', 'cache');
 
-        if ($dto->hasKey('flag')) {
-            $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
+        if (auth()->check()) {
+            $mustUser = false;
+
+            if ($dto->hasKey('flag')) {
+                $mustUser = \in_array($dto->getDataByKey('flag'), Link::OWNER_FLAGS, true);
+
+                $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
+            }
+
+            if ($mustUser || $dto->hasKey('owner')) {
+                $this->getQuery()->where('user_id', auth()->id());
+            }
         } else {
             $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
-        }
-
-        if ($dto->hasKey('owner', true) && auth()->check()) {
-            $this->getQuery()->where('user_id', auth()->id());
         }
 
         if ($dto->hasKey('cats')) {

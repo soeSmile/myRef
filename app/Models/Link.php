@@ -35,6 +35,23 @@ class Link extends Model
     public const FLAG_PUBLIC = 'public';
 
     /**
+     * @var array
+     */
+    public const FLAGS = [
+        self::FLAG_NEW,
+        self::FLAG_PRIVAT,
+        self::FLAG_PUBLIC
+    ];
+
+    /**
+     * @var array
+     */
+    public const OWNER_FLAGS = [
+        self::FLAG_NEW,
+        self::FLAG_PRIVAT,
+    ];
+
+    /**
      * @var string
      */
     public const TAG_TABLE = 'link_to_tag';

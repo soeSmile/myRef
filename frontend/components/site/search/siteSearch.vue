@@ -7,8 +7,16 @@
           <el-switch v-model="request.owner"/>
         </div>
         <div class="sm-mt-4">
-          <p class="sm-mb-2 sm-color-dark">Приватные</p>
-          <el-switch v-model="request.flag"/>
+          <p class="sm-mb-2 sm-color-dark">Флаг</p>
+          <el-select v-model="request.flag"
+                     placeholder="Select">
+            <el-option
+                v-for="item in flags"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+            </el-option>
+          </el-select>
         </div>
         <el-divider/>
       </section>
@@ -97,6 +105,11 @@ export default {
       tags          : [],
       selectCategory: null,
       selectTag     : null,
+      flags         : [
+        {id: 'public', name: 'Публичные'},
+        {id: 'privat', name: 'Приватные'},
+        {id: 'new', name: 'Новые'}
+      ],
       request       : {
         ref  : true,
         note : false,
@@ -104,7 +117,8 @@ export default {
         top  : false,
         cats : [],
         tags : [],
-        owner: false
+        owner: false,
+        flag : 'public'
       }
     }
   },
