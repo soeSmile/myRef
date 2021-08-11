@@ -141,8 +141,8 @@ export default {
         flag : 'public'
       },
       searchUrl       : {
-        name: '',
-        link: ''
+        name: 'Ссылка на поиск',
+        link: null
       }
     }
   },
@@ -275,7 +275,8 @@ export default {
      */
     closeSearchUrl() {
       this.showAddSearchUrl = false;
-      this.searchUrl = {}
+      this.searchUrl.name = 'Ссылка на поиск'
+      this.searchUrl.link = null
     },
 
     /**
