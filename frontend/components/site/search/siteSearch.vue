@@ -8,8 +8,9 @@
         </div>
         <div class="sm-mt-4">
           <p class="sm-mb-2 sm-color-dark">Флаг</p>
-          <el-select v-model="request.flag"
-                     placeholder="Select">
+          <el-select class="sm-w-100"
+                     v-model="request.flag"
+                     placeholder="Флаг">
             <el-option
                 v-for="item in flags"
                 :key="item.id"
