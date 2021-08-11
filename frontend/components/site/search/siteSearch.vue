@@ -3,10 +3,6 @@
     <div class="sm-flex col">
       <section v-if="isClient">
         <div class="sm-mt-4">
-          <p class="sm-mb-2 sm-color-dark">Вывод только своих</p>
-          <el-switch v-model="request.owner"/>
-        </div>
-        <div class="sm-mt-4">
           <p class="sm-mb-2 sm-color-dark">Флаг</p>
           <el-select class="sm-w-100"
                      v-model="request.flag"
@@ -18,6 +14,15 @@
                 :value="item.id">
             </el-option>
           </el-select>
+        </div>
+        <div class="sm-mt-4">
+          <p class="sm-mb-2 sm-color-dark">Только свои</p>
+          <el-switch v-model="request.owner"/>
+        </div>
+        <div class="sm-mt-4">
+          <el-button type="success" size="small">
+            Добавить в поиск
+          </el-button>
         </div>
         <el-divider/>
       </section>
@@ -134,9 +139,14 @@ export default {
   },
 
   watch: {
-    searchTag: function (newVal) {
+    searchTag     : function (newVal) {
       if (newVal && newVal.length > 2) {
         this.getTags()
+      }
+    },
+    'request.flag': function (val) {
+      if (['privat', 'new'].includes(val)) {
+        this.request.owner = true;
       }
     }
   },

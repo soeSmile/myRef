@@ -43,7 +43,7 @@ $fontSize: 0.75rem !default;
     font-family: $fontBold;
   }
 
-  @for $i from 0 through 9 {
+  @for $i from 0 through 20 {
     &.size-#{$i} {
       font-size: $fontSize !important;
     }

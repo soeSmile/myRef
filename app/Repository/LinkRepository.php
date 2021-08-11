@@ -57,21 +57,18 @@ final class LinkRepository extends AbstractRepository
     public function search(AbstractDto $dto): LengthAwarePaginator
     {
         $this->getQuery()->with('category', 'user', 'tags', 'cache');
+        $mustUser = false;
 
-        if (auth()->check()) {
-            $mustUser = false;
+        if ($dto->hasKey('flag')) {
+            $mustUser = \in_array($dto->getDataByKey('flag'), Link::OWNER_FLAGS, true);
 
-            if ($dto->hasKey('flag')) {
-                $mustUser = \in_array($dto->getDataByKey('flag'), Link::OWNER_FLAGS, true);
-
-                $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
-            }
-
-            if ($mustUser || $dto->hasKey('owner')) {
-                $this->getQuery()->where('user_id', auth()->id());
-            }
+            $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
         } else {
             $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
+        }
+
+        if ($dto->hasKey('owner')) {
+            $mustUser = true;
         }
 
         if ($dto->hasKey('cats')) {
@@ -87,6 +84,10 @@ final class LinkRepository extends AbstractRepository
 
         if ($dto->hasKey('cat')) {
             $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
+        }
+
+        if ($mustUser && auth()->check()) {
+            $this->getQuery()->where('user_id', auth()->id());
         }
 
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);

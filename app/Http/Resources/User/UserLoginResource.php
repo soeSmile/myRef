@@ -23,6 +23,7 @@ class UserLoginResource extends JsonResource
             'link'     => $this->link,
             'isAdmin'  => $this->isAdmin(),
             'isClient' => $this->isClient(),
+            'links'    => $this->searchLinks
         ];
     }
 }
