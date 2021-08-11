@@ -18,7 +18,11 @@ export const mutations = {
         // set site
         this.$axios.setToken(data.token, 'Bearer');
         // set cookie
-        this.$cookies.set('token', data.token, {maxAge: data.expiresIn, path: '/'});
+        this.$cookies.set('token', data.token, {
+            maxAge  : data.expiresIn,
+            path    : '/',
+            sameSite: 'lax'
+        });
     },
 
     /**

@@ -20,7 +20,8 @@
           <el-switch v-model="request.owner"/>
         </div>
         <div class="sm-mt-4">
-          <el-button type="success" size="small">
+          <el-button type="success" size="small"
+                     @click="addSearchUrl">
             Добавить в поиск
           </el-button>
         </div>
@@ -96,27 +97,40 @@
         Очистить
       </el-button>
     </div>
+
+    <add-search-link v-if="showAddSearchUrl"
+                     :searchUrl="searchUrl"
+                     @close="closeSearchUrl"
+                     @store="storeSearchUrl"/>
   </aside>
 </template>
 
 <script>
+
+import addSearchLink from "./addSearchLink";
+
 export default {
   name: "siteSearch",
+
+  components: {
+    addSearchLink
+  },
 
   props: {},
 
   data() {
     return {
-      loading       : false,
-      tags          : [],
-      selectCategory: null,
-      selectTag     : null,
-      flags         : [
+      showAddSearchUrl: false,
+      loading         : false,
+      tags            : [],
+      selectCategory  : null,
+      selectTag       : null,
+      flags           : [
         {id: 'public', name: 'Публичные'},
         {id: 'privat', name: 'Приватные'},
         {id: 'new', name: 'Новые'}
       ],
-      request       : {
+      request         : {
         ref  : true,
         note : false,
         date : false,
@@ -125,6 +139,10 @@ export default {
         tags : [],
         owner: false,
         flag : 'public'
+      },
+      searchUrl       : {
+        name: '',
+        link: ''
       }
     }
   },
@@ -242,6 +260,29 @@ export default {
           })
           .catch(error => {
           })
+    },
+
+    /**
+     * show add user search link
+     */
+    addSearchUrl() {
+      this.showAddSearchUrl = true;
+      this.searchUrl.link = Object.assign({}, this.request);
+    },
+
+    /**
+     * close pop add user show link
+     */
+    closeSearchUrl() {
+      this.showAddSearchUrl = false;
+      this.searchUrl = {}
+    },
+
+    /**
+     * store user search link
+     */
+    storeSearchUrl() {
+
     }
   }
 }
