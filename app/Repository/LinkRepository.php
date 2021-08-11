@@ -56,10 +56,16 @@ final class LinkRepository extends AbstractRepository
      */
     public function search(AbstractDto $dto): LengthAwarePaginator
     {
-        $this->getQuery()->with('category', 'user', 'tags');
+        $this->getQuery()->with('category', 'user', 'tags', 'cache');
 
-        if (!auth()->check()) {
-            $this->getQuery()->where('flag', Link::STATUS_PUBLIC);
+        if ($dto->hasKey('flag')) {
+            $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
+        } else {
+            $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
+        }
+
+        if ($dto->hasKey('owner', true) && auth()->check()) {
+            $this->getQuery()->where('user_id', auth()->id());
         }
 
         if ($dto->hasKey('cats')) {

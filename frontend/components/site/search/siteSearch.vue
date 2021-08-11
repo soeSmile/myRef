@@ -1,15 +1,25 @@
 <template>
   <aside class="sm-flex col sm-mt-4">
     <div class="sm-flex col">
+      <section v-if="isClient">
+        <div class="sm-mt-4">
+          <p class="sm-mb-2 sm-color-dark">Вывод только своих</p>
+          <el-switch v-model="request.owner"/>
+        </div>
+        <div class="sm-mt-4">
+          <p class="sm-mb-2 sm-color-dark">Приватные</p>
+          <el-switch v-model="request.flag"/>
+        </div>
+        <el-divider/>
+      </section>
+
       <div class="sm-mt-4">
         <p class="sm-mb-2 sm-color-dark">Поиск по закадкам</p>
-        <el-switch v-model="request.ref">
-        </el-switch>
+        <el-switch v-model="request.ref"/>
       </div>
       <div class="sm-mt-4">
         <p class="sm-mb-2 sm-color-dark">Поиск по заметкам</p>
-        <el-switch v-model="request.note">
-        </el-switch>
+        <el-switch v-model="request.note"/>
       </div>
       <div class="sm-mt-4">
         <p class="sm-mb-2 sm-color-dark">Выбор категории</p>
@@ -79,12 +89,6 @@
 export default {
   name: "siteSearch",
 
-  created() {
-  },
-
-  mounted() {
-  },
-
   props: {},
 
   data() {
@@ -94,12 +98,13 @@ export default {
       selectCategory: null,
       selectTag     : null,
       request       : {
-        ref : true,
-        note: false,
-        date: false,
-        top : false,
-        cats: [],
-        tags: [],
+        ref  : true,
+        note : false,
+        date : false,
+        top  : false,
+        cats : [],
+        tags : [],
+        owner: false
       }
     }
   },

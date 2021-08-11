@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Dto;
 
+use App\Models\Link;
 use App\Repository\AbstractRepository;
 
 /**
@@ -13,19 +14,19 @@ final class LinkSearchDto extends AbstractDto
 {
     private const FIELDS = [
         'ref'   => [
-            'regexp'  => '/[true||false]/',
+            'regexp'  => '/^(true|false)$/',
             'default' => true
         ],
         'note'  => [
-            'regexp'  => '/[true||false]/',
+            'regexp'  => '/^(true|false)$/',
             'default' => true
         ],
         'top'   => [
-            'regexp'  => '/[true||false]/',
+            'regexp'  => '/^(true|false)$/',
             'default' => true
         ],
         'date'  => [
-            'regexp'  => '/[true||false]/',
+            'regexp'  => '/^(true|false)$/',
             'default' => true
         ],
         'cats'  => [
@@ -43,6 +44,10 @@ final class LinkSearchDto extends AbstractDto
         'cat'   => [
             'regexp'  => '/^\d+/',
             'default' => 0
+        ],
+        'flag'  => [
+            'regexp'  => '/^(' . Link::FLAG_PUBLIC . '|' . Link::FLAG_PRIVAT . '|' . Link::FLAG_NEW . ')$/',
+            'default' => Link::FLAG_PUBLIC
         ],
     ];
 

@@ -32,7 +32,7 @@ class Link extends Model
     /**
      * @var string
      */
-    public const STATUS_PUBLIC = 'public';
+    public const FLAG_PUBLIC = 'public';
 
     /**
      * @var string
