@@ -9,6 +9,7 @@ use App\Http\Resources\UserSearchLink\UserSearchLinkResource;
 use App\Repository\Dto\UserSearchLinkStoreDto;
 use App\Repository\Dto\UserSearchLinkUpdateDto;
 use App\Repository\UserSearchLinkRepository;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -62,8 +63,15 @@ class ApiUserSearchLinksController
         return response()->json(['success' => $result], $result ? 200 : 400);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function destroy($id): JsonResponse
     {
+        $result = (bool)$this->userLinks->destroy($id);
 
+        return response()->json(['success' => $result], $result ? 200 : 400);
     }
 }
