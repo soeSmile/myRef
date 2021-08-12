@@ -317,8 +317,13 @@ export default {
               message: 'Saved !',
               type   : 'success'
             })
+
+            if (method === 'post') {
+              this.$store.commit('auth/SET_USER_LINKS', response.data.data)
+            } else {
+              this.$store.commit('auth/UPDATE_USER_LINKS', {...this.searchUrl})
+            }
             this.closeSearchUrl()
-            this.$store.commit('auth/SET_USER_LINKS', response.data.data)
           })
           .catch(e => {
             this.errors = e.response.data.errors;
@@ -336,7 +341,8 @@ export default {
      * @param key
      */
     editSearchUrl(key) {
-      console.log(key)
+      this.showAddSearchUrl = true;
+      this.searchUrl = Object.assign({}, this.user.links[key])
     },
 
     /**

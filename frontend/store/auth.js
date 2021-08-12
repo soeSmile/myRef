@@ -45,6 +45,19 @@ export const mutations = {
 
     /**
      * @param state
+     * @param data
+     * @constructor
+     */
+    UPDATE_USER_LINKS(state, data) {
+        let index
+        state.user.links.map(function (item, i) {
+            if (item.id === data.id) index = i
+        })
+        state.user.links.splice(index, 1, data)
+    },
+
+    /**
+     * @param state
      * @param key
      * @constructor
      */
