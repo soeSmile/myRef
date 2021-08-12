@@ -6,13 +6,13 @@
           <p class="sm-mb-2 sm-color-dark">
             Быстрый доступ
           </p>
-          <div @click.capture="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
+          <div @click="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
                class="sm-flex middle sm-p-2 sm-hover-bg-light sm-link"
                v-for="(val,key) in user.links" :key="val.id">
             <i class="mdi mdi-close sm-mr-1 sm-color-color-7 sm-link"
-               @click.prevent="deleteSearchUrl(key)"></i>
+               @click.stop="deleteSearchUrl(key)"></i>
             <i class="mdi mdi-pencil sm-mr-1 sm-color-color-1 sm-link"
-               @click.prevent="editSearchUrl(key)"></i>
+               @click.stop="editSearchUrl(key)"></i>
             <div class="sm-color-dark">
               {{ val.name }}
             </div>
@@ -350,7 +350,29 @@ export default {
      * @param key
      */
     deleteSearchUrl(key) {
-      this.$store.commit('auth/REMOVE_USER_LINK', key)
+      this.$confirm('Удалить ?', 'Внимание', {
+        confirmButtonText: 'Да',
+        cancelButtonText : 'Нет',
+        type             : 'warning'
+      }).then(() => {
+        this.$axios.delete('api/user-links/' + this.searchUrl.id)
+            .then(response => {
+              this.$message({
+                message: 'Success !',
+                type   : 'success'
+              })
+              this.$store.commit('auth/REMOVE_USER_LINK', key)
+            })
+            .catch(e => {
+              this.errors = e.response.data.errors;
+
+              this.$message({
+                type                    : 'error',
+                dangerouslyUseHTMLString: true,
+                message                 : this.$messageToStr(this.errors),
+              })
+            });
+      })
     }
   }
 }
