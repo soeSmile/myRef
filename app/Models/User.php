@@ -7,6 +7,7 @@ use App\Models\Traits\DataTimeTrait;
 use App\Models\Traits\UuidIdTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -57,12 +58,13 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $keyType = 'uuid';
 
+
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function searchLinks(): BelongsTo
+    public function searchLinks(): HasMany
     {
-        return $this->belongsTo(UserSearchLink::class);
+        return $this->hasMany(UserSearchLink::class);
     }
 
     /**

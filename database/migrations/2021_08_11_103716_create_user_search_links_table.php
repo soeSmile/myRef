@@ -17,6 +17,7 @@ class CreateUserSearchLinksTable extends Migration
             $table->id();
             $table->string('name');
             $table->uuid('user_id');
+            $table->string('link');
             $table->timestamps();
         });
     }

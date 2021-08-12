@@ -3,6 +3,23 @@
     <div class="sm-flex col">
       <section v-if="isClient">
         <div class="sm-mt-4">
+          <p class="sm-mb-2 sm-color-dark">
+            Быстрый доступ
+          </p>
+          <n-link to="/?ref=true&flag=public&count=20"
+                  class="sm-flex middle sm-p-1 sm-hover-bg-light"
+                  v-for="(val,key) in user.links" :key="val.id">
+            <i class="mdi mdi-close sm-mr-1 sm-color-color-7 sm-link"
+               @click.prevent="deleteSearchUrl(key)"></i>
+            <i class="mdi mdi-pencil sm-mr-1 sm-color-color-1 sm-link"
+               @click.prevent="editSearchUrl(key)"></i>
+            <div class="sm-color-dark">
+              {{ val.name }}
+            </div>
+          </n-link>
+        </div>
+        <el-divider/>
+        <div class="sm-mt-4">
           <p class="sm-mb-2 sm-color-dark">Флаг</p>
           <el-select class="sm-w-100"
                      v-model="request.flag"
@@ -22,7 +39,7 @@
         <div class="sm-mt-4">
           <el-button type="success" size="small"
                      @click="addSearchUrl">
-            Добавить в поиск
+            Добавить в Быстрый доступ
           </el-button>
         </div>
         <el-divider/>
@@ -153,6 +170,9 @@ export default {
     },
     categories() {
       return this.$store.getters['category/categories'];
+    },
+    user() {
+      return this.$store.getters['auth/user'];
     }
   },
 
@@ -284,6 +304,22 @@ export default {
      */
     storeSearchUrl() {
 
+    },
+
+    /**
+     * edit user search link
+     * @param key
+     */
+    editSearchUrl(key) {
+      console.log(key)
+    },
+
+    /**
+     * delete user search link
+     * @param key
+     */
+    deleteSearchUrl(key) {
+      console.log(key)
     }
   }
 }

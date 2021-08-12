@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\UserSearchLink\UserSearchLinkResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,7 +24,7 @@ class UserLoginResource extends JsonResource
             'link'     => $this->link,
             'isAdmin'  => $this->isAdmin(),
             'isClient' => $this->isClient(),
-            'links'    => $this->searchLinks
+            'links'    => UserSearchLinkResource::collection($this->searchLinks)
         ];
     }
 }
