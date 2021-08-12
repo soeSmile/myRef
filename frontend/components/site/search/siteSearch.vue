@@ -6,7 +6,7 @@
           <p class="sm-mb-2 sm-color-dark">
             Быстрый доступ
           </p>
-          <n-link to="/?ref=true&flag=public&count=20"
+          <n-link :to="val.link"
                   class="sm-flex middle sm-p-1 sm-hover-bg-light"
                   v-for="(val,key) in user.links" :key="val.id">
             <i class="mdi mdi-close sm-mr-1 sm-color-color-7 sm-link"
@@ -287,7 +287,7 @@ export default {
      */
     addSearchUrl() {
       this.showAddSearchUrl = true;
-      this.searchUrl.link = Object.assign({}, this.request);
+      this.searchUrl.link = this.$route.fullPath;
     },
 
     /**
