@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace App\Repository\Dto;
 
-use App\Models\UserSearchLink;
 use App\Repository\AbstractRepository;
 
 /**
- * Class UserSearchLinkDto
+ * Class UserSearchLinkStoreDto
  */
-final class UserSearchLinkDto extends AbstractDto
+final class UserSearchLinkStoreDto extends AbstractDto
 {
     /**
      * @param AbstractRepository|null $abstractRepository
