@@ -6,9 +6,9 @@
           <p class="sm-mb-2 sm-color-dark">
             Быстрый доступ
           </p>
-          <n-link :to="val.link"
-                  class="sm-flex middle sm-p-1 sm-hover-bg-light"
-                  v-for="(val,key) in user.links" :key="val.id">
+          <div @click.capture="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
+               class="sm-flex middle sm-p-2 sm-hover-bg-light sm-link"
+               v-for="(val,key) in user.links" :key="val.id">
             <i class="mdi mdi-close sm-mr-1 sm-color-color-7 sm-link"
                @click.prevent="deleteSearchUrl(key)"></i>
             <i class="mdi mdi-pencil sm-mr-1 sm-color-color-1 sm-link"
@@ -16,7 +16,7 @@
             <div class="sm-color-dark">
               {{ val.name }}
             </div>
-          </n-link>
+          </div>
         </div>
         <el-divider/>
         <div class="sm-mt-4">
@@ -287,7 +287,7 @@ export default {
      */
     addSearchUrl() {
       this.showAddSearchUrl = true;
-      this.searchUrl.link = this.$route.fullPath;
+      this.searchUrl.link = JSON.stringify(this.$route.query);
     },
 
     /**
@@ -303,7 +303,32 @@ export default {
      * store user search link
      */
     storeSearchUrl() {
+      let method = 'post',
+          link   = 'api/user-links';
 
+      if (this.searchUrl.id) {
+        method = 'put';
+        link = 'api/user-links/' + this.searchUrl.id;
+      }
+
+      this.$axios[method](link, this.searchUrl)
+          .then(response => {
+            this.$message({
+              message: 'Saved !',
+              type   : 'success'
+            })
+            this.closeSearchUrl()
+            this.$store.commit('auth/SET_USER_LINKS', response.data.data)
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+
+            this.$message({
+              type                    : 'error',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
+            })
+          });
     },
 
     /**
@@ -319,7 +344,7 @@ export default {
      * @param key
      */
     deleteSearchUrl(key) {
-      console.log(key)
+      this.$store.commit('auth/REMOVE_USER_LINK', key)
     }
   }
 }

@@ -36,6 +36,24 @@ export const mutations = {
 
     /**
      * @param state
+     * @param data
+     * @constructor
+     */
+    SET_USER_LINKS(state, data) {
+        state.user.links.push(data)
+    },
+
+    /**
+     * @param state
+     * @param key
+     * @constructor
+     */
+    REMOVE_USER_LINK(state, key) {
+        state.user.links.splice(key, 1)
+    },
+
+    /**
+     * @param state
      * @param errors
      * @constructor
      */

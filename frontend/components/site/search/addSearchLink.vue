@@ -9,6 +9,7 @@
         <div class="sm-flex col sm-mb-2">
           <label class="sm-label">Имя</label>
           <el-input v-model="searchUrl.name"
+                    clearable
                     autocomplete="off"
                     placeholder="Имя"/>
         </div>

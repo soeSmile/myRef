@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\UserSearchLink\UserSearchLinkStoreRequest;
 use App\Http\Requests\UserSearchLink\UserSearchLinkUpdateRequest;
 use App\Http\Resources\UserSearchLink\UserSearchLinkResource;
+use App\Repository\Dto\UserSearchLinkDto;
 use App\Repository\UserSearchLinkRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -38,9 +39,13 @@ class ApiUserSearchLinksController
         return UserSearchLinkResource::collection($this->userLinks->all($request->all()));
     }
 
-    public function store(UserSearchLinkStoreRequest $request)
+    /**
+     * @param UserSearchLinkStoreRequest $request
+     * @return UserSearchLinkResource
+     */
+    public function store(UserSearchLinkStoreRequest $request): UserSearchLinkResource
     {
-
+        return new UserSearchLinkResource($this->userLinks->store(new UserSearchLinkDto($request->all())));
     }
 
     public function update(UserSearchLinkUpdateRequest $request, $id)
