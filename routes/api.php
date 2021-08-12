@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApiCategoryController;
 use App\Http\Controllers\Api\ApiLinkController;
 use App\Http\Controllers\Api\ApiTagController;
 use App\Http\Controllers\Api\ApiUserController;
+use App\Http\Controllers\Api\ApiUserSearchLinksController;
 use App\Http\Controllers\Api\Auth\ApiAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::post('me', [ApiAuthController::class, 'me'])->name('auth.me');
     Route::apiResource('tags', ApiTagController::class)->only('store');
     Route::apiResource('links', ApiLinkController::class)->only('store', 'update');
+    Route::apiResource('user-links', ApiUserSearchLinksController::class)->only('index', 'store', 'update', 'destroy');
 
     /**
      * Client Routers
