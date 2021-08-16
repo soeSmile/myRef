@@ -265,8 +265,6 @@ export default {
         }
       }
 
-      result.count = this.$const.COUNT_PAGE
-
       return result
     },
 
