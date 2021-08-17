@@ -24,15 +24,45 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
-    'ses'    => [
+    'ses'     => [
         'key'    => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'google' => [
+    'google'  => [
         'client_id'     => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect'      => env('GOOGLE_REDIRECT_URI')
     ],
-
+    'mailjet' => [
+        'key'           => env('MAILJET_APIKEY'),
+        'secret'        => env('MAILJET_APISECRET'),
+        'transactional' => [
+            'call'    => true,
+            'options' => [
+                'url'     => 'api.mailjet.com',
+                'version' => 'v3.1',
+                'call'    => true,
+                'secured' => true
+            ]
+        ],
+        'common'        => [
+            'call'    => true,
+            'options' => [
+                'url'     => 'api.mailjet.com',
+                'version' => 'v3',
+                'call'    => true,
+                'secured' => true
+            ]
+        ],
+        'v4'            => [
+            'call'    => true,
+            'options' => [
+                'url'     => 'api.mailjet.com',
+                'version' => 'v4',
+                'call'    => true,
+                'secured' => true
+            ]
+        ],
+    ]
 ];
