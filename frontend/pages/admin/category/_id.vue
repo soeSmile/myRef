@@ -131,18 +131,17 @@ export default {
               this.$router.replace('/admin/category/' + response.data.data.id);
             }
 
-            this.$toast.success({
-              title  : 'Success',
-              message: 'Saved',
+            this.$message({
+              message: 'Saved !',
+              type   : 'success'
             })
           })
           .catch(e => {
             this.errors = e.response.data.errors;
-
-            this.$toast.error({
-              title  : 'Error',
-              useHtml: true,
-              message: this.$messageToStr(this.errors),
+            this.$message({
+              type                    : 'error',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
             })
           });
     },

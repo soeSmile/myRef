@@ -40,7 +40,7 @@ export default ({app}, inject) => {
     /**
      * среализация ответов от сервера
      */
-    inject('messageToStr', (message = 'Error') => {
+    inject('messageToStr', (message = null) => {
         if (typeof message === 'string') return message;
 
         let data = '<ul>';
