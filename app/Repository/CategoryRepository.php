@@ -29,7 +29,7 @@ final class CategoryRepository extends AbstractRepository
      */
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
-        $this->getQuery()->orderBy('id');
+        $this->getQuery()->orderBy(app()->getLocale());
 
         if (isset($data['name'])) {
             $this->getQuery()->where(app()->getLocale(), 'like', $data['name'] . '%');

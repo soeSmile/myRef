@@ -42,6 +42,7 @@ class CreateCategoriesTable extends Migration
             ['en' => 'Children', 'ru' => 'Дети', 'icon' => 'mdi-baby-carriage'],
             ['en' => 'Religion and Esoteric', 'ru' => 'Религия и Эзотерика', 'icon' => 'mdi-celtic-cross'],
             ['en' => 'Other ', 'ru' => 'Другое', 'icon' => 'mdi-arrow-expand-all'],
+            ['en' => 'Building ', 'ru' => 'Строительство', 'icon' => 'mdi-domain'],
         ]);
     }
 
