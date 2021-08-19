@@ -11,6 +11,10 @@
           {{ getTitle(myRef.title) }}
         </h4>
       </a>
+      <div class="sm-ref-desc sm-mt-2"
+           :title="myRef.desc">
+        {{ getDesc(myRef.desc) }}
+      </div>
       <div class="sm-ref-line"></div>
 
       <div class="sm-ref-category">
@@ -39,6 +43,8 @@
 
 <script>
 
+import {DESC_LENGTH} from "../../constants/constants";
+
 export default {
   name: "tmplRef",
 
@@ -57,7 +63,15 @@ export default {
      */
     getTitle(title) {
       return title.trim().slice(0, this.$const.TITLE_LENGTH) + (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '')
-    }
+    },
+
+    /**
+     * @param title
+     * @return {string}
+     */
+    getDesc(title) {
+      return title.trim().slice(0, this.$const.DESC_LENGTH) + (title.length >= this.$const.DESC_LENGTH ? ' ...' : '')
+    },
   }
 }
 </script>

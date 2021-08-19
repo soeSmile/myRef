@@ -10,7 +10,13 @@
 }
 
 .#{$prefix}ref-title {
-  height: 60px;
+  height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.#{$prefix}ref-desc {
+  height: 62px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
