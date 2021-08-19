@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::post('refresh', [ApiAuthController::class, 'refresh'])->name('auth.refresh');
     Route::post('me', [ApiAuthController::class, 'me'])->name('auth.me');
     Route::apiResource('tags', ApiTagController::class)->only('store');
-    Route::apiResource('links', ApiLinkController::class)->only('store', 'update');
+    Route::apiResource('links', ApiLinkController::class)->only('store', 'update', 'destroy');
     Route::apiResource('user-links', ApiUserSearchLinksController::class)->only('index', 'store', 'update', 'destroy');
 
     /**

@@ -7,10 +7,10 @@ use App\Models\Link;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class LinkUpdateRequest
+ * Class LinkDestroyRequest
  * @package App\Http\Requests\Link
  */
-class LinkUpdateRequest extends FormRequest
+class LinkDestroyRequest extends FormRequest
 {
     /**
      * @return bool
@@ -29,8 +29,7 @@ class LinkUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'  => 'required|exists:links',
-            'url' => 'required|url'
+            'id' => 'required|exists:links',
         ];
     }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Link\LinkDestroyRequest;
 use App\Http\Requests\Link\LinkStoreRequest;
 use App\Http\Requests\Link\LinkUpdateRequest;
 use App\Http\Resources\Link\LinkResource;
@@ -97,5 +98,21 @@ final class ApiLinkController
         }
 
         return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
+    }
+
+    /**
+     * @param $id
+     * @param LinkDestroyRequest $request
+     * @return JsonResponse
+     */
+    public function destroy($id, LinkDestroyRequest $request): JsonResponse
+    {
+        try {
+            $result = $this->link->destroy($id);
+        } catch (\Exception $e) {
+            $result = false;
+        }
+
+        return response()->json(['success' => $result, 'errors' => ''], $result ? 200 : 400);
     }
 }
