@@ -17,10 +17,10 @@ class LinkDestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $link = Link::find($this->get('id'));
+        $link = Link::find($this->route('link'));
         $owner = $link && $link->isOwner();
 
-        return isClient() && $owner;
+        return isAdmin() || (isClient() && $owner);
     }
 
     /**
@@ -28,8 +28,6 @@ class LinkDestroyRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'id' => 'required|exists:links',
-        ];
+        return [];
     }
 }

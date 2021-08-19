@@ -20,18 +20,13 @@ class IsUser
      * @param string $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle(Request $request, Closure $next, string $role): mixed
     {
-        switch ($role) {
-            case 'client':
-                $check = isClient();
-                break;
-            case 'admin':
-                $check = isAdmin();
-                break;
-            default:
-                $check = false;
-        }
+        $check = match ($role) {
+            'client' => isClient(),
+            'admin' => isAdmin(),
+            default => false,
+        };
 
         if (!$check) {
             return response()->json([

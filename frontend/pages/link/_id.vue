@@ -23,6 +23,12 @@
           <i class="mdi mdi-close sm-mr-1"></i>
           <span>Отмена</span>
         </div>
+        <div v-if="modeEdit"
+             @click="destroy"
+             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+          <i class="mdi mdi-delete sm-mr-1"></i>
+          <span>Удалить</span>
+        </div>
       </div>
     </nav>
 
@@ -308,6 +314,42 @@ export default {
             this.loading = false
             this.modeEdit = false
           })
+    },
+
+    /**
+     * delete link
+     */
+    destroy() {
+      this.$confirm('Удалить ссылку ?', 'Удалить', {
+        confirmButtonText: 'OK',
+        cancelButtonText : 'Cancel',
+        type             : 'error'
+      }).then(() => {
+        this.loading = true
+
+        this.$axios.delete('api/links/' + this.link.id)
+            .then(response => {
+              this.$message({
+                message: 'Saved !',
+                type   : 'success'
+              })
+              this.$router.push('/')
+            })
+            .catch(e => {
+              this.errors = e.response.data.errors;
+              this.$message({
+                type                    : 'error',
+                dangerouslyUseHTMLString: true,
+                message                 : this.$messageToStr(this.errors),
+              })
+              this.cancelEdit()
+            })
+            .finally(() => {
+              this.loading = false
+              this.modeEdit = false
+            })
+      }).catch(() => {
+      })
     },
 
     /**
