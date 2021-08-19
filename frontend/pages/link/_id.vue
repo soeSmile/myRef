@@ -57,8 +57,7 @@
       </div>
     </div>
 
-    <div v-if="link.comment"
-         class="sm-site-ref-item">
+    <div class="sm-site-ref-item">
       <div class="title">
         Комментарий
       </div>
@@ -70,7 +69,7 @@
                 v-model="link.comment"/>
       <div v-else
            class="content">
-        {{ link.comment }}
+        {{ link.comment ? link.comment : 'Нет' }}
       </div>
     </div>
 
@@ -167,7 +166,7 @@
 
     <div v-if="modeEdit"
          class="sm-site-ref-item">
-      <div class="sm-fnt bold sm-color-grey">
+      <div class="title">
         Дата напоминания
       </div>
       <el-date-picker
@@ -186,12 +185,13 @@
       <div class="title">
         Статус
       </div>
-      <el-select v-model="link.flag"
+      <el-select class="sm-mt-2"
+                 v-model="link.flag"
                  placeholder="Статус">
         <el-option v-for="val in flags"
-                   :key="val"
-                   :label="val"
-                   :value="val">
+                   :key="val.id"
+                   :label="val.name"
+                   :value="val.id">
         </el-option>
       </el-select>
     </div>
@@ -210,9 +210,8 @@
       <div class="title">
         Кеш
       </div>
-      <div v-if="link.cache"
-           class="content"
-           v-html="link.cache.data"></div>
+      <div class="content"
+           v-html="link.cache ? link.cache.data : 'Нет'"></div>
     </div>
 
   </section>
@@ -262,7 +261,10 @@ export default {
       modeEdit     : false,
       selectTag    : null,
       tags         : [],
-      flags        : ['privat', 'public'],
+      flags        : [
+        {id: 'public', name: 'Публичные'},
+        {id: 'privat', name: 'Приватные'},
+      ],
       errors       : {},
       pickerOptions: {
         disabledDate(time) {
@@ -359,6 +361,7 @@ export default {
       return {
         id        : ref.id,
         url       : ref.url,
+        desc      : ref.desc,
         categoryId: ref.category.id,
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,

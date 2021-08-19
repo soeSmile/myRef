@@ -7,7 +7,7 @@
     <template slot="content">
       <div class="sm-flex col">
         <div class="sm-flex col sm-mb-2">
-          <label class="sm-label">Ссылка</label>
+          <label class="sm-label">Ссылка*</label>
           <el-input v-model="myRef.url"
                     autocomplete="off"
                     placeholder="Ссылка"/>
@@ -55,6 +55,16 @@
           </div>
         </div>
 
+        <div class="sm-flex col sm-mb-4">
+          <label class="sm-label">Описание</label>
+          <el-input type="textarea"
+                    :rows="2"
+                    placeholder="Описание"
+                    resize="none"
+                    v-model="myRef.desc">
+          </el-input>
+        </div>
+
         <div class="sm-flex middle row sm-mb-4">
           <label class="sm-label sm-mr-4">Дата напоминания</label>
           <el-date-picker
@@ -76,7 +86,7 @@
         <div class="sm-flex col sm-mb-2">
           <label class="sm-label">Коментарий</label>
           <el-input type="textarea"
-                    :rows="3"
+                    :rows="2"
                     placeholder="Коментарий"
                     resize="none"
                     v-model="myRef.comment">
@@ -201,6 +211,7 @@ export default {
     prepareData(ref) {
       return {
         url       : ref.url,
+        desc      : ref.desc,
         categoryId: ref.category,
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
