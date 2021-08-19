@@ -2,6 +2,7 @@
   <div class="sm-ref sm-p-2">
     <el-card shadow="hover">
       <a :href="myRef.url" target="_blank"
+         :title="myRef.title"
          class="sm-flex top col">
         <img class="sm-ref-img"
              :src="myRef.img ? myRef.img : ''"
@@ -55,7 +56,7 @@ export default {
      * @return {string}
      */
     getTitle(title) {
-      return title.trim().slice(0, this.$const.TITLE_LENGTH) + ' ...'
+      return title.trim().slice(0, this.$const.TITLE_LENGTH) + (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '')
     }
   }
 }
