@@ -41,4 +41,9 @@ class Event extends Model
      * @var array
      */
     protected $guarded = ['id'];
+
+    /**
+     * @var array
+     */
+    protected $dates = ['date'];
 }

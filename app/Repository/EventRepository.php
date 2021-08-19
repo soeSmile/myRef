@@ -5,7 +5,9 @@ namespace App\Repository;
 
 use App\Models\Event;
 use App\Repository\Dto\AbstractDto;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +22,20 @@ final class EventRepository extends AbstractRepository
     public function __construct(Event $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * @param array $data
+     * @param array|string[] $columns
+     * @return Collection|LengthAwarePaginator|array
+     */
+    public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
+    {
+        if (isset($data['event'])) {
+            $this->getQuery()->where('event', $data['event']);
+        }
+
+        return parent::all($data, $columns);
     }
 
     /**

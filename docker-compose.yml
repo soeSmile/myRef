@@ -35,6 +35,28 @@ services:
       - '127.0.0.1:32772:5432'
     environment:
       POSTGRES_PASSWORD: 'njhvjp12'
+  query:
+    build: docker/app
+    container_name: ref-query
+    volumes:
+      - './:/var/www'
+    environment:
+      USER: 1000:1000
+    working_dir: /var/www
+    command: php artisan queue:work
+    links:
+      - pg
+  schedule:
+    build: docker/app
+    container_name: ref-schedule
+    volumes:
+      - './:/var/www'
+    environment:
+      USER: 1000:1000
+    working_dir: /var/www
+    command: php artisan schedule:work
+    links:
+      - pg
   node:
     build: ./docker/node
     container_name: ref-node
