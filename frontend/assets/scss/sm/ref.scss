@@ -1,16 +1,16 @@
 .#{$prefix}ref {
-  width: 220px;
+  width: 300px;
   font-family: $fontLight;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .#{$prefix}ref-img {
   width: auto;
-  height: 30px;
+  height: 40px;
 }
 
 .#{$prefix}ref-title {
-  height: 40px;
+  height: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
