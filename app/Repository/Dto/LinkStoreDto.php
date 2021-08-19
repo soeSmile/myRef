@@ -21,10 +21,6 @@ final class LinkStoreDto extends AbstractDto
         $this->setDataByKey('user_id', auth()->id());
         $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVAT);
 
-        if ($this->hasKeyAndNull('category_id')) {
-            $this->setDataByKey('flag', Link::FLAG_NEW);
-        }
-
         return parent::getData($abstractRepository);
     }
 }

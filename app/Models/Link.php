@@ -22,34 +22,12 @@ class Link extends Model
     /**
      * @var string
      */
-    public const FLAG_NEW = 'new';
-
-    /**
-     * @var string
-     */
     public const FLAG_PRIVAT = 'privat';
 
     /**
      * @var string
      */
     public const FLAG_PUBLIC = 'public';
-
-    /**
-     * @var array
-     */
-    public const FLAGS = [
-        self::FLAG_NEW,
-        self::FLAG_PRIVAT,
-        self::FLAG_PUBLIC
-    ];
-
-    /**
-     * @var array
-     */
-    public const OWNER_FLAGS = [
-        self::FLAG_NEW,
-        self::FLAG_PRIVAT,
-    ];
 
     /**
      * @var string

@@ -20,10 +20,10 @@
         </div>
         <el-divider/>
         <div class="sm-mt-4">
-          <p class="sm-mb-2 sm-color-dark">Флаг</p>
+          <p class="sm-mb-2 sm-color-dark">Статус</p>
           <el-select class="sm-w-100"
                      v-model="request.flag"
-                     placeholder="Флаг">
+                     placeholder="Статус">
             <el-option
                 v-for="item in flags"
                 :key="item.id"
@@ -145,7 +145,6 @@ export default {
       flags           : [
         {id: 'public', name: 'Публичные'},
         {id: 'privat', name: 'Приватные'},
-        {id: 'new', name: 'Новые'}
       ],
       request         : {
         ref  : true,
@@ -183,7 +182,7 @@ export default {
       }
     },
     'request.flag': function (val) {
-      if (['privat', 'new'].includes(val)) {
+      if (val === 'privat') {
         this.request.owner = true;
       }
     }

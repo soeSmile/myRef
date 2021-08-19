@@ -60,13 +60,10 @@ final class LinkRepository extends AbstractRepository
 
         if (!isAdmin()) {
             $mustUser = false;
+            $this->getQuery()->where('flag', $dto->getDataByKey('flag') ?? Link::FLAG_PUBLIC);
 
-            if ($dto->hasKey('flag')) {
-                $mustUser = \in_array($dto->getDataByKey('flag'), Link::OWNER_FLAGS, true);
-
-                $this->getQuery()->where('flag', $dto->getDataByKey('flag'));
-            } else {
-                $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
+            if ($dto->getDataByKey('flag') === Link::FLAG_PRIVAT) {
+                $mustUser = true;
             }
 
             if ($dto->hasKey('owner')) {

@@ -88,9 +88,9 @@
           <el-select v-model="myRef.flag"
                      placeholder="Статус">
             <el-option v-for="val in flags"
-                       :key="val"
-                       :label="val"
-                       :value="val">
+                       :key="val.id"
+                       :label="val.name"
+                       :value="val.id">
             </el-option>
           </el-select>
         </div>
@@ -141,7 +141,10 @@ export default {
       },
       selectTag    : null,
       tags         : [],
-      flags        : ['privat', 'public'],
+      flags        : [
+        {id: 'public', name: 'Публичные'},
+        {id: 'privat', name: 'Приватные'},
+      ],
       errors       : {},
       pickerOptions: {
         disabledDate(time) {

@@ -46,7 +46,7 @@ final class LinkSearchDto extends AbstractDto
             'default' => 0
         ],
         'flag'  => [
-            'regexp'  => '/^(' . Link::FLAG_PUBLIC . '|' . Link::FLAG_PRIVAT . '|' . Link::FLAG_NEW . ')$/',
+            'regexp'  => '/^(' . Link::FLAG_PUBLIC . '|' . Link::FLAG_PRIVAT . ')$/',
             'default' => Link::FLAG_PUBLIC
         ],
         'owner' => [
