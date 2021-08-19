@@ -1,5 +1,5 @@
 <template>
-  <div class="sm-flex center wrap sm-mt-2">
+  <div class="sm-flex center wrap sm-mt-2 sm-mb-20">
     <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
               :myRef="val"/>
 
