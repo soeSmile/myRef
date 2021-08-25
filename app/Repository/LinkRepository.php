@@ -90,6 +90,14 @@ final class LinkRepository extends AbstractRepository
             $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
         }
 
+        if ($dto->hasKey('ref')) {
+            $this->getQuery()->where('type', Link::TYPE_LINK);
+        }
+
+        if ($dto->hasKey('note')) {
+            $this->getQuery()->where('type', Link::TYPE_NOTE);
+        }
+
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);
     }
 
