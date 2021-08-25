@@ -352,7 +352,7 @@ export default {
         cancelButtonText : 'Нет',
         type             : 'warning'
       }).then(() => {
-        this.$axios.delete('api/user-links/' + this.searchUrl.id)
+        this.$axios.delete('api/user-links/' + this.user.links[key].id)
             .then(response => {
               this.$message({
                 message: 'Success !',
