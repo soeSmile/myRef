@@ -53,6 +53,7 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
+        'vue2-editor/nuxt'
     ],
 
     axios: {

@@ -12,11 +12,13 @@
         </el-button>
       </div>
       <div class="sm-nav-item">
-        <el-button type="warning"
-                   :disabled="!isClient">
-          <i class="mdi mdi-plus-box sm-mr-1"></i>
-          Заметку
-        </el-button>
+        <n-link to="/note/new">
+          <el-button type="warning"
+                     :disabled="!isClient">
+            <i class="mdi mdi-plus-box sm-mr-1"></i>
+            Заметку
+          </el-button>
+        </n-link>
       </div>
     </div>
 
@@ -38,16 +40,13 @@ export default {
 
   data() {
     return {
-      showAddRef: {
+      showAddRef : {
+        show: false
+      },
+      showAddNote: {
         show: false
       }
     }
   },
-
-  computed: {},
-
-  watch: {},
-
-  methods: {}
 }
 </script>

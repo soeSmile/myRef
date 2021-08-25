@@ -1,6 +1,7 @@
 <template>
   <section class="sm-site-ref"
            v-loading="loading">
+
     <nav v-if="link.canEdit"
          class="sm-nav sm-bg-smoke sm-color-grey sm-mt-2 sm-mb-2">
       <div class="sm-nav-start"></div>
@@ -409,7 +410,7 @@ export default {
      */
     removeFromTags(key) {
       this.link.tags.splice(key, 1)
-    },
+    }
   }
 }
 </script>
