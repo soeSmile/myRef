@@ -19,7 +19,7 @@
           <span>Сохранить</span>
         </div>
         <div v-if="modeEdit"
-             @click="true"
+             @click="cancelEdit"
              class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
           <i class="mdi mdi-close sm-mr-1"></i>
           <span>Отмена</span>
@@ -33,18 +33,129 @@
       </div>
     </nav>
 
-    <div class="sm-mt-8 sm-flex col">
-      <p class="sm-mb-1 sm-color-dark">
+    <div class="sm-site-ref-item">
+      <div class="title">
         Имя
-      </p>
-      <div class="sm-form-input">
-        <el-input placeholder="Имя"
-                  v-model="note.title"/>
-        <div class="sm-form-error"
-             v-html="$messageToStr(errors.name)">
-        </div>
+      </div>
+      <el-input v-if="modeEdit"
+                class="sm-mt-2"
+                v-model="note.title"/>
+      <div v-else
+           class="content">
+        {{ note.title }}
       </div>
     </div>
+
+    <div class="sm-flex middle">
+      <div class="sm-site-ref-item sm-mr-4">
+        <div class="title">
+          Категория
+        </div>
+        <div class="sm-mt-2"
+             v-if="modeEdit">
+          <el-select v-model="note.category"
+                     value-key="id"
+                     filterable
+                     placeholder="Категория">
+            <el-option
+                v-for="item in categories"
+                :key="item.id"
+                :label="item.name"
+                :value="item">
+            </el-option>
+          </el-select>
+        </div>
+        <div v-else-if="!modeEdit && note.category"
+             class="content">
+          <i :class="'mdi '+ note.category.icon"></i>
+          {{ link.category.name }}
+        </div>
+      </div>
+
+      <div v-if="modeEdit"
+           class="sm-site-ref-item sm-mr-4">
+        <div class="title">
+          Дата напоминания
+        </div>
+        <el-date-picker
+            class="sm-mt-2"
+            v-model="note.date"
+            type="date"
+            format="dd-MM-yyyy"
+            value-format="yyyy-MM-dd"
+            placeholder="Дата напоминания"
+            :picker-options="pickerOptions">
+        </el-date-picker>
+      </div>
+
+      <div v-if="modeEdit"
+           class="sm-site-ref-item">
+        <div class="title">
+          Статус
+        </div>
+        <el-select class="sm-mt-2"
+                   v-model="note.flag"
+                   placeholder="Статус">
+          <el-option v-for="val in flags"
+                     :key="val.id"
+                     :label="val.name"
+                     :value="val.id">
+          </el-option>
+        </el-select>
+      </div>
+    </div>
+
+    <div class="sm-site-ref-item">
+      <div class="title">
+        Тэги
+      </div>
+      <div v-if="modeEdit" class="sm-mt-2">
+        <el-select class="sm-w-100"
+                   v-model="selectTag"
+                   filterable
+                   remote
+                   reserve-keyword
+                   placeholder="Тэг"
+                   :remote-method="getTags"
+                   @change="insertTag">
+          <el-option v-for="(item,k) in tags"
+                     :key="item.name"
+                     :label="item.name"
+                     :value="item">
+          </el-option>
+        </el-select>
+        <div class="sm-mt-4" v-if="note.tags.length > 0">
+          <el-tag class="sm-mr-1"
+                  v-for="(val,key) in note.tags"
+                  :key="key"
+                  closable
+                  @close="removeFromTags(key)">
+            {{ val.name }}
+          </el-tag>
+        </div>
+      </div>
+
+      <div v-else
+           class="content">
+        <el-tag class="sm-mr-1"
+                v-for="(val,key) in note.tags"
+                :key="key">
+          {{ val.name }}
+        </el-tag>
+      </div>
+    </div>
+
+    <div class="sm-site-ref-item">
+      <div class="title">
+        Заметка
+      </div>
+      <div class="sm-mt-2 sm-bg-white">
+        <VueEditor id='editNote'
+                   v-model="note.body"
+                   :editorToolbar="customToolbar"/>
+      </div>
+    </div>
+
   </section>
 </template>
 
@@ -72,28 +183,46 @@ export default {
     }
   },
 
-  props: {},
-
   data() {
     return {
-      loading : false,
-      note    : {
+      loading      : false,
+      note         : {
         title   : null,
         category: {},
         user    : {},
-        ags     : [],
+        tags    : [],
         date    : null,
         body    : null,
         flag    : null,
         canEdit : true
       },
-      copyNote: {},
-      modeEdit: true,
-      errors  : {}
+      copyNote     : {},
+      modeEdit     : true,
+      selectTag    : null,
+      tags         : [],
+      flags        : [
+        {id: 'public', name: 'Публичная'},
+        {id: 'privat', name: 'Приватная'},
+      ],
+      errors       : {},
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        },
+      },
+      customToolbar: [
+        ['bold', 'italic', 'underline', 'size'],
+        [{list: 'ordered'}, {list: 'bullet'}, 'align'],
+        ['code-block']
+      ]
     }
   },
 
-  computed: {},
+  computed: {
+    categories() {
+      return this.$store.getters['category/categories'];
+    }
+  },
 
   methods: {
     runEdit() {
@@ -102,8 +231,12 @@ export default {
     },
 
     cancelEdit() {
-      this.note = Object.assign({}, this.copyNote)
-      this.modeEdit = false
+      if (this.$route.params.id === 'new') {
+        this.$router.push('/')
+      } else {
+        this.note = Object.assign({}, this.copyNote)
+        this.modeEdit = false
+      }
     },
 
     store() {

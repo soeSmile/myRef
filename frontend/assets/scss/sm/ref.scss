@@ -1,3 +1,9 @@
+#editNote {
+  max-height: 400px;
+  height: 100%;
+  overflow: auto;
+}
+
 .#{$prefix}ref {
   width: 300px;
   font-family: $fontLight;

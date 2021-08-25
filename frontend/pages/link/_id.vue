@@ -263,8 +263,8 @@ export default {
       selectTag    : null,
       tags         : [],
       flags        : [
-        {id: 'public', name: 'Публичные'},
-        {id: 'privat', name: 'Приватные'},
+        {id: 'public', name: 'Публичная'},
+        {id: 'privat', name: 'Приватная'},
       ],
       errors       : {},
       pickerOptions: {
