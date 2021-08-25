@@ -133,8 +133,6 @@ export default {
     addSearchLink
   },
 
-  props: {},
-
   data() {
     return {
       showAddSearchUrl: false,
