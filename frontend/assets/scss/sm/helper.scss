@@ -91,6 +91,10 @@
   }
 }
 
+.#{$prefix}line {
+  border-bottom: 2px solid map-get($colors, 'sm-grey-l');
+}
+
 .#{$prefix}fadeIn {
   animation: fadein 1s;
 }
@@ -123,11 +127,11 @@
 
 @keyframes fadeInDown {
   from {
-    opacity:0;
+    opacity: 0;
     transform: translatey(-20px);
   }
   to {
-    opacity:1;
+    opacity: 1;
     transform: translatey(0);
   }
 }

@@ -46,7 +46,7 @@
 export default {
   name: "login",
 
-  layout: 'sitePage',
+  layout: 'site',
 
   props: {},
 

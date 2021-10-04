@@ -57,7 +57,7 @@
 export default {
   name: "register",
 
-  layout: 'sitePage',
+  layout: 'site',
 
   data() {
     return {

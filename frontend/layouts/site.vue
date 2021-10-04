@@ -11,7 +11,7 @@
       </header>
 
       <div class="sm-layout-content">
-        Content
+        <nuxt/>
       </div>
 
 
