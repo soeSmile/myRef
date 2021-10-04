@@ -40,10 +40,8 @@ export default {
     ],
 
     plugins: [
-        '~/plugins/auth',
         '~/plugins/axios',
         '~/plugins/builder',
-        '~/plugins/mixin',
         '~/plugins/helper',
         '~/plugins/element',
     ],

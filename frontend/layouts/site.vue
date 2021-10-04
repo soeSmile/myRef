@@ -2,7 +2,7 @@
   <section class="sm-layout">
 
     <aside class="sm-layout-menu">
-      Menu
+      <site-menu/>
     </aside>
 
     <section class="sm-layout-wrap">
@@ -25,19 +25,13 @@
 
 <script>
 
-import siteHeader from "../components/site/header/siteHeader";
-import siteFooter from "../components/site/footer/siteFooter";
-import siteSearch from "../components/site/search/siteSearch";
-import siteControl from "../components/site/control/siteControl";
+import siteMenu from "../components/site/siteMenu";
 
 export default {
   name: "site",
 
   components: {
-    siteHeader,
-    siteFooter,
-    siteSearch,
-    siteControl
+    siteMenu
   },
 
   data() {

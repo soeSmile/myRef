@@ -89,7 +89,11 @@ export const mutations = {
 export const getters = {
     user    : s => s.user,
     errors  : s => s.errors,
-    hasToken: s => !!s.token
+    hasToken: s => !!s.token,
+    isAdmin : s => s.user.isAdmin || false,
+    isClient: s => s.user.isClient || false,
+    isAuth  : s => s.user.isAdmin || s.user.isClient,
+    userLink: s => s.user.link || '/'
 };
 
 export const actions = {

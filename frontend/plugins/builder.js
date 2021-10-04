@@ -38,7 +38,7 @@ export default ({app}, inject) => {
     });
 
     /**
-     * среализация ответов от сервера
+     * сериализация ответов от сервера
      */
     inject('messageToStr', (message = null) => {
         if (typeof message === 'string') return message;

@@ -1,23 +1,10 @@
 export const state = () => (
-    {
-        trans: {}
-    }
+    {}
 );
 
-export const mutations = {
-    /**
-     * @param state
-     * @param trans
-     * @constructor
-     */
-    SET_LANG(state, trans) {
-        state.trans = trans;
-    }
-};
+export const mutations = {};
 
-export const getters = {
-    trans: s => s.trans
-};
+export const getters = {};
 
 export const actions = {
     /**
