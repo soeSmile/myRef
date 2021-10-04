@@ -14,7 +14,11 @@ services:
     links:
       - app
   app:
-    build: docker/app
+    build:
+      context: docker/app
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     container_name: ref-app
     volumes:
       - './:/var/www'
@@ -36,7 +40,11 @@ services:
     environment:
       POSTGRES_PASSWORD: 'njhvjp12'
   query:
-    build: docker/app
+    build:
+      context: docker/app
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     container_name: ref-query
     volumes:
       - './:/var/www'
@@ -47,7 +55,11 @@ services:
     links:
       - pg
   schedule:
-    build: docker/app
+    build:
+      context: docker/app
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     container_name: ref-schedule
     volumes:
       - './:/var/www'

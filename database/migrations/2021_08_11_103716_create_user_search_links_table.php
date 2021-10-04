@@ -18,7 +18,7 @@ class CreateUserSearchLinksTable extends Migration
             $table->string('name');
             $table->uuid('user_id');
             $table->string('link');
-            $table->integer('order')->unsigned()->default(1);
+            $table->integer('order')->unsigned()->default(1)->comment('Order show on front');
             $table->timestamps();
         });
     }
