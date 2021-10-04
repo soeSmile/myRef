@@ -1,3 +1,30 @@
 .#{$prefix}menu {
-  background: map-get($colors, 'white');
+  display: flex;
+  flex-direction: column;
+  width: 90px;
+
+  &.active {
+    width: 250px;
+    transition: all 0.3s ease;
+  }
+}
+
+.#{$prefix}menu-item {
+  padding: map-get($sizes, 2) map-get($sizes, 8) map-get($sizes, 2) map-get($sizes, 8);
+}
+
+.#{$prefix}menu-icon {
+  font-size: map-get($sizes, 8);
+  color: map-get($colors, 'sm-green-d');
+}
+
+.#{$prefix}menu-text {
+  margin-left: map-get($sizes, 6);
+  font-size: map-get($sizes, 5);
+  display: none;
+
+  &.active {
+    display: block;
+    transition: all 0.3s ease;
+  }
 }
