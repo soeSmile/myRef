@@ -10,6 +10,7 @@
     <n-link :to="val.link"
             v-for="val in items"
             :key="val.name"
+            :title="val.name"
             class="sm-menu-item sm-flex middle"
             :class="show ? 'left' : 'center'">
       <div class="sm-menu-icon">
