@@ -36,7 +36,7 @@ html {
 
 html, body, #__nuxt, #__layout {
   height: 100%;
-  background: map-get($colors, 'fon');
+  background: map-get($colors, 'sm-fon');
 }
 
 .page-enter-active, .page-leave-active {

@@ -20,7 +20,7 @@ export default {
     },
 
     loading: {
-        color : '#0589bd',
+        color : '#d88844',
         height: '3px',
     },
 

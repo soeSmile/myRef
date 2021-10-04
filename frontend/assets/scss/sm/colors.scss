@@ -2,18 +2,6 @@
   Variables colors
 */
 $colors: (
-        'color-1': #409EFF,
-        'color-2': #D9ECFF,
-        'color-3': #67C23A,
-        'color-4': #E1F3D8,
-        'color-5': #E6A23C,
-        'color-6': #FAECD8,
-        'color-7': #F56C6C,
-        'color-8': #FDE2E2,
-        'color-9': #909399,
-        'color-10': #E9E9EB,
-        'color-11': #303133,
-        'color-12': #606266,
         'white':#ffffff,
         'black':#000000,
         'green':#27ae60,
@@ -28,7 +16,14 @@ $colors: (
         'smoke':#ecf0f1,
         'light':#dfe6e9,
         'breeze':#dff9fb,
-        'fon': #fafafa
+
+        'sm-fon': #f0f0f0,
+        'sm-dark': #333333,
+        'sm-orange': #d88844,
+        'sm-green': #c7da98,
+        'sm-green-d': #9cbc93,
+        'sm-grey': #b3b3b3,
+        'sm-grey-l': #f1f1f1
 );
 
 @each $name, $value in $colors {

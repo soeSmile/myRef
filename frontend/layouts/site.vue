@@ -1,28 +1,25 @@
 <template>
   <section class="sm-layout">
-    <header class="sm-layout-header sm-bg-color-1 sm-color-white sm-p-4">
-      <div class="sm-container center">
-        <site-header/>
-      </div>
-    </header>
 
-    <section class="sm-layout-content">
-      <div class="sm-container center sm-flex row sm-h-100">
-        <div class="sm-search-block sm-h-100">
-          <site-search/>
-        </div>
-        <div class="sm-list-block sm-flex col sm-h-100">
-          <site-control/>
-          <nuxt/>
-        </div>
+    <aside class="sm-layout-menu">
+      Menu
+    </aside>
+
+    <section class="sm-layout-wrap">
+      <header class="sm-layout-header">
+        Head
+      </header>
+
+      <div class="sm-layout-content">
+        Content
       </div>
+
+
+      <footer class="sm-layout-footer">
+        Footer
+      </footer>
     </section>
 
-    <footer class="sm-layout-footer sm-bg-color-1 sm-color-white">
-      <div class="sm-container center">
-        <site-footer/>
-      </div>
-    </footer>
   </section>
 </template>
 

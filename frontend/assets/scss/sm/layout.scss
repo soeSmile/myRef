@@ -1,7 +1,18 @@
 .#{$prefix}layout {
   display: flex;
+  height: 100%;
+}
+
+.#{$prefix}layout-menu {
+  display: flex;
+  height: 100%;
+}
+
+.#{$prefix}layout-wrap {
+  display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .#{$prefix}layout-header {
@@ -15,19 +26,4 @@
 
 .#{$prefix}layout-footer {
   flex: 0 0 auto;
-}
-
-.#{$prefix}line {
-  border-bottom: 1px solid map_get($colors, 'grey');
-  margin-top: map_get($sizes, 2);
-  margin-bottom: map_get($sizes, 2);
-}
-
-.#{$prefix}container {
-  max-width: 1200px;
-  width: 100%;
-
-  &.center {
-    margin: 0 auto;
-  }
 }
