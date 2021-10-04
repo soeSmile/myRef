@@ -1,4 +1,5 @@
 .#{$prefix}menu {
+  background: map-get($colors, 'white');
   display: flex;
   flex-direction: column;
   width: 90px;
@@ -12,11 +13,17 @@
 
 .#{$prefix}menu-item {
   padding: map-get($sizes, 2) map-get($sizes, 8) map-get($sizes, 2) map-get($sizes, 8);
+  color: map-get($colors, 'sm-dark');
+
+  &.is-active, &:hover {
+    background: map-get($colors, 'sm-grey');
+    color: map-get($colors, 'sm-grey-l') !important;
+    @include animateHover;
+  }
 }
 
 .#{$prefix}menu-icon {
   font-size: map-get($sizes, 8);
-  color: map-get($colors, 'sm-green-d');
 }
 
 .#{$prefix}menu-text {

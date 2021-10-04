@@ -1,11 +1,11 @@
 <template>
-    <section>
-        <nuxt/>
-    </section>
+  <section class="sm-layout">
+    <nuxt/>
+  </section>
 </template>
 
 <script>
-	export default {
-		name: "default",
-	}
+export default {
+  name: "default",
+}
 </script>

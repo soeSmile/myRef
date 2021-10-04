@@ -1,5 +1,5 @@
 <template>
-  <nav class="sm-menu sm-bg-white"
+  <nav class="sm-menu"
        :class="{ 'active' : show }">
     <div class="sm-flex sm-p-4"
          :class="show ? 'right' : 'center'">
@@ -38,10 +38,11 @@ export default {
       register: 'Регистрация',
       exit    : 'Выход',
       items   : [
-        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: ''},
-        {name: 'Категории', icon: 'mdi mdi-shape', link: ''},
-        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: ''},
-        {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: ''},
+        {name: 'Главная', icon: 'mdi mdi-home', link: '/'},
+        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new'},
+        {name: 'Категории', icon: 'mdi mdi-shape', link: '/category'},
+        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags'},
+        {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top'},
       ]
     }
   },
