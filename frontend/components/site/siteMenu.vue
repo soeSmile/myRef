@@ -21,7 +21,7 @@
       <div @click="$store.dispatch('auth/logout')"
            class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
         <div class="icon">
-          <i class='mdi location-exit'></i>
+          <i class='mdi mdi-location-exit'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
           {{ userMenu.exit }}
