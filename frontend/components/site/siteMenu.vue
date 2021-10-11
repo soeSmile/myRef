@@ -18,7 +18,7 @@
       </div>
 
       <div @click="$store.dispatch('auth/logout')"
-           class="sm-menu-item sm-flex middle sm-link"
+           class="sm-menu-item link sm-flex middle sm-link"
            :class="show ? 'left' : 'center'">
         <div class="icon">
           <i class='mdi mdi-location-exit'></i>
@@ -30,7 +30,7 @@
     </div>
     <div v-else>
       <n-link to="/login"
-              class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
+              class="sm-menu-item link sm-flex middle" :class="show ? 'left' : 'center'">
         <div class="icon">
           <i class='mdi mdi-login'></i>
         </div>
@@ -40,7 +40,7 @@
       </n-link>
 
       <n-link to="/register"
-              class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
+              class="sm-menu-item link sm-flex middle" :class="show ? 'left' : 'center'">
         <div class="icon">
           <i class='mdi mdi-key'></i>
         </div>
@@ -56,7 +56,7 @@
             v-for="val in items"
             :key="val.name"
             :title="val.name"
-            class="sm-menu-item sm-flex middle"
+            class="sm-menu-item link sm-flex middle"
             :class="show ? 'left' : 'center'">
       <div class="icon">
         <i :class="val.icon"></i>

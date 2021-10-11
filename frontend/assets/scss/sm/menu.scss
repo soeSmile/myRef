@@ -34,7 +34,7 @@
     }
   }
 
-  &:hover {
+  &.link:hover {
     color: map-get($colors, 'primary');
     @include animateHover;
   }
