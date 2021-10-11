@@ -7,7 +7,7 @@
 
     <section class="sm-layout-wrap">
       <header class="sm-layout-header">
-        Head
+        <site-search-head/>
       </header>
 
       <div class="sm-layout-content">
@@ -26,11 +26,13 @@
 <script>
 
 import siteMenu from "../components/site/siteMenu";
+import SiteSearchHead from "../components/site/head/siteSearchHead";
 
 export default {
   name: "site",
 
   components: {
+    SiteSearchHead,
     siteMenu
   },
 
