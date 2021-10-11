@@ -1,11 +1,6 @@
 <template>
   <div class="sm-flex col sm-bg-white sm-p-4">
     <div class="sm-flex middle wrap">
-      <div class="sm-link sm-color-grey sm-hover-primary sm-mr-4"
-           @click="clear">
-        <i class="mdi mdi-close-thick"></i>
-      </div>
-
       <div class="sm-w-30 sm-mr-4">
         <b-select placeholder="Выбор категории"
                   expanded
@@ -25,6 +20,15 @@
                     :before-adding="insertTag">
         </b-taginput>
       </div>
+
+      <b-button class="sm-mr-2"
+                type="is-success">
+        Поиск
+      </b-button>
+      <b-button type="is-link"
+                @clear="clear">
+        Сброс
+      </b-button>
     </div>
 
     <div class="sm-flex middle wrap sm-mt-2">

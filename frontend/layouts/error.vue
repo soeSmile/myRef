@@ -1,5 +1,5 @@
 <template>
-  <div class="sm-flex center middle sm-w-100">
+  <div class="sm-flex center middle sm-w-100 sm-h-100">
     <div class="sm-fnt bold size-20 sm-color-grey">
       Error 404
     </div>
@@ -11,7 +11,7 @@
 export default {
   name: "error",
 
-  layout: 'site',
+  layout: 'sitePage',
 
   head() {
     return {
