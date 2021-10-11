@@ -70,10 +70,9 @@
 </template>
 
 <script>
+
 export default {
   name: "siteMenu",
-
-  props: {},
 
   data() {
     return {
@@ -98,15 +97,5 @@ export default {
       return this.$store.getters['auth/user'];
     }
   },
-
-  watch: {},
-
-  created() {
-  },
-
-  mounted() {
-  },
-
-  methods: {},
 };
 </script>
