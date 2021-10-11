@@ -1,29 +1,43 @@
 <template>
-  <div class="sm-flex middle wrap sm-p-4 sm-bg-white">
-    <div class="sm-link sm-color-grey sm-hover-primary sm-mr-4"
-         @click="clear">
-      <i class="mdi mdi-close-thick"></i>
+  <div class="sm-flex col sm-bg-white sm-p-4">
+    <div class="sm-flex middle wrap">
+      <div class="sm-link sm-color-grey sm-hover-primary sm-mr-4"
+           @click="clear">
+        <i class="mdi mdi-close-thick"></i>
+      </div>
+
+      <div class="sm-w-30 sm-mr-4">
+        <b-select placeholder="Выбор категории"
+                  expanded
+                  v-model="selectCategory"
+                  @input="insertCategory">
+          <option v-for="val in filterCategory"
+                  :value="val"
+                  :key="val.id">
+            {{ val.name }}
+          </option>
+        </b-select>
+      </div>
+
+      <div class="sm-w-30 sm-mr-4">
+        <b-taginput placeholder="Выбор тега"
+                    v-model="selectTag"
+                    :before-adding="insertTag">
+        </b-taginput>
+      </div>
     </div>
 
-    <div class="sm-w-30 sm-mr-4">
-      <b-select placeholder="Выбор категории"
-                expanded
-                v-model="selectCategory"
-                @input="insertCategory"
-                @typing="insertCategory">
-        <option v-for="val in filterCategory"
-                :value="val"
-                :key="val.id">
+    <div class="sm-flex middle wrap sm-mt-2">
+      <div class="sm-w-30">
+        <b-tag class="sm-m-1"
+               v-for="(val,key) in request.cats"
+               :key="val.name"
+               type="is-success"
+               closable
+               @close="removeCategory(key)">
           {{ val.name }}
-        </option>
-      </b-select>
-    </div>
-
-    <div class="sm-w-30 sm-mr-4">
-      <b-taginput placeholder="Выбор тега"
-                  v-model="selectTag"
-                  :before-adding="insertTag">
-      </b-taginput>
+        </b-tag>
+      </div>
     </div>
 
   </div>
@@ -63,6 +77,7 @@ export default {
     clear() {
       this.request = {
         cats: [],
+        tags: [],
       };
     },
 
@@ -73,6 +88,13 @@ export default {
       if (item !== undefined) {
         this.request.cats.push(item);
       }
+    },
+
+    /**
+     * @param key
+     */
+    removeCategory(key) {
+      this.request.cats.splice(key, 1)
     },
 
     insertTag(item) {
