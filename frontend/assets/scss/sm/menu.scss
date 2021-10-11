@@ -4,25 +4,28 @@
   flex-direction: column;
   width: 90px;
   transition: all 0.3s ease;
+  padding: 0 map-get($sizes, 4);
 
   &.active {
-    width: 250px;
+    width: 300px;
     transition: all 0.3s ease;
   }
 }
 
 .#{$prefix}menu-item {
-  padding: map-get($sizes, 2) map-get($sizes, 8) map-get($sizes, 2) map-get($sizes, 8);
-  color: map-get($colors, 'dark');
+  padding: map-get($sizes, 4) map-get($sizes, 8) map-get($sizes, 4) map-get($sizes, 8);
+  border-radius: map-get($sizes, 2);
+  color: map-get($colors, 'grey');
 
   & .icon {
-    font-size: map-get($sizes, 10);
+    font-size: map-get($sizes, 6);
     color: map-get($colors, 'sm-green');
   }
 
   & .text {
     margin-left: map-get($sizes, 6);
-    font-size: map-get($sizes, 5);
+    font-size: map-get($sizes, 4);
+    font-weight: 600;
     display: none;
 
     &.active {
@@ -31,9 +34,13 @@
     }
   }
 
-  &.is-active, &:hover {
-    background: map-get($colors, 'grey');
-    color: map-get($colors, 'sm-grey-l');
+  &:hover {
+    color: map-get($colors, 'primary');
     @include animateHover;
+  }
+
+  &.is-active {
+    background: map-get($colors, 'primary');
+    color: map-get($colors, 'grey-l');
   }
 }
