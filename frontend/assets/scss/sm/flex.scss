@@ -13,7 +13,7 @@
   }
 
   &.top {
-    align-items: start;
+    align-items: flex-start;
   }
 
   &.foot {
@@ -21,7 +21,7 @@
   }
 
   &.left {
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   &.center {
@@ -49,7 +49,7 @@
   }
 
   &.wrap-start {
-    align-content: start;
+    align-content: flex-start;
   }
 
   &.wrap-end {

@@ -1,52 +1,40 @@
 <template>
   <div class="sm-h-100 sm-flex center middle">
     <div class="sm-wpx-300 sm-flex col">
-      <p class="sm-mb-1 sm-color-dark">
-        Имя
-      </p>
-      <div class="sm-form-input">
-        <el-input placeholder="Имя"
-                  v-model="user.name"/>
-        <div class="sm-form-error">
-          {{ errors.name }}
-        </div>
-      </div>
+      <b-field label="Name"
+               :type="errors.name ? 'is-danger' : ''"
+               :message="errors.name">
+        <b-input type="email"
+                 v-model="user.name">
+        </b-input>
+      </b-field>
 
-      <p class="sm-mb-1 sm-mt-6 sm-color-dark">
-        E-mail
-      </p>
-      <div class="sm-form-input">
-        <el-input placeholder="E-mail"
-                  v-model="user.email"/>
-        <div class="sm-form-error">
-          {{ errors.email }}
-        </div>
-      </div>
+      <b-field label="Email"
+               :type="errors.email ? 'is-danger' : ''"
+               :message="errors.email">
+        <b-input type="email"
+                 v-model="user.email">
+        </b-input>
+      </b-field>
 
-      <p class="sm-mb-1 sm-mt-6 sm-color-dark">
-        Пароль
-      </p>
-      <div class="sm-form-input">
-        <el-input placeholder="Пароль"
-                  v-model="user.password"
-                  show-password/>
-        <div class="sm-form-error">
-          {{ errors.password }}
-        </div>
-      </div>
+      <b-field label="Password"
+               :type="errors.password ? 'is-danger' : ''"
+               :message="errors.password">
+        <b-input type="password"
+                 v-model="user.password">
+        </b-input>
+      </b-field>
 
       <div class="sm-mt-8">
-        <el-button type="primary"
-                   @click="register">
-          Вход
-        </el-button>
-        <el-button @click="reset">
-          Сброс
-        </el-button>
-      </div>
-
-      <div class="sm-form-input sm-mt-4">
-        <div class="sm-form-error"></div>
+        <b-button class="sm-mr-2"
+                  type="is-primary"
+                  @click="register">
+          Register
+        </b-button>
+        <b-button type="is-link"
+                  @click="reset">
+          Reset
+        </b-button>
       </div>
     </div>
   </div>

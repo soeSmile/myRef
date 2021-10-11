@@ -7,13 +7,13 @@
   padding: 0 map-get($sizes, 4);
 
   &.active {
-    width: 300px;
+    width: 250px;
     transition: all 0.3s ease;
   }
 }
 
 .#{$prefix}menu-item {
-  padding: map-get($sizes, 4) map-get($sizes, 8) map-get($sizes, 4) map-get($sizes, 8);
+  padding: map-get($sizes, 3) map-get($sizes, 5) map-get($sizes, 3) map-get($sizes, 5);
   border-radius: map-get($sizes, 2);
   color: map-get($colors, 'grey');
 

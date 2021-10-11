@@ -1,10 +1,10 @@
 <template>
   <nav class="sm-menu"
        :class="{ 'active' : show }">
-    <div class="sm-flex middle sm-p-8"
+    <div class="sm-flex middle sm-p-5"
          :class="show ? 'right' : 'center'">
       <i @click="show = !show"
-         class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-primary"></i>
+         class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-rose"></i>
     </div>
 
     <div v-if="$store.getters['auth/isAuth']">

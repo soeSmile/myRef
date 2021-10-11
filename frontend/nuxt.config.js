@@ -43,7 +43,6 @@ export default {
         '~/plugins/axios',
         '~/plugins/builder',
         '~/plugins/helper',
-        '~/plugins/element',
     ],
 
     components: true,
@@ -51,7 +50,8 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        'vue2-editor/nuxt'
+        'vue2-editor/nuxt',
+        ['nuxt-buefy', {css: false}],
     ],
 
     axios: {
