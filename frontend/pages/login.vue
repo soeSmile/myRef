@@ -9,7 +9,7 @@
         </b-input>
       </b-field>
 
-      <b-field label="Password"
+      <b-field label="Пароль"
                :type="errors.password ? 'is-danger' : ''"
                :message="errors.password">
         <b-input type="password"
@@ -37,7 +37,9 @@
 export default {
   name: "login",
 
-  layout: 'sitePage',
+  layout: 'site',
+
+  middleware: ['noAuth'],
 
   props: {},
 

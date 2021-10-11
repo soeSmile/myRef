@@ -11,6 +11,8 @@
 export default {
   name: "error",
 
+  layout: 'site',
+
   head() {
     return {
       title: 'Error 404'

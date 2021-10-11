@@ -1,7 +1,7 @@
 <template>
   <div class="sm-h-100 sm-flex center middle">
     <div class="sm-wpx-300 sm-flex col">
-      <b-field label="Name"
+      <b-field label="Имя"
                :type="errors.name ? 'is-danger' : ''"
                :message="errors.name">
         <b-input type="email"
@@ -17,7 +17,7 @@
         </b-input>
       </b-field>
 
-      <b-field label="Password"
+      <b-field label="Пароль"
                :type="errors.password ? 'is-danger' : ''"
                :message="errors.password">
         <b-input type="password"
@@ -29,11 +29,11 @@
         <b-button class="sm-mr-2"
                   type="is-primary"
                   @click="register">
-          Register
+          Регистрация
         </b-button>
         <b-button type="is-link"
                   @click="reset">
-          Reset
+          Сброс
         </b-button>
       </div>
     </div>
@@ -45,7 +45,9 @@
 export default {
   name: "register",
 
-  layout: 'sitePage',
+  layout: 'site',
+
+  middleware: ['noAuth'],
 
   data() {
     return {

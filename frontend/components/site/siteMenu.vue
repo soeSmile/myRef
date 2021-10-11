@@ -8,18 +8,18 @@
     </div>
 
     <div v-if="$store.getters['auth/isAuth']">
-      <n-link :to="$store.getters['auth/isAdmin'] ? '/admin' : '/'"
-              class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
+      <div class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
         <div class="icon">
           <i class='mdi mdi-account'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
           {{ user.name }}
         </div>
-      </n-link>
+      </div>
 
       <div @click="$store.dispatch('auth/logout')"
-           class="sm-menu-item sm-flex middle" :class="show ? 'left' : 'center'">
+           class="sm-menu-item sm-flex middle sm-link"
+           :class="show ? 'left' : 'center'">
         <div class="icon">
           <i class='mdi mdi-location-exit'></i>
         </div>
