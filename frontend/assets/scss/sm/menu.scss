@@ -42,6 +42,10 @@
   &.is-active {
     background: map-get($colors, 'primary');
     color: map-get($colors, 'light');
+
+    &:hover {
+      color: map-get($colors, 'light');
+    }
   }
 }
 
