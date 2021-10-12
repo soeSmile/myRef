@@ -98,7 +98,7 @@ export default {
       selectTag     : null,
       selected      : null,
       request       : {
-        type : 0,
+        type : 1,
         note : false,
         date : false,
         top  : false,
@@ -208,7 +208,7 @@ export default {
      * search
      */
     searchRequest() {
-      if (this.searchText.length > 3) {
+      if (this.searchText.length >= 3) {
         console.log(this.searchText)
       } else {
         console.log(this.makeRequest())
