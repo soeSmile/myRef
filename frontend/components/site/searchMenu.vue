@@ -99,13 +99,10 @@ export default {
       selected      : null,
       request       : {
         type : 1,
-        note : false,
-        date : false,
-        top  : false,
+        flag : 1,
         cats : [],
         tags : [],
         owner: false,
-        flag : 1
       },
     };
   },
@@ -124,6 +121,10 @@ export default {
     categories() {
       return this.$store.getters['category/categories'];
     },
+  },
+
+  created() {
+    this.restoreDataFromQuery();
   },
 
   methods: {
@@ -191,13 +192,17 @@ export default {
     makeRequest() {
       let result = {}
 
-      for (let i in this.request) {
-        if (this.request[i] instanceof Array) {
-          if (this.request[i].length > 0) {
-            result[i] = JSON.stringify(this.request[i].map((item) => item.id))
+      if (this.searchText.length >= 3) {
+        result.search = this.searchText;
+      } else {
+        for (let i in this.request) {
+          if (this.request[i] instanceof Array) {
+            if (this.request[i].length > 0) {
+              result[i] = JSON.stringify(this.request[i].map((item) => item.id))
+            }
+          } else if (this.request[i]) {
+            result[i] = this.request[i]
           }
-        } else if (this.request[i]) {
-          result[i] = this.request[i]
         }
       }
 
@@ -208,11 +213,7 @@ export default {
      * search
      */
     searchRequest() {
-      if (this.searchText.length >= 3) {
-        console.log(this.searchText)
-      } else {
-        console.log(this.makeRequest())
-      }
+      this.$store.dispatch('links/setUrl', {params: this.makeRequest()})
     },
 
     /**
@@ -221,19 +222,58 @@ export default {
     resetRequest() {
       this.request = {
         type : 1,
-        note : false,
-        date : false,
-        top  : false,
+        flag : 1,
         cats : [],
         tags : [],
-        owner: false,
-        flag : 1
+        owner: false
       };
       this.searchText = '';
       this.selectCategory = null;
       this.selectTag = null;
       this.selected = null;
-    }
+      this.$store.dispatch('links/setUrl', {params: {}, clear: true})
+    },
+
+    /**
+     * restore data
+     */
+    restoreDataFromQuery() {
+      let query = this.$route.query;
+
+      for (let i in query) {
+        switch (i) {
+          case 'type' : {
+            this.request.type = parseInt(query[i] || 1, 10)
+            break;
+          }
+          case 'flag' : {
+            this.request.flag = parseInt(query[i] || 1, 10)
+            break;
+          }
+          case 'cats' : {
+            this.request.cats = this.categories.filter(x => JSON.parse(query[i] || []).includes(x.id))
+            break;
+          }
+          case 'tags' : {
+            this.setTags(JSON.parse(query[i] || []));
+            break;
+          }
+        }
+      }
+    },
+
+    /**
+     * set tag
+     * @param ids
+     */
+    setTags(ids) {
+      this.$axios.get('/api/tags', {params: {ids: JSON.stringify(ids)}})
+          .then(res => {
+            this.request.tags = res.data.data.filter(x => ids.includes(x.id))
+          })
+          .catch(err => {
+          })
+    },
   },
 };
 </script>
