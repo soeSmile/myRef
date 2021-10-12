@@ -145,7 +145,7 @@ export default {
         {id: 'privat', name: 'Приватные'},
       ],
       request         : {
-        ref  : true,
+        type : 0,
         note : false,
         date : false,
         top  : false,

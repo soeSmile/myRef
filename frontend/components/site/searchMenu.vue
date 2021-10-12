@@ -5,7 +5,10 @@
         <b-input placeholder="Глобальный поиск"
                  v-model="searchText"
                  type="search"
-                 icon="magnify">
+                 icon="magnify"
+                 icon-right="close-circle"
+                 icon-right-clickable
+                 @icon-right-click="searchText = ''">
         </b-input>
       </b-field>
     </div>
@@ -90,12 +93,12 @@ export default {
     return {
       loadingTag    : false,
       tags          : [],
-      searchText    : null,
+      searchText    : '',
       selectCategory: null,
       selectTag     : null,
       selected      : null,
       request       : {
-        ref  : true,
+        type : 0,
         note : false,
         date : false,
         top  : false,
@@ -205,7 +208,11 @@ export default {
      * search
      */
     searchRequest() {
-      console.log(this.makeRequest())
+      if (this.searchText.length > 3) {
+        console.log(this.searchText)
+      } else {
+        console.log(this.makeRequest())
+      }
     },
 
     /**
@@ -213,7 +220,7 @@ export default {
      */
     resetRequest() {
       this.request = {
-        ref  : true,
+        type : 1,
         note : false,
         date : false,
         top  : false,
@@ -222,7 +229,7 @@ export default {
         owner: false,
         flag : 1
       };
-      this.searchText = null;
+      this.searchText = '';
       this.selectCategory = null;
       this.selectTag = null;
       this.selected = null;

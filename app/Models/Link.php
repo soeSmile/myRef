@@ -22,22 +22,22 @@ class Link extends Model
     /**
      * @var int
      */
-    public const FLAG_PRIVAT = 0;
+    public const FLAG_PRIVAT = 1;
 
     /**
      * @var int
      */
-    public const FLAG_PUBLIC = 1;
+    public const FLAG_PUBLIC = 2;
 
     /**
      * @var int
      */
-    public const TYPE_LINK = 0;
+    public const TYPE_LINK = 1;
 
     /**
      * @var int
      */
-    public const TYPE_NOTE = 1;
+    public const TYPE_NOTE = 2;
 
     /**
      * @var string
