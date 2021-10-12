@@ -43,6 +43,10 @@ $fontSize: 0.75rem !default;
     font-family: $fontBold;
   }
 
+  &.600 {
+    font-weight: 600;
+  }
+
   @for $i from 0 through 20 {
     &.size-#{$i} {
       font-size: $fontSize !important;

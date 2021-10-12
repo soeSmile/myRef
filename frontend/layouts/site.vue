@@ -3,21 +3,18 @@
 
     <aside class="sm-layout-menu">
       <site-menu/>
+      <search-menu/>
     </aside>
 
     <section class="sm-layout-wrap">
-      <header class="sm-layout-header">
-        <site-search-head/>
-      </header>
+      <header class="sm-layout-header"></header>
 
       <div class="sm-layout-content">
         <nuxt/>
       </div>
 
 
-      <footer class="sm-layout-footer">
-        Footer
-      </footer>
+      <footer class="sm-layout-footer"></footer>
     </section>
 
   </section>
@@ -25,15 +22,15 @@
 
 <script>
 
-import siteMenu from "../components/site/siteMenu";
-import SiteSearchHead from "../components/site/head/siteSearchHead";
+import SiteMenu from "../components/site/siteMenu";
+import SearchMenu from "../components/site/searchMenu";
 
 export default {
   name: "site",
 
   components: {
-    SiteSearchHead,
-    siteMenu
+    SiteMenu,
+    SearchMenu
   },
 
   data() {

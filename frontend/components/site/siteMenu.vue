@@ -76,7 +76,7 @@ export default {
 
   data() {
     return {
-      show    : true,
+      show    : false,
       userMenu: {
         login   : 'Вход',
         register: 'Регистрация',
