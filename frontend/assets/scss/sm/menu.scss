@@ -50,6 +50,25 @@
 }
 
 /**
+  Ste page menu head
+ */
+.#{$prefix}menu-head {
+  background: map-get($colors, 'white');
+
+  & .item {
+    color: map-get($colors, 'dark');
+    padding: map-get($sizes, 2) map-get($sizes, 4) map-get($sizes, 2) map-get($sizes, 4);
+
+    &:hover, &.is-active {
+      background: map-get($colors, 'dark');
+      color: map-get($colors, 'white');
+      @include animateHover
+    }
+  }
+}
+
+
+/**
   Search Menu
  */
 .#{$prefix}menu-search {

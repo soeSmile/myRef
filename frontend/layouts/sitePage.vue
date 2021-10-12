@@ -2,11 +2,11 @@
   <section class="sm-layout">
     <section class="sm-layout-wrap">
       <header class="sm-layout-header">
-        <nav class="sm-nav sm-p-2 sm-bg-white">
+        <nav class="sm-nav sm-menu-head">
           <div class="sm-nav-start"></div>
           <div class="sm-nav-center">
-            <n-link class="sm-color-primary sm-p-2 sm-fnt bold"
-                    v-for="val in menu"
+            <n-link class="item sm-fnt 600"
+                    v-for="val in menu" :key="val.name"
                     :to="val.link">
               {{ val.name }}
             </n-link>
