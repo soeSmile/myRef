@@ -37,16 +37,44 @@
       </b-tag>
     </div>
 
-    <b-field label="Выбрать тег">
+
+    <b-field class="sm-mt-4"
+             label="Выбрать тег">
       <b-autocomplete placeholder="Выбрать тег"
-                      :loading="loading"
+                      :loading="loadingTag"
                       v-model="selectTag"
                       ref="autocomplete"
                       :data="tags"
                       @typing="getTags"
-                      @select="option => selected = option">
+                      @select="insertTag">
+        <template #empty>Нет данных по запросу: {{ selectTag }}</template>
+        <template slot-scope="props">
+          {{ props.option.name }}
+        </template>
       </b-autocomplete>
     </b-field>
+
+    <div class="sm-flex wrap sm-mt-2">
+      <b-tag class="sm-m-1"
+             v-for="(val,key) in request.tags"
+             :key="val.name"
+             type="is-warning"
+             closable
+             @close="removeTag(key)">
+        {{ val.name }}
+      </b-tag>
+    </div>
+
+    <div class="sm-flex wrap sm-mt-6">
+      <b-button class="sm-mr-2"
+                type="is-primary">
+        Поиск
+      </b-button>
+      <b-button type="is-link"
+                @clear="clear">
+        Сброс
+      </b-button>
+    </div>
 
   </nav>
 </template>
@@ -59,7 +87,7 @@ export default {
 
   data() {
     return {
-      loading       : false,
+      loadingTag    : false,
       tags          : [],
       search        : null,
       selectCategory: null,
@@ -95,6 +123,10 @@ export default {
   },
 
   methods: {
+    clear() {
+
+    },
+
     /**
      * @param item
      */
@@ -115,12 +147,38 @@ export default {
      * @param tag
      */
     getTags(tag) {
-      this.$axios.get('/api/tags', {params: {tag: tag}})
-          .then(response => {
-            this.tags = response.data.data;
-          })
-          .catch(error => {
-          })
+      if (tag.length >= 3) {
+        this.loadingTag = true;
+
+        this.$axios.get('/api/tags', {params: {tag: tag}})
+            .then(res => {
+              this.tags = res.data.data;
+            })
+            .catch(err => {
+            })
+            .finally(() => {
+              this.loadingTag = false;
+            })
+      }
+    },
+
+    /**
+     * @param item
+     */
+    insertTag(item) {
+      this.tags = []
+      let id = this.request.tags.find(x => x.id === item.id)
+
+      if (!id) {
+        this.request.tags.push(item)
+      }
+    },
+
+    /**
+     * @param key
+     */
+    removeTag(key) {
+      this.request.tags.splice(key, 1)
     },
   },
 };
