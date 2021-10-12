@@ -3,7 +3,7 @@
     <div class="search">
       <b-field>
         <b-input placeholder="Глобальный поиск"
-                 v-model="search"
+                 v-model="searchText"
                  type="search"
                  icon="magnify">
         </b-input>
@@ -67,11 +67,12 @@
 
     <div class="sm-flex wrap sm-mt-6">
       <b-button class="sm-mr-2"
-                type="is-primary">
+                type="is-primary"
+                @click="searchRequest">
         Поиск
       </b-button>
       <b-button type="is-link"
-                @clear="clear">
+                @click="resetRequest">
         Сброс
       </b-button>
     </div>
@@ -89,7 +90,7 @@ export default {
     return {
       loadingTag    : false,
       tags          : [],
-      search        : null,
+      searchText    : null,
       selectCategory: null,
       selectTag     : null,
       selected      : null,
@@ -101,7 +102,7 @@ export default {
         cats : [],
         tags : [],
         owner: false,
-        flag : 'public'
+        flag : 1
       },
     };
   },
@@ -180,6 +181,52 @@ export default {
     removeTag(key) {
       this.request.tags.splice(key, 1)
     },
+
+    /**
+     * @return {{}}
+     */
+    makeRequest() {
+      let result = {}
+
+      for (let i in this.request) {
+        if (this.request[i] instanceof Array) {
+          if (this.request[i].length > 0) {
+            result[i] = JSON.stringify(this.request[i].map((item) => item.id))
+          }
+        } else if (this.request[i]) {
+          result[i] = this.request[i]
+        }
+      }
+
+      return result
+    },
+
+    /**
+     * search
+     */
+    searchRequest() {
+      console.log(this.makeRequest())
+    },
+
+    /**
+     * reset
+     */
+    resetRequest() {
+      this.request = {
+        ref  : true,
+        note : false,
+        date : false,
+        top  : false,
+        cats : [],
+        tags : [],
+        owner: false,
+        flag : 1
+      };
+      this.searchText = null;
+      this.selectCategory = null;
+      this.selectTag = null;
+      this.selected = null;
+    }
   },
 };
 </script>

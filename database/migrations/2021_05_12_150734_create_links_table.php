@@ -22,9 +22,9 @@ class CreateLinksTable extends Migration
             $table->text('img')->nullable();
             $table->integer('category_id')->nullable();
             $table->uuid('user_id');
-            $table->string('flag', 10)->default('privat')->comment('PUBLIC,PRIVAT');
+            $table->tinyInteger('flag')->default(0)->comment('Flag. Def is privat');
             $table->text('comment')->nullable()->comment('User comment');
-            $table->string('type', 10)->default('ref');
+            $table->tinyInteger('type')->default(0)->comment('Type. Def is ref');
             $table->text('body')->nullable();
             $table->text('body_text')->nullable();
             $table->timestamps();
