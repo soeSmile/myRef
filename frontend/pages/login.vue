@@ -37,7 +37,7 @@
 export default {
   name: "login",
 
-  layout: 'site',
+  layout: 'sitePage',
 
   middleware: ['noAuth'],
 
