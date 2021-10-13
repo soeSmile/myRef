@@ -24,10 +24,43 @@
           <i class='mdi mdi-location-exit'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
-          {{ userMenu.exit }}
+          {{ allMenu.exit }}
+        </div>
+      </div>
+
+      <div class="sm-line sm-m-2"></div>
+
+      <div v-if="$store.getters['auth/isClient']"
+           class="sm-bg-user-fon">
+
+        <div v-for="val in userMenu" :key="val.name">
+          <n-link v-if="val.link"
+                  class="sm-menu-item sm-flex middle"
+                  :class="show ? 'left' : 'center'"
+                  :to="val.link">
+            <div class="icon">
+              <i :class="val.icon"></i>
+            </div>
+            <div class="text"
+                 :class="{ 'active' : show }">
+              {{ val.name }}
+            </div>
+          </n-link>
+          <div v-else
+               class="sm-menu-item link sm-flex middle sm-link"
+               :class="show ? 'left' : 'center'">
+            <div class="icon">
+              <i :class="val.icon"></i>
+            </div>
+            <div class="text"
+                 :class="{ 'active' : show }">
+              {{ val.name }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div v-else>
       <n-link to="/login"
               class="sm-menu-item link sm-flex middle" :class="show ? 'left' : 'center'">
@@ -35,7 +68,7 @@
           <i class='mdi mdi-login'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
-          {{ userMenu.login }}
+          {{ allMenu.login }}
         </div>
       </n-link>
 
@@ -45,7 +78,7 @@
           <i class='mdi mdi-key'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
-          {{ userMenu.register }}
+          {{ allMenu.register }}
         </div>
       </n-link>
     </div>
@@ -53,7 +86,7 @@
     <div class="sm-line sm-m-2"></div>
 
     <n-link :to="val.link"
-            v-for="val in items"
+            v-for="val in menu"
             :key="val.name"
             :title="val.name"
             class="sm-menu-item link sm-flex middle"
@@ -76,18 +109,22 @@ export default {
 
   data() {
     return {
-      show    : false,
-      userMenu: {
+      show     : false,
+      allMenu : {
         login   : 'Вход',
         register: 'Регистрация',
         exit    : 'Выход',
       },
-      items   : [
+      menu     : [
         {name: 'Главная', icon: 'mdi mdi-home', link: '/'},
         {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new'},
         {name: 'Категории', icon: 'mdi mdi-shape', link: '/category'},
         {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags'},
         {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top'},
+      ],
+      userMenu: [
+        {name: 'Добавить закладку', icon: 'mdi mdi-link', link: null},
+        {name: 'Добавить заметку', icon: 'mdi mdi-note', link: null},
       ]
     }
   },
