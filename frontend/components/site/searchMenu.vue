@@ -86,12 +86,16 @@
 </template>
 
 <script>
-import SearchUserMenu from "./searchUserMenu";
+import SearchUserMenu from "./searchMenu/searchUserMenu";
 
 export default {
-  name      : "searchMenu",
-  components: {SearchUserMenu},
-  props     : {},
+  name: "searchMenu",
+
+  components: {
+    SearchUserMenu
+  },
+
+  props: {},
 
   data() {
     return {
