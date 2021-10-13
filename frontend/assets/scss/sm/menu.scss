@@ -80,3 +80,29 @@
   padding: map-get($sizes, 4);
   border-left: 1px solid map-get($colors, 'light');
 }
+
+/**
+  User search menu
+ */
+.#{$prefix}menu-search-user {
+  & .item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    & .remove {
+      color: map-get($colors, 'alert');
+      margin-right: map-get($sizes, 1);
+    }
+
+    & .edit {
+      color: map-get($colors, 'primary');
+      margin-right: map-get($sizes, 1);
+    }
+
+    & .name {
+      overflow: hidden;
+      margin-left: map-get($sizes, 1);
+    }
+  }
+}

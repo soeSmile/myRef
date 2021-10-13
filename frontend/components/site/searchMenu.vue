@@ -18,7 +18,7 @@
     <search-user-menu v-if="$store.getters['auth/isClient']"
                       :request="request"/>
 
-    <b-field custom-class="sm-color-dark sm-fnt 600"
+    <b-field custom-class="sm-color-dark sm-fnt w600"
              label="Выбор категории">
       <b-select placeholder="Выбор категории"
                 expanded
@@ -44,6 +44,7 @@
     </div>
 
     <b-field class="sm-mt-4"
+             custom-class="sm-color-dark sm-fnt w600"
              label="Выбрать тег">
       <b-autocomplete placeholder="Выбрать тег"
                       :loading="loadingTag"
