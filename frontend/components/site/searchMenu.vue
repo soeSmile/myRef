@@ -15,7 +15,8 @@
 
     <div class="sm-line sm-mt-4 sm-mb-4"></div>
 
-    <search-user-menu :request="request"/>
+    <search-user-menu v-if="$store.getters['auth/isClient']"
+                      :request="request"/>
 
     <b-field custom-class="sm-color-dark sm-fnt 600"
              label="Выбор категории">
