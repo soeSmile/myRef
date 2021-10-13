@@ -89,6 +89,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-bottom: map-get($sizes, 1);
 
     & .remove {
       color: map-get($colors, 'alert');

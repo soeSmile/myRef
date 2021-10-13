@@ -69,7 +69,16 @@ export default {
      * @param key
      */
     deleteSearchUrl(key) {
-
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить?',
+        message    : 'Удалить ссылку быстрого доступа?',
+        type       : 'is-danger',
+        cancelText : 'Нет',
+        confirmText: 'Да',
+        hasIcon    : true,
+        onConfirm  : () => {
+        }
+      })
     }
   },
 };
