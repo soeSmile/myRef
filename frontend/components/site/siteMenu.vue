@@ -24,7 +24,7 @@
           <i class='mdi mdi-location-exit'></i>
         </div>
         <div class="text" :class="{ 'active' : show }">
-          {{ allMenu.exit }}
+          {{ menu.exit }}
         </div>
       </div>
 
@@ -32,100 +32,40 @@
 
       <div v-if="$store.getters['auth/isClient']"
            class="sm-bg-user-fon">
-
-        <div v-for="val in userMenu" :key="val.name">
-          <n-link v-if="val.link"
-                  class="sm-menu-item sm-flex middle"
-                  :class="show ? 'left' : 'center'"
-                  :to="val.link">
-            <div class="icon">
-              <i :class="val.icon"></i>
-            </div>
-            <div class="text"
-                 :class="{ 'active' : show }">
-              {{ val.name }}
-            </div>
-          </n-link>
-          <div v-else
-               class="sm-menu-item link sm-flex middle sm-link"
-               :class="show ? 'left' : 'center'">
-            <div class="icon">
-              <i :class="val.icon"></i>
-            </div>
-            <div class="text"
-                 :class="{ 'active' : show }">
-              {{ val.name }}
-            </div>
-          </div>
-        </div>
+        <site-menu-user :show="show"/>
       </div>
     </div>
 
     <div v-else>
-      <n-link to="/login"
-              class="sm-menu-item link sm-flex middle" :class="show ? 'left' : 'center'">
-        <div class="icon">
-          <i class='mdi mdi-login'></i>
-        </div>
-        <div class="text" :class="{ 'active' : show }">
-          {{ allMenu.login }}
-        </div>
-      </n-link>
-
-      <n-link to="/register"
-              class="sm-menu-item link sm-flex middle" :class="show ? 'left' : 'center'">
-        <div class="icon">
-          <i class='mdi mdi-key'></i>
-        </div>
-        <div class="text" :class="{ 'active' : show }">
-          {{ allMenu.register }}
-        </div>
-      </n-link>
+      <site-menu-auth :show="show"/>
     </div>
 
-    <div class="sm-line sm-m-2"></div>
-
-    <n-link :to="val.link"
-            v-for="val in menu"
-            :key="val.name"
-            :title="val.name"
-            class="sm-menu-item link sm-flex middle"
-            :class="show ? 'left' : 'center'">
-      <div class="icon">
-        <i :class="val.icon"></i>
-      </div>
-      <div class="text" :class="{ 'active' : show }">
-        {{ val.name }}
-      </div>
-    </n-link>
+    <site-menu-main :show="show"/>
 
   </nav>
 </template>
 
 <script>
 
+import siteMenuMain from "./siteMenu/siteMenuMain";
+import SiteMenuAuth from "./siteMenu/siteMenuAuth";
+import SiteMenuUser from "./siteMenu/siteMenuUser";
+
 export default {
   name: "siteMenu",
 
+  components: {
+    SiteMenuUser,
+    SiteMenuAuth,
+    siteMenuMain
+  },
+
   data() {
     return {
-      show     : false,
-      allMenu : {
-        login   : 'Вход',
-        register: 'Регистрация',
-        exit    : 'Выход',
-      },
-      menu     : [
-        {name: 'Главная', icon: 'mdi mdi-home', link: '/'},
-        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new'},
-        {name: 'Категории', icon: 'mdi mdi-shape', link: '/category'},
-        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags'},
-        {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top'},
-      ],
-      userMenu: [
-        {name: 'Добавить закладку', icon: 'mdi mdi-link', link: null},
-        {name: 'Добавить заметку', icon: 'mdi mdi-note', link: null},
-      ]
+      show: false,
+      menu: {
+        exit: 'Выход'
+      }
     }
   },
 
