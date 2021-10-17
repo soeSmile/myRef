@@ -1,63 +1,85 @@
 <template>
   <section>
-    <nav class="sm-nav sm-bg-color-10 sm-color-color-9">
+    <nav class="sm-nav sm-bg-white sm-color-dark">
       <div class="sm-nav-start">
-        <div class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-10 sm-hover-bg-color-9"
+        <div class="sm-nav-item sm-p-4 sm-link sm-hover-white sm-hover-bg-primary"
              @click="getAll(true)">
           <i class="mdi mdi-reload sm-mr-1"></i>
           <span>Обновить</span>
         </div>
         <n-link to="/admin/category/new"
-                class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9">
+                class="sm-nav-item sm-p-4 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-plus sm-mr-1"></i>
           <span>Добавить</span>
         </n-link>
       </div>
       <div class="sm-nav-end">
         <div class="sm-nav-item">
-          <el-input placeholder="Поиск"
-                    v-model="query.name">
-            <el-button @click="getAll()"
-                       slot="append"
-                       icon="el-icon-search"></el-button>
-          </el-input>
+          <b-field>
+            <b-input placeholder="Поиск"
+                     type="search"
+                     v-model="query.name"/>
+            <p class="control">
+              <b-button @click="getAll()"
+                        class="button is-primary">
+                Поиск
+              </b-button>
+            </p>
+          </b-field>
         </div>
       </div>
     </nav>
 
-    <div class="sm-mt-8">
-      <el-table :data="categories"
-                v-loading="loading"
-                style="width: 100%">
-        <el-table-column width="40">
-          <template slot-scope="scope">
-            <n-link :to="'/admin/category/' + scope.row.id"
-                    class="sm-hover-color-7">
-              <i class="mdi mdi-pencil"></i>
-            </n-link>
-          </template>
-        </el-table-column>
-        <el-table-column prop="id"
-                         width="40"
-                         label="id"/>
-        <el-table-column prop="icon"
-                         label="Icon"/>
-        <el-table-column prop="ru"
-                         label="RU"/>
-        <el-table-column prop="en"
-                         label="EN"/>
-        <el-table-column prop="active"
-                         label="Active">
-          <template slot-scope="scope">
-            <i v-if="scope.row.active"
-               class="mdi mdi-check sm-color-green"></i>
-            <i v-else
-               class="mdi mdi-close sm-color-red"></i>
-          </template>
-        </el-table-column>
-        <el-table-column prop="updatedAt"
-                         label="Updated"/>
-      </el-table>
+    <div class="sm-p-4">
+      <b-table
+          :data="categories"
+          :loading="loading"
+          paginated
+          backend-pagination
+          :total="pagination.total"
+          :per-page="pagination.itemsPerPage"
+          @page-change="onPageChange"
+      >
+        <b-table-column v-slot="props">
+          <n-link :to="'/admin/category/' + props.row.id"
+                  class="sm-hover-primary">
+            <i class="mdi mdi-pencil"></i>
+          </n-link>
+        </b-table-column>
+        <b-table-column field="id"
+                        label="id"
+                        v-slot="props">
+          {{ props.row.id }}
+        </b-table-column>
+        <b-table-column field="icon"
+                        label="Icon"
+                        v-slot="props">
+          {{ props.row.icon }}
+        </b-table-column>
+        <b-table-column field="ru"
+                        label="RU"
+                        v-slot="props">
+          {{ props.row.ru }}
+        </b-table-column>
+        <b-table-column field="en"
+                        label="EN"
+                        v-slot="props">
+          {{ props.row.en }}
+        </b-table-column>
+        <b-table-column field="active"
+                        label="Active"
+                        v-slot="props">
+          <i v-if="props.row.active"
+             class="mdi mdi-check sm-color-green"></i>
+          <i v-else
+             class="mdi mdi-close sm-color-red"></i>
+        </b-table-column>
+        <b-table-column field="updatedAt"
+                        label="Updated"
+                        v-slot="props">
+          {{ props.row.updatedAt }}
+        </b-table-column>
+      </b-table>
     </div>
   </section>
 </template>
@@ -121,6 +143,14 @@ export default {
           .finally(() => {
             this.loading = false
           })
+    },
+
+    /**
+     * @param page
+     */
+    onPageChange(page) {
+      this.query.page = page;
+      this.getAll();
     }
   }
 }
