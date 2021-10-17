@@ -34,6 +34,21 @@
            class="sm-bg-user-fon">
         <site-menu-user :show="show"/>
       </div>
+
+      <div v-if="$store.getters['auth/isAdmin']"
+           class="sm-bg-user-fon">
+        <n-link class="sm-menu-item sm-flex middle"
+                :class="show ? 'left' : 'center'"
+                to="/admin">
+          <div class="icon">
+            <i class="mdi mdi-security"></i>
+          </div>
+          <div class="text"
+               :class="{ 'active' : show }">
+            Admin Zone
+          </div>
+        </n-link>
+      </div>
     </div>
 
     <div v-else>
