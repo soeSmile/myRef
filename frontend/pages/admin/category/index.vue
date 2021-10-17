@@ -1,14 +1,14 @@
 <template>
   <section>
-    <nav class="sm-nav sm-bg-white sm-color-dark">
+    <nav class="sm-nav sm-bg-white sm-color-grey sm-p-2">
       <div class="sm-nav-start">
-        <div class="sm-nav-item sm-p-4 sm-link sm-hover-white sm-hover-bg-primary"
+        <div class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
              @click="getAll(true)">
           <i class="mdi mdi-reload sm-mr-1"></i>
           <span>Обновить</span>
         </div>
         <n-link to="/admin/category/new"
-                class="sm-nav-item sm-p-4 sm-link sm-hover-white sm-hover-bg-primary">
+                class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-plus sm-mr-1"></i>
           <span>Добавить</span>
         </n-link>

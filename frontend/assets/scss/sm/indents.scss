@@ -35,10 +35,62 @@ $distance: (
         #{$prefix}pl: padding-left
 );
 
+$distancePX: (
+        #{$prefix}px: padding,
+);
+
+$distanceMX: (
+        #{$prefix}mx: padding,
+);
+
+$distancePY: (
+        #{$prefix}py: padding,
+);
+
+$distanceMY: (
+        #{$prefix}my: padding,
+);
+
 @each $class, $value in $distance {
   @each $id, $size in $sizes {
     .#{$class}-#{$id} {
       #{$value}: $size !important;
+    }
+  }
+}
+
+@each $class, $value in $distancePX {
+  @each $id, $size in $sizes {
+    .#{$class}-#{$id} {
+      padding-left: $size !important;
+      padding-right: $size !important;
+    }
+  }
+}
+
+@each $class, $value in $distanceMX {
+  @each $id, $size in $sizes {
+    .#{$class}-#{$id} {
+      margin-left: $size !important;
+      margin-right: $size !important;
+    }
+  }
+}
+
+@each $class, $value in $distancePY {
+  @each $id, $size in $sizes {
+    .#{$class}-#{$id} {
+      padding-top: $size !important;
+      padding-bottom: $size !important;
+    }
+  }
+}
+
+@each $class, $value in $distanceMY {
+  @each $id, $size in $sizes {
+    .#{$class}-#{$id} {
+      margin-top: $size !important;
+      margin-bottom: $size !important;
     }
   }
 }

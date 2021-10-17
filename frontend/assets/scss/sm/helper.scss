@@ -32,6 +32,13 @@
   }
 }
 
+// radius in px
+@for $i from 1 through 10 {
+  .#{$prefix}radius-#{$i} {
+    border-radius: $i*1px;
+  }
+}
+
 // hide
 .#{$prefix}vh-100 {
   min-height: 100vh;
