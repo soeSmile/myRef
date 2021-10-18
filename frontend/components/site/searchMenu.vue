@@ -137,10 +137,6 @@ export default {
   },
 
   methods: {
-    clear() {
-
-    },
-
     /**
      * @param item
      */

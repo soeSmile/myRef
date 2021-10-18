@@ -1,136 +1,117 @@
 <template>
-  <ui-modal :onClose="() => showAddRef.show = !showAddRef.show"
-            :wpx="600">
-    <template slot="header">
-      Добавить ссылку
-    </template>
-    <template slot="content">
-      <div class="sm-flex col">
-        <div class="sm-flex col sm-mb-2">
-          <label class="sm-label">Ссылка*</label>
-          <el-input v-model="myRef.url"
-                    autocomplete="off"
-                    placeholder="Ссылка"/>
-        </div>
+  <div class="modal-card" style="width: auto">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        Добавить ссылку
+      </p>
+      <button
+          type="button"
+          class="delete"
+          @click="$emit('close')"/>
+    </header>
 
-        <div class="sm-flex col sm-mb-2">
-          <label class="sm-label">Категория</label>
-          <el-select v-model="myRef.category"
-                     filterable
-                     placeholder="Категория">
-            <el-option
-                v-for="item in categories"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-            </el-option>
-          </el-select>
-        </div>
+    <section class="modal-card-body">
+      <b-field label="Ссылка">
+        <b-input
+            v-model="myRef.url"
+            placeholder="Ссылка"
+            required>
+        </b-input>
+      </b-field>
 
-        <div class="sm-flex col sm-mb-4">
-          <label class="sm-label">Тэги</label>
-          <el-select class="sm-w-100"
-                     v-model="selectTag"
-                     filterable
-                     remote
-                     reserve-keyword
-                     placeholder="Тэг"
-                     :remote-method="getTags"
-                     @change="insertTag">
-            <el-option v-for="item in tags"
-                       :key="item.name"
-                       :label="item.name"
-                       :value="item">
-            </el-option>
-          </el-select>
+      <b-field custom-class="sm-color-dark sm-fnt w600"
+               label="Выбор категории">
+        <b-select placeholder="Выбор категории"
+                  expanded
+                  v-model="myRef.category">
+          <option v-for="val in categories"
+                  :value="val"
+                  :key="val.id">
+            {{ val.name }}
+          </option>
+        </b-select>
+      </b-field>
 
-          <div class="sm-mt-4" v-if="myRef.tags.length > 0">
-            <el-tag class="sm-mr-1"
-                    v-for="(val,key) in myRef.tags"
-                    :key="key"
-                    closable
-                    @close="removeFromTags(key)">
-              {{ val.name }}
-            </el-tag>
-          </div>
-        </div>
-
-        <div class="sm-flex col sm-mb-4">
-          <label class="sm-label">Описание</label>
-          <el-input type="textarea"
-                    :rows="2"
-                    placeholder="Описание"
-                    resize="none"
-                    v-model="myRef.desc">
-          </el-input>
-        </div>
-
-        <div class="sm-flex middle row sm-mb-4">
-          <label class="sm-label sm-mr-4">Дата напоминания</label>
-          <el-date-picker
-              v-model="myRef.date"
-              type="date"
-              format="dd-MM-yyyy"
-              value-format="yyyy-MM-dd"
-              placeholder="Дата напоминания"
-              :picker-options="pickerOptions">
-          </el-date-picker>
-        </div>
-
-        <div class="sm-flex middle row sm-mb-4">
-          <label class="sm-label sm-mr-4">Кешировать</label>
-          <el-switch v-model="myRef.cache">
-          </el-switch>
-        </div>
-
-        <div class="sm-flex col sm-mb-2">
-          <label class="sm-label">Коментарий</label>
-          <el-input type="textarea"
-                    :rows="2"
-                    placeholder="Коментарий"
-                    resize="none"
-                    v-model="myRef.comment">
-          </el-input>
-        </div>
-
-        <div class="sm-flex col sm-mb-2">
-          <label class="sm-label">Статус</label>
-          <el-select v-model="myRef.flag"
-                     placeholder="Статус">
-            <el-option v-for="val in flags"
-                       :key="val.id"
-                       :label="val.name"
-                       :value="val.id">
-            </el-option>
-          </el-select>
-        </div>
-
+      <b-field class="sm-mt-4"
+               custom-class="sm-color-dark sm-fnt w600"
+               label="Выбрать тег">
+        <b-autocomplete placeholder="Выбрать тег"
+                        :loading="loadingTag"
+                        v-model="selectTag"
+                        ref="autocomplete"
+                        :data="tags"
+                        @typing="getTags"
+                        @select="insertTag">
+          <template #empty>Нет данных по запросу: {{ selectTag }}</template>
+          <template slot-scope="props">
+            {{ props.option.name }}
+          </template>
+        </b-autocomplete>
+      </b-field>
+      <div class="sm-flex wrap sm-mt-2">
+        <b-tag class="sm-m-1"
+               v-for="(val,key) in myRef.tags"
+               :key="val.name"
+               type="is-warning"
+               closable
+               @close="removeTag(key)">
+          {{ val.name }}
+        </b-tag>
       </div>
-    </template>
-    <template slot="foot">
-      <el-button type="primary"
-                 @click="store"
-                 :disabled="loading">
-        Сохранить
-      </el-button>
-      <el-button @click="showAddRef.show = false"
-                 :disabled="loading">
-        Отмена
-      </el-button>
-    </template>
-  </ui-modal>
+
+      <b-field label="Описание">
+        <b-input custom-class="sm-textarea"
+                 rows="1"
+                 v-model="myRef.desc"
+                 type="textarea"/>
+      </b-field>
+
+      <b-field label="Дата напоминания">
+        <b-datepicker
+            v-model="myRef.date"
+            placeholder="Дата напоминания"
+            icon="calendar-today"
+            icon-right-clickable
+            trap-focus>
+        </b-datepicker>
+      </b-field>
+
+      <b-field class="sm-mt-8"
+               grouped>
+        <b-switch v-model="myRef.cache"
+                  class="sm-mr-4">
+          Кешировать
+        </b-switch>
+        <b-switch v-model="myRef.flag"
+                    true-value="2"
+                    false-value="1">
+          Публичная
+        </b-switch>
+      </b-field>
+
+      <b-field label="Коментарий">
+        <b-input custom-class="sm-textarea"
+                 rows="1"
+                 v-model="myRef.comment"
+                 type="textarea"/>
+      </b-field>
+
+    </section>
+
+    <footer class="modal-card-foot">
+      <b-button
+          label="Отмена"
+          @click="$emit('close')"/>
+      <b-button
+          label="Сохранить"
+          type="is-primary"/>
+    </footer>
+  </div>
 </template>
 
 <script>
-
-import uiModal from "../ui/uiModal";
-
 export default {
   name: "addRef",
-
-  components: {
-    uiModal
-  },
 
   props: {
     showAddRef: {}
@@ -138,29 +119,22 @@ export default {
 
   data() {
     return {
-      loading      : false,
-      showDate     : false,
-      myRef        : {
+      loadingTag: false,
+      loading   : false,
+      showDate  : false,
+      myRef     : {
         url     : null,
         category: null,
         tags    : [],
         date    : null,
         comment : null,
         cache   : false,
-        flag    : null
+        flag    : 1,
+        desc    : null
       },
-      selectTag    : null,
-      tags         : [],
-      flags        : [
-        {id: 'public', name: 'Публичные'},
-        {id: 'privat', name: 'Приватные'},
-      ],
-      errors       : {},
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() < Date.now();
-        },
-      }
+      selectTag : null,
+      tags      : [],
+      errors    : {},
     }
 
   },
@@ -171,15 +145,10 @@ export default {
     }
   },
 
-  watch: {
-    searchTag: function (newVal) {
-      if (newVal && newVal.length > 2) {
-        this.getTags()
-      }
-    }
-  },
-
   methods: {
+    /**
+     * store ref
+     */
     store() {
       this.loading = true
 
@@ -257,7 +226,7 @@ export default {
     /**
      * @param key
      */
-    removeFromTags(key) {
+    removeTag(key) {
       this.myRef.tags.splice(key, 1)
     },
   }
