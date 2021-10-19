@@ -1,9 +1,15 @@
 <template>
   <div class="modal-card" style="width: auto">
     <header class="modal-card-head">
-      <p class="modal-card-title">
+      <button
+          type="button"
+          class="delete"
+          @click="$emit('close')"/>
+
+      <p class="modal-card-title sm-ml-4">
         Добавить ссылку
       </p>
+
       <button
           type="button"
           class="delete"
@@ -72,7 +78,8 @@
             placeholder="Дата напоминания"
             icon="calendar-today"
             icon-right-clickable
-            trap-focus>
+            trap-focus
+            :min-date="minDate">
         </b-datepicker>
       </b-field>
 
@@ -83,13 +90,13 @@
           Кешировать
         </b-switch>
         <b-switch v-model="myRef.flag"
-                    true-value="2"
-                    false-value="1">
+                  true-value="2"
+                  false-value="1">
           Публичная
         </b-switch>
       </b-field>
 
-      <b-field label="Коментарий">
+      <b-field label="Комментарий">
         <b-input custom-class="sm-textarea"
                  rows="1"
                  v-model="myRef.comment"
@@ -103,6 +110,7 @@
           label="Отмена"
           @click="$emit('close')"/>
       <b-button
+          @click="store"
           label="Сохранить"
           type="is-primary"/>
     </footer>
@@ -135,6 +143,7 @@ export default {
       selectTag : null,
       tags      : [],
       errors    : {},
+      minDate   : new Date(),
     }
 
   },
