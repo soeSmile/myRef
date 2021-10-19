@@ -121,10 +121,6 @@
 export default {
   name: "addRef",
 
-  props: {
-    showAddRef: {}
-  },
-
   data() {
     return {
       loadingTag: false,
@@ -162,21 +158,23 @@ export default {
       this.loading = true
 
       this.$axios.post('api/links', this.prepareData(this.myRef))
-          .then(response => {
+          .then(() => {
             this.$message({
               message: 'Saved !',
               type   : 'success'
-            })
-            this.showAddRef.show = false
-            this.$store.dispatch('links/setUrl', {params: this.$route.query})
+            });
+
+            this.$emit('close');
+            this.$store.dispatch('links/setUrl', {params: this.$route.query});
           })
-          .catch(e => {
-            this.errors = e.response.data.errors;
+          .catch(err => {
+            this.errors = err.response.data.errors;
+
             this.$message({
               type                    : 'error',
               dangerouslyUseHTMLString: true,
               message                 : this.$messageToStr(this.errors),
-            })
+            });
           })
           .finally(() => {
             this.loading = false
@@ -211,7 +209,7 @@ export default {
               if (response.data.data.length > 0) {
                 this.tags = response.data.data;
               } else {
-                this.tags.push({id: tag, name: tag, new: true})
+                this.tags.push({id: tag, name: tag, new: true});
               }
             })
             .catch(error => {
@@ -225,10 +223,10 @@ export default {
     insertTag(item) {
       this.selectTag = null
       this.tags = []
-      let id = this.myRef.tags.find(x => x.id === item.id)
+      let id = this.myRef.tags.find(x => x.id === item.id);
 
       if (!id) {
-        this.myRef.tags.push(item)
+        this.myRef.tags.push(item);
       }
     },
 
@@ -236,7 +234,7 @@ export default {
      * @param key
      */
     removeTag(key) {
-      this.myRef.tags.splice(key, 1)
+      this.myRef.tags.splice(key, 1);
     },
   }
 }
