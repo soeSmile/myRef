@@ -1,50 +1,49 @@
 <template>
-  <div class="sm-ref sm-p-2">
-    <el-card shadow="hover">
-      <a :href="myRef.url" target="_blank"
-         :title="myRef.title"
-         class="sm-flex top col">
-        <img class="sm-ref-img"
-             :src="myRef.img ? myRef.img : ''"
-             alt="">
-        <h4 class="sm-ref-title sm-mt-2">
-          {{ getTitle(myRef.title) }}
-        </h4>
-      </a>
-      <div class="sm-ref-desc sm-mt-2"
-           :title="myRef.desc">
-        {{ getDesc(myRef.desc) }}
-      </div>
-      <div class="sm-ref-line"></div>
+  <div class="card sm-wpx-300 sm-m-2">
 
-      <div class="sm-ref-category">
-        <section v-if="myRef.category">
-          <i :class="'mdi '+ myRef.category.icon"></i>
-          {{ myRef.category.name }}
-        </section>
-      </div>
-
-      <div class="sm-nav">
-        <div class="sm-nav-left"></div>
-        <div class="sm-nav-center"></div>
-        <div class="sm-nav-end">
-          <div class="sm-nav-item">
-            <n-link :to="'/link/' + myRef.id"
-                    class="sm-hover-color-7 sm-link">
-              Подробнее
-            </n-link>
+    <div class="card-content">
+      <a :href="myRef.url"
+         target="_blank"
+         :title="myRef.title">
+        <div class="media sm-ref-title">
+          <div class="media-left">
+            <figure class="image is-32x32">
+              <img :src="myRef.img ? myRef.img : ''" alt="">
+            </figure>
+          </div>
+          <div class="media-content">
+            <h4 class="title is-6">
+              {{ getTitle(myRef.title) }}
+            </h4>
           </div>
         </div>
-      </div>
+        <div class="content">
+          <div class="sm-ref-desc"
+               :title="myRef.desc">
+            {{ getDesc(myRef.desc) }}
+          </div>
 
-    </el-card>
+          <div class="sm-ref-category sm-my-2">
+            <section v-if="myRef.category">
+              <i :class="'mdi '+ myRef.category.icon"></i>
+              {{ myRef.category.name }}
+            </section>
+          </div>
+        </div>
+      </a>
+
+      <div class="sm-flex middle right">
+        <n-link class="sm-ref-link sm-fnt w600"
+                :to="'/link/' + myRef.id">
+          Подробнее
+        </n-link>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-
-import {DESC_LENGTH} from "../../constants/constants";
-
 export default {
   name: "tmplRef",
 
@@ -66,11 +65,11 @@ export default {
     },
 
     /**
-     * @param title
+     * @param desc
      * @return {string}
      */
-    getDesc(title) {
-      return title.trim().slice(0, this.$const.DESC_LENGTH) + (title.length >= this.$const.DESC_LENGTH ? ' ...' : '')
+    getDesc(desc) {
+      return desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '')
     },
   }
 }

@@ -4,66 +4,29 @@
   overflow: auto;
 }
 
-.#{$prefix}ref {
-  width: 300px;
-  font-family: $fontLight;
-  font-size: 0.8rem;
-}
-
-.#{$prefix}ref-img {
-  width: auto;
-  height: 40px;
-}
-
 .#{$prefix}ref-title {
-  height: 42px;
+  height: 75px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .#{$prefix}ref-desc {
-  height: 62px;
+  height: 125px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.#{$prefix}ref-line {
-  border-bottom: 1px solid map-get($colors, 'grey');
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  font-family: $fontLight;
+  color: map-get($colors, 'dark');
+  text-decoration: none;
 }
 
 .#{$prefix}ref-category {
-  height: 18px;
+  height: 25px;
+  font-family: $fontLight;
+  color: map-get($colors, 'alert');
+  text-decoration: none;
 }
 
-.#{$prefix}site-ref {
-  padding: map-get($sizes, 4);
-  margin-bottom: map-get($sizes, 8);
-}
-
-.#{$prefix}site-ref-title {
-  font-family: $fontBold;
-  font-size: map-get($sizes, 6);
-  color: map-get($colors, 'dark');
-}
-
-.#{$prefix}site-ref-item {
-  margin-top: map-get($sizes, 4);
-
-  & .title {
-    font-family: $fontBold;
-    color: map-get($colors, 'dark');
-  }
-
-  & .content {
-    color: map-get($colors, 'grey');
-    margin-top: map-get($sizes, 2);
-  }
-}
-
-.#{$prefix}site-ref-img {
-  max-height: 50px;
-  width: auto;
-  height: 100%;
+.#{$prefix}ref-link {
+  text-decoration: none;
+  color: map-get($colors, 'primary');
 }

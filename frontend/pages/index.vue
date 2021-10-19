@@ -1,10 +1,12 @@
 <template>
-  <div class="sm-flex center wrap sm-mt-2 sm-mb-20">
-    <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
-              :myRef="val"/>
+  <section>
+    <div class="sm-flex wrap sm-p-8">
+      <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
+                :myRef="val"/>
+    </div>
 
     <ui-pagination :pagination="paginate" store="links/setUrl"/>
-  </div>
+  </section>
 </template>
 
 <script>
