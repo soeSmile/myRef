@@ -114,6 +114,11 @@
           label="Сохранить"
           type="is-primary"/>
     </footer>
+
+    <b-loading :is-full-page="true"
+               v-model="loading"
+               :can-cancel="false">
+    </b-loading>
   </div>
 </template>
 
@@ -159,9 +164,9 @@ export default {
 
       this.$axios.post('api/links', this.prepareData(this.myRef))
           .then(() => {
-            this.$message({
+            this.$buefy.toast.open({
               message: 'Saved !',
-              type   : 'success'
+              type   : 'is-success'
             });
 
             this.$emit('close');
@@ -170,8 +175,8 @@ export default {
           .catch(err => {
             this.errors = err.response.data.errors;
 
-            this.$message({
-              type                    : 'error',
+            this.$buefy.toast.open({
+              type                    : 'is-danger',
               dangerouslyUseHTMLString: true,
               message                 : this.$messageToStr(this.errors),
             });
