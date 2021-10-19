@@ -31,7 +31,7 @@
                   expanded
                   v-model="myRef.category">
           <option v-for="val in categories"
-                  :value="val"
+                  :value="val.id"
                   :key="val.id">
             {{ val.name }}
           </option>
