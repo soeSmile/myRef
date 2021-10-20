@@ -16,40 +16,45 @@ final class LinkSearchDto extends AbstractDto
      * @var array
      */
     private const FIELDS = [
-        'cats'  => [
+        'cats'   => [
             'regexp'  => '/^\[[\d,]+\]*/',
             'default' => '[]',
             'type'    => 'array',
         ],
-        'tags'  => [
+        'tags'   => [
             'regexp'  => '/^\[[\d,]+\]*/',
             'default' => '[]',
             'type'    => 'array',
         ],
-        'count' => [
+        'count'  => [
             'regexp'  => '/^\d+/',
             'default' => AbstractRepository::COUNT,
             'type'    => 'integer',
         ],
-        'cat'   => [
+        'cat'    => [
             'regexp'  => '/^\d+/',
             'default' => 0,
             'type'    => 'integer',
         ],
-        'flag'  => [
+        'flag'   => [
             'regexp'  => '/^(' . Link::FLAG_PUBLIC . '|' . Link::FLAG_PRIVAT . ')$/',
             'default' => Link::FLAG_PUBLIC,
             'type'    => 'integer',
         ],
-        'type'  => [
+        'type'   => [
             'regexp'  => '/^(' . Link::TYPE_LINK . '|' . Link::TYPE_NOTE . '|' . Link::TYPE_LINK_AND_NOTE . ')$/',
             'default' => Link::TYPE_LINK,
             'type'    => 'integer',
         ],
-        'owner' => [
+        'owner'  => [
             'regexp'  => '/^(true|false)$/',
             'default' => false,
             'type'    => 'boolean',
+        ],
+        'search' => [
+            'regexp'  => '/^\w+/',
+            'default' => '',
+            'type'    => 'string',
         ],
     ];
 
