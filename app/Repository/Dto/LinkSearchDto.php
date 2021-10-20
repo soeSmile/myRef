@@ -12,46 +12,44 @@ use App\Repository\AbstractRepository;
  */
 final class LinkSearchDto extends AbstractDto
 {
+    /**
+     * @var array
+     */
     private const FIELDS = [
-        'ref'   => [
-            'regexp'  => '/^(true|false)$/',
-            'default' => true
-        ],
-        'note'  => [
-            'regexp'  => '/^(true|false)$/',
-            'default' => true
-        ],
-        'top'   => [
-            'regexp'  => '/^(true|false)$/',
-            'default' => true
-        ],
-        'date'  => [
-            'regexp'  => '/^(true|false)$/',
-            'default' => true
-        ],
         'cats'  => [
             'regexp'  => '/^\[[\d,]+\]*/',
-            'default' => '[]'
+            'default' => '[]',
+            'type'    => 'array',
         ],
         'tags'  => [
             'regexp'  => '/^\[[\d,]+\]*/',
-            'default' => '[]'
+            'default' => '[]',
+            'type'    => 'array',
         ],
         'count' => [
             'regexp'  => '/^\d+/',
-            'default' => AbstractRepository::COUNT
+            'default' => AbstractRepository::COUNT,
+            'type'    => 'integer',
         ],
         'cat'   => [
             'regexp'  => '/^\d+/',
-            'default' => 0
+            'default' => 0,
+            'type'    => 'integer',
         ],
         'flag'  => [
             'regexp'  => '/^(' . Link::FLAG_PUBLIC . '|' . Link::FLAG_PRIVAT . ')$/',
-            'default' => Link::FLAG_PUBLIC
+            'default' => Link::FLAG_PUBLIC,
+            'type'    => 'integer',
+        ],
+        'type'  => [
+            'regexp'  => '/^(' . Link::TYPE_LINK . '|' . Link::TYPE_NOTE . '|' . Link::TYPE_LINK_AND_NOTE . ')$/',
+            'default' => Link::TYPE_LINK,
+            'type'    => 'integer',
         ],
         'owner' => [
             'regexp'  => '/^(true|false)$/',
-            'default' => false
+            'default' => false,
+            'type'    => 'boolean',
         ],
     ];
 
@@ -90,6 +88,7 @@ final class LinkSearchDto extends AbstractDto
     {
         $value = $this->getDataByKey($key);
         $result = self::FIELDS[$key]['default'];
+        $type = self::FIELDS[$key]['type'];
 
         if (\preg_match(self::FIELDS[$key]['regexp'], $value)) {
             $result = $value;
@@ -104,6 +103,20 @@ final class LinkSearchDto extends AbstractDto
         }
 
 
-        return $result;
+        return $this->catValueToType($result, $type);
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $type
+     * @return mixed
+     */
+    private function catValueToType(mixed $value, string $type): mixed
+    {
+        return match ($type) {
+            'integer' => (int)$value,
+            'boolean' => (bool)$value,
+            default => $value
+        };
     }
 }

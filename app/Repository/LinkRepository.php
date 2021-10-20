@@ -58,29 +58,13 @@ final class LinkRepository extends AbstractRepository
     {
         $this->getQuery()->with('category', 'user', 'tags', 'cache');
 
-        if (!isAdmin()) {
-            $mustUser = false;
-            $this->getQuery()->where('flag', $dto->getDataByKey('flag') ?? Link::FLAG_PUBLIC);
-
-            if ($dto->getDataByKey('flag') === Link::FLAG_PRIVAT) {
-                $mustUser = true;
-            }
-
-            if ($dto->hasKey('owner')) {
-                $mustUser = true;
-            }
-
-            if ($mustUser && auth()->check()) {
-                $this->getQuery()->where('user_id', auth()->id());
-            }
-        }
-
         if ($dto->hasKey('cats')) {
             $this->getQuery()->whereIn('category_id', $dto->getDataByKey('cats'));
         }
 
         if ($dto->hasKey('tags')) {
             $tags = $dto->getDataByKey('tags');
+
             $this->getQuery()->whereHas('tags', function ($query) use ($tags) {
                 $query->whereIn('tag_id', $tags);
             });
@@ -90,25 +74,14 @@ final class LinkRepository extends AbstractRepository
             $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
         }
 
-        $type = Link::TYPE_LINK;
+        if ($dto->hasKey('type')) {
+            $type = $dto->getDataByKey('type');
 
-        if ($dto->hasKey('ref')) {
-            $type = Link::TYPE_LINK;
-        }
-
-        if ($dto->hasKey('note')) {
-            $type = Link::TYPE_NOTE;
-        }
-
-        if ($dto->hasKey('ref') && $dto->hasKey('note')) {
-            $type = false;
-            $this->getQuery()
-                ->where('type', Link::TYPE_LINK)
-                ->orWhere('type', Link::TYPE_NOTE);
-        }
-
-        if ($type) {
-            $this->getQuery()->where('type', $type);
+            if ($type === Link::TYPE_LINK_AND_NOTE) {
+                $this->getQuery()->whereIn('type', [Link::TYPE_LINK, Link::TYPE_NOTE]);
+            } else {
+                $this->getQuery()->where('type', $type);
+            }
         }
 
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);
