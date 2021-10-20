@@ -58,10 +58,17 @@ final class LinkRepository extends AbstractRepository
     {
         $this->getQuery()->with('category', 'user', 'tags', 'cache');
 
+        // выборка по категориям
         if ($dto->hasKey('cats')) {
             $this->getQuery()->whereIn('category_id', $dto->getDataByKey('cats'));
         }
 
+        // выборка по категории
+        if ($dto->hasKey('cat')) {
+            $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
+        }
+
+        // выборка по тегам
         if ($dto->hasKey('tags')) {
             $tags = $dto->getDataByKey('tags');
 
@@ -70,10 +77,7 @@ final class LinkRepository extends AbstractRepository
             });
         }
 
-        if ($dto->hasKey('cat')) {
-            $this->getQuery()->where('category_id', $dto->getDataByKey('cat'));
-        }
-
+        // выборка по типу
         if ($dto->hasKey('type')) {
             $type = $dto->getDataByKey('type');
 
