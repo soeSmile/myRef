@@ -40,6 +40,10 @@ class Link extends Model
     public const TYPE_NOTE = 2;
 
     /**
+     * @var int
+     */
+    public const TYPE_LINK_AND_NOTE = 3;
+    /**
      * @var string
      */
     public const TAG_TABLE = 'link_to_tag';

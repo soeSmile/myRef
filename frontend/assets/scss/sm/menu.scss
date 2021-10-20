@@ -54,13 +54,16 @@
  */
 .#{$prefix}menu-head {
   background: map-get($colors, 'white');
+  padding: map-get($sizes, 2);
 
   & .item {
     color: map-get($colors, 'dark');
     padding: map-get($sizes, 2) map-get($sizes, 4) map-get($sizes, 2) map-get($sizes, 4);
+    border-radius: map-get($sizes, 1);
+    margin: map-get($sizes, 1);
 
     &:hover, &.is-active {
-      background: map-get($colors, 'dark');
+      background: map-get($colors, 'primary');
       color: map-get($colors, 'white');
       @include animateHover
     }

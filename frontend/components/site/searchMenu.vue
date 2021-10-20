@@ -15,10 +15,25 @@
 
     <div class="sm-line sm-mt-4 sm-mb-4"></div>
 
-    <search-user-menu v-if="$store.getters['auth/isClient']"
-                      :request="request"/>
+    <search-user-menu
+        v-if="isClient"
+        :request="request"/>
 
-    <b-field custom-class="sm-color-dark sm-fnt w600"
+    <b-field>
+      <b-switch
+          v-model="selectTypeRef">
+        Поиск по закладкам
+      </b-switch>
+    </b-field>
+
+    <b-field>
+      <b-switch
+          v-model="selectTypeNote">
+        Поиск по заметкам
+      </b-switch>
+    </b-field>
+
+    <b-field custom-class="sm-mt-2 sm-color-dark sm-fnt w600"
              label="Выбор категории">
       <b-select placeholder="Выбор категории"
                 expanded
@@ -105,7 +120,8 @@ export default {
       searchText    : '',
       selectCategory: null,
       selectTag     : null,
-      selected      : null,
+      selectTypeRef : true,
+      selectTypeNote: false,
       request       : {
         type : 1,
         flag : 1,
@@ -130,6 +146,14 @@ export default {
     categories() {
       return this.$store.getters['category/categories'];
     },
+
+    /**
+     * isClient
+     * @return {boolean}
+     */
+    isClient() {
+      return this.$store.getters['auth/isClient'];
+    }
   },
 
   created() {
@@ -211,6 +235,14 @@ export default {
         }
       }
 
+      if (!this.isClient) {
+        delete result.flag;
+      }
+
+      if (this.selectTypeRef && this.selectTypeNote) {
+        result.type = 3;
+      }
+
       return result
     },
 
@@ -235,7 +267,8 @@ export default {
       this.searchText = '';
       this.selectCategory = null;
       this.selectTag = null;
-      this.selected = null;
+      this.selectTypeRef = true;
+      this.selectTypeNote = false;
       this.$store.dispatch('links/setUrl', {params: {}, clear: true})
     },
 
