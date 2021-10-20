@@ -30,3 +30,18 @@
   text-decoration: none;
   color: map-get($colors, 'primary');
 }
+
+.#{$prefix}site-ref-item {
+  margin-top: map-get($sizes, 4);
+
+  & .ref-title {
+    font-size: map-get($sizes, 4);
+    font-weight: 600;
+    padding-bottom: map-get($sizes, 2);
+  }
+
+  & .ref-content {
+    font-size: map-get($sizes, 4);
+    font-family: $fontLight;
+  }
+}
