@@ -20,25 +20,29 @@ class Link extends Model
     use HasFactory, DataTimeTrait, UuidIdTrait;
 
     /**
-     * @var string
+     * @var int
      */
-    public const FLAG_PRIVAT = 'privat';
+    public const FLAG_PRIVAT = 1;
 
     /**
-     * @var string
+     * @var int
      */
-    public const FLAG_PUBLIC = 'public';
+    public const FLAG_PUBLIC = 2;
 
     /**
-     * @var string
+     * @var int
      */
-    public const TYPE_LINK = 'ref';
+    public const TYPE_LINK = 1;
 
     /**
-     * @var string
+     * @var int
      */
-    public const TYPE_NOTE = 'note';
+    public const TYPE_NOTE = 2;
 
+    /**
+     * @var int
+     */
+    public const TYPE_LINK_AND_NOTE = 3;
     /**
      * @var string
      */

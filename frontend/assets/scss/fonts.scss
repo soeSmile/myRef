@@ -2,30 +2,30 @@
 $font-path: '../fonts';
 
 @font-face {
-  font-family: 'Rubik-Regular';
-  src: url('#{$font-path}/Rubik-Regular.ttf') format('truetype');
+  font-family: 'Inter-Regular';
+  src: url('#{$font-path}/Inter-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Rubik-Light';
-  src: url('#{$font-path}/Rubik-Light.ttf') format('truetype');
+  font-family: 'Inter-Light';
+  src: url('#{$font-path}/Inter-Light.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Rubik-Bold';
-  src: url('#{$font-path}/Rubik-Bold.ttf') format('truetype');
+  font-family: 'Inter-Bold';
+  src: url('#{$font-path}/Inter-Bold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 // Fonts
-$fontLight: 'Rubik-Light';
-$fontRegular: 'Rubik-Regular';
-$fontBold: 'Rubik-Bold';
+$fontLight: 'Inter-Light';
+$fontRegular: 'Inter-Regular';
+$fontBold: 'Inter-Bold';
 
 // Font size
 $fontSize: 0.75rem !default;
@@ -41,6 +41,13 @@ $fontSize: 0.75rem !default;
 
   &.bold {
     font-family: $fontBold;
+  }
+
+  @for $i from 5 through 10 {
+    $value: $i * 100;
+    &.w#{$value} {
+      font-weight: $value !important;
+    }
   }
 
   @for $i from 0 through 20 {

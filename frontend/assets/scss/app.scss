@@ -1,3 +1,5 @@
+@import "bulma";
+
 $prefix: 'sm-';
 
 // Padding && margin step
@@ -30,13 +32,10 @@ $z-popup-alert: 1001;
 @import "layout";
 @import "admin";
 
-html {
-  font-family: $fontRegular;
-}
-
 html, body, #__nuxt, #__layout {
   height: 100%;
   background: map-get($colors, 'fon');
+  font-family: $fontRegular;
 }
 
 .page-enter-active, .page-leave-active {

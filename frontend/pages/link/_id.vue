@@ -1,220 +1,129 @@
 <template>
-  <section class="sm-site-ref"
-           v-loading="loading">
-
+  <section>
     <nav v-if="link.canEdit"
-         class="sm-nav sm-bg-smoke sm-color-grey sm-mt-2 sm-mb-2">
-      <div class="sm-nav-start"></div>
-      <div class="sm-nav-end">
+         class="sm-nav sm-bg-white sm-color-grey sm-p-2">
+      <div class="sm-nav-start">
         <div v-if="!modeEdit"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey"
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
              @click="runEdit">
           <i class="mdi mdi-pencil sm-mr-1"></i>
           <span>Редактировать</span>
         </div>
         <div v-if="modeEdit"
              @click="store"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-content-save sm-mr-1"></i>
           <span>Сохранить</span>
         </div>
         <div v-if="modeEdit"
              @click="cancelEdit"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-close sm-mr-1"></i>
           <span>Отмена</span>
         </div>
         <div v-if="modeEdit"
              @click="destroy"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-delete sm-mr-1"></i>
           <span>Удалить</span>
         </div>
       </div>
     </nav>
 
-    <img class="sm-site-ref-img"
-         :src="link.img" alt="">
+    <div class="card sm-m-4">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img :src="link.img" alt="">
+            </figure>
+          </div>
+          <div class="media-content">
+            <h1 class="title is-4">
+              {{ link.title }}
+            </h1>
+          </div>
+        </div>
 
-    <el-input v-if="modeEdit"
-              v-model="link.title"/>
-    <h1 v-else class="sm-site-ref-title sm-site-ref-item">
-      {{ link.title }}
-    </h1>
+        <div class="content">
 
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Описание
-      </div>
-      <el-input v-if="modeEdit"
-                class="sm-mt-2"
-                type="textarea"
-                :rows="3"
-                resize="none"
-                v-model="link.desc"/>
-      <div v-else
-           class="content">
-        {{ link.desc }}
-      </div>
-    </div>
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Описание
+            </div>
+            <div class="ref-content">
+              {{ link.desc }}
+            </div>
+          </div>
 
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Комментарий
-      </div>
-      <el-input v-if="modeEdit"
-                class="sm-mt-2"
-                type="textarea"
-                :rows="3"
-                resize="none"
-                v-model="link.comment"/>
-      <div v-else
-           class="content">
-        {{ link.comment ? link.comment : 'Нет' }}
-      </div>
-    </div>
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Комментарий
+            </div>
+            <div class="ref-content">
+              {{ link.comment ? link.comment : 'Нет' }}
+            </div>
+          </div>
 
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Ссылка
-      </div>
-      <el-input v-if="modeEdit"
-                class="sm-mt-2"
-                v-model="link.url"/>
-      <div v-else
-           class="content">
-        <a :href="link.url" target="_blank"
-           class="sm-link-hover sm-color-color-1">
-          {{ link.url }}
-        </a>
-      </div>
-    </div>
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Ссылка
+            </div>
+            <div class="ref-content">
+              <a :href="link.url" target="_blank"
+                 class="sm-link-hover sm-color-primary">
+                {{ link.url }}
+              </a>
+            </div>
 
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Тэги
-      </div>
-      <div v-if="modeEdit" class="sm-mt-2">
-        <el-select class="sm-w-100"
-                   v-model="selectTag"
-                   filterable
-                   remote
-                   reserve-keyword
-                   placeholder="Тэг"
-                   :remote-method="getTags"
-                   @change="insertTag">
-          <el-option v-for="(item,k) in tags"
-                     :key="item.name"
-                     :label="item.name"
-                     :value="item">
-          </el-option>
-        </el-select>
-        <div class="sm-mt-4" v-if="link.tags.length > 0">
-          <el-tag class="sm-mr-1"
-                  v-for="(val,key) in link.tags"
-                  :key="key"
-                  closable
-                  @close="removeFromTags(key)">
-            {{ val.name }}
-          </el-tag>
+            <div class="sm-site-ref-item">
+              <div class="ref-title">
+                Тэги
+              </div>
+              <div class="ref-content">
+                <b-tag class="sm-mr-1"
+                       type="is-warning"
+                       v-for="(val,key) in link.tags"
+                       :key="key">
+                  {{ val.name }}
+                </b-tag>
+              </div>
+            </div>
+
+            <div class="sm-site-ref-item">
+              <div class="ref-title">
+                Категория
+              </div>
+              <div v-if="!modeEdit && link.category"
+                   class="ref-content">
+                <i :class="'mdi '+ link.category.icon"></i>
+                {{ link.category.name }}
+              </div>
+            </div>
+
+            <div v-if="link.user"
+                 class="sm-site-ref-item">
+              <div class="ref-title">
+                Пользователь
+              </div>
+              <div class="ref-content">
+                {{ link.user ? link.user.name : '' }}
+              </div>
+            </div>
+
+            <div v-if="link.canEdit"
+                 class="sm-site-ref-item">
+              <div class="ref-title">
+                Кеш
+              </div>
+              <div class="ref-content"
+                   v-html="link.cache ? link.cache.data : 'Нет'"></div>
+            </div>
+
+          </div>
         </div>
       </div>
-
-      <div v-else
-           class="content">
-        <el-tag class="sm-mr-1"
-                v-for="(val,key) in link.tags"
-                :key="key">
-          {{ val.name }}
-        </el-tag>
-      </div>
     </div>
-
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Категория
-      </div>
-      <div class="sm-mt-2"
-           v-if="modeEdit">
-        <el-select v-model="link.category"
-                   value-key="id"
-                   filterable
-                   placeholder="Категория">
-          <el-option
-              v-for="item in categories"
-              :key="item.id"
-              :label="item.name"
-              :value="item">
-          </el-option>
-        </el-select>
-      </div>
-      <div v-else-if="!modeEdit && link.category"
-           class="content">
-        <i :class="'mdi '+ link.category.icon"></i>
-        {{ link.category.name }}
-      </div>
-    </div>
-
-    <div v-if="link.user"
-         class="sm-site-ref-item">
-      <div class="title">
-        Пользователь
-      </div>
-      <div class="content">
-        {{ link.user ? link.user.name : '' }}
-      </div>
-    </div>
-
-    <div v-if="modeEdit"
-         class="sm-site-ref-item">
-      <div class="title">
-        Дата напоминания
-      </div>
-      <el-date-picker
-          class="sm-mt-2"
-          v-model="link.date"
-          type="date"
-          format="dd-MM-yyyy"
-          value-format="yyyy-MM-dd"
-          placeholder="Дата напоминания"
-          :picker-options="pickerOptions">
-      </el-date-picker>
-    </div>
-
-    <div v-if="modeEdit"
-         class="sm-site-ref-item">
-      <div class="title">
-        Статус
-      </div>
-      <el-select class="sm-mt-2"
-                 v-model="link.flag"
-                 placeholder="Статус">
-        <el-option v-for="val in flags"
-                   :key="val.id"
-                   :label="val.name"
-                   :value="val.id">
-        </el-option>
-      </el-select>
-    </div>
-
-    <div v-if="modeEdit"
-         class="sm-site-ref-item">
-      <div class="title">
-        Кешировать
-      </div>
-      <el-switch class="sm-mt-2"
-                 v-model="link.cache"/>
-    </div>
-
-    <div v-if="link.canEdit"
-         class="sm-site-ref-item">
-      <div class="title">
-        Кеш
-      </div>
-      <div class="content"
-           v-html="link.cache ? link.cache.data : 'Нет'"></div>
-    </div>
-
   </section>
 </template>
 

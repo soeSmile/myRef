@@ -20,7 +20,7 @@ export default {
     },
 
     loading: {
-        color : '#0589bd',
+        color : '#d88844',
         height: '3px',
     },
 
@@ -40,12 +40,9 @@ export default {
     ],
 
     plugins: [
-        '~/plugins/auth',
         '~/plugins/axios',
         '~/plugins/builder',
-        '~/plugins/mixin',
         '~/plugins/helper',
-        '~/plugins/element',
     ],
 
     components: true,
@@ -53,7 +50,8 @@ export default {
     modules: [
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        'vue2-editor/nuxt'
+        'vue2-editor/nuxt',
+        ['nuxt-buefy', {css: false}],
     ],
 
     axios: {

@@ -1,0 +1,112 @@
+.#{$prefix}menu {
+  background: map-get($colors, 'white');
+  display: flex;
+  flex-direction: column;
+  width: 90px;
+  transition: all 0.3s ease;
+  padding: 0 map-get($sizes, 4);
+
+  &.active {
+    width: 300px;
+    transition: all 0.3s ease;
+  }
+}
+
+.#{$prefix}menu-item {
+  padding: map-get($sizes, 3) map-get($sizes, 5) map-get($sizes, 3) map-get($sizes, 5);
+  border-radius: map-get($sizes, 2);
+  color: map-get($colors, 'grey');
+
+  & .icon {
+    font-size: map-get($sizes, 6);
+    color: map-get($colors, 'sm-green');
+  }
+
+  & .text {
+    margin-left: map-get($sizes, 6);
+    font-size: map-get($sizes, 4);
+    font-weight: 600;
+    display: none;
+
+    &.active {
+      display: block;
+      transition: all 0.3s ease;
+    }
+  }
+
+  &.link:hover {
+    color: map-get($colors, 'primary');
+    @include animateHover;
+  }
+
+  &.is-active {
+    background: map-get($colors, 'primary');
+    color: map-get($colors, 'light');
+
+    &:hover {
+      color: map-get($colors, 'light');
+    }
+  }
+}
+
+/**
+  Ste page menu head
+ */
+.#{$prefix}menu-head {
+  background: map-get($colors, 'white');
+  padding: map-get($sizes, 2);
+
+  & .item {
+    color: map-get($colors, 'dark');
+    padding: map-get($sizes, 2) map-get($sizes, 4) map-get($sizes, 2) map-get($sizes, 4);
+    border-radius: map-get($sizes, 1);
+    margin: map-get($sizes, 1);
+
+    &:hover, &.is-active {
+      background: map-get($colors, 'primary');
+      color: map-get($colors, 'white');
+      @include animateHover
+    }
+  }
+}
+
+
+/**
+  Search Menu
+ */
+.#{$prefix}menu-search {
+  background: map-get($colors, 'white');
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  transition: all 0.3s ease;
+  padding: map-get($sizes, 4);
+  border-left: 1px solid map-get($colors, 'light');
+}
+
+/**
+  User search menu
+ */
+.#{$prefix}menu-search-user {
+  & .item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: map-get($sizes, 1);
+
+    & .remove {
+      color: map-get($colors, 'alert');
+      margin-right: map-get($sizes, 1);
+    }
+
+    & .edit {
+      color: map-get($colors, 'primary');
+      margin-right: map-get($sizes, 1);
+    }
+
+    & .name {
+      overflow: hidden;
+      margin-left: map-get($sizes, 1);
+    }
+  }
+}

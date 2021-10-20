@@ -1,38 +1,53 @@
 <template>
   <section class="sm-layout">
-    <header class="sm-layout-header sm-bg-color-1 sm-color-white sm-p-4">
-      <div class="sm-container center">
-        <site-header/>
-      </div>
-    </header>
+    <section class="sm-layout-wrap">
+      <header class="sm-layout-header">
+        <nav class="sm-nav sm-menu-head">
+          <div class="sm-nav-start"></div>
+          <div class="sm-nav-center">
+            <n-link class="item sm-fnt 600"
+                    v-for="val in menu" :key="val.name"
+                    :to="val.link">
+              {{ val.name }}
+            </n-link>
+          </div>
+          <div class="sm-nav-end"></div>
+        </nav>
+      </header>
 
-    <section class="sm-layout-content">
-      <nuxt/>
+      <div class="sm-layout-content">
+        <nuxt/>
+      </div>
+
+
+      <footer class="sm-layout-footer">
+        <nav class="sm-nav sm-p-2 sm-bg-dark">
+          <div class="sm-nav-start"></div>
+          <div class="sm-nav-center">
+            <n-link class="sm-color-white"
+                    to="/">
+              myRef.com - 2021
+            </n-link>
+          </div>
+          <div class="sm-nav-end"></div>
+        </nav>
+      </footer>
     </section>
-
-    <footer class="sm-layout-footer sm-bg-color-1 sm-color-white">
-      <div class="sm-container center">
-        <site-footer/>
-      </div>
-    </footer>
   </section>
 </template>
 
 <script>
-
-import siteHeader from "../components/site/header/siteHeader";
-import siteFooter from "../components/site/footer/siteFooter";
-
 export default {
   name: "sitePage",
 
-  components: {
-    siteHeader,
-    siteFooter
-  },
-
   data() {
-    return {}
-  },
+    return {
+      menu: [
+        {name: 'Главная', link: '/'},
+        {name: 'Вход', link: '/login'},
+        {name: 'Регистрация', link: '/register'},
+      ]
+    }
+  }
 }
 </script>

@@ -32,7 +32,17 @@ final class TagRepository extends AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['tag'])) {
-            $this->getQuery()->where('name', 'like', $data['tag'] . '%');
+            $this->getQuery()->where('name', 'like', '%' . $data['tag'] . '%');
+        }
+
+        if (isset($data['ids'])) {
+            try {
+                $ids = \json_decode($data['ids'], true, 512, JSON_THROW_ON_ERROR);
+            } catch (\JsonException $e) {
+                $ids = [];
+            }
+
+            $this->getQuery()->whereIn('id', $ids);
         }
 
         return parent::all($data, $columns);

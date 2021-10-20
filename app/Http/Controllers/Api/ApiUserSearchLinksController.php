@@ -18,7 +18,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  * Class ApiUserSearchLinksController
  * @package App\Http\Controllers\Api;
  */
-class ApiUserSearchLinksController
+final class ApiUserSearchLinksController
 {
     /**
      * @var UserSearchLinkRepository

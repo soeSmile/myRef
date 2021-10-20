@@ -16,3 +16,7 @@
 .#{$prefix}label {
   padding: map-get($sizes, 1);
 }
+
+.#{$prefix}textarea{
+  resize: none;
+}

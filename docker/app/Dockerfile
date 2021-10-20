@@ -44,3 +44,11 @@ RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && \
     chmod +x /usr/local/bin/phpcs
 
 COPY opcache.ini /usr/local/etc/php/conf.d/
+
+ARG UID
+ARG GID
+
+RUN usermod -u ${UID} www-data
+RUN groupmod -g ${GID} www-data
+
+USER www-data
