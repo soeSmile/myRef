@@ -39,7 +39,10 @@
             </figure>
           </div>
           <div class="media-content">
-            <h1 class="title is-4">
+            <b-input v-if="modeEdit"
+                     v-model="link.title"/>
+            <h1 v-else
+                class="title is-4">
               {{ link.title }}
             </h1>
           </div>
@@ -52,8 +55,23 @@
               Описание
             </div>
             <div class="ref-content">
-              <p>{{ link.userDesc }}</p>
-              <p>{{ link.desc }}</p>
+              <b-input v-if="modeEdit"
+                       custom-class="sm-textarea sm-mb-2"
+                       rows="2"
+                       v-model="link.userDesc"
+                       type="textarea"/>
+              <p v-else>
+                {{ link.userDesc }}
+              </p>
+
+              <b-input v-if="modeEdit"
+                       custom-class="sm-textarea"
+                       rows="2"
+                       v-model="link.desc"
+                       type="textarea"/>
+              <p v-else>
+                {{ link.desc }}
+              </p>
             </div>
           </div>
 
@@ -61,7 +79,13 @@
             <div class="ref-title">
               Комментарий
             </div>
-            <div class="ref-content">
+            <b-input v-if="modeEdit"
+                     custom-class="sm-textarea"
+                     rows="1"
+                     v-model="link.comment"
+                     type="textarea"/>
+            <div v-else
+                 class="ref-content">
               {{ link.comment ? link.comment : 'Нет' }}
             </div>
           </div>
@@ -71,7 +95,11 @@
               Ссылка
             </div>
             <div class="ref-content">
-              <a :href="link.url" target="_blank"
+              <b-input v-if="modeEdit"
+                       v-model="link.url"/>
+              <a v-else
+                 :href="link.url"
+                 target="_blank"
                  class="sm-link-hover sm-color-primary">
                 {{ link.url }}
               </a>
@@ -81,7 +109,35 @@
               <div class="ref-title">
                 Тэги
               </div>
-              <div class="ref-content">
+              <div v-if="modeEdit"
+                   class="ref-content">
+                <b-field>
+                  <b-autocomplete placeholder="Выбрать тег"
+                                  :loading="loading"
+                                  v-model="selectTag"
+                                  ref="autocomplete"
+                                  :data="tags"
+                                  @typing="getTags"
+                                  @select="insertTag">
+                    <template #empty>Нет данных по запросу: {{ selectTag }}</template>
+                    <template slot-scope="props">
+                      {{ props.option.name }}
+                    </template>
+                  </b-autocomplete>
+                </b-field>
+                <div class="sm-flex wrap sm-mt-2">
+                  <b-tag class="sm-m-1"
+                         v-for="(val,key) in link.tags"
+                         :key="val.name"
+                         type="is-warning"
+                         closable
+                         @close="removeTag(key)">
+                    {{ val.name }}
+                  </b-tag>
+                </div>
+              </div>
+              <div v-else
+                   class="ref-content">
                 <b-tag class="sm-mr-1"
                        type="is-warning"
                        v-for="(val,key) in link.tags"
@@ -95,7 +151,26 @@
               <div class="ref-title">
                 Категория
               </div>
-              <div v-if="!modeEdit && link.category"
+              <div v-if="modeEdit"
+                   class="ref-content">
+                <div v-if="copyLink.category"
+                     class="sm-mb-2">
+                  <i :class="'mdi '+ copyLink.category.icon"></i>
+                  {{ copyLink.category.name }}
+                </div>
+                <b-field>
+                  <b-select placeholder="Выбор категории"
+                            expanded
+                            v-model="link.category">
+                    <option v-for="val in categories"
+                            :value="val"
+                            :key="val.id">
+                      {{ val.name }}
+                    </option>
+                  </b-select>
+                </b-field>
+              </div>
+              <div v-else-if="!modeEdit && link.category"
                    class="ref-content">
                 <i :class="'mdi '+ link.category.icon"></i>
                 {{ link.category.name }}
@@ -110,6 +185,36 @@
               <div class="ref-content">
                 {{ link.user ? link.user.name : '' }}
               </div>
+            </div>
+
+            <div v-if="modeEdit"
+                 class="sm-site-ref-item sm-wpx-300">
+              <b-field label="Дата напоминания">
+                <b-datepicker
+                    v-model="link.date"
+                    placeholder="Дата напоминания"
+                    icon="calendar-today"
+                    icon-right-clickable
+                    trap-focus
+                    :min-date="new Date()">
+                </b-datepicker>
+              </b-field>
+            </div>
+
+            <div v-if="modeEdit"
+                 class="sm-site-ref-item">
+              <b-field class="sm-mt-8"
+                       grouped>
+                <b-switch v-model="link.cache"
+                          class="sm-mr-4">
+                  Кешировать
+                </b-switch>
+                <b-switch v-model="link.flag"
+                          :true-value="2"
+                          :false-value="1">
+                  Публичная
+                </b-switch>
+              </b-field>
             </div>
 
             <div v-if="link.canEdit"
@@ -149,8 +254,6 @@ export default {
     }
   },
 
-  props: {},
-
   data() {
     return {
       loading      : false,
@@ -186,41 +289,54 @@ export default {
   },
 
   computed: {
+    /**
+     * категории
+     * @return {array}
+     */
     categories() {
       return this.$store.getters['category/categories'];
     }
   },
 
   methods: {
+    /**
+     * перевести в режим редактирования
+     */
     runEdit() {
       this.copyLink = JSON.parse(JSON.stringify(this.link));
       this.modeEdit = true
     },
 
+    /**
+     * отмена редактирования
+     */
     cancelEdit() {
       this.link = Object.assign({}, this.copyLink)
       this.modeEdit = false
     },
 
+    /**
+     * сохранить изменения
+     */
     store() {
       this.loading = true
 
       this.$axios.put('api/links/' + this.link.id, this.prepareData(this.link))
-          .then(response => {
-            this.$message({
+          .then(() => {
+            this.$buefy.toast.open({
               message: 'Saved !',
-              type   : 'success'
-            })
+              type   : 'is-success'
+            });
 
             this.copyLink = JSON.parse(JSON.stringify(this.link));
           })
           .catch(e => {
             this.errors = e.response.data.errors;
-            this.$message({
-              type                    : 'error',
+            this.$buefy.toast.open({
+              type                    : 'is-danger',
               dangerouslyUseHTMLString: true,
               message                 : this.$messageToStr(this.errors),
-            })
+            });
             this.cancelEdit()
           })
           .finally(() => {
@@ -233,36 +349,38 @@ export default {
      * delete link
      */
     destroy() {
-      this.$confirm('Удалить ссылку ?', 'Удалить', {
-        confirmButtonText: 'OK',
-        cancelButtonText : 'Cancel',
-        type             : 'error'
-      }).then(() => {
-        this.loading = true
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить',
+        message    : 'Удалить ссылку ?',
+        confirmText: 'Да',
+        type       : 'is-danger',
+        hasIcon    : true,
+        onConfirm  : () => {
+          this.loading = true
 
-        this.$axios.delete('api/links/' + this.link.id)
-            .then(response => {
-              this.$message({
-                message: 'Saved !',
-                type   : 'success'
+          this.$axios.delete('api/links/' + this.link.id)
+              .then(() => {
+                this.$buefy.toast.open({
+                  message: 'Success !',
+                  type   : 'is-success'
+                })
+                this.$router.push('/')
               })
-              this.$router.push('/')
-            })
-            .catch(e => {
-              this.errors = e.response.data.errors;
-              this.$message({
-                type                    : 'error',
-                dangerouslyUseHTMLString: true,
-                message                 : this.$messageToStr(this.errors),
+              .catch(e => {
+                this.errors = e.response.data.errors;
+                this.$buefy.toast.open({
+                  type                    : 'is-danger',
+                  dangerouslyUseHTMLString: true,
+                  message                 : this.$messageToStr(this.errors),
+                })
+                this.cancelEdit()
               })
-              this.cancelEdit()
-            })
-            .finally(() => {
-              this.loading = false
-              this.modeEdit = false
-            })
-      }).catch(() => {
-      })
+              .finally(() => {
+                this.loading = false
+                this.modeEdit = false
+              })
+        }
+      });
     },
 
     /**
@@ -318,7 +436,7 @@ export default {
     /**
      * @param key
      */
-    removeFromTags(key) {
+    removeTag(key) {
       this.link.tags.splice(key, 1)
     }
   }
