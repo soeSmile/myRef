@@ -27,6 +27,7 @@ class LinkResource extends JsonResource
             'id'        => $this->id,
             'title'     => $this->title ?? '',
             'desc'      => $this->desc,
+            'userDesc'  => $this->user_desc,
             'url'       => $this->url,
             'img'       => $this->img ?? '/no-image.png',
             'category'  => new CategorySortResource($this->category),

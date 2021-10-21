@@ -18,9 +18,9 @@
           </div>
         </div>
         <div class="content">
-          <div class="sm-ref-desc"
-               :title="myRef.desc">
-            {{ getDesc(myRef.desc) }}
+          <div class="sm-ref-desc">
+            <p>{{ getDesc(myRef.userDesc) }}</p>
+            <p>{{ getDesc(myRef.desc) }}</p>
           </div>
 
           <div class="sm-ref-category sm-my-2">
@@ -61,7 +61,7 @@ export default {
      * @return {string}
      */
     getTitle(title) {
-      return title.trim().slice(0, this.$const.TITLE_LENGTH) + (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '')
+      return title ? title.trim().slice(0, this.$const.TITLE_LENGTH) + (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '') : '';
     },
 
     /**
@@ -69,7 +69,7 @@ export default {
      * @return {string}
      */
     getDesc(desc) {
-      return desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '')
+      return desc ? desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '') : '';
     },
   }
 }

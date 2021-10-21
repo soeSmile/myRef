@@ -17,6 +17,7 @@
   font-family: $fontLight;
   color: map-get($colors, 'dark');
   text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .#{$prefix}ref-category {
@@ -24,6 +25,7 @@
   font-family: $fontLight;
   color: map-get($colors, 'alert');
   text-decoration: none;
+  font-size: 0.8rem;
 }
 
 .#{$prefix}ref-link {

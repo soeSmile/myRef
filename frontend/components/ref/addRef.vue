@@ -68,7 +68,7 @@
       <b-field label="Описание">
         <b-input custom-class="sm-textarea"
                  rows="1"
-                 v-model="myRef.desc"
+                 v-model="myRef.userDesc"
                  type="textarea"/>
       </b-field>
 
@@ -139,7 +139,7 @@ export default {
         comment : null,
         cache   : false,
         flag    : 1,
-        desc    : null
+        userDesc: null
       },
       selectTag : null,
       tags      : [],
@@ -192,7 +192,7 @@ export default {
     prepareData(ref) {
       return {
         url       : ref.url,
-        desc      : ref.desc,
+        userDesc  : ref.userDesc,
         categoryId: ref.category,
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
