@@ -52,7 +52,8 @@
               Описание
             </div>
             <div class="ref-content">
-              {{ link.desc }}
+              <p>{{ link.userDesc }}</p>
+              <p>{{ link.desc }}</p>
             </div>
           </div>
 
