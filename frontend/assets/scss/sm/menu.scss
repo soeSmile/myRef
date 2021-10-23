@@ -39,7 +39,7 @@
     @include animateHover;
   }
 
-  &.is-active {
+  &.is-active, &.nuxt-link-active {
     background: map-get($colors, 'primary');
     color: map-get($colors, 'light');
 

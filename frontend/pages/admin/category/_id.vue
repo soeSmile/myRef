@@ -128,6 +128,7 @@ export default {
           })
           .catch(e => {
             this.errors = e.response.data.errors;
+
             this.$buefy.toast.open({
               message: this.$messageToStr(this.errors),
               type   : 'is-danger'

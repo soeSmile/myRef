@@ -15,7 +15,8 @@
                 :key="val.name"
                 :title="val.name"
                 class="sm-menu-item link sm-flex middle"
-                :class="show ? 'left' : 'center'">
+                :class="show ? 'left' : 'center'"
+                :exact="val.exact">
           <div class="icon">
             <i :class="val.icon"></i>
           </div>
@@ -58,12 +59,12 @@ export default {
     return {
       show: false,
       menu: [
-        {name: 'Главная', icon: 'mdi mdi-home', link: '/'},
-        {name: 'Настройки', icon: 'mdi mdi-cogs', link: '/admin/setting'},
-        {name: 'Ссылки', icon: 'mdi mdi-link', link: '/admin/link'},
-        {name: 'Категории', icon: 'mdi mdi-shape', link: '/admin/category'},
-        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/admin/tag'},
-        {name: 'Пользователи', icon: 'mdi mdi-account-supervisor', link: '/admin/user'},
+        {name: 'Главная', icon: 'mdi mdi-home', link: '/', exact: true},
+        {name: 'Настройки', icon: 'mdi mdi-cogs', link: '/admin/setting', exact: false},
+        {name: 'Ссылки', icon: 'mdi mdi-link', link: '/admin/link', exact: false},
+        {name: 'Категории', icon: 'mdi mdi-shape', link: '/admin/category', exact: false},
+        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/admin/tag', exact: false},
+        {name: 'Пользователи', icon: 'mdi mdi-account-supervisor', link: '/admin/user', exact: false},
       ]
     }
   },
