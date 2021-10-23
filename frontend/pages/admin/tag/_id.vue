@@ -1,18 +1,18 @@
 <template>
   <section>
-    <nav class="sm-nav sm-bg-color-10 sm-color-color-9">
+    <nav class="sm-nav sm-bg-white sm-color-grey sm-p-2">
       <div class="sm-nav-start">
-        <n-link to="/admin/tag"
-                class="sm-nav-item sm-p-4 sm-link-hover sm-hover-color-10 sm-hover-bg-color-9">
+        <n-link to="/admin/user"
+                class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-close sm-mr-1"></i>
           <span>Выход</span>
         </n-link>
-        <div class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9"
+        <div class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
              @click="store(false)">
           <i class="mdi mdi-content-save sm-mr-1"></i>
           <span>Сохранить</span>
         </div>
-        <div class="sm-nav-item sm-p-4 sm-link sm-hover-color-10 sm-hover-bg-color-9"
+        <div class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
              @click="store(true)">
           <i class="mdi mdi-content-save-move sm-mr-1"></i>
           <span>Сохранить и выйти</span>
@@ -20,27 +20,29 @@
       </div>
     </nav>
 
-    <div class="sm-mt-8 sm-wpx-400 sm-flex col">
-      <p class="sm-mb-1 sm-color-dark">
-        Имя
-      </p>
-      <div class="sm-form-input">
-        <el-input placeholder="Имя"
-                  v-model="tag.name"/>
-        <div class="sm-form-error"
-             v-html="$messageToStr(errors.name)">
+    <div class="sm-p-4">
+
+      <div class="card sm-wpx-400">
+        <div class="card-content">
+          <div class="content">
+            <b-field label="Имя"
+                     :type="errors.name ? 'is-danger' : ''"
+                     :message="errors.name">
+              <b-input v-model="tag.name">
+              </b-input>
+            </b-field>
+
+            <b-field class="sm-mt-4"
+                     :type="errors.active ? 'is-danger' : ''"
+                     :message="errors.active">
+              <b-switch v-model="tag.active">
+                Активный
+              </b-switch>
+            </b-field>
+          </div>
         </div>
       </div>
 
-      <p class="sm-mt-8 sm-mb-1 sm-color-dark">
-        Активный
-      </p>
-      <div class="sm-form-input">
-        <el-switch v-model="tag.active"/>
-        <div class="sm-form-error"
-             v-html="$messageToStr(errors.active)">
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -100,19 +102,18 @@ export default {
               this.$router.replace('/admin/tag/' + response.data.data.id);
             }
 
-            this.$message({
+            this.$buefy.toast.open({
               message: 'Saved !',
-              type   : 'success'
-            })
+              type   : 'is-success'
+            });
           })
           .catch(e => {
             this.errors = e.response.data.errors;
 
-            this.$message({
-              type                    : 'error',
-              dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
-            })
+            this.$buefy.toast.open({
+              message: this.$messageToStr(this.errors),
+              type   : 'is-danger'
+            });
           });
     },
 
