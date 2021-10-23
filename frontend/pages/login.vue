@@ -5,6 +5,7 @@
                :type="errors.email ? 'is-danger' : ''"
                :message="errors.email">
         <b-input type="email"
+                 required
                  v-model="user.email">
         </b-input>
       </b-field>
@@ -13,6 +14,7 @@
                :type="errors.password ? 'is-danger' : ''"
                :message="errors.password">
         <b-input type="password"
+                 required
                  v-model="user.password">
         </b-input>
       </b-field>
@@ -28,6 +30,13 @@
           Сброс
         </b-button>
       </div>
+
+      <b-notification
+          class="sm-mt-4"
+          v-if="Object.keys(errors).length > 0"
+          type="is-danger"
+          v-html="this.$messageToStr(errors)">
+      </b-notification>
     </div>
   </div>
 </template>
@@ -45,17 +54,16 @@ export default {
 
   data() {
     return {
-      user  : {
+      user: {
         email   : null,
         password: null
       },
-      errors: {}
     }
   },
 
   computed: {
-    error() {
-      return this.$messageToStr(this.$store.getters['auth/errors']);
+    errors() {
+      return this.$store.getters['auth/errors'];
     },
   },
 
@@ -63,28 +71,12 @@ export default {
     reset() {
       this.user.email = null
       this.user.password = null
-      this.errors = {}
       this.$store.dispatch('auth/clearError')
     },
 
-    validForm() {
-      let result = true
-
-      for (let i in this.user) {
-        if (!this.user[i]) {
-          result = false
-          this.$set(this.errors, i, 'Обязательное поле')
-        }
-      }
-
-      return result
-    },
-
     login() {
-      if (this.validForm()) {
-        this.$store.dispatch('auth/login', this.prepareData(this.user))
-        this.reset()
-      }
+      this.$store.dispatch('auth/login', this.prepareData(this.user))
+      this.reset()
     },
 
     /**
