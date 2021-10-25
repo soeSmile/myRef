@@ -1,5 +1,6 @@
 <template>
-  <div class="card sm-wpx-300 sm-m-2">
+  <div class="card sm-wpx-300 sm-m-2"
+       :class="{ 'sm-bg-user-fon' : myRef.flag === 1 }">
 
     <div class="card-content">
       <a :href="myRef.url"

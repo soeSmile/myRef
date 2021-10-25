@@ -88,6 +88,17 @@ final class LinkRepository extends AbstractRepository
             }
         }
 
+        // только свои все
+        if (isClient() && $dto->hasKey('owner')) {
+            $this->getQuery()
+                ->where('user_id', auth()->id())
+                ->whereIn('flag', [Link::FLAG_PRIVAT, Link::FLAG_PUBLIC]);
+        } else {
+            // остальным только публичные
+            $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
+        }
+
+
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);
     }
 

@@ -6,7 +6,8 @@
         <h4>Быстрый доступ</h4>
         <b-button type="is-success"
                   size="is-small"
-                  icon-right="plus"/>
+                  icon-right="plus"
+                  @click="addSearchUrl"/>
       </div>
       <div @click="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
            class="item"
@@ -33,8 +34,14 @@
 </template>
 
 <script>
+import addUserLink from "../userLink/addUserLink";
+
 export default {
   name: "searchUserMenu",
+
+  components: {
+    addUserLink
+  },
 
   props: {
     request: {}
@@ -55,8 +62,20 @@ export default {
      * add user link
      */
     addSearchUrl() {
-      this.showAddSearchUrl = true;
-      this.searchUrl.link = JSON.stringify(this.$route.query);
+      const link = JSON.stringify(this.$route.query);
+
+      this.$buefy.modal.open({
+        parent      : this,
+        component   : addUserLink,
+        hasModalCard: true,
+        canCancel   : false,
+        props       : {
+          searchUrl: {
+            link: link,
+            name: null
+          }
+        }
+      })
     },
 
     /**
@@ -64,8 +83,17 @@ export default {
      * @param key
      */
     editSearchUrl(key) {
-      this.showAddSearchUrl = true;
-      this.searchUrl = Object.assign({}, this.user.links[key])
+      const link = Object.assign({}, this.user.links[key])
+
+      this.$buefy.modal.open({
+        parent      : this,
+        component   : addUserLink,
+        hasModalCard: true,
+        canCancel   : false,
+        props       : {
+          searchUrl: link
+        }
+      })
     },
 
     /**
@@ -80,6 +108,23 @@ export default {
         confirmText: 'Да',
         hasIcon    : true,
         onConfirm  : () => {
+          this.$axios.delete('api/user-links/' + this.user.links[key].id)
+              .then(response => {
+                this.$buefy.toast.open({
+                  message: 'Saved !',
+                  type   : 'is-success'
+                });
+                this.$store.commit('auth/REMOVE_USER_LINK', key)
+              })
+              .catch(e => {
+                this.errors = e.response.data.errors;
+
+                this.$buefy.toast.open({
+                  type                    : 'is-danger',
+                  dangerouslyUseHTMLString: true,
+                  message                 : this.$messageToStr(this.errors),
+                });
+              });
         }
       })
     }
