@@ -2,9 +2,12 @@
   <section class="sm-menu-search-user">
     <div class="sm-bg-user-fon sm-p-4">
 
-      <p class="sm-mb-2 sm-color-dark sm-fnt w600">
-        Быстрый доступ
-      </p>
+      <div class="sm-mb-2 sm-color-dark sm-fnt w600 sm-flex middle wide">
+        <h4>Быстрый доступ</h4>
+        <b-button type="is-success"
+                  size="is-small"
+                  icon-right="plus"/>
+      </div>
       <div @click="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
            class="item"
            v-for="(val,key) in user.links"
@@ -47,22 +50,22 @@ export default {
     }
   },
 
-  watch: {},
-
-  created() {
-  },
-
-  mounted() {
-  },
-
   methods: {
+    /**
+     * add user link
+     */
     addSearchUrl() {
+      this.showAddSearchUrl = true;
+      this.searchUrl.link = JSON.stringify(this.$route.query);
     },
 
     /**
+     * edit user search link
      * @param key
      */
     editSearchUrl(key) {
+      this.showAddSearchUrl = true;
+      this.searchUrl = Object.assign({}, this.user.links[key])
     },
 
     /**
