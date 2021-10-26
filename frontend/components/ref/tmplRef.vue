@@ -1,46 +1,35 @@
 <template>
-  <div class="card sm-wpx-300 sm-m-2"
-       :class="{ 'sm-bg-user-fon' : myRef.flag === 1 }">
+  <div class="sm-ref card sm-wpx-300 sm-m-2"
+       :style="getRandom()">
 
-    <div class="card-content">
-      <a :href="myRef.url"
-         target="_blank"
-         :title="myRef.title">
-        <div class="media sm-ref-title">
-          <div class="media-left">
-            <figure class="image is-32x32">
-              <img :src="myRef.img ? myRef.img : ''" alt="">
-            </figure>
-          </div>
-          <div class="media-content">
-            <h4 class="title is-6">
-              {{ getTitle(myRef.title) }}
-            </h4>
-          </div>
-        </div>
-        <div class="content">
-          <div class="sm-ref-desc">
-            <p>{{ getDesc(myRef.userDesc) }}</p>
-            <p>{{ getDesc(myRef.desc) }}</p>
-          </div>
+    <a :href="myRef.url"
+       target="_blank"
+       :title="myRef.title"
+       class="sm-ref-content sm-hpx-350">
 
-          <div class="sm-ref-category sm-my-2">
-            <section v-if="myRef.category">
-              <i :class="'mdi '+ myRef.category.icon"></i>
-              {{ myRef.category.name }}
-            </section>
-          </div>
-        </div>
-      </a>
+      <h4 class="sm-ref-title sm-fnt bold sm-mb-2">
+        {{ getTitle(myRef.title) }}
+      </h4>
 
-      <div class="sm-flex middle right">
-        <n-link class="sm-ref-link sm-fnt w600"
-                :to="'/link/' + myRef.id">
-          Подробнее
-        </n-link>
+      <div class="sm-ref-desc sm-my-2">
+        <p class="sm-mb-1">{{ getDesc(myRef.userDesc) }}</p>
+        <p>{{ getDesc(myRef.desc) }}</p>
       </div>
-    </div>
 
+      <div class="sm-ref-category sm-my-2">
+        <section v-if="myRef.category">
+          <i :class="'mdi '+ myRef.category.icon"></i>
+          {{ myRef.category.name }}
+        </section>
+      </div>
+    </a>
+
+    <div class="sm-flex middle right sm-py-2 sm-px-4">
+      <n-link class="sm-ref-link sm-fnt w600"
+              :to="'/link/' + myRef.id">
+        Подробнее
+      </n-link>
+    </div>
   </div>
 </template>
 
@@ -53,7 +42,11 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      img: [
+        'buf.jpg', 'lara.jpg', 'noimg.jpg', 'ya.jpg'
+      ]
+    }
   },
 
   methods: {
@@ -72,6 +65,12 @@ export default {
     getDesc(desc) {
       return desc ? desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '') : '';
     },
+
+    getRandom() {
+      let img = this.img[Math.floor((Math.random() * this.img.length))]
+
+      return 'background: #FFFFFF no-repeat url(\'' + img + '\');'
+    }
   }
 }
 </script>
