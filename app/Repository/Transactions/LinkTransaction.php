@@ -122,9 +122,6 @@ final class LinkTransaction extends AbstractTransaction
             ];
         }
 
-        $t = htmlspecialchars('<div>Тут должен быть кеш</div>');
-        $ta = htmlspecialchars_decode($t);
-
         if ($array !== []) {
             if ($clear) {
                 $repository->event->clearEventByItem($repository->getModel()::class, $id, Event::EVENTS);
