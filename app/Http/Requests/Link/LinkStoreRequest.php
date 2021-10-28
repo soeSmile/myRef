@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Link;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class LinkStoreRequest
@@ -23,6 +24,7 @@ class LinkStoreRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['url' => "string"])]
     public function rules(): array
     {
         return [

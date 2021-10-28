@@ -6,6 +6,7 @@ namespace App\Repository;
 use App\Models\Link;
 use App\Repository\Dto\AbstractDto;
 use App\Repository\Transactions\LinkTransaction;
+use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
@@ -128,7 +129,7 @@ final class LinkRepository extends AbstractRepository
      */
     public function clearTag($linkId): int
     {
-        return \DB::table(Link::TAG_TABLE)
+        return DB::table(Link::TAG_TABLE)
             ->where('link_id', $linkId)
             ->delete();
     }
@@ -139,7 +140,7 @@ final class LinkRepository extends AbstractRepository
      */
     public function storeTag(array $linkToTag): bool
     {
-        return \DB::table(Link::TAG_TABLE)
+        return DB::table(Link::TAG_TABLE)
             ->insert($linkToTag);
     }
 }
