@@ -5,6 +5,7 @@ namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 class TagUpdateRequest extends FormRequest
 {
@@ -19,6 +20,7 @@ class TagUpdateRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['id' => "string", 'name' => "array"])]
     public function rules(): array
     {
         return [

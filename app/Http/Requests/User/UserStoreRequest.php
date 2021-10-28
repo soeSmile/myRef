@@ -6,6 +6,7 @@ namespace App\Http\Requests\User;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class UserStoreRequest
@@ -21,10 +22,18 @@ class UserStoreRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
      */
+    #[ArrayShape([
+        'name'     => "string",
+        'email'    => "string",
+        'confirm'  => "string",
+        'password' => "string",
+        'timeZone' => "string",
+        'role'     => "array",
+        'show'     => "string",
+        'link'     => "string"
+    ])]
     public function rules()
     {
         return [

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class CategoryStoreRequest
@@ -22,6 +23,7 @@ class CategoryStoreRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['ru' => "string", 'en' => "string"])]
     public function rules(): array
     {
         return [

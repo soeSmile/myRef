@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\UserSearchLink;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class UserSearchLinkStoreRequest
@@ -22,6 +23,7 @@ class UserSearchLinkStoreRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['name' => "string", 'link' => "string"])]
     public function rules(): array
     {
         return [

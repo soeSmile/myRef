@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class TagStoreRequest
@@ -22,6 +23,7 @@ class TagStoreRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['name' => "string"])]
     public function rules(): array
     {
         return [

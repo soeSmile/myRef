@@ -6,6 +6,7 @@ namespace App\Http\Requests\User;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -20,6 +21,16 @@ class UserUpdateRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape([
+        'id'       => "string",
+        'name'     => "string",
+        'email'    => "array",
+        'confirm'  => "string",
+        'timeZone' => "string",
+        'role'     => "array",
+        'show'     => "string",
+        'link'     => "string"
+    ])]
     public function rules(): array
     {
         return [

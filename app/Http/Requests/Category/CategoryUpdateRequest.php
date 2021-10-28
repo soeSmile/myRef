@@ -5,6 +5,7 @@ namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class CategoryUpdateRequest
@@ -23,6 +24,7 @@ class CategoryUpdateRequest extends FormRequest
     /**
      * @return array
      */
+    #[ArrayShape(['id' => "string", 'ru' => "array", 'en' => "array"])]
     public function rules(): array
     {
         return [
