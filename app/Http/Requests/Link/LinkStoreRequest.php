@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class LinkStoreRequest
+ * @property string $url
  * @package App\Http\Requests\Link
  */
 class LinkStoreRequest extends FormRequest
@@ -25,7 +26,7 @@ class LinkStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'url' => 'required|url'
+            'url' => 'required|url|string'
         ];
     }
 }

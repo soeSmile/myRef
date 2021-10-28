@@ -11,9 +11,13 @@ use App\Repository\Dto\LinkSearchDto;
 use App\Repository\Dto\LinkStoreDto;
 use App\Repository\LinkRepository;
 use App\Services\ParseUrl\ParseUrl;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Log;
+use Throwable;
+use function array_merge;
 
 /**
  * Class ApiLinkController
@@ -67,19 +71,17 @@ final class ApiLinkController
     public function store(LinkStoreRequest $request): JsonResponse
     {
         $data = $this->parseUrl->parseUrl($request->url);
-        $result = false;
+        $error = '';
 
-        if (!isset($data['error'])) {
-            try {
-                $result = (bool)$this->link->storeTransaction(new LinkStoreDto(\array_merge($data, $request->all())));
-            } catch (\Throwable $e) {
-                $result = false;
-                $data['error'] = 'Error! See logs!';
-                \Log::error($e->getMessage());
-            }
+        try {
+            $result = (bool)$this->link->storeTransaction(new LinkStoreDto(array_merge($data, $request->all())));
+        } catch (Throwable $e) {
+            $result = false;
+            $error = 'Error! See logs!';
+            Log::error($e->getMessage());
         }
 
-        return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
+        return response()->json(['success' => $result, 'errors' => $error], $result ? 200 : 400);
     }
 
     /**
@@ -91,10 +93,10 @@ final class ApiLinkController
     {
         try {
             $result = $this->link->updateTransaction(new LinkStoreDto($request->all()));
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             $result = false;
             $data['error'] = 'Error! See logs!';
-            \Log::error($exception->getMessage());
+            Log::error($exception->getMessage());
         }
 
         return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
@@ -109,8 +111,9 @@ final class ApiLinkController
     {
         try {
             $result = $this->link->destroy($id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $result = false;
+            Log::error($e->getMessage());
         }
 
         return response()->json(['success' => $result, 'errors' => ''], $result ? 200 : 400);

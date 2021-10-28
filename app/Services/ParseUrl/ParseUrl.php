@@ -4,8 +4,11 @@ declare(strict_types=1);
 namespace App\Services\ParseUrl;
 
 use DiDom\Document;
-use DiDom\Exceptions\InvalidSelectorException;
 use Http;
+use Illuminate\Support\Facades\Log;
+use JetBrains\PhpStorm\ArrayShape;
+use Throwable;
+use function parse_url;
 
 /**
  * Class ParseUrl
@@ -22,6 +25,7 @@ class ParseUrl
      * @param string $url
      * @return array
      */
+    #[ArrayShape(['url' => "string", 'title' => "string", 'desc' => "string"])]
     public function parseUrl(string $url): array
     {
         try {
@@ -29,9 +33,9 @@ class ParseUrl
             $doc = new Document($response->body());
             $this->urlRoot = $this->getRootUrl($url);
             $head = $doc->first('head');
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
 
-            \Log::error($exception->getMessage());
+            Log::error($exception->getMessage());
 
             return [
                 'url'   => $url,
@@ -44,7 +48,6 @@ class ParseUrl
             'url'   => $url,
             'title' => $this->getTitle($url, $head),
             'desc'  => $this->getDescription($head),
-            'img'   => $this->getImage($head),
         ];
     }
 
@@ -54,7 +57,7 @@ class ParseUrl
      */
     private function getRootUrl(string $url): string
     {
-        $parse = \parse_url($url);
+        $parse = parse_url($url);
 
         return $parse['scheme'] . '://' . $parse['host'];
     }
@@ -96,43 +99,5 @@ class ParseUrl
         }
 
         return $desc;
-    }
-
-    /**
-     * @param $head
-     * @return string
-     */
-    private function getImage($head): string
-    {
-        $icon = '';
-
-        if ($head) {
-            $icons = $head->find('link[href$=ico]');
-
-            foreach ($icons as $description) {
-                $icon = $description->attr('href');
-            }
-
-            if (!$icon) {
-                $icons = $head->find('link[rel=shortcut icon]');
-
-                foreach ($icons as $description) {
-                    $icon = $description->attr('href');
-                }
-            }
-        }
-
-        return $this->hasUrl($icon) ? $icon : $this->urlRoot . $icon;
-    }
-
-    /**
-     * @param string $str
-     * @return bool
-     */
-    private function hasUrl(string $str): bool
-    {
-        $parse = \parse_url($str);
-
-        return isset($parse['scheme']);
     }
 }
