@@ -6,7 +6,6 @@ namespace App\Services\ParseUrl;
 use DiDom\Document;
 use Http;
 use Illuminate\Support\Facades\Log;
-use JetBrains\PhpStorm\ArrayShape;
 use Throwable;
 use function parse_url;
 
@@ -25,7 +24,6 @@ class ParseUrl
      * @param string $url
      * @return array
      */
-    #[ArrayShape(['url' => "string", 'title' => "string", 'desc' => "string"])]
     public function parseUrl(string $url): array
     {
         try {
@@ -48,6 +46,7 @@ class ParseUrl
             'url'   => $url,
             'title' => $this->getTitle($url, $head),
             'desc'  => $this->getDescription($head),
+            'img'   => (new MakeScreen())->makeScreen($url)
         ];
     }
 
