@@ -26,12 +26,12 @@ abstract class AbstractDto
     /**
      * @var array
      */
-    private array $raw;
+    private array $dataRaw;
 
     /**
      * @var array
      */
-    private array $dataFull;
+    private array $dataIncoming;
 
     /**
      * AbstractSerialize constructor.
@@ -40,8 +40,8 @@ abstract class AbstractDto
     public function __construct(array $data)
     {
         $this->data = $this->snakeKeys($data);
-        $this->dataFull = $this->data;
-        $this->raw = $data;
+        $this->dataIncoming = $this->data;
+        $this->dataRaw = $data;
     }
 
     /**
@@ -60,9 +60,9 @@ abstract class AbstractDto
     /**
      * @return array
      */
-    public function getDataFull(): array
+    public function getDataIncoming(): array
     {
-        return $this->dataFull;
+        return $this->dataIncoming;
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class AbstractDto
      */
     public function getRaw(): array
     {
-        return $this->raw;
+        return $this->dataRaw;
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class AbstractDto
         $data = $this->data;
 
         if ($full) {
-            $data = $this->getDataFull();
+            $data = $this->getDataIncoming();
         }
 
         return $data[$key] ?? null;
@@ -162,7 +162,7 @@ abstract class AbstractDto
         $data = $this->data;
 
         if ($full) {
-            $data = $this->getDataFull();
+            $data = $this->getDataIncoming();
         }
 
         return array_key_exists($key, $data);
