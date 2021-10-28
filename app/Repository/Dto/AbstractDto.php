@@ -6,6 +6,11 @@ namespace App\Repository\Dto;
 use App\Repository\AbstractRepository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\Pure;
+use function array_flip;
+use function array_intersect_key;
+use function array_key_exists;
+use function array_merge;
 
 /**
  * Class AbstractSerialize
@@ -35,6 +40,7 @@ abstract class AbstractDto
     public function __construct(array $data)
     {
         $this->data = $this->snakeKeys($data);
+        $this->dataFull = $this->data;
         $this->raw = $data;
     }
 
@@ -44,8 +50,6 @@ abstract class AbstractDto
      */
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
-        $this->dataFull = $this->data;
-
         if ($abstractRepository) {
             $this->setData($this->getDiffData($abstractRepository));
         }
@@ -74,12 +78,13 @@ abstract class AbstractDto
      * @param bool $full
      * @return mixed
      */
+    #[Pure]
     public function getDataByKey(string $key, bool $full = false): mixed
     {
         $data = $this->data;
 
         if ($full) {
-            $data = $this->dataFull;
+            $data = $this->getDataFull();
         }
 
         return $data[$key] ?? null;
@@ -128,7 +133,7 @@ abstract class AbstractDto
      */
     public function mergeData(array $data): AbstractDto
     {
-        $this->data = \array_merge($this->data, $data);
+        $this->data = array_merge($this->data, $data);
 
         return $this;
     }
@@ -151,15 +156,16 @@ abstract class AbstractDto
      * @param bool $full
      * @return bool
      */
+    #[Pure]
     public function hasKey(string $key, bool $full = false): bool
     {
         $data = $this->data;
 
         if ($full) {
-            $data = $this->dataFull;
+            $data = $this->getDataFull();
         }
 
-        return \array_key_exists($key, $data);
+        return array_key_exists($key, $data);
     }
 
     /**
@@ -167,6 +173,7 @@ abstract class AbstractDto
      * @param bool $full
      * @return bool
      */
+    #[Pure]
     public function hasNull(string $key, bool $full = false): bool
     {
         return $this->getDataByKey($key, $full) === null;
@@ -176,6 +183,7 @@ abstract class AbstractDto
      * @param string $key
      * @return bool
      */
+    #[Pure]
     public function hasKeyAndNull(string $key): bool
     {
         return $this->hasKey($key) && $this->hasNull($key);
@@ -189,7 +197,7 @@ abstract class AbstractDto
     {
         $table = $abstractRepository->getModel()->getTable();
 
-        return \array_flip(Schema::getColumnListing($table));
+        return array_flip(Schema::getColumnListing($table));
     }
 
     /**
@@ -198,7 +206,7 @@ abstract class AbstractDto
      */
     public function getDiffData(AbstractRepository $abstractRepository): array
     {
-        return \array_intersect_key($this->data, $this->getFields($abstractRepository));
+        return array_intersect_key($this->data, $this->getFields($abstractRepository));
     }
 
     /**
