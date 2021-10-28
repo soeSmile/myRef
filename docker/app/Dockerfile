@@ -5,10 +5,8 @@ RUN buildDeps=" \
         libbz2-dev \
         libmemcached-dev \
         libsasl2-dev \
-        fontconfig \
-        freetype \
-        freetype-devel \
-        fontconfig-devel \
+        ca-certificates \
+        bzip2 \
         libfontconfig \
     " \
     runtimeDeps=" \
@@ -43,12 +41,19 @@ RUN buildDeps=" \
     && mv composer.phar /usr/local/bin/composer \
     && composer global require phpunit/phpunit ^9.0 --no-progress --no-scripts --no-interaction \
     && rm -r /var/lib/apt/lists/*
-    
+
 RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && \
     mv phpcs.phar /usr/local/bin/phpcs && \
     chmod +x /usr/local/bin/phpcs
 
 COPY opcache.ini /usr/local/etc/php/conf.d/
+
+RUN set -x  \
+    # Install official PhantomJS release
+ && mkdir /tmp/phantomjs \
+ && curl -Ls https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
+        | tar -xj --strip-components=1 -C /tmp/phantomjs \
+ && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin
 
 ARG UID
 ARG GID
