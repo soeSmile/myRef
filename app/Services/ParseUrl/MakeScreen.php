@@ -28,8 +28,13 @@ class MakeScreen
             $screenCapture = new Capture($url);
             $screenCapture->binPath = '/usr/local/bin/';
             $screenCapture->setOptions([
+                'ssl-protocol'      => 'any',
                 'ignore-ssl-errors' => true
             ]);
+            $screenCapture->setWidth(1100);
+            $screenCapture->setHeight(700);
+            $screenCapture->setImageType(Png::FORMAT);
+            $screenCapture->setUserAgentString('Mozilla/5.0 (X11; Linux x86_64; rv:94.0) Gecko/20100101 Firefox/94.0');
             $screenCapture->save($fullPath);
         } catch (PhantomJsException $e) {
             Log::error('Error make screen', [$e->getMessage()]);
