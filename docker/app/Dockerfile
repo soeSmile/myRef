@@ -27,7 +27,6 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-
 # Install extensions 
 RUN docker-php-ext-install bcmath pdo_mysql mbstring zip exif pcntl opcache pdo_pgsql pgsql soap bz2 calendar iconv intl mysqli
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -46,12 +45,7 @@ RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && \
     mv phpcs.phar /usr/local/bin/phpcs && \
     chmod +x /usr/local/bin/phpcs
 
-# Phantomjs
-RUN mkdir /tmp/phantomjs && \
-    curl -Ls https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | tar -xj --strip-components=1 -C /tmp/phantomjs && \
-    mv /tmp/phantomjs/bin/phantomjs /usr/local/bin
-ENV OPENSSL_CONF=/opt/openssl.cnf
-
+# Ini
 COPY opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 # User

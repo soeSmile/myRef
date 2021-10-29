@@ -7,7 +7,6 @@ use DiDom\Document;
 use Http;
 use Illuminate\Support\Facades\Log;
 use Throwable;
-use function parse_url;
 
 /**
  * Class ParseUrl
@@ -15,11 +14,6 @@ use function parse_url;
  */
 class ParseUrl
 {
-    /**
-     * @var string
-     */
-    protected string $urlRoot = '';
-
     /**
      * @param string $url
      * @return array
@@ -29,10 +23,8 @@ class ParseUrl
         try {
             $response = Http::get($url);
             $doc = new Document($response->body());
-            $this->urlRoot = $this->getRootUrl($url);
             $head = $doc->first('head');
         } catch (Throwable $exception) {
-
             Log::error($exception->getMessage());
 
             return [
@@ -48,17 +40,6 @@ class ParseUrl
             'desc'  => $this->getDescription($head),
             'img'   => (new MakeScreen())->makeScreen($url)
         ];
-    }
-
-    /**
-     * @param string $url
-     * @return string
-     */
-    private function getRootUrl(string $url): string
-    {
-        $parse = parse_url($url);
-
-        return $parse['scheme'] . '://' . $parse['host'];
     }
 
     /**
