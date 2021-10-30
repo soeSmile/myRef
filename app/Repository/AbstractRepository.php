@@ -64,13 +64,11 @@ abstract class AbstractRepository
     }
 
     /**
-     * @return $this
+     * @return Builder
      */
-    public function newQuery(): self
+    public function newQuery(): Builder
     {
-        $this->query = $this->model::query();
-
-        return $this;
+        return $this->model::query();
     }
 
     /**
@@ -111,7 +109,7 @@ abstract class AbstractRepository
      */
     public function store(AbstractDto $dto): Model|Builder
     {
-        return $this->newQuery()->query->create($dto->getData($this));
+        return $this->newQuery()->create($dto->getData($this));
     }
 
     /**
@@ -121,7 +119,7 @@ abstract class AbstractRepository
      */
     public function update($id, AbstractDto $dto): bool|int
     {
-        $item = $this->newQuery()->query->find($id);
+        $item = $this->newQuery()->find($id);
 
         return $item ? $item->update($dto->getData($this)) : false;
     }
@@ -133,7 +131,7 @@ abstract class AbstractRepository
      */
     public function destroy($id): mixed
     {
-        $item = $this->newQuery()->query->find($id);
+        $item = $this->newQuery()->find($id);
 
         return $item ? $item->delete() : false;
     }
@@ -145,6 +143,6 @@ abstract class AbstractRepository
      */
     public function destroyMass(array $data, string $column = 'id'): mixed
     {
-        return $this->newQuery()->query->whereIn($column, $data)->delete();
+        return $this->newQuery()->whereIn($column, $data)->delete();
     }
 }
