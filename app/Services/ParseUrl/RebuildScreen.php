@@ -65,7 +65,7 @@ final class RebuildScreen
     {
         $path = $this->makeScreen->getPath() . '/' . $image;
 
-        if (\file_exists($path)) {
+        if (\file_exists($path) && !is_dir($path)) {
             \unlink($path);
         }
     }
