@@ -46,7 +46,13 @@ class MakeScreen
      */
     private function getPath(): string
     {
-        return storage_path('app/public/screen');
+        $dir = storage_path('app/screen');
+
+        if (!\file_exists($dir) && !mkdir($dir) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
+
+        return $dir;
     }
 
     /**
