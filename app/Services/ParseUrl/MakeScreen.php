@@ -22,8 +22,6 @@ final class MakeScreen
         $fullPath = $this->getPath() . '/' . $fileName;
 
         try {
-            Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
-            \sleep(5);
             $response = Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
             \file_put_contents($fullPath, $response->body());
         } catch (\Throwable $e) {
@@ -32,6 +30,15 @@ final class MakeScreen
         }
 
         return $fileName;
+    }
+
+    /**
+     * @param string $url
+     * @return void
+     */
+    public function fakeRequest(string $url): void
+    {
+        Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
     }
 
     /**

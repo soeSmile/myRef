@@ -6,6 +6,7 @@ $font-path: '../fonts';
   src: url('#{$font-path}/Inter-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -13,6 +14,7 @@ $font-path: '../fonts';
   src: url('#{$font-path}/Inter-Light.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -20,6 +22,7 @@ $font-path: '../fonts';
   src: url('#{$font-path}/Inter-Bold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 // Fonts
