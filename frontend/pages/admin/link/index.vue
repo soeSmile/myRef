@@ -12,7 +12,7 @@
           <i class="mdi mdi-plus sm-mr-1"></i>
           <span>Добавить</span>
         </n-link>
-        <div @click="reBuildImage"
+        <div @click="askReBuild"
              class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-image-broken-variant sm-mr-1"></i>
           <span>Обновить картинки</span>
@@ -43,9 +43,9 @@
         <b-table-column field="img"
                         label="Img"
                         v-slot="props">
-          <b-image :src="getImageLink(props.row.img)"
+          <b-image class="sm-wpx-50"
+                   :src="getImageLink(props.row.img)"
                    alt=""
-                   ratio="50by50"
           />
         </b-table-column>
         <b-table-column field="id"
@@ -152,6 +152,22 @@ export default {
      */
     getImageLink(image = null) {
       return image ? '/storage/screen/' + image : '/no-image.jpg';
+    },
+
+    /**
+     * ask rebuild
+     */
+    askReBuild() {
+      if (this.selectLinks === []) {
+        this.$buefy.dialog.confirm({
+          title      : 'Обновить картинки',
+          message    : 'Данная операция может занять много времени',
+          confirmText: 'Обновить',
+          type       : 'is-danger',
+          hasIcon    : true,
+          onConfirm  : () => this.reBuildImage()
+        })
+      }
     },
 
     /**
