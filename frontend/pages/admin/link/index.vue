@@ -158,7 +158,7 @@ export default {
      * ask rebuild
      */
     askReBuild() {
-      if (this.selectLinks === []) {
+      if (this.selectLinks.length === 0) {
         this.$buefy.dialog.confirm({
           title      : 'Обновить картинки',
           message    : 'Данная операция может занять много времени',
