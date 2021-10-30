@@ -1,6 +1,6 @@
 <template>
   <div class="sm-ref card sm-wpx-300 sm-m-2"
-       :style="getRandom()">
+       :style="getImage(myRef.img)">
 
     <a :href="myRef.url"
        target="_blank"
@@ -66,10 +66,14 @@ export default {
       return desc ? desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '') : '';
     },
 
-    getRandom() {
-      let img = this.img[Math.floor((Math.random() * this.img.length))]
+    /**
+     * @param img
+     * @return {string}
+     */
+    getImage(img) {
+      let image = img ? '/storage/screen/' + img : '/no-image.jpg'
 
-      return 'background: #FFFFFF no-repeat url(\'' + img + '\');'
+      return 'background-image: url(\'' + image + '\');'
     }
   }
 }
