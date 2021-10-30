@@ -31,6 +31,8 @@
           :total="pagination.total"
           :per-page="pagination.itemsPerPage"
           @page-change="onPageChange"
+          checkable
+          :checked-rows.sync="selectLinks"
       >
         <b-table-column v-slot="props">
           <n-link :to="'/admin/link/' + props.row.id"
@@ -41,10 +43,9 @@
         <b-table-column field="img"
                         label="Img"
                         v-slot="props">
-          <b-image
-              :src="getImageLink(props.row.img)"
-              alt=""
-              ratio="50by50"
+          <b-image :src="getImageLink(props.row.img)"
+                   alt=""
+                   ratio="50by50"
           />
         </b-table-column>
         <b-table-column field="id"
@@ -95,16 +96,17 @@ export default {
 
   data() {
     return {
-      loading   : false,
-      pagination: {
+      loading    : false,
+      pagination : {
         itemsPerPage: 20,
         total       : 0
       },
-      query     : {
+      query      : {
         count: 20,
         page : 1
       },
-      links     : [],
+      links      : [],
+      selectLinks: []
     }
   },
 
@@ -129,8 +131,7 @@ export default {
               this.pagination.total = parseInt(response.data.meta.total);
             }
           })
-          .catch(error => {
-            console.log(error)
+          .catch(() => {
           })
           .finally(() => {
             this.loading = false
@@ -153,9 +154,21 @@ export default {
       return image ? '/storage/screen/' + image : '/no-image.jpg';
     },
 
+    /**
+     * reBuildImage
+     */
     reBuildImage() {
-
-    }
+      this.$axios.post('/api/adminLinks/rebuild', {ids: this.selectLinks.map(item => item.id)})
+          .then(() => {
+            this.getAll();
+            this.selectLinks = [];
+          })
+          .catch(() => {
+          })
+          .finally(() => {
+            this.loading = false
+          })
+    },
   }
 }
 </script>

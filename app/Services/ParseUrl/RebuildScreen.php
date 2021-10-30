@@ -63,7 +63,10 @@ final class RebuildScreen
      */
     private function removeOldImage(string $image): void
     {
-        $dir = $this->makeScreen->getPath();
-        \unlink($dir . '/' . $image);
+        $path = $this->makeScreen->getPath() . '/' . $image;
+
+        if (\file_exists($path)) {
+            \unlink($path);
+        }
     }
 }
