@@ -12,7 +12,7 @@ use Throwable;
  * Class ParseUrl
  * @package App\Services\ParseUrl
  */
-class ParseUrl
+final class ParseUrl
 {
     /**
      * @param string $url

@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class MakeScreen
  */
-class MakeScreen
+final class MakeScreen
 {
     /**
      * @param string $url
@@ -33,18 +33,9 @@ class MakeScreen
     }
 
     /**
-     * @param string $url
      * @return string
      */
-    private function getHost(string $url): string
-    {
-        return \preg_replace('#^www\.(.+\.)#i', '$1', \parse_url($url)['host']);
-    }
-
-    /**
-     * @return string
-     */
-    private function getPath(): string
+    public function getPath(): string
     {
         $dir = storage_path('app/public/screen');
 
@@ -53,6 +44,15 @@ class MakeScreen
         }
 
         return $dir;
+    }
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    private function getHost(string $url): string
+    {
+        return \preg_replace('#^www\.(.+\.)#i', '$1', \parse_url($url)['host']);
     }
 
     /**
