@@ -12,6 +12,11 @@
           <i class="mdi mdi-plus sm-mr-1"></i>
           <span>Добавить</span>
         </n-link>
+        <div @click="reBuildImage"
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
+          <i class="mdi mdi-image-broken-variant sm-mr-1"></i>
+          <span>Обновить картинки</span>
+        </div>
       </div>
       <div class="sm-nav-end">
       </div>
@@ -32,6 +37,15 @@
                   class="sm-hover-primary">
             <i class="mdi mdi-pencil"></i>
           </n-link>
+        </b-table-column>
+        <b-table-column field="img"
+                        label="Img"
+                        v-slot="props">
+          <b-image
+              :src="getImageLink(props.row.img)"
+              alt=""
+              ratio="50by50"
+          />
         </b-table-column>
         <b-table-column field="id"
                         label="ID"
@@ -129,6 +143,18 @@ export default {
     onPageChange(page) {
       this.query.page = page;
       this.getAll();
+    },
+
+    /**
+     * @param image
+     * @return {null|string}
+     */
+    getImageLink(image = null) {
+      return image ? '/storage/screen/' + image : '';
+    },
+
+    reBuildImage() {
+
     }
   }
 }
