@@ -150,7 +150,7 @@ export default {
      * @return {null|string}
      */
     getImageLink(image = null) {
-      return image ? '/storage/screen/' + image : '';
+      return image ? '/storage/screen/' + image : '/no-image.jpg';
     },
 
     reBuildImage() {
