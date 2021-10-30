@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Resources\Link\LinkResource;
+use App\Repository\Dto\LinkUpdateImageDto;
 use App\Repository\LinkRepository;
 use App\Services\ParseUrl\RebuildScreen;
 use Illuminate\Http\JsonResponse;
@@ -40,7 +41,7 @@ final class ApiLinkAdminController
      * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function indexAdmin(Request $request): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
         return LinkResource::collection($this->link->all($request->all()));
     }
@@ -49,10 +50,21 @@ final class ApiLinkAdminController
      * @param Request $request
      * @return JsonResponse
      */
-    public function rebuildImageAdmin(Request $request): JsonResponse
+    public function rebuildImage(Request $request): JsonResponse
     {
         $this->rebuildScreen->reBuild($request->ids);
 
         return response()->json([]);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function removeImage($id): JsonResponse
+    {
+        $result = $this->link->update($id, new LinkUpdateImageDto(['img' => null]));
+
+        return response()->json(['success' => $result], $result ? 200 : 400);
     }
 }

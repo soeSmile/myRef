@@ -50,7 +50,7 @@ final class RebuildScreen
 
         $query->chunk(self::CHUNK, function ($links) {
             foreach ($links as $link) {
-                $this->removeOldImage($link->img);
+                $this->removeOldImage($link->img ?? '');
                 $img = $this->makeScreen->makeScreen($link->url);
                 $this->linkRepository->update($link->id, new LinkUpdateImageDto(['img' => $img]));
             }

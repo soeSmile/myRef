@@ -43,10 +43,17 @@
         <b-table-column field="img"
                         label="Img"
                         v-slot="props">
-          <b-image class="sm-wpx-50"
-                   :src="getImageLink(props.row.img)"
-                   alt=""
-          />
+          <div class="sm-flex middle left">
+            <b-image class="sm-wpx-50"
+                     :src="getImageLink(props.row.img)"
+                     alt=""
+            />
+            <div v-if="props.row.img"
+                 class="sm-p-1 sm-link sm-ml-2 sm-color-alert"
+                 @click="removeImage(props.row.id)">
+              <i class="mdi mdi-delete"></i>
+            </div>
+          </div>
         </b-table-column>
         <b-table-column field="id"
                         label="ID"
@@ -167,6 +174,8 @@ export default {
           hasIcon    : true,
           onConfirm  : () => this.reBuildImage()
         })
+      } else {
+        this.reBuildImage();
       }
     },
 
@@ -176,7 +185,7 @@ export default {
     reBuildImage() {
       this.loading = true
 
-      this.$axios.post('/api/adminLinks/rebuild', {ids: this.selectLinks.map(item => item.id)})
+      this.$axios.post('/api/adminLinks/rebuild-img', {ids: this.selectLinks.map(item => item.id)})
           .then(() => {
             this.getAll();
             this.selectLinks = [];
@@ -187,6 +196,33 @@ export default {
             this.loading = false
           })
     },
+
+    /**
+     * @param id
+     */
+    removeImage(id) {
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить',
+        message    : 'Удалить скрин?',
+        confirmText: 'Да',
+        type       : 'is-danger',
+        hasIcon    : true,
+        onConfirm  : () => {
+          this.loading = true
+
+          this.$axios.delete('/api/adminLinks/remove-img/' + id)
+              .then(() => {
+                this.getAll();
+                this.selectLinks = [];
+              })
+              .catch(() => {
+              })
+              .finally(() => {
+                this.loading = false
+              });
+        }
+      })
+    }
   }
 }
 </script>

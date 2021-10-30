@@ -46,9 +46,11 @@ Route::group(['middleware' => 'auth'], static function () {
         Route::apiResource('categories', ApiCategoryController::class)->only('store', 'update');
         Route::apiResource('tags', ApiTagController::class)->only('update');
         Route::apiResource('users', ApiUserController::class)->except('destroy');
-        Route::get('adminLinks', [ApiLinkAdminController::class, 'indexAdmin'])
+        Route::get('adminLinks', [ApiLinkAdminController::class, 'index'])
             ->name('adminLinks.index');
-        Route::post('adminLinks/rebuild', [ApiLinkAdminController::class, 'rebuildImageAdmin'])
-            ->name('adminLinks.rebuild');
+        Route::post('adminLinks/rebuild-img', [ApiLinkAdminController::class, 'rebuildImage'])
+            ->name('adminLinks.rebuildImage');
+        Route::delete('adminLinks/remove-img/{id}', [ApiLinkAdminController::class, 'removeImage'])
+            ->name('adminLinks.removeImage');
     });
 });
