@@ -23,7 +23,7 @@ final class MakeScreen
 
         try {
             Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
-            \sleep(3);
+            \sleep(5);
             $response = Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
             \file_put_contents($fullPath, $response->body());
         } catch (\Throwable $e) {
