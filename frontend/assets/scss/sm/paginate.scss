@@ -1,9 +1,7 @@
 .#{$prefix}paginate {
-  position: absolute;
-  bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding: map_get($sizes, 6);
   color: map_get($colors, 'dark');
   font-family: $fontRegular;
@@ -41,7 +39,7 @@
     }
   }
 
-  & .select{
+  & .select {
     width: 60px;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="sm-flex wrap sm-p-8">
+    <div class="sm-flex wrap sm-p-2">
       <tmpl-ref v-for="(val,key) in links" :key="key + 'ref'"
                 :myRef="val"/>
     </div>
