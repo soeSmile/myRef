@@ -8,6 +8,7 @@ use App\Repository\Dto\AbstractDto;
 use App\Repository\Transactions\LinkTransaction;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
 

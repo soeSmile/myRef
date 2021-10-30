@@ -51,12 +51,12 @@
         <b-table-column field="category"
                         label="Category"
                         v-slot="props">
-          {{ props.row.category ? props.row.category.id : '' }}
+          {{ props.row.category ? props.row.category.name : '' }}
         </b-table-column>
         <b-table-column field="flag"
                         label="Flag"
                         v-slot="props">
-          {{ props.row.flag }}
+          {{ props.row.flag === 1 ? 'Privat' : 'Public' }}
         </b-table-column>
       </b-table>
     </div>
@@ -105,7 +105,7 @@ export default {
         this.query.tag = null
       }
 
-      this.$axios.get('/api/links', {params: this.query})
+      this.$axios.get('/api/adminLinks', {params: this.query})
           .then(response => {
             this.links = response.data.data;
 

@@ -45,5 +45,6 @@ Route::group(['middleware' => 'auth'], static function () {
         Route::apiResource('categories', ApiCategoryController::class)->only('store', 'update');
         Route::apiResource('tags', ApiTagController::class)->only('update');
         Route::apiResource('users', ApiUserController::class)->except('destroy');
+        Route::get('adminLinks', [ApiLinkController::class, 'indexAdmin'])->name('adminLinks.index');
     });
 });

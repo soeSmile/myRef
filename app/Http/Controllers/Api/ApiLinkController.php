@@ -118,4 +118,13 @@ final class ApiLinkController
 
         return response()->json(['success' => $result, 'errors' => ''], $result ? 200 : 400);
     }
+
+    /**
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function indexAdmin(Request $request): AnonymousResourceCollection
+    {
+        return LinkResource::collection($this->link->all($request->all()));
+    }
 }
