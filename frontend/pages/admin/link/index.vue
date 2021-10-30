@@ -158,6 +158,8 @@ export default {
      * reBuildImage
      */
     reBuildImage() {
+      this.loading = true
+
       this.$axios.post('/api/adminLinks/rebuild', {ids: this.selectLinks.map(item => item.id)})
           .then(() => {
             this.getAll();

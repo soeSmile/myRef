@@ -32,19 +32,12 @@ abstract class AbstractRepository
     private Model $model;
 
     /**
-     * @var Builder
-     */
-    private Builder $query;
-
-
-    /**
      * AbstractRepository constructor.
      * @param Model $model
      */
     public function __construct(Model $model)
     {
         $this->model = $model;
-        $this->query = $model::query();
     }
 
     /**
@@ -60,17 +53,7 @@ abstract class AbstractRepository
      */
     public function getQuery(): Builder
     {
-        return $this->query;
-    }
-
-    /**
-     * @return $this
-     */
-    public function newQuery(): self
-    {
-        $this->query = $this->model::query();
-
-        return $this;
+        return $this->model::query();
     }
 
     /**
@@ -81,10 +64,10 @@ abstract class AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['count']) && $data['count'] > 0) {
-            return $this->query->paginate($this->getCountPaginate((int)$data['count']), $columns);
+            return $this->getQuery()->paginate($this->getCountPaginate((int)$data['count']), $columns);
         }
 
-        return $this->query->get($columns);
+        return $this->getQuery()->get($columns);
     }
 
     /**
@@ -102,7 +85,7 @@ abstract class AbstractRepository
      */
     public function get(mixed $id): Model|Builder
     {
-        return $this->query->where('id', $id)->firstOrFail();
+        return $this->getQuery()->where('id', $id)->firstOrFail();
     }
 
     /**
@@ -111,7 +94,7 @@ abstract class AbstractRepository
      */
     public function store(AbstractDto $dto): Model|Builder
     {
-        return $this->query->create($dto->getData($this));
+        return $this->getQuery()->create($dto->getData($this));
     }
 
     /**
@@ -121,7 +104,7 @@ abstract class AbstractRepository
      */
     public function update($id, AbstractDto $dto): bool|int
     {
-        $item = $this->query->find($id);
+        $item = $this->getQuery()->where('id', $id)->first();
 
         return $item ? $item->update($dto->getData($this)) : false;
     }
@@ -133,7 +116,7 @@ abstract class AbstractRepository
      */
     public function destroy($id): mixed
     {
-        $item = $this->query->find($id);
+        $item = $this->getQuery()->find($id);
 
         return $item ? $item->delete() : false;
     }
@@ -145,6 +128,6 @@ abstract class AbstractRepository
      */
     public function destroyMass(array $data, string $column = 'id'): mixed
     {
-        return $this->query->whereIn($column, $data)->delete();
+        return $this->getQuery()->whereIn($column, $data)->delete();
     }
 }
