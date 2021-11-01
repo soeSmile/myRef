@@ -7,6 +7,7 @@ use App\Http\Requests\Link\LinkDestroyRequest;
 use App\Http\Requests\Link\LinkStoreRequest;
 use App\Http\Requests\Link\LinkUpdateRequest;
 use App\Http\Resources\Link\LinkResource;
+use App\Jobs\MakeScreenJob;
 use App\Repository\Dto\LinkSearchDto;
 use App\Repository\Dto\LinkStoreDto;
 use App\Repository\LinkRepository;
@@ -74,14 +75,15 @@ final class ApiLinkController
         $error = '';
 
         try {
-            $result = (bool)$this->link->storeTransaction(new LinkStoreDto(array_merge($data, $request->all())));
+            $link = $this->link->storeTransaction(new LinkStoreDto(array_merge($data, $request->all())));
+            dispatch(new MakeScreenJob($link));
         } catch (Throwable $e) {
-            $result = false;
+            $link = false;
             $error = 'Error! See logs!';
             Log::error($e->getMessage());
         }
 
-        return response()->json(['success' => $result, 'errors' => $error], $result ? 200 : 400);
+        return response()->json(['success' => $link, 'errors' => $error], $link ? 200 : 400);
     }
 
     /**

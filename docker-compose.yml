@@ -32,6 +32,9 @@ services:
     working_dir: /var/www
     links:
       - pg
+    depends_on:
+      - redis
+      - pg
   pg:
     build: ./docker/pg
     container_name: ref-pg
@@ -52,6 +55,9 @@ services:
       USER: 1000:1000
     working_dir: /var/www
     command: php artisan queue:work
+    depends_on:
+      - redis
+      - pg
     links:
       - pg
   schedule:
@@ -69,6 +75,9 @@ services:
     command: php artisan schedule:work
     links:
       - pg
+    depends_on:
+      - redis
+      - pg
   node:
     build: ./docker/node
     container_name: ref-node
@@ -80,3 +89,8 @@ services:
     environment:
       HOST: 0.0.0.0
     command: bash -c "yarn && yarn dev"
+  redis:
+    image: redis
+    container_name: ref-redis
+    ports:
+      - "6379:6379"
