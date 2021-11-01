@@ -23,6 +23,8 @@ final class MakeScreen
         $fullPath = $this->getPath() . '/' . $fileName;
 
         try {
+            $this->request($url);
+            \sleep(5);
             $response = $this->request($url);
             \file_put_contents($fullPath, $response->body());
         } catch (\Throwable $e) {
