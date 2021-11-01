@@ -34,8 +34,8 @@
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="image is-48x48">
-              <img :src="link.img" alt="">
+            <figure class="image is-128x128">
+              <img :src="getImage(link.img)" alt="">
             </figure>
           </div>
           <div class="media-content">
@@ -438,6 +438,14 @@ export default {
      */
     removeTag(key) {
       this.link.tags.splice(key, 1)
+    },
+
+    /**
+     * @param img
+     * @return {string}
+     */
+    getImage(img) {
+      return img ? '/screen/' + img : '/no-image.jpg'
     }
   }
 }

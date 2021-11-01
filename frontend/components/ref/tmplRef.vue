@@ -71,7 +71,7 @@ export default {
      * @return {string}
      */
     getImage(img) {
-      let image = img ? '/storage/screen/' + img : '/no-image.jpg'
+      let image = img ? '/screen/' + img : '/no-image.jpg'
 
       return 'background-image: url(\'' + image + '\');'
     }
