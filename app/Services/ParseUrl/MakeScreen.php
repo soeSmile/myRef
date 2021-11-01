@@ -49,7 +49,7 @@ final class MakeScreen
     {
         $dir = storage_path('app/public/screen');
 
-        \Storage::makeDirectory($dir);
+        \Storage::makeDirectory('public/screen');
 
         return $dir;
     }
