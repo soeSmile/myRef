@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services\ParseUrl;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Log;
 use Ramsey\Uuid\Uuid;
@@ -22,7 +23,7 @@ final class MakeScreen
         $fullPath = $this->getPath() . '/' . $fileName;
 
         try {
-            $response = Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
+            $response = $this->request($url);
             \file_put_contents($fullPath, $response->body());
         } catch (\Throwable $e) {
             Log::error('Error make screen', [$e->getMessage()]);
@@ -34,11 +35,11 @@ final class MakeScreen
 
     /**
      * @param string $url
-     * @return void
+     * @return Response
      */
-    public function fakeRequest(string $url): void
+    public function request(string $url): Response
     {
-        Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
+        return Http::get('https://free.pagepeeker.com/v2/thumbs.php?size=x&url=' . $this->getHost($url));
     }
 
     /**
@@ -48,9 +49,7 @@ final class MakeScreen
     {
         $dir = storage_path('app/public/screen');
 
-        if (!\file_exists($dir) && !mkdir($dir) && !is_dir($dir)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
-        }
+        \Storage::makeDirectory($dir);
 
         return $dir;
     }
