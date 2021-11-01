@@ -30,7 +30,7 @@ final class ParseUrl
             return [
                 'url'   => $url,
                 'title' => $this->getTitle($url),
-                'desc'  => $url
+                'desc'  => $url,
             ];
         }
 
@@ -38,7 +38,6 @@ final class ParseUrl
             'url'   => $url,
             'title' => $this->getTitle($url, $head),
             'desc'  => $this->getDescription($head),
-            'img'   => (new MakeScreen())->makeScreen($url)
         ];
     }
 
