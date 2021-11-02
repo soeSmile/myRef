@@ -2,6 +2,7 @@
   <section>
 
     <div @click="addRef"
+         title="Добавить закладку"
          class="sm-menu-item link sm-flex middle sm-link"
          :class="show ? 'left' : 'center'">
       <div class="icon">
@@ -12,7 +13,9 @@
         Добавить закладку
       </div>
     </div>
-    <div class="sm-menu-item link sm-flex middle sm-link"
+    <div @click="addNote"
+         title="Добавить заметку"
+         class="sm-menu-item link sm-flex middle sm-link"
          :class="show ? 'left' : 'center'">
       <div class="icon">
         <i class="mdi mdi-note"></i>
@@ -29,12 +32,14 @@
 <script>
 
 import addRef from "../../ref/addRef";
+import addNote from "../../note/addNote";
 
 export default {
   name: "siteMenuUser",
 
   components: {
-    addRef
+    addRef,
+    addNote
   },
 
   props: {
@@ -53,6 +58,19 @@ export default {
       this.$buefy.modal.open({
         parent      : this,
         component   : addRef,
+        hasModalCard: true,
+        canCancel   : false,
+        fullScreen  : true
+      })
+    },
+
+    /**
+     * add note
+     */
+    addNote() {
+      this.$buefy.modal.open({
+        parent      : this,
+        component   : addNote,
         hasModalCard: true,
         canCancel   : false,
         fullScreen  : true
