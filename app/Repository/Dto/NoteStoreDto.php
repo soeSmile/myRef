@@ -20,12 +20,9 @@ final class NoteStoreDto extends AbstractDto
      */
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
-        $id = Uuid::uuid6();
-
         $this->setDataByKey('user_id', auth()->id());
         $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVAT);
         $this->setDataByKey('type', Link::TYPE_NOTE);
-        $this->setDataByKey('id', $id);
         $this->setDataByKey('url', 'note');
 
         if ($this->hasKey('body')) {

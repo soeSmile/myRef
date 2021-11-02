@@ -263,22 +263,16 @@ export default {
       }
     },
 
-    /**
-     * @return {{}}
-     */
     prepareData(note) {
-      return {
-        title     : note.title,
-        categoryId: note.category,
-        tags      : note.tags.length === 0 ? null : note.tags,
-        date      : note.date,
-        comment   : note.comment,
-        cache     : note.cache,
-        flag      : note.flag,
-        type      : note.type,
-        file      : note.file,
-        body      : note.body
+      let fromData = new FormData();
+
+      for (let i in note) {
+        if (note[i]) {
+          fromData.append(i, note[i]);
+        }
       }
+
+      return fromData;
     },
 
     /**
