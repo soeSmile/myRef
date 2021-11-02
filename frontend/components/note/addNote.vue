@@ -69,6 +69,20 @@
                    :editorToolbar="customToolbar"/>
       </b-field>
 
+      <b-field class="file is-primary" :class="{'has-name': !!myNote.file}">
+        <b-upload v-model="myNote.file" class="file-label">
+            <span class="file-cta">
+                <b-icon class="file-icon" icon="upload"></b-icon>
+                <span class="file-label">
+                  Загрузить файл (1mb MAX)
+                </span>
+            </span>
+          <span class="file-name" v-if="myNote.file">
+                {{ myNote.file.name }}
+            </span>
+        </b-upload>
+      </b-field>
+
       <b-field label="Дата напоминания">
         <b-datepicker
             v-model="myNote.date"
@@ -135,7 +149,8 @@ export default {
         flag    : 1,
         userDesc: null,
         type    : 2,
-        body    : ''
+        body    : null,
+        file    : null
       },
       selectTag    : null,
       tags         : [],
@@ -144,16 +159,16 @@ export default {
       customToolbar: [
         ['bold', 'italic', 'underline', 'strike'],
         ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'direction': 'rtl' }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': [] }, { 'background': [] }],
-        [{ 'font': [] }],
-        [{ 'align': [] }],
+        [{'header': 1}, {'header': 2}],
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        [{'script': 'sub'}, {'script': 'super'}],
+        [{'indent': '-1'}, {'indent': '+1'}],
+        [{'direction': 'rtl'}],
+        [{'size': ['small', false, 'large', 'huge']}],
+        [{'header': [1, 2, 3, 4, 5, 6, false]}],
+        [{'color': []}, {'background': []}],
+        [{'font': []}],
+        [{'align': []}],
         ['clean']
       ]
     };
