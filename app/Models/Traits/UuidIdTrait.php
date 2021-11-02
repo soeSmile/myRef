@@ -12,13 +12,13 @@ use Ramsey\Uuid\Uuid;
 trait UuidIdTrait
 {
     /**
-     * генерация id пользователя
+     * генерация id
      */
     protected static function bootUuidIdTrait(): void
     {
         static::creating(function ($model) {
 
-            $model->{$model->getKeyName()} = Uuid::uuid4()->toString();
+            $model->{$model->getKeyName()} = Uuid::uuid6()->toString();
         });
     }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="sm-ref card sm-wpx-300 sm-m-2"
-       :style="getImage(myRef.img)">
+       :style="getImage(myRef)">
 
-    <a :href="myRef.url"
+    <a :href="getLink(myRef)"
        target="_blank"
        :title="myRef.title"
        class="sm-ref-content sm-hpx-350">
@@ -67,13 +67,27 @@ export default {
     },
 
     /**
-     * @param img
      * @return {string}
+     * @param myRef
      */
-    getImage(img) {
-      let image = img ? '/screen/' + img : '/no-image.jpg'
+    getImage(myRef) {
+      let image = myRef.img ? '/screen/' + myRef.img : '/no-image.jpg'
+
+      if (myRef.type === 2) {
+        image = '/note.jpg';
+      }
 
       return 'background-image: url(\'' + image + '\');'
+    },
+
+    getLink(myRef) {
+      let link = myRef.url;
+
+      if (myRef.type === 2) {
+        link = '/link/' + myRef.id;
+      }
+
+      return link;
     }
   }
 }

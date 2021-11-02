@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Api\Admin\ApiLinkAdminController;
 use App\Http\Controllers\Api\ApiCategoryController;
 use App\Http\Controllers\Api\ApiLinkController;
+use App\Http\Controllers\Api\ApiNoteController;
 use App\Http\Controllers\Api\ApiTagController;
 use App\Http\Controllers\Api\ApiUserController;
 use App\Http\Controllers\Api\ApiUserSearchLinksController;
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::apiResource('tags', ApiTagController::class)->only('store');
     Route::apiResource('links', ApiLinkController::class)->only('store', 'update', 'destroy');
     Route::apiResource('user-links', ApiUserSearchLinksController::class)->only('index', 'store', 'update', 'destroy');
+    Route::apiResource('notes', ApiNoteController::class)->only('store', 'update', 'destroy');
 
     /**
      * Client Routers

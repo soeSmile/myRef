@@ -36,6 +36,7 @@ class LinkResource extends JsonResource
             'tags'      => TagResource::collection($this->tags),
             'canEdit'   => $this->canEdit(),
             'flag'      => $this->flag,
+            'type'      => $this->type,
         ];
 
         if (isClient() && $this->isOwner()) {

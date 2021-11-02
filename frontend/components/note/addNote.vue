@@ -57,10 +57,12 @@
         </b-tag>
       </div>
 
-      <b-field label="Описание">
+      <b-field label="Название заметки"
+               :message="errors.title"
+               :type="{'is-danger' : errors.title}">
         <b-input custom-class="sm-textarea"
                  rows="1"
-                 v-model="myNote.userDesc"
+                 v-model="myNote.title"
                  type="textarea"/>
       </b-field>
 
@@ -69,18 +71,31 @@
                    :editorToolbar="customToolbar"/>
       </b-field>
 
-      <b-field class="file is-primary" :class="{'has-name': !!myNote.file}">
-        <b-upload v-model="myNote.file" class="file-label">
-            <span class="file-cta">
-                <b-icon class="file-icon" icon="upload"></b-icon>
-                <span class="file-label">
-                  Загрузить файл (1mb MAX)
-                </span>
+      <p v-if="errors.file"
+         class="help is-danger">
+        {{ errors.file }}
+      </p>
+      <b-field class="file is-primary"
+               :class="{'has-name': !!myNote.file}">
+        <b-upload v-model="myNote.file"
+                  class="file-label">
+          <span class="file-cta">
+            <b-icon class="file-icon"
+                    icon="upload"/>
+            <span class="file-label">
+              Загрузить файл (Max {{ Math.trunc(maxFile / 1024 / 1024) }}Mb)
             </span>
-          <span class="file-name" v-if="myNote.file">
-                {{ myNote.file.name }}
-            </span>
+          </span>
+          <span class="file-name"
+                v-if="myNote.file">
+            {{ myNote.file.name }}
+          </span>
         </b-upload>
+        <b-button v-if="myNote.file"
+                  @click="myNote.file=null"
+                  class="sm-ml-1"
+                  type="is-warning"
+                  icon-right="close"/>
       </b-field>
 
       <b-field label="Дата напоминания">
@@ -141,13 +156,14 @@ export default {
       loadingTag   : false,
       loading      : false,
       showDate     : false,
+      maxFile      : 2097152,
       myNote       : {
         category: null,
         tags    : [],
         date    : null,
         comment : null,
         flag    : 1,
-        userDesc: null,
+        title   : null,
         type    : 2,
         body    : null,
         file    : null
@@ -190,10 +206,79 @@ export default {
 
   methods: {
     /**
+     * @return {boolean}
+     */
+    valid() {
+      this.errors = {}
+
+      for (let i in this.myNote) {
+        switch (i) {
+          case 'title': {
+            if (!this.myNote[i]) {
+              this.errors[i] = 'Поле обязательное';
+            }
+            break;
+          }
+          case 'file': {
+            if (this.myNote[i] && this.myNote[i].size > this.maxFile) {
+              this.errors[i] = 'Размер больше' + Math.trunc(this.maxFile / 1024 / 1024) + 'Mb';
+            }
+            break;
+          }
+        }
+      }
+
+      return Object.keys(this.errors).length === 0;
+    },
+
+    /**
      * store
      */
     store() {
+      if (this.valid()) {
+        this.loading = true
 
+        this.$axios.post('api/notes', this.prepareData(this.myNote))
+            .then(() => {
+              this.$buefy.toast.open({
+                message: 'Saved !',
+                type   : 'is-success'
+              });
+
+              this.$emit('close');
+              this.$store.dispatch('links/setUrl', {params: this.$route.query});
+            })
+            .catch(err => {
+              this.errors = err.response.data.errors;
+
+              this.$buefy.toast.open({
+                type                    : 'is-danger',
+                dangerouslyUseHTMLString: true,
+                message                 : this.$messageToStr(this.errors),
+              });
+            })
+            .finally(() => {
+              this.loading = false
+            })
+      }
+    },
+
+    /**
+     * @return {{}}
+     */
+    prepareData(note) {
+      return {
+        title     : note.title,
+        categoryId: note.category,
+        tags      : note.tags.length === 0 ? null : note.tags,
+        date      : note.date,
+        comment   : note.comment,
+        cache     : note.cache,
+        flag      : note.flag,
+        type      : note.type,
+        file      : note.file,
+        body      : note.body
+      }
     },
 
     /**

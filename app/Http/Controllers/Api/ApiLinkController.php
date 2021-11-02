@@ -72,7 +72,6 @@ final class ApiLinkController
     public function store(LinkStoreRequest $request): JsonResponse
     {
         $data = $this->parseUrl->parseUrl($request->url);
-        $error = '';
 
         try {
             $link = $this->link->storeTransaction(new LinkStoreDto(array_merge($data, $request->all())));
@@ -83,7 +82,7 @@ final class ApiLinkController
             Log::error($e->getMessage());
         }
 
-        return response()->json(['success' => $link, 'errors' => $error], $link ? 200 : 400);
+        return response()->json(['success' => $link, 'errors' => $error ?? ''], $link ? 200 : 400);
     }
 
     /**
