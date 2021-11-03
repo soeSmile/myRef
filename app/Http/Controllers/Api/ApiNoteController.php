@@ -34,8 +34,17 @@ final class ApiNoteController
      */
     public function store(NoteStoreRequest $request): JsonResponse
     {
+        if ($request->file('file')) {
+            $fileData = [
+                'path' => $request->file('file')->store('temp'),
+                'file' => $request->file('file')->hashName(),
+            ];
+        }
+
+        $data = \array_merge($request->all(), $fileData ?? []);
+
         try {
-            $link = $this->linkRepository->storeTransaction(new NoteStoreDto($request->all()));
+            $link = $this->linkRepository->storeTransaction(new NoteStoreDto($data));
         } catch (Throwable $e) {
             $link = false;
             $error = 'Error! See logs!';

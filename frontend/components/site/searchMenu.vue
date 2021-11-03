@@ -121,9 +121,9 @@ export default {
       selectCategory: null,
       selectTag     : null,
       selectTypeRef : true,
-      selectTypeNote: false,
+      selectTypeNote: true,
       request       : {
-        type : 1,
+        type : 3,
         flag : 1,
         cats : [],
         tags : [],
@@ -258,7 +258,7 @@ export default {
      */
     resetRequest() {
       this.request = {
-        type : 1,
+        type : 3,
         flag : 1,
         cats : [],
         tags : [],
@@ -268,7 +268,7 @@ export default {
       this.selectCategory = null;
       this.selectTag = null;
       this.selectTypeRef = true;
-      this.selectTypeNote = false;
+      this.selectTypeNote = true;
       this.$store.dispatch('links/setUrl', {params: {}, clear: true})
     },
 

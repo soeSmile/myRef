@@ -8,7 +8,10 @@ use App\Repository\AbstractRepository;
 use App\Repository\Dto\AbstractDto;
 use App\Repository\LinkRepository;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Database\Eloquent\Model;
+use Log;
+use Storage;
 use Throwable;
 
 /**
@@ -19,26 +22,27 @@ final class LinkTransaction extends AbstractTransaction
     /**
      * @param LinkRepository|AbstractRepository $repository
      * @param AbstractDto $dto
-     * @return Model
+     * @return Model|null
      * @throws Throwable
      */
-    public function store(LinkRepository|AbstractRepository $repository, AbstractDto $dto): Model
+    public function store(LinkRepository|AbstractRepository $repository, AbstractDto $dto): ?Model
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
             $item = $repository->store($dto);
             $this->storeTag($dto, $repository, $item->id);
             $this->storeEvent($dto, $repository, $item->id);
+            $this->moveFile($dto, $item->id);
 
-            \DB::commit();
+            DB::commit();
         } catch (Throwable $e) {
-            \DB::rollBack();
-
-            throw $e;
+            DB::rollBack();
+            Log::error('Error update link', $e->getMessage());
+            $this->deleteFile($dto);
         }
 
-        return $item;
+        return $item ?? null;
     }
 
     /**
@@ -49,22 +53,26 @@ final class LinkTransaction extends AbstractTransaction
      */
     public function update(LinkRepository|AbstractRepository $repository, AbstractDto $dto): bool
     {
-        \DB::beginTransaction();
+        $result = true;
+
+        DB::beginTransaction();
 
         try {
             $id = $dto->getDataByKey('id');
             $repository->update($id, $dto);
             $this->storeTag($dto, $repository, $id, true);
             $this->storeEvent($dto, $repository, $id, true);
+            $this->moveFile($dto, $id);
 
-            \DB::commit();
-        } catch (Throwable $exception) {
-            \DB::rollBack();
-
-            throw $exception;
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error('Error update link', $e->getMessage());
+            $result = false;
+            $this->deleteFile($dto);
         }
 
-        return true;
+        return $result;
     }
 
     /**
@@ -128,6 +136,30 @@ final class LinkTransaction extends AbstractTransaction
             }
 
             $repository->event->storeDb($array);
+        }
+    }
+
+    /**
+     * @param AbstractDto $dto
+     * @param $id
+     */
+    private function moveFile(AbstractDto $dto, $id): void
+    {
+        if ($dto->hasKey('file')) {
+            $from = $dto->getDataByKey('path', true);
+            $to = 'link/' . $id . '/' . $dto->getDataByKey('file');
+            Storage::move($from, $to);
+            $this->deleteFile($dto);
+        }
+    }
+
+    /**
+     * @param AbstractDto $dto
+     */
+    private function deleteFile(AbstractDto $dto): void
+    {
+        if ($dto->hasKey('path', true)) {
+            Storage::delete($dto->getDataByKey('path', true));
         }
     }
 }

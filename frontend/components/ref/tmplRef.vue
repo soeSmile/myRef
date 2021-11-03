@@ -12,8 +12,15 @@
       </h4>
 
       <div class="sm-ref-desc sm-my-2">
-        <p class="sm-mb-1">{{ getDesc(myRef.userDesc) }}</p>
-        <p>{{ getDesc(myRef.desc) }}</p>
+        <section v-if="myRef.type === 1">
+          <p class="sm-mb-1">
+            {{ getDesc(myRef.userDesc) }}
+          </p>
+          <p>{{ getDesc(myRef.desc) }}</p>
+        </section>
+        <section v-else>
+          <p v-html="getDesc(myRef.body)"></p>
+        </section>
       </div>
 
       <div class="sm-ref-category sm-my-2">

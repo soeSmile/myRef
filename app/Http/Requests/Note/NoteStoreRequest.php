@@ -24,11 +24,12 @@ class NoteStoreRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['title' => "string"])]
+    #[ArrayShape(['title' => "string", 'file' => "string"])]
     public function rules(): array
     {
         return [
-            'title' => 'required|string'
+            'title' => 'required|string',
+            'file'  => 'file|max:2048|nullable'
         ];
     }
 }

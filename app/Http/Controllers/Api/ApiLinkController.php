@@ -18,7 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Log;
 use Throwable;
-use function array_merge;
 
 /**
  * Class ApiLinkController
@@ -74,7 +73,7 @@ final class ApiLinkController
         $data = $this->parseUrl->parseUrl($request->url);
 
         try {
-            $link = $this->link->storeTransaction(new LinkStoreDto(array_merge($data, $request->all())));
+            $link = $this->link->storeTransaction(new LinkStoreDto(\array_merge($data, $request->all())));
             dispatch(new MakeScreenJob($link));
         } catch (Throwable $e) {
             $link = false;

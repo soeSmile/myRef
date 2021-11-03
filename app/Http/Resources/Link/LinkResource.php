@@ -37,6 +37,7 @@ class LinkResource extends JsonResource
             'canEdit'   => $this->canEdit(),
             'flag'      => $this->flag,
             'type'      => $this->type,
+            'body'      => $this->body ? \html_entity_decode($this->body) : '',
         ];
 
         if (isClient() && $this->isOwner()) {
