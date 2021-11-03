@@ -38,7 +38,7 @@ final class LinkTransaction extends AbstractTransaction
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
-            Log::error('Error update link', $e->getMessage());
+            Log::error('Error update link', [$e->getMessage()]);
             $this->deleteFile($dto);
         }
 
@@ -67,7 +67,7 @@ final class LinkTransaction extends AbstractTransaction
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
-            Log::error('Error update link', $e->getMessage());
+            Log::error('Error update link', [$e->getMessage()]);
             $result = false;
             $this->deleteFile($dto);
         }

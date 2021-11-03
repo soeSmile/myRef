@@ -21,7 +21,7 @@
                label="Выбор категории">
         <b-select placeholder="Выбор категории"
                   expanded
-                  v-model="myNote.category">
+                  v-model="myNote.categoryId">
           <option v-for="val in categories"
                   :value="val.id"
                   :key="val.id">
@@ -158,15 +158,15 @@ export default {
       showDate     : false,
       maxFile      : 2097152,
       myNote       : {
-        category: null,
-        tags    : [],
-        date    : null,
-        comment : null,
-        flag    : 1,
-        title   : null,
-        type    : 2,
-        body    : null,
-        file    : null
+        categoryId: null,
+        tags      : [],
+        date      : null,
+        comment   : null,
+        flag      : 1,
+        title     : null,
+        type      : 2,
+        body      : null,
+        file      : null
       },
       selectTag    : null,
       tags         : [],
@@ -263,12 +263,21 @@ export default {
       }
     },
 
+    /**
+     * @param note
+     * @return {FormData}
+     */
     prepareData(note) {
       let fromData = new FormData();
 
       for (let i in note) {
         if (note[i]) {
-          fromData.append(i, note[i]);
+          let data = note[i];
+
+          if (note[i] instanceof Array) {
+            data = JSON.stringify(note[i]);
+          }
+          fromData.append(i, data);
         }
       }
 

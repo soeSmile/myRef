@@ -16,6 +16,7 @@ final class NoteStoreDto extends AbstractDto
     /**
      * @param AbstractRepository|null $abstractRepository
      * @return array
+     * @throws \JsonException
      */
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
@@ -29,6 +30,11 @@ final class NoteStoreDto extends AbstractDto
             $dom = new Document($body);
             $this->setDataByKey('body', \htmlentities($body));
             $this->setDataByKey('body_text', $dom->text());
+        }
+
+        if ($this->hasKey('tags')) {
+            $tags = \json_decode($this->getDataByKey('tags'), true, 512, JSON_THROW_ON_ERROR);
+            $this->setDataByKey('tags', $tags, true);
         }
 
         return parent::getData($abstractRepository);

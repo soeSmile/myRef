@@ -75,15 +75,15 @@ abstract class AbstractDto
 
     /**
      * @param string $key
-     * @param bool $full
+     * @param bool $income
      * @return mixed
      */
     #[Pure]
-    public function getDataByKey(string $key, bool $full = false): mixed
+    public function getDataByKey(string $key, bool $income = false): mixed
     {
         $data = $this->data;
 
-        if ($full) {
+        if ($income) {
             $data = $this->getDataIncoming();
         }
 
@@ -104,11 +104,16 @@ abstract class AbstractDto
     /**
      * @param string $key
      * @param $value
+     * @param bool $income
      * @return AbstractDto
      */
-    public function setDataByKey(string $key, $value): AbstractDto
+    public function setDataByKey(string $key, $value, bool $income = false): AbstractDto
     {
         $this->data[$key] = $value;
+
+        if ($income) {
+            $this->dataIncoming[$key] = $value;
+        }
 
         return $this;
     }
@@ -153,15 +158,15 @@ abstract class AbstractDto
 
     /**
      * @param string $key
-     * @param bool $full
+     * @param bool $income
      * @return bool
      */
     #[Pure]
-    public function hasKey(string $key, bool $full = false): bool
+    public function hasKey(string $key, bool $income = false): bool
     {
         $data = $this->data;
 
-        if ($full) {
+        if ($income) {
             $data = $this->getDataIncoming();
         }
 
@@ -170,13 +175,13 @@ abstract class AbstractDto
 
     /**
      * @param string $key
-     * @param bool $full
+     * @param bool $income
      * @return bool
      */
     #[Pure]
-    public function hasNull(string $key, bool $full = false): bool
+    public function hasNull(string $key, bool $income = false): bool
     {
-        return $this->getDataByKey($key, $full) === null;
+        return $this->getDataByKey($key, $income) === null;
     }
 
     /**
