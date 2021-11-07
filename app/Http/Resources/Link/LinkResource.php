@@ -38,6 +38,7 @@ class LinkResource extends JsonResource
             'flag'      => $this->flag,
             'type'      => $this->type,
             'body'      => $this->body ? \html_entity_decode($this->body) : '',
+            'file'      => $this->file,
         ];
 
         if (isClient() && $this->isOwner()) {

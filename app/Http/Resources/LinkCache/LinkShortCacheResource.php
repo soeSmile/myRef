@@ -19,7 +19,7 @@ class LinkShortCacheResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'data' => \htmlspecialchars_decode($this->data ?? '')
+            'data' => \html_entity_decode($this->data ?? '')
         ];
     }
 }
