@@ -27,8 +27,8 @@ final class NoteStoreDto extends AbstractDto
 
         if ($this->hasKey('body')) {
             $body = $this->getDataByKey('body');
+            $this->setDataByKey('body', \htmlentities($this->clearBody($body)));
             $dom = new Document($body);
-            $this->setDataByKey('body', \htmlentities($body));
             $this->setDataByKey('body_text', $dom->text());
         }
 
@@ -38,5 +38,16 @@ final class NoteStoreDto extends AbstractDto
         }
 
         return parent::getData($abstractRepository);
+    }
+
+    /**
+     * @param string $body
+     * @return string
+     */
+    private function clearBody(string $body): string
+    {
+        $pattern = '/["|\'].*["|\']/m';
+
+        return \preg_replace($pattern, '', $body);
     }
 }
