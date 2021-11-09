@@ -391,7 +391,7 @@ export default {
         id        : ref.id,
         url       : ref.url,
         desc      : ref.desc,
-        categoryId: ref.category.id,
+        categoryId: ref.category ? ref.category.id : null,
         tags      : ref.tags.length === 0 ? null : ref.tags,
         date      : ref.date,
         comment   : ref.comment,
