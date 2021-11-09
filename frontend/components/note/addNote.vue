@@ -61,6 +61,7 @@
                :message="errors.title"
                :type="{'is-danger' : errors.title}">
         <b-input custom-class="sm-textarea"
+                 required
                  rows="1"
                  v-model="myNote.title"
                  type="textarea"/>

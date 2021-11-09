@@ -90,7 +90,8 @@
             </div>
           </div>
 
-          <div class="sm-site-ref-item">
+          <div v-if="link.type===$const.TYPE_LINK"
+               class="sm-site-ref-item">
             <div class="ref-title">
               Ссылка
             </div>
@@ -104,129 +105,129 @@
                 {{ link.url }}
               </a>
             </div>
+          </div>
 
-            <div class="sm-site-ref-item">
-              <div class="ref-title">
-                Тэги
-              </div>
-              <div v-if="modeEdit"
-                   class="ref-content">
-                <b-field>
-                  <b-autocomplete placeholder="Выбрать тег"
-                                  :loading="loading"
-                                  v-model="selectTag"
-                                  ref="autocomplete"
-                                  :data="tags"
-                                  @typing="getTags"
-                                  @select="insertTag">
-                    <template #empty>Нет данных по запросу: {{ selectTag }}</template>
-                    <template slot-scope="props">
-                      {{ props.option.name }}
-                    </template>
-                  </b-autocomplete>
-                </b-field>
-                <div class="sm-flex wrap sm-mt-2">
-                  <b-tag class="sm-m-1"
-                         v-for="(val,key) in link.tags"
-                         :key="val.name"
-                         type="is-warning"
-                         closable
-                         @close="removeTag(key)">
-                    {{ val.name }}
-                  </b-tag>
-                </div>
-              </div>
-              <div v-else
-                   class="ref-content">
-                <b-tag class="sm-mr-1"
-                       type="is-warning"
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Тэги
+            </div>
+            <div v-if="modeEdit"
+                 class="ref-content">
+              <b-field>
+                <b-autocomplete placeholder="Выбрать тег"
+                                :loading="loading"
+                                v-model="selectTag"
+                                ref="autocomplete"
+                                :data="tags"
+                                @typing="getTags"
+                                @select="insertTag">
+                  <template #empty>Нет данных по запросу: {{ selectTag }}</template>
+                  <template slot-scope="props">
+                    {{ props.option.name }}
+                  </template>
+                </b-autocomplete>
+              </b-field>
+              <div class="sm-flex wrap sm-mt-2">
+                <b-tag class="sm-m-1"
                        v-for="(val,key) in link.tags"
-                       :key="key">
+                       :key="val.name"
+                       type="is-warning"
+                       closable
+                       @close="removeTag(key)">
                   {{ val.name }}
                 </b-tag>
               </div>
             </div>
-
-            <div class="sm-site-ref-item">
-              <div class="ref-title">
-                Категория
-              </div>
-              <div v-if="modeEdit"
-                   class="ref-content">
-                <div v-if="copyLink.category"
-                     class="sm-mb-2">
-                  <i :class="'mdi '+ copyLink.category.icon"></i>
-                  {{ copyLink.category.name }}
-                </div>
-                <b-field>
-                  <b-select placeholder="Выбор категории"
-                            expanded
-                            v-model="link.category">
-                    <option v-for="val in categories"
-                            :value="val"
-                            :key="val.id">
-                      {{ val.name }}
-                    </option>
-                  </b-select>
-                </b-field>
-              </div>
-              <div v-else-if="!modeEdit && link.category"
-                   class="ref-content">
-                <i :class="'mdi '+ link.category.icon"></i>
-                {{ link.category.name }}
-              </div>
+            <div v-else
+                 class="ref-content">
+              <b-tag class="sm-mr-1"
+                     type="is-warning"
+                     v-for="(val,key) in link.tags"
+                     :key="key">
+                {{ val.name }}
+              </b-tag>
             </div>
-
-            <div v-if="link.user"
-                 class="sm-site-ref-item">
-              <div class="ref-title">
-                Пользователь
-              </div>
-              <div class="ref-content">
-                {{ link.user ? link.user.name : '' }}
-              </div>
-            </div>
-
-            <div v-if="modeEdit"
-                 class="sm-site-ref-item sm-wpx-300">
-              <b-field label="Дата напоминания">
-                <b-datepicker
-                    v-model="link.date"
-                    placeholder="Дата напоминания"
-                    icon="calendar-today"
-                    icon-right-clickable
-                    trap-focus
-                    :min-date="new Date()">
-                </b-datepicker>
-              </b-field>
-            </div>
-
-            <div v-if="modeEdit"
-                 class="sm-site-ref-item">
-              <b-field class="sm-mt-8"
-                       grouped>
-                <b-switch v-model="link.cache"
-                          class="sm-mr-4">
-                  Кешировать
-                </b-switch>
-                <b-switch v-model="link.flag"
-                          :true-value="2"
-                          :false-value="1">
-                  Публичная
-                </b-switch>
-              </b-field>
-            </div>
-
-            <div v-if="link.canEdit"
-                 class="sm-site-ref-item">
-              <div class="ref-title">
-                Кеш
-              </div>
-              <div class="ref-content"
-                   v-html="link.cache ? link.cache.data : 'Нет'"></div>
-            </div>
-
           </div>
+
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Категория
+            </div>
+            <div v-if="modeEdit"
+                 class="ref-content">
+              <div v-if="copyLink.category"
+                   class="sm-mb-2">
+                <i :class="'mdi '+ copyLink.category.icon"></i>
+                {{ copyLink.category.name }}
+              </div>
+              <b-field>
+                <b-select placeholder="Выбор категории"
+                          expanded
+                          v-model="link.category">
+                  <option v-for="val in categories"
+                          :value="val"
+                          :key="val.id">
+                    {{ val.name }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
+            <div v-else-if="!modeEdit && link.category"
+                 class="ref-content">
+              <i :class="'mdi '+ link.category.icon"></i>
+              {{ link.category.name }}
+            </div>
+          </div>
+
+          <div v-if="link.user"
+               class="sm-site-ref-item">
+            <div class="ref-title">
+              Пользователь
+            </div>
+            <div class="ref-content">
+              {{ link.user ? link.user.name : '' }}
+            </div>
+          </div>
+
+          <div v-if="modeEdit"
+               class="sm-site-ref-item sm-wpx-300">
+            <b-field label="Дата напоминания">
+              <b-datepicker
+                  v-model="link.date"
+                  placeholder="Дата напоминания"
+                  icon="calendar-today"
+                  icon-right-clickable
+                  trap-focus
+                  :min-date="new Date()">
+              </b-datepicker>
+            </b-field>
+          </div>
+
+          <div v-if="modeEdit"
+               class="sm-site-ref-item">
+            <b-field class="sm-mt-8"
+                     grouped>
+              <b-switch v-model="link.cache"
+                        class="sm-mr-4">
+                Кешировать
+              </b-switch>
+              <b-switch v-model="link.flag"
+                        :true-value="2"
+                        :false-value="1">
+                Публичная
+              </b-switch>
+            </b-field>
+          </div>
+
+          <div v-if="link.canEdit"
+               class="sm-site-ref-item">
+            <div class="ref-title">
+              Кеш
+            </div>
+            <div class="ref-content"
+                 v-html="link.cache ? link.cache.data : 'Нет'"></div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -269,7 +270,10 @@ export default {
         date    : null,
         cache   : false,
         canEdit : false,
-        flag    : null
+        flag    : null,
+        type    : null,
+        file    : null,
+        body    : null
       },
       copyLink     : {},
       modeEdit     : false,
