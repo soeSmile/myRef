@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import {TYPE_NOTE} from "../../constants/constants";
+
 export default {
   name: "tmplRef",
 
@@ -80,7 +82,7 @@ export default {
     getImage(myRef) {
       let image = myRef.img ? '/screen/' + myRef.img : '/no-image.jpg'
 
-      if (myRef.type === 2) {
+      if (myRef.type === this.$const.TYPE_NOTE) {
         image = '/note.jpg';
       }
 
