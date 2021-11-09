@@ -122,13 +122,6 @@
           Публичная
         </b-switch>
       </b-field>
-
-      <b-field label="Комментарий">
-        <b-input custom-class="sm-textarea"
-                 rows="1"
-                 v-model="myNote.comment"
-                 type="textarea"/>
-      </b-field>
     </section>
 
     <footer class="modal-card-foot">
@@ -162,7 +155,6 @@ export default {
         categoryId: null,
         tags      : [],
         date      : null,
-        comment   : null,
         flag      : 1,
         title     : null,
         type      : 2,

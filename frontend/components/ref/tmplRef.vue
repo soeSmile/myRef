@@ -33,7 +33,7 @@
 
     <div class="sm-flex middle right sm-py-2 sm-px-4">
       <n-link class="sm-ref-link sm-fnt w600"
-              :to="'/link/' + myRef.id">
+              :to="getLocalLink(myRef)">
         Подробнее
       </n-link>
     </div>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import {TYPE_NOTE} from "../../constants/constants";
 
 export default {
   name: "tmplRef",
@@ -89,11 +88,29 @@ export default {
       return 'background-image: url(\'' + image + '\');'
     },
 
+    /**
+     * @param myRef
+     * @returns {string}
+     */
     getLink(myRef) {
       let link = myRef.url;
 
-      if (myRef.type === 2) {
-        link = '/link/' + myRef.id;
+      if (myRef.type === this.$const.TYPE_NOTE) {
+        link = '/note/' + myRef.id;
+      }
+
+      return link;
+    },
+
+    /**
+     * @param myRef
+     * @returns {string}
+     */
+    getLocalLink(myRef) {
+      let link = '/link/' + myRef.id;
+
+      if (myRef.type === this.$const.TYPE_NOTE) {
+        link = '/note/' + myRef.id;
       }
 
       return link;

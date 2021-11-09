@@ -194,6 +194,8 @@ export default {
         date    : null,
         body    : null,
         flag    : null,
+        type    : null,
+        file    : null,
         canEdit : true
       },
       copyNote     : {},
