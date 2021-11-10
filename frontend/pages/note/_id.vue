@@ -252,7 +252,7 @@ export default {
         flag    : null,
         type    : null,
         file    : null,
-        canEdit : true
+        canEdit : false
       },
       copyNote     : {},
       selectTag    : null,
