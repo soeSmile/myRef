@@ -123,7 +123,22 @@
           </div>
 
           <div class="sm-site-ref-item">
-            <div v-html="note.body"></div>
+            <VueEditor v-if="modeEdit"
+                       v-model="note.body"
+                       :editorToolbar="customToolbar"/>
+            <div v-else
+                 v-html="note.body"></div>
+          </div>
+
+          <div v-if="!modeEdit && note.file"
+               class="sm-site-ref-item">
+            <a :href="'/sys/note/download/' + note.id"
+               target="_blank">
+              <b-button type="is-info"
+                        icon-left="download">
+                Скачать вложение
+              </b-button>
+            </a>
           </div>
 
           <div v-if="note.user"
@@ -195,8 +210,8 @@ export default {
 
   data() {
     return {
-      loading  : false,
-      note     : {
+      loading      : false,
+      note         : {
         title   : null,
         category: {},
         user    : {},
@@ -208,12 +223,12 @@ export default {
         file    : null,
         canEdit : true
       },
-      copyNote : {},
-      selectTag: null,
-      tags     : [],
-      errors   : {},
-      minDate  : new Date(),
-      modeEdit : false,
+      copyNote     : {},
+      selectTag    : null,
+      tags         : [],
+      errors       : {},
+      minDate      : new Date(),
+      modeEdit     : false,
       customToolbar: [
         ['bold', 'italic', 'underline', 'strike'],
         ['blockquote', 'code-block'],
