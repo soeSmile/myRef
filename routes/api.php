@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::apiResource('tags', ApiTagController::class)->only('store');
     Route::apiResource('links', ApiLinkController::class)->only('store', 'update', 'destroy');
     Route::apiResource('user-links', ApiUserSearchLinksController::class)->only('index', 'store', 'update', 'destroy');
-    Route::apiResource('notes', ApiNoteController::class)->only('store', 'update', 'destroy');
+    Route::apiResource('notes', ApiNoteController::class)->only('store', 'update');
 
     /**
      * Client Routers

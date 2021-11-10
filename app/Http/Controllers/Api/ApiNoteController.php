@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Note\NoteStoreRequest;
+use App\Http\Requests\Note\NoteUpdateRequest;
 use App\Repository\Dto\NoteStoreDto;
+use App\Repository\Dto\NoteUpdateDto;
 use App\Repository\LinkRepository;
 use Illuminate\Http\JsonResponse;
 use Log;
@@ -54,11 +56,21 @@ final class ApiNoteController
         return response()->json(['success' => $link, 'errors' => $error ?? ''], $link ? 200 : 400);
     }
 
-    public function update()
+    /**
+     * @param $id
+     * @param NoteUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update($id, NoteUpdateRequest $request): JsonResponse
     {
-    }
+        try {
+            $result = $this->linkRepository->updateTransaction(new NoteUpdateDto($request->all()));
+        } catch (Throwable $exception) {
+            $result = false;
+            $data['error'] = 'Error! See logs!';
+            Log::error($exception->getMessage());
+        }
 
-    public function destroy()
-    {
+        return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
     }
 }
