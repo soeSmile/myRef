@@ -130,15 +130,37 @@
                  v-html="note.body"></div>
           </div>
 
-          <div v-if="!modeEdit && note.file"
-               class="sm-site-ref-item">
-            <a :href="'/sys/note/download/' + note.id"
+          <div class="sm-site-ref-item sm-flex middle">
+            <a v-if="note.file"
+               :href="'/sys/note/download/' + note.id"
                target="_blank">
               <b-button type="is-info"
                         icon-left="download">
                 Скачать вложение
               </b-button>
             </a>
+
+            <b-button v-if="modeEdit && note.file"
+                      class="sm-ml-1"
+                      type="is-danger"
+                      icon-left="close">
+              Удалить
+            </b-button>
+
+            <b-field class="file is-primary sm-ml-1"
+                     :class="{'has-name': !!file}">
+              <b-upload v-model="file" class="file-label">
+            <span class="file-cta">
+                <b-icon class="file-icon" icon="upload"></b-icon>
+                <span class="file-label">
+                  Загрузить файл (Max {{ Math.trunc($const.MAX_NOTE_FILE / 1024 / 1024) }}Mb)
+                </span>
+            </span>
+                <span class="file-name" v-if="file">
+                {{ file.name }}
+            </span>
+              </b-upload>
+            </b-field>
           </div>
 
           <div v-if="note.user"
@@ -243,7 +265,8 @@ export default {
         [{'font': []}],
         [{'align': []}],
         ['clean']
-      ]
+      ],
+      file         : null,
     }
   },
 

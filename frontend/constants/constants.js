@@ -6,3 +6,4 @@ export const TYPE_LINK = 1;
 export const TYPE_NOTE = 2;
 export const FLAG_PRIVAT = 1;
 export const FLAG_PUBLIC = 2;
+export const MAX_NOTE_FILE = 2097152;

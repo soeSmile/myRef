@@ -84,7 +84,7 @@
             <b-icon class="file-icon"
                     icon="upload"/>
             <span class="file-label">
-              Загрузить файл (Max {{ Math.trunc(maxFile / 1024 / 1024) }}Mb)
+              Загрузить файл (Max {{ Math.trunc($const.MAX_NOTE_FILE / 1024 / 1024) }}Mb)
             </span>
           </span>
           <span class="file-name"
@@ -146,7 +146,6 @@ export default {
       loadingTag   : false,
       loading      : false,
       showDate     : false,
-      maxFile      : 2097152,
       myNote       : {
         categoryId: null,
         tags      : [],
@@ -201,8 +200,8 @@ export default {
             break;
           }
           case 'file': {
-            if (this.myNote[i] && this.myNote[i].size > this.maxFile) {
-              this.errors[i] = 'Размер больше' + Math.trunc(this.maxFile / 1024 / 1024) + 'Mb';
+            if (this.myNote[i] && this.myNote[i].size > this.$const.MAX_NOTE_FILE) {
+              this.errors[i] = 'Размер больше' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
             }
             break;
           }
