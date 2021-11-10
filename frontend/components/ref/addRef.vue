@@ -90,8 +90,8 @@
           Кешировать
         </b-switch>
         <b-switch v-model="myRef.flag"
-                  :true-value="2"
-                  :false-value="1">
+                  :true-value="$const.FLAG_PUBLIC"
+                  :false-value="$const.FLAG_PRIVAT">
           Публичная
         </b-switch>
       </b-field>

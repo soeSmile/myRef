@@ -30,7 +30,141 @@
       </div>
     </nav>
 
+    <div class="card sm-m-4">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-128x128">
+              <img src="/note.jpg" alt="">
+            </figure>
+          </div>
+          <div class="media-content">
+            <b-input v-if="modeEdit"
+                     v-model="note.title"/>
+            <h1 v-else
+                class="title is-4">
+              {{ note.title }}
+            </h1>
+          </div>
+        </div>
 
+        <div class="content">
+
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Тэги
+            </div>
+            <div v-if="modeEdit"
+                 class="ref-content">
+              <b-field>
+                <b-autocomplete placeholder="Выбрать тег"
+                                :loading="loading"
+                                v-model="selectTag"
+                                ref="autocomplete"
+                                :data="tags"
+                                @typing="getTags"
+                                @select="insertTag">
+                  <template #empty>Нет данных по запросу: {{ selectTag }}</template>
+                  <template slot-scope="props">
+                    {{ props.option.name }}
+                  </template>
+                </b-autocomplete>
+              </b-field>
+              <div class="sm-flex wrap sm-mt-2">
+                <b-tag class="sm-m-1"
+                       v-for="(val,key) in note.tags"
+                       :key="val.name"
+                       type="is-warning"
+                       closable
+                       @close="removeTag(key)">
+                  {{ val.name }}
+                </b-tag>
+              </div>
+            </div>
+            <div v-else
+                 class="ref-content">
+              <b-tag class="sm-mr-1"
+                     type="is-warning"
+                     v-for="(val,key) in note.tags"
+                     :key="key">
+                {{ val.name }}
+              </b-tag>
+            </div>
+          </div>
+
+          <div class="sm-site-ref-item">
+            <div class="ref-title">
+              Категория
+            </div>
+            <div v-if="modeEdit"
+                 class="ref-content">
+              <div v-if="copyNote.category"
+                   class="sm-mb-2">
+                <i :class="'mdi '+ copyNote.category.icon"></i>
+                {{ copyNote.category.name }}
+              </div>
+              <b-field>
+                <b-select placeholder="Выбор категории"
+                          expanded
+                          v-model="note.category">
+                  <option v-for="val in categories"
+                          :value="val"
+                          :key="val.id">
+                    {{ val.name }}
+                  </option>
+                </b-select>
+              </b-field>
+            </div>
+            <div v-else-if="!modeEdit && note.category"
+                 class="ref-content">
+              <i :class="'mdi '+ note.category.icon"></i>
+              {{ note.category.name }}
+            </div>
+          </div>
+
+          <div v-if="note.user"
+               class="sm-site-ref-item">
+            <div class="ref-title">
+              Пользователь
+            </div>
+            <div class="ref-content">
+              {{ note.user ? note.user.name : '' }}
+            </div>
+          </div>
+
+          <div v-if="modeEdit"
+               class="sm-site-ref-item sm-wpx-300">
+            <b-field label="Дата напоминания">
+              <b-datepicker
+                  v-model="note.date"
+                  placeholder="Дата напоминания"
+                  icon="calendar-today"
+                  icon-right-clickable
+                  trap-focus
+                  :min-date="minDate">
+              </b-datepicker>
+            </b-field>
+          </div>
+
+          <div v-if="modeEdit"
+               class="sm-site-ref-item">
+            <b-field class="sm-mt-8"
+                     grouped>
+              <b-switch v-model="note.flag"
+                        :true-value="$const.FLAG_PUBLIC"
+                        :false-value="$const.FLAG_PRIVAT">
+                Публичная
+              </b-switch>
+            </b-field>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <b-loading :is-full-page="false"
+               v-model="loading"
+               :can-cancel="false"/>
   </section>
 </template>
 
@@ -227,8 +361,8 @@ export default {
     /**
      * @param key
      */
-    removeFromTags(key) {
-      this.note.tags.splice(key, 1)
+    removeTag(key) {
+      this.link.tags.splice(key, 1)
     },
   }
 }

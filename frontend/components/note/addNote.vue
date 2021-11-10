@@ -112,13 +112,9 @@
 
       <b-field class="sm-mt-8"
                grouped>
-        <b-switch v-model="myNote.cache"
-                  class="sm-mr-4">
-          Кешировать
-        </b-switch>
         <b-switch v-model="myNote.flag"
-                  :true-value="2"
-                  :false-value="1">
+                  :true-value="$const.FLAG_PUBLIC"
+                  :false-value="$const.FLAG_PRIVAT">
           Публичная
         </b-switch>
       </b-field>

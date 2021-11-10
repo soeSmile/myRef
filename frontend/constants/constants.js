@@ -4,3 +4,5 @@ export const TITLE_LENGTH = 70;
 export const DESC_LENGTH = 500;
 export const TYPE_LINK = 1;
 export const TYPE_NOTE = 2;
+export const FLAG_PRIVAT = 1;
+export const FLAG_PUBLIC = 2;
