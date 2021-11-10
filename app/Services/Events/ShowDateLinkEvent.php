@@ -24,8 +24,8 @@ final class ShowDateLinkEvent extends AbstractEvent
 
                 if ($link) {
                     \Mail::to($link->user)->queue(new ShowRef($link));
-                    $this->removeEvent($event->id);
                 }
+                $this->removeEvent($event->id);
             }
         }
     }

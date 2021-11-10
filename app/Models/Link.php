@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Traits\DataTimeTrait;
+use App\Models\Traits\DeleteTrait;
 use App\Models\Traits\UuidIdTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Link extends Model
 {
-    use HasFactory, DataTimeTrait, UuidIdTrait;
+    use HasFactory, DataTimeTrait, UuidIdTrait, DeleteTrait;
 
     /**
      * @var int
@@ -62,6 +63,14 @@ class Link extends Model
      * @var string
      */
     protected $keyType = 'uuid';
+
+    /**
+     * @var array
+     */
+    protected array $deleted = [
+        'tags',
+        'cache'
+    ];
 
     /**
      * @return BelongsTo

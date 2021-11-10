@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models\Traits;
 
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * Trait DeleteTrait
@@ -14,6 +15,7 @@ trait DeleteTrait
     /**
      * каскадное удаление
      * у модели должен быть массив deleted с данными связей для удаления
+     * @throws ReflectionException
      */
     protected static function bootDeleteTrait(): void
     {

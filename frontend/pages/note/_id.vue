@@ -122,6 +122,10 @@
             </div>
           </div>
 
+          <div class="sm-site-ref-item">
+            <div v-html="note.body"></div>
+          </div>
+
           <div v-if="note.user"
                class="sm-site-ref-item">
             <div class="ref-title">
@@ -278,36 +282,38 @@ export default {
      * delete link
      */
     destroy() {
-      this.$confirm('Удалить ссылку ?', 'Удалить', {
-        confirmButtonText: 'OK',
-        cancelButtonText : 'Cancel',
-        type             : 'error'
-      }).then(() => {
-        this.loading = true
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить',
+        message    : 'Удалить ссылку ?',
+        confirmText: 'Да',
+        type       : 'is-danger',
+        hasIcon    : true,
+        onConfirm  : () => {
+          this.loading = true
 
-        this.$axios.delete('api/notes/' + this.note.id)
-            .then(response => {
-              this.$message({
-                message: 'Saved !',
-                type   : 'success'
+          this.$axios.delete('api/links/' + this.note.id)
+              .then(() => {
+                this.$buefy.toast.open({
+                  message: 'Success !',
+                  type   : 'is-success'
+                })
+                this.$router.push('/')
               })
-              this.$router.push('/')
-            })
-            .catch(e => {
-              this.errors = e.response.data.errors;
-              this.$message({
-                type                    : 'error',
-                dangerouslyUseHTMLString: true,
-                message                 : this.$messageToStr(this.errors),
+              .catch(e => {
+                this.errors = e.response.data.errors;
+                this.$buefy.toast.open({
+                  type                    : 'is-danger',
+                  dangerouslyUseHTMLString: true,
+                  message                 : this.$messageToStr(this.errors),
+                })
+                this.cancelEdit()
               })
-              this.cancelEdit()
-            })
-            .finally(() => {
-              this.loading = false
-              this.modeEdit = false
-            })
-      }).catch(() => {
-      })
+              .finally(() => {
+                this.loading = false
+                this.modeEdit = false
+              })
+        }
+      });
     },
 
     /**
