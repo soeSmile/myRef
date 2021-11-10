@@ -9,6 +9,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class NoteUploadAttacheRequest
+ * @property mixed $id
  * @package App\Http\Requests\Note
  */
 class NoteUploadAttacheRequest extends FormRequest
@@ -18,7 +19,7 @@ class NoteUploadAttacheRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $link = Link::find($this->route()->id);
+        $link = Link::find($this->get('id'));
         $owner = $link && $link->isOwner();
 
         return isClient() && $owner;
@@ -27,10 +28,11 @@ class NoteUploadAttacheRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['file' => "string"])]
+    #[ArrayShape(['id' => "string", 'file' => "string"])]
     public function rules(): array
     {
         return [
+            'id'   => 'required|exists:links',
             'file' => 'required|file|max:' . Link::MAX_NOTE_FILE
         ];
     }

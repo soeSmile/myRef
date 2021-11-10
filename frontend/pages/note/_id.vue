@@ -167,6 +167,11 @@
             </b-field>
           </div>
 
+          <p v-if="errors.file"
+             class="help is-danger"
+             v-html="$messageToStr(errors.file)">
+          </p>
+
           <div v-if="note.user"
                class="sm-site-ref-item">
             <div class="ref-title">
@@ -293,12 +298,10 @@ export default {
      * cancel edit
      */
     cancelEdit() {
-      if (this.$route.params.id === 'new') {
-        this.$router.push('/')
-      } else {
-        this.note = Object.assign({}, this.copyNote)
-        this.modeEdit = false
-      }
+      this.note = Object.assign({}, this.copyNote);
+      this.modeEdit = false;
+      this.errors = {};
+      this.file = null;
     },
 
     /**
@@ -442,7 +445,37 @@ export default {
      * @param val
      */
     uploadAttache(val) {
+      if (val.size > this.$const.MAX_NOTE_FILE) {
+        this.errors.file = 'Размер больше' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
+        return;
+      }
 
+      let formData = new FormData();
+      formData.append('file', val);
+      formData.append('id', this.note.id);
+
+      this.loading = true
+
+      this.$axios.post('api/notes/attache', formData)
+          .then((res) => {
+            this.$buefy.toast.open({
+              message: 'Success !',
+              type   : 'is-success'
+            })
+            this.note.file = res.data.data;
+            this.file = null;
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+            this.$buefy.toast.open({
+              type                    : 'is-danger',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
+            });
+          })
+          .finally(() => {
+            this.loading = false
+          });
     },
 
     /**

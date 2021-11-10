@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth'], static function () {
         ->only('index', 'store', 'update', 'destroy');
 
     // Notes
-    Route::put('notes/attache/{id}', [ApiNoteController::class, 'uploadAttache'])
+    Route::post('notes/attache', [ApiNoteController::class, 'uploadAttache'])
         ->name('notes.attache.upload');
     Route::delete('notes/attache/{id}', [ApiNoteController::class, 'destroyAttache'])
         ->name('notes.attache.destroy');

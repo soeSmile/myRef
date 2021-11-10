@@ -78,23 +78,23 @@ final class ApiNoteController
     }
 
     /**
-     * @param $id
      * @param NoteUploadAttacheRequest $request
      * @return JsonResponse
      */
-    public function uploadAttache($id, NoteUploadAttacheRequest $request): JsonResponse
+    public function uploadAttache(NoteUploadAttacheRequest $request): JsonResponse
     {
+        $file = $request->file('file')->hashName();
+        $request->file('file')->store('link/' . $request->id);
+
         try {
-            $request->file('file')->store('link/' . $id);
-            $file = $request->file('file')->hashName();
-            $result = $this->linkRepository->update($id, new LinkUpdateDto(['file' => $file]));
+            $result = $this->linkRepository->update( $request->id, new LinkUpdateDto(['file' => $file]));
         } catch (Throwable $exception) {
             $result = false;
             $data['error'] = 'Error! See logs!';
             Log::error($exception->getMessage());
         }
 
-        return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
+        return response()->json(['data' => $file, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
     }
 
     /**
