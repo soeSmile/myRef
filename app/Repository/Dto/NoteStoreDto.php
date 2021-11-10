@@ -46,7 +46,7 @@ final class NoteStoreDto extends AbstractDto
      */
     private function clearBody(string $body): string
     {
-        $pattern = '/["|\'].*["|\']/m';
+        $pattern = '/class=["|\'].*["|\']/im';
 
         return \preg_replace($pattern, '', $body);
     }
