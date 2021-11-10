@@ -50,6 +50,11 @@ class Link extends Model
     public const TAG_TABLE = 'link_to_tag';
 
     /**
+     * @var int
+     */
+    public const MAX_NOTE_FILE = 2048;
+
+    /**
      * @var bool
      */
     public $incrementing = false;

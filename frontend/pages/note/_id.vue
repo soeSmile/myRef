@@ -148,7 +148,8 @@
               Удалить
             </b-button>
 
-            <b-field class="file is-primary sm-ml-1"
+            <b-field v-if="modeEdit"
+                     class="file is-primary sm-ml-1"
                      :class="{'has-name': !!file}">
               <b-upload v-model="file"
                         class="file-label"
@@ -411,7 +412,7 @@ export default {
                 this.tags.push({id: tag, name: tag, new: true})
               }
             })
-            .catch(error => {
+            .catch(() => {
             })
       }
     },
@@ -436,6 +437,17 @@ export default {
       this.link.tags.splice(key, 1)
     },
 
+    /**
+     * upload attache
+     * @param val
+     */
+    uploadAttache(val) {
+
+    },
+
+    /**
+     * destroy attache
+     */
     destroyAttache() {
       this.$buefy.dialog.confirm({
         title      : 'Удалить',
@@ -467,10 +479,6 @@ export default {
               });
         }
       });
-    },
-
-    uploadAttache() {
-
     }
   }
 }
