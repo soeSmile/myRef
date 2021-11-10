@@ -1,160 +1,35 @@
 <template>
-  <section v-loading="loading"
-           class="sm-site-ref">
-
+  <section>
     <nav v-if="note.canEdit"
-         class="sm-nav sm-bg-smoke sm-color-grey sm-mt-2 sm-mb-2">
-      <div class="sm-nav-start"></div>
-      <div class="sm-nav-end">
+         class="sm-nav sm-bg-white sm-color-grey sm-p-2">
+      <div class="sm-nav-start">
         <div v-if="!modeEdit"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey"
-             @click="true">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
+             @click="runEdit">
           <i class="mdi mdi-pencil sm-mr-1"></i>
           <span>Редактировать</span>
         </div>
         <div v-if="modeEdit"
              @click="store"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-content-save sm-mr-1"></i>
           <span>Сохранить</span>
         </div>
         <div v-if="modeEdit"
              @click="cancelEdit"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-close sm-mr-1"></i>
           <span>Отмена</span>
         </div>
-        <div v-if="modeEdit && this.$route.params.id !== 'new'"
-             @click="true"
-             class="sm-nav-item sm-p-3 sm-link sm-hover-smoke sm-hover-bg-grey">
+        <div v-if="modeEdit"
+             @click="destroy"
+             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
           <i class="mdi mdi-delete sm-mr-1"></i>
           <span>Удалить</span>
         </div>
       </div>
     </nav>
 
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Имя
-      </div>
-      <el-input v-if="modeEdit"
-                class="sm-mt-2"
-                v-model="note.title"/>
-      <div v-else
-           class="content">
-        {{ note.title }}
-      </div>
-    </div>
-
-    <div class="sm-flex middle">
-      <div class="sm-site-ref-item sm-mr-4">
-        <div class="title">
-          Категория
-        </div>
-        <div class="sm-mt-2"
-             v-if="modeEdit">
-          <el-select v-model="note.category"
-                     value-key="id"
-                     filterable
-                     placeholder="Категория">
-            <el-option
-                v-for="item in categories"
-                :key="item.id"
-                :label="item.name"
-                :value="item">
-            </el-option>
-          </el-select>
-        </div>
-        <div v-else-if="!modeEdit && note.category"
-             class="content">
-          <i :class="'mdi '+ note.category.icon"></i>
-          {{ link.category.name }}
-        </div>
-      </div>
-
-      <div v-if="modeEdit"
-           class="sm-site-ref-item sm-mr-4">
-        <div class="title">
-          Дата напоминания
-        </div>
-        <el-date-picker
-            class="sm-mt-2"
-            v-model="note.date"
-            type="date"
-            format="dd-MM-yyyy"
-            value-format="yyyy-MM-dd"
-            placeholder="Дата напоминания"
-            :picker-options="pickerOptions">
-        </el-date-picker>
-      </div>
-
-      <div v-if="modeEdit"
-           class="sm-site-ref-item">
-        <div class="title">
-          Статус
-        </div>
-        <el-select class="sm-mt-2"
-                   v-model="note.flag"
-                   placeholder="Статус">
-          <el-option v-for="val in flags"
-                     :key="val.id"
-                     :label="val.name"
-                     :value="val.id">
-          </el-option>
-        </el-select>
-      </div>
-    </div>
-
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Тэги
-      </div>
-      <div v-if="modeEdit" class="sm-mt-2">
-        <el-select class="sm-w-100"
-                   v-model="selectTag"
-                   filterable
-                   remote
-                   reserve-keyword
-                   placeholder="Тэг"
-                   :remote-method="getTags"
-                   @change="insertTag">
-          <el-option v-for="(item,k) in tags"
-                     :key="item.name"
-                     :label="item.name"
-                     :value="item">
-          </el-option>
-        </el-select>
-        <div class="sm-mt-4" v-if="note.tags.length > 0">
-          <el-tag class="sm-mr-1"
-                  v-for="(val,key) in note.tags"
-                  :key="key"
-                  closable
-                  @close="removeFromTags(key)">
-            {{ val.name }}
-          </el-tag>
-        </div>
-      </div>
-
-      <div v-else
-           class="content">
-        <el-tag class="sm-mr-1"
-                v-for="(val,key) in note.tags"
-                :key="key">
-          {{ val.name }}
-        </el-tag>
-      </div>
-    </div>
-
-    <div class="sm-site-ref-item">
-      <div class="title">
-        Заметка
-      </div>
-      <div class="sm-mt-2 sm-bg-white">
-        <VueEditor id='editNote'
-                   v-model="note.body"
-                   :editorToolbar="customToolbar"/>
-      </div>
-    </div>
 
   </section>
 </template>
@@ -165,28 +40,25 @@ export default {
 
   layout: 'site',
 
-  middleware: ['auth', 'authClient'],
-
   head() {
     return {
-      title: this.note.title ? this.note.title : 'Добавить заметку'
+      title: this.note.title
     }
   },
 
   async fetch() {
-    if (this.$route.params.id && this.$route.params.id !== 'new') {
-      await this.$axios.get('api/notes/' + this.$route.params.id)
+    if (this.$route.params.id) {
+      await this.$axios.get('api/links/' + this.$route.params.id)
           .then(response => {
             this.note = response.data.data;
-            this.modeEdit = false
           });
     }
   },
 
   data() {
     return {
-      loading      : false,
-      note         : {
+      loading  : false,
+      note     : {
         title   : null,
         category: {},
         user    : {},
@@ -198,25 +70,12 @@ export default {
         file    : null,
         canEdit : true
       },
-      copyNote     : {},
-      modeEdit     : true,
-      selectTag    : null,
-      tags         : [],
-      flags        : [
-        {id: 'public', name: 'Публичная'},
-        {id: 'privat', name: 'Приватная'},
-      ],
-      errors       : {},
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() < Date.now();
-        },
-      },
-      customToolbar: [
-        ['bold', 'italic', 'underline', 'size'],
-        [{list: 'ordered'}, {list: 'bullet'}, 'align'],
-        ['code-block']
-      ]
+      copyNote : {},
+      selectTag: null,
+      tags     : [],
+      errors   : {},
+      minDate  : new Date(),
+      modeEdit : false,
     }
   },
 

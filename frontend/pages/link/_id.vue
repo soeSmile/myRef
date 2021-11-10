@@ -196,7 +196,7 @@
                     icon="calendar-today"
                     icon-right-clickable
                     trap-focus
-                    :min-date="new Date()">
+                    :min-date="minDate">
                 </b-datepicker>
               </b-field>
             </div>
@@ -230,6 +230,10 @@
         </div>
       </div>
     </div>
+
+    <b-loading :is-full-page="false"
+               v-model="loading"
+               :can-cancel="false"/>
   </section>
 </template>
 
@@ -256,8 +260,8 @@ export default {
 
   data() {
     return {
-      loading      : false,
-      link         : {
+      loading  : false,
+      link     : {
         title   : null,
         desc    : null,
         url     : null,
@@ -271,20 +275,12 @@ export default {
         canEdit : false,
         flag    : null
       },
-      copyLink     : {},
-      modeEdit     : false,
-      selectTag    : null,
-      tags         : [],
-      flags        : [
-        {id: 'public', name: 'Публичная'},
-        {id: 'privat', name: 'Приватная'},
-      ],
-      errors       : {},
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() < Date.now();
-        },
-      }
+      copyLink : {},
+      selectTag: null,
+      tags     : [],
+      errors   : {},
+      minDate  : new Date(),
+      modeEdit : false,
     }
   },
 
