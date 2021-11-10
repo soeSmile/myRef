@@ -141,6 +141,7 @@
             </a>
 
             <b-button v-if="modeEdit && note.file"
+                      @click="destroyAttache"
                       class="sm-ml-1"
                       type="is-danger"
                       icon-left="close">
@@ -149,7 +150,9 @@
 
             <b-field class="file is-primary sm-ml-1"
                      :class="{'has-name': !!file}">
-              <b-upload v-model="file" class="file-label">
+              <b-upload v-model="file"
+                        class="file-label"
+                        @input="uploadAttache">
             <span class="file-cta">
                 <b-icon class="file-icon" icon="upload"></b-icon>
                 <span class="file-label">
@@ -359,7 +362,7 @@ export default {
                   message: 'Success !',
                   type   : 'is-success'
                 })
-                this.$router.push('/')
+                this.$router.push('/');
               })
               .catch(e => {
                 this.errors = e.response.data.errors;
@@ -367,13 +370,13 @@ export default {
                   type                    : 'is-danger',
                   dangerouslyUseHTMLString: true,
                   message                 : this.$messageToStr(this.errors),
-                })
-                this.cancelEdit()
+                });
+                this.cancelEdit();
               })
               .finally(() => {
                 this.loading = false
                 this.modeEdit = false
-              })
+              });
         }
       });
     },
@@ -432,6 +435,43 @@ export default {
     removeTag(key) {
       this.link.tags.splice(key, 1)
     },
+
+    destroyAttache() {
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить',
+        message    : 'Удалить вложение?',
+        confirmText: 'Да',
+        type       : 'is-danger',
+        hasIcon    : true,
+        onConfirm  : () => {
+          this.loading = true
+
+          this.$axios.delete('api/notes/attache/' + this.note.id)
+              .then(() => {
+                this.$buefy.toast.open({
+                  message: 'Success !',
+                  type   : 'is-success'
+                })
+                this.note.file = null;
+              })
+              .catch(e => {
+                this.errors = e.response.data.errors;
+                this.$buefy.toast.open({
+                  type                    : 'is-danger',
+                  dangerouslyUseHTMLString: true,
+                  message                 : this.$messageToStr(this.errors),
+                });
+              })
+              .finally(() => {
+                this.loading = false
+              });
+        }
+      });
+    },
+
+    uploadAttache() {
+
+    }
   }
 }
 </script>

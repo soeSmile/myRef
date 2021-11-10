@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Note\NoteDestroyAttacheRequest;
 use App\Http\Requests\Note\NoteStoreRequest;
 use App\Http\Requests\Note\NoteUpdateRequest;
 use App\Repository\Dto\NoteStoreDto;
@@ -65,6 +66,24 @@ final class ApiNoteController
     {
         try {
             $result = $this->linkRepository->updateTransaction(new NoteUpdateDto($request->all()));
+        } catch (Throwable $exception) {
+            $result = false;
+            $data['error'] = 'Error! See logs!';
+            Log::error($exception->getMessage());
+        }
+
+        return response()->json(['success' => $result, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
+    }
+
+    /**
+     * @param $id
+     * @param NoteDestroyAttacheRequest $request
+     * @return JsonResponse
+     */
+    public function destroyAttache($id, NoteDestroyAttacheRequest $request): JsonResponse
+    {
+        try {
+            $result = $this->linkRepository->destroyAttache($id);
         } catch (Throwable $exception) {
             $result = false;
             $data['error'] = 'Error! See logs!';

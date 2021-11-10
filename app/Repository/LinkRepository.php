@@ -143,4 +143,19 @@ final class LinkRepository extends AbstractRepository
         return DB::table(Link::TAG_TABLE)
             ->insert($linkToTag);
     }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function destroyAttache($id): bool
+    {
+        $item = $this->newQuery()->find($id);
+
+        if ($item->file) {
+            \Storage::delete('link/' . $item->id . '/' . $item->file);
+        }
+
+        return $item && $item->update(['file' => null]);
+    }
 }

@@ -115,13 +115,13 @@ abstract class AbstractRepository
     /**
      * @param $id
      * @param AbstractDto $dto
-     * @return bool|int
+     * @return bool
      */
-    public function update($id, AbstractDto $dto): bool|int
+    public function update($id, AbstractDto $dto): bool
     {
         $item = $this->newQuery()->find($id);
 
-        return $item ? $item->update($dto->getData($this)) : false;
+        return $item && $item->update($dto->getData($this));
     }
 
     /**

@@ -5,20 +5,19 @@ namespace App\Http\Requests\Note;
 
 use App\Models\Link;
 use Illuminate\Foundation\Http\FormRequest;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * Class NoteUpdateRequest
+ * Class NoteDestroyAttacheRequest
  * @package App\Http\Requests\Note
  */
-class NoteUpdateRequest extends FormRequest
+class NoteDestroyAttacheRequest extends FormRequest
 {
     /**
      * @return bool
      */
     public function authorize(): bool
     {
-        $link = Link::find($this->get('id'));
+        $link = Link::find($this->route()->id);
         $owner = $link && $link->isOwner();
 
         return isClient() && $owner;
@@ -27,13 +26,8 @@ class NoteUpdateRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['id' => "string", 'title' => "string", 'file' => "string"])]
     public function rules(): array
     {
-        return [
-            'id'    => 'required|exists:links',
-            'title' => 'required|string',
-            'file'  => 'file|max:2048|nullable'
-        ];
+        return [];
     }
 }

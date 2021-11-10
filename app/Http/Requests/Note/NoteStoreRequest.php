@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * Class NoteStoreRequest
- * @package App\Http\Requests\Link
+ * @package App\Http\Requests\Note
  */
 class NoteStoreRequest extends FormRequest
 {

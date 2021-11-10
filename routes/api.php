@@ -29,9 +29,16 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::post('logout', [ApiAuthController::class, 'logout'])->name('auth.logout');
     Route::post('refresh', [ApiAuthController::class, 'refresh'])->name('auth.refresh');
     Route::post('me', [ApiAuthController::class, 'me'])->name('auth.me');
+
     Route::apiResource('tags', ApiTagController::class)->only('store');
-    Route::apiResource('links', ApiLinkController::class)->only('store', 'update', 'destroy');
-    Route::apiResource('user-links', ApiUserSearchLinksController::class)->only('index', 'store', 'update', 'destroy');
+    Route::apiResource('links', ApiLinkController::class)
+        ->only('store', 'update', 'destroy');
+    Route::apiResource('user-links', ApiUserSearchLinksController::class)
+        ->only('index', 'store', 'update', 'destroy');
+
+    // Notes
+    Route::delete('notes/attache/{id}', [ApiNoteController::class, 'destroyAttache'])
+        ->name('notes.attache.destroy');
     Route::apiResource('notes', ApiNoteController::class)->only('store', 'update');
 
     /**
@@ -48,6 +55,8 @@ Route::group(['middleware' => 'auth'], static function () {
         Route::apiResource('categories', ApiCategoryController::class)->only('store', 'update');
         Route::apiResource('tags', ApiTagController::class)->only('update');
         Route::apiResource('users', ApiUserController::class)->except('destroy');
+
+        // Links
         Route::get('adminLinks', [ApiLinkAdminController::class, 'index'])
             ->name('adminLinks.index');
         Route::post('adminLinks/rebuild-img', [ApiLinkAdminController::class, 'rebuildImage'])
