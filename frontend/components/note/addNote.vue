@@ -185,14 +185,6 @@ export default {
     }
   },
 
-  watch: {},
-
-  created() {
-  },
-
-  mounted() {
-  },
-
   methods: {
     /**
      * @return {boolean}

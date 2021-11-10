@@ -214,6 +214,21 @@ export default {
       errors   : {},
       minDate  : new Date(),
       modeEdit : false,
+      customToolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{'header': 1}, {'header': 2}],
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        [{'script': 'sub'}, {'script': 'super'}],
+        [{'indent': '-1'}, {'indent': '+1'}],
+        [{'direction': 'rtl'}],
+        [{'size': ['small', false, 'large', 'huge']}],
+        [{'header': [1, 2, 3, 4, 5, 6, false]}],
+        [{'color': []}, {'background': []}],
+        [{'font': []}],
+        [{'align': []}],
+        ['clean']
+      ]
     }
   },
 
@@ -224,11 +239,17 @@ export default {
   },
 
   methods: {
+    /**
+     * edit
+     */
     runEdit() {
       this.copyNote = JSON.parse(JSON.stringify(this.note));
       this.modeEdit = true
     },
 
+    /**
+     * cancel edit
+     */
     cancelEdit() {
       if (this.$route.params.id === 'new') {
         this.$router.push('/')
@@ -238,6 +259,9 @@ export default {
       }
     },
 
+    /**
+     * store
+     */
     store() {
       this.loading = true
       let method = 'post',
