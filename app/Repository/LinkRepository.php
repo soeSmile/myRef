@@ -146,9 +146,10 @@ final class LinkRepository extends AbstractRepository
 
     /**
      * @param $id
+     * @param null $file
      * @return bool
      */
-    public function destroyAttache($id): bool
+    public function updateAttache($id, $file = null): bool
     {
         $item = $this->newQuery()->find($id);
 
@@ -156,6 +157,6 @@ final class LinkRepository extends AbstractRepository
             \Storage::delete('link/' . $item->id . '/' . $item->file);
         }
 
-        return $item && $item->update(['file' => null]);
+        return $item && $item->update(['file' => $file]);
     }
 }

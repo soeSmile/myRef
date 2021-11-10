@@ -5,6 +5,7 @@ namespace App\Repository\Dto;
 
 use App\Models\Link;
 use App\Repository\AbstractRepository;
+use App\Repository\Dto\Traits\ClearTextTrait;
 use DiDom\Document;
 
 /**
@@ -13,6 +14,8 @@ use DiDom\Document;
  */
 final class NoteStoreDto extends AbstractDto
 {
+    use ClearTextTrait;
+
     /**
      * @param AbstractRepository|null $abstractRepository
      * @return array
@@ -38,16 +41,5 @@ final class NoteStoreDto extends AbstractDto
         }
 
         return parent::getData($abstractRepository);
-    }
-
-    /**
-     * @param string $body
-     * @return string
-     */
-    private function clearBody(string $body): string
-    {
-        $pattern = '/class=["|\'].*["|\']/im';
-
-        return \preg_replace($pattern, '', $body);
     }
 }

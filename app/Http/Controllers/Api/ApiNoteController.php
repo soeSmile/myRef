@@ -87,7 +87,7 @@ final class ApiNoteController
         $request->file('file')->store('link/' . $request->id);
 
         try {
-            $result = $this->linkRepository->update( $request->id, new LinkUpdateDto(['file' => $file]));
+            $result = $this->linkRepository->updateAttache($request->id, $file);
         } catch (Throwable $exception) {
             $result = false;
             $data['error'] = 'Error! See logs!';
@@ -105,7 +105,7 @@ final class ApiNoteController
     public function destroyAttache($id, NoteDestroyAttacheRequest $request): JsonResponse
     {
         try {
-            $result = $this->linkRepository->destroyAttache($id);
+            $result = $this->linkRepository->updateAttache($id);
         } catch (Throwable $exception) {
             $result = false;
             $data['error'] = 'Error! See logs!';
