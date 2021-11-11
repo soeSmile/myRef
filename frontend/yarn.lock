@@ -5690,6 +5690,11 @@ nuxt-buefy@0.4.13:
   dependencies:
     buefy "^0.9.13"
 
+nuxt-yandex-metrica@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/nuxt-yandex-metrica/-/nuxt-yandex-metrica-0.1.0.tgz#24a82d21447719f3efbc753c0405c71ee42d1aee"
+  integrity sha512-0jLW+JqB+UB8LxL6jVL+F24TVmQYiEOukrGeNin7zScivRUV2zVCyErjpwOC1mwowPMSb9hkEmXExj1N+DBojw==
+
 nuxt@2.15.8:
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.15.8.tgz#946cba46bdaaf0e3918aa27fd9ea0fed8ed303b0"
