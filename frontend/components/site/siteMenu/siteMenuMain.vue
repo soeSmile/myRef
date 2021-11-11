@@ -7,7 +7,8 @@
             :key="val.name"
             :title="val.name"
             class="sm-menu-item link sm-flex middle"
-            :class="show ? 'left' : 'center'">
+            :class="show ? 'left' : 'center'"
+            :exact="val.exact">
       <div class="icon">
         <i :class="val.icon"></i>
       </div>
@@ -29,11 +30,11 @@ export default {
   data() {
     return {
       menu: [
-        {name: 'Главная', icon: 'mdi mdi-home', link: '/'},
-        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new'},
-        {name: 'Категории', icon: 'mdi mdi-shape', link: '/category'},
-        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags'},
-        {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top'},
+        {name: 'Главная', icon: 'mdi mdi-home', link: '/', exact: true},
+        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new', exact: false},
+        {name: 'Категории', icon: 'mdi mdi-shape', link: '/category', exact: false},
+        {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags', exact: false},
+        {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top', exact: false},
       ],
     };
   },
