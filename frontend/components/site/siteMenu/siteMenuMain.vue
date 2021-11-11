@@ -31,7 +31,6 @@ export default {
     return {
       menu: [
         {name: 'Главная', icon: 'mdi mdi-home', link: '/', exact: true},
-        {name: 'Новинки', icon: 'mdi mdi-newspaper-variant', link: '/new', exact: false},
         {name: 'Категории', icon: 'mdi mdi-shape', link: '/category', exact: false},
         {name: 'Теги', icon: 'mdi mdi-tag-multiple', link: '/tags', exact: false},
         {name: 'Топ', icon: 'mdi mdi-arrow-up-bold', link: '/top', exact: false},
