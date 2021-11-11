@@ -52,13 +52,15 @@ export default {
         'cookie-universal-nuxt',
         'vue2-editor/nuxt',
         ['nuxt-buefy', {css: false}],
-        ['@nuxtjs/yandex-metrika', {
-            id      : 86397135,
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-        }
-        ]
+        [
+            '@rkaliev/nuxtjs-yandex-metrika',
+            {
+                id                 : 86397135,
+                clickmap           : true,
+                trackLinks         : true,
+                accurateTrackBounce: true
+            },
+        ],
     ],
 
     axios: {
