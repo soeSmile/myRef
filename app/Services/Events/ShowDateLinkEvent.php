@@ -7,6 +7,7 @@ use App\Mail\ShowRef;
 use App\Models\Event;
 use App\Models\Link;
 use Carbon\Carbon;
+use Mail;
 
 /**
  * Class ShowDateLinkEvent
@@ -23,7 +24,7 @@ final class ShowDateLinkEvent extends AbstractEvent
                 $link = Link::find($event->item_id);
 
                 if ($link) {
-                    \Mail::to($link->user)->queue(new ShowRef($link));
+                    Mail::to($link->user)->queue(new ShowRef($link));
                 }
                 $this->removeEvent($event->id);
             }

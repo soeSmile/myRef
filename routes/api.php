@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 // login
 Route::post('login', [ApiAuthController::class, 'login'])->name('auth.login');
+Route::post('register', [ApiAuthController::class, 'register'])->name('auth.register');
 
 /**
  * Public Routers

@@ -1,10 +1,10 @@
 <template>
   <div class="sm-h-100 sm-flex center middle">
-    <div class="sm-wpx-300 sm-flex col">
+    <div class="sm-wpx-400 sm-flex col sm-p-4">
       <b-field label="Имя"
                :type="errors.name ? 'is-danger' : ''"
                :message="errors.name">
-        <b-input type="email"
+        <b-input type="text"
                  v-model="user.name">
         </b-input>
       </b-field>
@@ -36,6 +36,16 @@
           Сброс
         </b-button>
       </div>
+
+      <b-notification auto-close
+                      v-model="isActive"
+                      :duration="5000"
+                      type="is-success"
+                      class="sm-mt-4"
+                      has-icon
+                      aria-close-label="Close notification">
+        {{ result }}
+      </b-notification>
     </div>
   </div>
 </template>
@@ -51,39 +61,50 @@ export default {
 
   data() {
     return {
-      user  : {
+      user    : {
         name    : null,
         email   : null,
         password: null
       },
-      errors: {}
+      errors  : {},
+      result  : '',
+      isActive: false
     }
   },
 
   methods: {
     reset() {
-      this.user.name = null
-      this.user.email = null
-      this.user.password = null
-      this.errors = {}
+      this.user.name = null;
+      this.user.email = null;
+      this.user.password = null;
+      this.errors = {};
     },
 
     validForm() {
-      let result = true
+      let result = true;
+      this.errors = {};
 
       for (let i in this.user) {
         if (!this.user[i]) {
-          result = false
-          this.$set(this.errors, i, 'Обязательное поле')
+          result = false;
+          this.$set(this.errors, i, 'Обязательное поле');
         }
       }
 
-      return result
+      return result;
     },
 
     register() {
       if (this.validForm()) {
-
+        this.$axios.post('/api/register', this.user)
+            .then((res) => {
+              this.user = {};
+              this.result = res.data.data;
+              this.isActive = true;
+            })
+            .catch(err => {
+              this.errors = err.response.data.errors;
+            })
       }
     }
   }

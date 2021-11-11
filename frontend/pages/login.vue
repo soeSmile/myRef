@@ -1,6 +1,6 @@
 <template>
   <div class="sm-h-100 sm-flex center middle">
-    <div class="sm-wpx-300 sm-flex col">
+    <div class="sm-wpx-400 sm-flex col sm-p-4">
       <b-field label="Email"
                :type="errors.email ? 'is-danger' : ''"
                :message="errors.email">

@@ -4,8 +4,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\User\UserLoginResource;
+use App\Mail\RegisterEmail;
+use App\Models\User;
+use App\Repository\UserRepository;
 use Illuminate\Http\JsonResponse;
+use Mail;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class ApiAuthController
@@ -58,6 +64,24 @@ final class ApiAuthController
     public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * @param RegisterRequest $request
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request): JsonResponse
+    {
+        $user = User::create([
+            'name'        => $request->name,
+            'email'       => $request->email,
+            'password'    => bcrypt($request->password),
+            'confirm_key' => Uuid::uuid6()->toString(),
+        ]);
+
+        Mail::to($user)->queue(new RegisterEmail($user));
+
+        return response()->json(['data' => trans('auth.register')]);
     }
 
     /**
