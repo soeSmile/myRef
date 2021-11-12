@@ -43,6 +43,7 @@ export default {
         '~/plugins/axios',
         '~/plugins/builder',
         '~/plugins/helper',
+        '~/plugins/metric',
     ],
 
     components: true,
@@ -51,16 +52,7 @@ export default {
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
         'vue2-editor/nuxt',
-        ['nuxt-buefy', {css: false}],
-        [
-            '@rkaliev/nuxtjs-yandex-metrika',
-            {
-                id                 : 86397135,
-                clickmap           : true,
-                trackLinks         : true,
-                accurateTrackBounce: true
-            },
-        ],
+        ['nuxt-buefy', {css: false}]
     ],
 
     axios: {
