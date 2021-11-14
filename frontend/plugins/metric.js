@@ -8,6 +8,7 @@ export default ({app, req}) => {
         headers.from = from.fullPath;
 
         if (req) {
+            console.log(req.headers);
             headers.ip = req.headers['x-forwarded-for'];
             headers.agent = req.headers['user-agent'];
             headers.lang = req.headers['accept-language'];
