@@ -10,7 +10,7 @@
       </div>
       <div class="text"
            :class="{ 'active' : show }">
-        Добавить закладку
+        Добавить ссылку
       </div>
     </div>
     <div @click="addNote"
@@ -22,7 +22,7 @@
       </div>
       <div class="text"
            :class="{ 'active' : show }">
-        Добавить заметку
+        Добавить запись
       </div>
     </div>
 

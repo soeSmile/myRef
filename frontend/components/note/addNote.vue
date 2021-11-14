@@ -7,7 +7,7 @@
           @click="$emit('close')"/>
 
       <p class="modal-card-title sm-ml-4">
-        Добавить заметку
+        Добавить запись
       </p>
 
       <button
