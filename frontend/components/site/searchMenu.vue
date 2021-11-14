@@ -132,6 +132,15 @@ export default {
     };
   },
 
+  watch: {
+    request: {
+      handler: function (val) {
+        this.searchRequest();
+      },
+      deep   : true
+    }
+  },
+
   computed: {
     /**
      * @return {array}
