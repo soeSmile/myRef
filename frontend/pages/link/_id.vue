@@ -57,7 +57,7 @@
             <div class="ref-content">
               <b-input v-if="modeEdit"
                        custom-class="sm-textarea sm-mb-2"
-                       rows="2"
+                       rows="4"
                        v-model="link.userDesc"
                        type="textarea"/>
               <p v-else>
@@ -66,7 +66,7 @@
 
               <b-input v-if="modeEdit"
                        custom-class="sm-textarea"
-                       rows="2"
+                       rows="4"
                        v-model="link.desc"
                        type="textarea"/>
               <p v-else>
@@ -81,7 +81,7 @@
             </div>
             <b-input v-if="modeEdit"
                      custom-class="sm-textarea"
-                     rows="1"
+                     rows="2"
                      v-model="link.comment"
                      type="textarea"/>
             <div v-else
