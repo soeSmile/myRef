@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -32,7 +33,8 @@ final class TagRepository extends AbstractRepository
     public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
     {
         if (isset($data['tag'])) {
-            $this->getQuery()->where('name', 'like', '%' . $data['tag'] . '%');
+            $tag = \mb_strtolower($data['tag']);
+            $this->getQuery()->where('name', 'like', '%' . $tag . '%');
         }
 
         if (isset($data['ids'])) {

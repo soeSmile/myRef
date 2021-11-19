@@ -138,6 +138,9 @@ export default {
         this.searchRequest();
       },
       deep   : true
+    },
+    selectTag(val) {
+      return val.toLowerCase();
     }
   },
 
@@ -193,7 +196,7 @@ export default {
       if (tag.length >= 3) {
         this.loadingTag = true;
 
-        this.$axios.get('/api/tags', {params: {tag: tag}})
+        this.$axios.get('/api/tags', {params: {tag: tag.toLowerCase()}})
             .then(res => {
               this.tags = res.data.data;
             })

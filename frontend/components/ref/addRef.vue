@@ -209,7 +209,7 @@ export default {
       if (tag.length >= this.$const.TAG_LENGTH) {
         this.tags = []
 
-        this.$axios.get('/api/tags', {params: {tag: tag}})
+        this.$axios.get('/api/tags', {params: {tag: tag.toLowerCase()}})
             .then(response => {
               if (response.data.data.length > 0) {
                 this.tags = response.data.data;
