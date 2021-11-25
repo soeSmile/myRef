@@ -4,7 +4,7 @@
     <div class="sm-flex middle sm-p-5"
          :class="show ? 'right' : 'center'">
       <i @click="show = !show"
-         class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-alert"></i>
+         class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-danger"></i>
     </div>
 
     <div v-if="$store.getters['auth/isAuth']">

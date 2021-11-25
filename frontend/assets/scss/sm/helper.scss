@@ -99,7 +99,7 @@
 }
 
 .#{$prefix}line {
-  border-bottom: 2px solid map-get($colors, 'light');
+  border-bottom: 2px solid map-get($sm-colors, 'light');
 }
 
 .#{$prefix}fadeIn {

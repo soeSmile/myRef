@@ -2,31 +2,31 @@
 @import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: map-get($colors, 'primary');
+$primary: map-get($sm-colors, 'primary');
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 
-$success: map-get($colors, 'success');
+$success: map-get($sm-colors, 'success');
 $success-light: findLightColor($success);
 $success-dark: findDarkColor($success);
 $success-invert: findColorInvert($success);
 
-$warning: map-get($colors, 'warning');
+$warning: map-get($sm-colors, 'warning');
 $warning-light: findLightColor($warning);
 $warning-dark: findDarkColor($warning);
 $warning-invert: findColorInvert($warning);
 
-$danger: map-get($colors, 'danger');
+$danger: map-get($sm-colors, 'danger');
 $danger-light: findLightColor($danger);
 $danger-dark: findDarkColor($danger);
 $danger-invert: findColorInvert($danger);
 
-$dark: map-get($colors, 'dark');
+$dark: map-get($sm-colors, 'dark');
 $light-invert: findColorInvert($dark);
 
 // Links
-$link: map-get($colors, 'link');
+$link: map-get($sm-colors, 'link');
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 

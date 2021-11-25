@@ -34,7 +34,7 @@ $z-popup-alert: 1001;
 
 html, body, #__nuxt, #__layout {
   height: 100%;
-  background: map-get($colors, 'fon');
+  background: map-get($sm-colors, 'fon');
   font-family: $fontRegular;
 }
 

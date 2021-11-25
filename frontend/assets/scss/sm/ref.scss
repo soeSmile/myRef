@@ -32,7 +32,7 @@
   height: 75px;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: map-get($colors, 'dark');
+  color: map-get($sm-colors, 'dark');
   z-index: 1;
 }
 
@@ -41,7 +41,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: $fontLight;
-  color: map-get($colors, 'dark');
+  color: map-get($sm-colors, 'dark');
   text-decoration: none;
   font-size: 0.8rem;
   z-index: 1;
@@ -50,7 +50,7 @@
 .#{$prefix}ref-category {
   height: 25px;
   font-family: $fontLight;
-  color: map-get($colors, 'alert');
+  color: map-get($sm-colors, 'alert');
   text-decoration: none;
   font-size: 0.8rem;
   z-index: 1;
@@ -58,7 +58,7 @@
 
 .#{$prefix}ref-link {
   text-decoration: none;
-  color: map-get($colors, 'primary');
+  color: map-get($sm-colors, 'primary');
 }
 
 .#{$prefix}site-ref-item {

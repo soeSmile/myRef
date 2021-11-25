@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   padding: map_get($sizes, 6);
-  color: map_get($colors, 'dark');
+  color: map_get($sm-colors, 'dark');
   font-family: $fontRegular;
 
   & ul {

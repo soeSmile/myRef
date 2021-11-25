@@ -1,11 +1,11 @@
 /**
   Variables colors
 */
-$colors: (
+$sm-colors: (
         'primary':#70a1ff,
         'success':#7bed9f,
         'warning':#eccc68,
-        'alert':#ff7f50,
+        'danger':#ff7f50,
         'link':#5352ed,
         'dark':#34495e,
         'user-fon':#ecf8eb,
@@ -20,25 +20,25 @@ $colors: (
         'black':#000000
 );
 
-@each $name, $value in $colors {
+@each $name, $value in $sm-colors {
   .#{$prefix}color-#{$name} {
     color: $value !important;
   }
 }
 
-@each $name, $value in $colors {
+@each $name, $value in $sm-colors {
   .#{$prefix}bg-#{$name} {
     background-color: $value !important;
   }
 }
 
-@each $name, $value in $colors {
+@each $name, $value in $sm-colors {
   .#{$prefix}bd-#{$name} {
     border-color: $value !important;
   }
 }
 
-@each $name, $value in $colors {
+@each $name, $value in $sm-colors {
   .#{$prefix}hover-#{$name} {
     &:hover {
       color: $value !important;
@@ -47,7 +47,7 @@ $colors: (
   }
 }
 
-@each $name, $value in $colors {
+@each $name, $value in $sm-colors {
   .#{$prefix}hover-bg-#{$name} {
     &:hover {
       background: $value !important;
