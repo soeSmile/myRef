@@ -25,6 +25,9 @@ $danger-invert: findColorInvert($danger);
 $dark: map-get($sm-colors, 'dark');
 $light-invert: findColorInvert($dark);
 
+$light: map-get($sm-colors, 'gray-1');
+$light-invert: findColorInvert($light);
+
 // Links
 $link: map-get($sm-colors, 'link');
 $link-invert: $primary-invert;

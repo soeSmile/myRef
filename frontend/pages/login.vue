@@ -21,7 +21,7 @@
 
       <div class="sm-mt-8">
         <b-button class="sm-mr-2"
-                  type="is-primary"
+                  type="is-dark"
                   @click="login">
           Вход
         </b-button>

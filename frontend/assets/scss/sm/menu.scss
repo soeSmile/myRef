@@ -35,16 +35,16 @@
   }
 
   &.link:hover {
-    color: map-get($sm-colors, 'gray-2');
+    color: map-get($sm-colors, 'gray-1');
     @include animateHover;
   }
 
   &.is-active, &.nuxt-link-active {
-    background: map-get($sm-colors, 'gray-2');
-    color: map-get($sm-colors, 'light');
+    background: map-get($sm-colors, 'gray-1');
+    color: map-get($sm-colors, 'white');
 
     &:hover {
-      color: map-get($sm-colors, 'gray-2');
+      color: map-get($sm-colors, 'dark');
     }
   }
 }
@@ -63,7 +63,7 @@
     margin: map-get($sizes, 1);
 
     &:hover, &.is-active {
-      background: map-get($sm-colors, 'primary');
+      background: map-get($sm-colors, 'dark');
       color: map-get($sm-colors, 'white');
       @include animateHover
     }

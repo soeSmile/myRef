@@ -21,14 +21,16 @@
 
     <b-field>
       <b-switch
-          v-model="selectTypeRef">
+          v-model="selectTypeRef"
+          type="is-dark">
         Поиск по закладкам
       </b-switch>
     </b-field>
 
     <b-field>
       <b-switch
-          v-model="selectTypeNote">
+          v-model="selectTypeNote"
+          type="is-dark">
         Поиск по заметкам
       </b-switch>
     </b-field>
@@ -51,7 +53,7 @@
       <b-tag class="sm-m-1"
              v-for="(val,key) in request.cats"
              :key="val.name"
-             type="is-success"
+             type="is-light"
              closable
              @close="removeCategory(key)">
         {{ val.name }}
@@ -79,7 +81,7 @@
       <b-tag class="sm-m-1"
              v-for="(val,key) in request.tags"
              :key="val.name"
-             type="is-warning"
+             type="is-light"
              closable
              @close="removeTag(key)">
         {{ val.name }}
@@ -88,11 +90,11 @@
 
     <div class="sm-flex wrap sm-mt-6">
       <b-button class="sm-mr-2"
-                type="is-primary"
+                type="is-dark"
                 @click="searchRequest">
         Поиск
       </b-button>
-      <b-button type="is-link"
+      <b-button type="is-light"
                 @click="resetRequest">
         Сброс
       </b-button>
