@@ -37,6 +37,17 @@
             <figure class="image is-128x128">
               <img :src="getImage(link.img)" alt="">
             </figure>
+            <div v-if="modeEdit"
+                 class="buttons">
+              <b-button title="Заменить изображение"
+                        type="is-primary"
+                        size="is-small"
+                        icon-right="swap-horizontal"/>
+              <b-button title="Удалить изображение"
+                        type="is-danger"
+                        size="is-small"
+                        icon-right="close"/>
+            </div>
           </div>
           <div class="media-content">
             <b-input v-if="modeEdit"
