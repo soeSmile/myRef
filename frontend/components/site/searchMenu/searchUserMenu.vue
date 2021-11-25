@@ -9,10 +9,10 @@
                   icon-right="plus"
                   @click="addSearchUrl"/>
       </div>
-      <div @click="$store.dispatch('links/setUrl', {params: JSON.parse(val.link)})"
-           class="item"
-           v-for="(val,key) in user.links"
-           :key="val.id">
+      <n-link v-for="(val,key) in user.links"
+              :key="val.id"
+              :to="{path : '/', query: JSON.parse(val.link)}"
+              class="item">
         <i class="mdi mdi-close remove"
            @click.stop="deleteSearchUrl(key)"></i>
         <i class="mdi mdi-pencil edit"
@@ -20,7 +20,7 @@
         <div class="name">
           {{ val.name }}
         </div>
-      </div>
+      </n-link>
 
       <b-field class="sm-mt-8">
         <b-checkbox type="is-warning"

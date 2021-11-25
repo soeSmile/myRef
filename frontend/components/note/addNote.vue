@@ -226,7 +226,7 @@ export default {
               });
 
               this.$emit('close');
-              this.$store.dispatch('links/setUrl', {params: this.$route.query});
+              this.$router.push({path: '/', query: this.$route.query});
             })
             .catch(err => {
               this.errors = err.response.data.errors;

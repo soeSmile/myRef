@@ -28,10 +28,6 @@ export default {
     uiPagination
   },
 
-  created() {
-    this.$store.dispatch('links/setUrl', {params: this.$route.query})
-  },
-
   data() {
     return {}
   },

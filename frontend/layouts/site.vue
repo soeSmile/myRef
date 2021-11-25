@@ -35,6 +35,13 @@ export default {
 
   data() {
     return {}
-  }
+  },
+
+  watch: {
+    // global watch change query
+    '$route.query'(to, from) {
+      this.$store.dispatch('links/getLinks', to)
+    }
+  },
 }
 </script>

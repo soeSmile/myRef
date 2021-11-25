@@ -54,16 +54,6 @@ export default {
     categories() {
       return this.$store.getters['category/categories'];
     },
-  },
-
-  watch: {},
-
-  created() {
-  },
-
-  mounted() {
-  },
-
-  methods: {},
+  }
 };
 </script>

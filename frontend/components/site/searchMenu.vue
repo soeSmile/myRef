@@ -230,7 +230,7 @@ export default {
     },
 
     /**
-     * @return {{}}
+     * @return Object
      */
     makeRequest() {
       let result = {}
@@ -264,7 +264,7 @@ export default {
      * search
      */
     searchRequest() {
-      this.$store.dispatch('links/setUrl', {params: this.makeRequest()})
+      this.$router.push({path: '/', query: this.makeRequest()});
     },
 
     /**
@@ -283,7 +283,7 @@ export default {
       this.selectTag = null;
       this.selectTypeRef = true;
       this.selectTypeNote = true;
-      this.$store.dispatch('links/setUrl', {params: {}, clear: true})
+      this.$router.push({path: '/', query: {}});
     },
 
     /**

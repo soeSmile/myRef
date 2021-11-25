@@ -58,21 +58,6 @@ export const actions = {
             }
         } catch (e) {
         }
-    },
-
-    /**
-     * @param commit
-     * @param state
-     * @param data
-     */
-    setUrl({commit, state}, data) {
-        if (data.clear) {
-            this.$router.push({path: '/', query: {}})
-        } else {
-            this.$router.push({path: '/', query: data.params})
-        }
-
-        this.dispatch('links/getLinks', data.params)
     }
 }
 
