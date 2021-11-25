@@ -1,5 +1,3 @@
-@import "bulma";
-
 $prefix: 'sm-';
 
 // Padding && margin step
@@ -26,6 +24,8 @@ $z-popup: 999;
 $z-popbg-alert: 1000;
 $z-popup-alert: 1001;
 
+@import "colors";
+@import "bulma";
 @import "reset";
 @import "fonts";
 @import "sm/sm";
