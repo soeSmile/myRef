@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * Class DownloadController
  */
-class DownloadController
+final class DownloadController
 {
     /**
      * @param $id

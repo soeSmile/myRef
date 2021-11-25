@@ -35,8 +35,21 @@
         <div class="media">
           <div class="media-left">
             <figure class="image is-128x128">
-              <img src="/note.jpg" alt="">
+              <img :src="getImage(note.img)" alt="">
             </figure>
+            <div v-if="modeEdit"
+                 class="buttons">
+              <b-button @click="updateImage(note.id)"
+                        title="Заменить изображение"
+                        type="is-primary"
+                        size="is-small"
+                        icon-right="swap-horizontal"/>
+              <b-button @click="destroyImage(note.id)"
+                        title="Удалить изображение"
+                        type="is-danger"
+                        size="is-small"
+                        icon-right="close"/>
+            </div>
           </div>
           <div class="media-content">
             <b-input v-if="modeEdit"
@@ -499,6 +512,57 @@ export default {
                   type   : 'is-success'
                 })
                 this.note.file = null;
+              })
+              .catch(e => {
+                this.errors = e.response.data.errors;
+                this.$buefy.toast.open({
+                  type                    : 'is-danger',
+                  dangerouslyUseHTMLString: true,
+                  message                 : this.$messageToStr(this.errors),
+                });
+              })
+              .finally(() => {
+                this.loading = false
+              });
+        }
+      });
+    },
+
+    /**
+     * @param img
+     * @return {string}
+     */
+    getImage(img) {
+      return img === 'note' ? '/note.jpg' : '/screen/' + img;
+    },
+
+    /**
+     * @param id
+     */
+    updateImage(id) {
+
+    },
+
+    /**
+     * @param id
+     */
+    destroyImage(id) {
+      this.$buefy.dialog.confirm({
+        title      : 'Удалить',
+        message    : 'Удалить изображение?',
+        confirmText: 'Да',
+        type       : 'is-danger',
+        hasIcon    : true,
+        onConfirm  : () => {
+          this.loading = true
+
+          this.$axios.delete('api/images/' + this.note.id)
+              .then(() => {
+                this.$buefy.toast.open({
+                  message: 'Success !',
+                  type   : 'is-success'
+                })
+                this.note.img = 'note';
               })
               .catch(e => {
                 this.errors = e.response.data.errors;

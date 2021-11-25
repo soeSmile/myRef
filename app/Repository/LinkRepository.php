@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -158,5 +159,16 @@ final class LinkRepository extends AbstractRepository
         }
 
         return $item && $item->update(['file' => $file]);
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function destroyImage($id): bool
+    {
+        $item = $this->newQuery()->find($id);
+
+        return $item && $item->update(['img' => 'note']);
     }
 }

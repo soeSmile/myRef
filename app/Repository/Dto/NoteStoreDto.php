@@ -27,6 +27,7 @@ final class NoteStoreDto extends AbstractDto
         $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVAT);
         $this->setDataByKey('type', Link::TYPE_NOTE);
         $this->setDataByKey('url', 'note');
+        $this->setDataByKey('img', 'note');
 
         if ($this->hasKey('body')) {
             $body = $this->getDataByKey('body');
