@@ -18,8 +18,9 @@ export const mutations = {
         // set site
         this.$axios.setToken(data.token, 'Bearer');
         // set cookie
+        let maxAge = data.expiresIn ? data.expiresIn * 60 : -1;
         this.$cookies.set('token', data.token, {
-            maxAge  : data.expiresIn * 60,
+            maxAge  : maxAge,
             path    : '/',
             sameSite: 'lax'
         });
