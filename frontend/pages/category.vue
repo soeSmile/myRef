@@ -22,7 +22,7 @@
           <div class="content sm-flex col center middle">
             <i class="sm-color-alert mdi mdi-48px"
                :class="val.icon"></i>
-            <p class="sm-color-primary sm-fnt bold sm-mt-4">
+            <p class="sm-color-link sm-fnt bold sm-mt-4">
               {{ val.name }}
             </p>
           </div>

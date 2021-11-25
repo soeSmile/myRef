@@ -1,42 +1,43 @@
 <template>
-  <div class="sm-ref card sm-wpx-300 sm-m-2"
-       :style="getImage(myRef)">
-
+  <div class="sm-ref card sm-wpx-300 sm-m-2 sm-p-2">
     <a :href="getLink(myRef)"
        target="_blank"
-       :title="myRef.title"
-       class="sm-ref-content sm-hpx-350">
+       :title="myRef.title">
 
-      <h4 class="sm-ref-title sm-fnt bold sm-mb-2">
+      <h2 class="sm-ref-title sm-fnt bold">
         {{ getTitle(myRef.title) }}
-      </h4>
+      </h2>
 
-      <div class="sm-ref-desc sm-my-2">
-        <section v-if="myRef.type === 1">
-          <p class="sm-mb-1">
-            {{ getDesc(myRef.userDesc) }}
-          </p>
-          <p>{{ getDesc(myRef.desc) }}</p>
-        </section>
-        <section v-else>
-          <p v-html="getDesc(myRef.body)"></p>
-        </section>
-      </div>
-
-      <div class="sm-ref-category sm-my-2">
-        <section v-if="myRef.category">
-          <i :class="'mdi '+ myRef.category.icon"></i>
-          {{ myRef.category.name }}
-        </section>
+      <div class="sm-ref-image"
+           :style="getImage(myRef)">
       </div>
     </a>
 
-    <div class="sm-flex middle right sm-py-2 sm-px-4">
-      <n-link class="sm-ref-link sm-fnt w600"
-              :to="getLocalLink(myRef)">
-        Подробнее
-      </n-link>
-    </div>
+    <n-link v-if="myRef.category"
+            class="sm-ref-category sm-p-2"
+            :to="'/?type=3&cats=['+myRef.category.id+']'">
+      <i :class="'mdi '+ myRef.category.icon"></i>
+      {{ myRef.category.name }}
+    </n-link>
+
+    <footer class="card-footer sm-mt-2">
+      <div class="card-footer-item">
+        <i class="mdi mdi-star-outline"></i>
+      </div>
+      <div class="card-footer-item">
+        <i class="mdi mdi-eye-outline"></i>
+      </div>
+      <div class="card-footer-item">
+        <i class="mdi mdi-comment-outline"></i>
+      </div>
+      <div class="card-footer-item">
+        <n-link class="sm-ref-link sm-fnt w600"
+                title="Подробнее"
+                :to="getLocalLink(myRef)">
+          <i class="mdi mdi-unfold-more-vertical"></i>
+        </n-link>
+      </div>
+    </footer>
   </div>
 </template>
 
