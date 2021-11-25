@@ -1,36 +1,36 @@
 <template>
   <section>
-    <nav v-if="note.canEdit"
-         class="sm-nav sm-bg-white sm-color-grey sm-p-2">
-      <div class="sm-nav-start">
-        <div v-if="!modeEdit"
-             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary"
-             @click="runEdit">
-          <i class="mdi mdi-pencil sm-mr-1"></i>
-          <span>Редактировать</span>
-        </div>
-        <div v-if="modeEdit"
-             @click="store"
-             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
-          <i class="mdi mdi-content-save sm-mr-1"></i>
-          <span>Сохранить</span>
-        </div>
-        <div v-if="modeEdit"
-             @click="cancelEdit"
-             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
-          <i class="mdi mdi-close sm-mr-1"></i>
-          <span>Отмена</span>
-        </div>
-        <div v-if="modeEdit"
-             @click="destroy"
-             class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-primary">
-          <i class="mdi mdi-delete sm-mr-1"></i>
-          <span>Удалить</span>
-        </div>
-      </div>
-    </nav>
-
     <div class="card sm-m-4">
+      <nav v-if="note.canEdit"
+           class="sm-nav sm-bg-user-fon sm-color-dark sm-p-2">
+        <div class="sm-nav-start">
+          <div v-if="!modeEdit"
+               class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark"
+               @click="runEdit">
+            <i class="mdi mdi-pencil sm-mr-1"></i>
+            <span>Редактировать</span>
+          </div>
+          <div v-if="modeEdit"
+               @click="store"
+               class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark">
+            <i class="mdi mdi-content-save sm-mr-1"></i>
+            <span>Сохранить</span>
+          </div>
+          <div v-if="modeEdit"
+               @click="cancelEdit"
+               class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark">
+            <i class="mdi mdi-close sm-mr-1"></i>
+            <span>Отмена</span>
+          </div>
+          <div v-if="modeEdit"
+               @click="destroy"
+               class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark">
+            <i class="mdi mdi-delete sm-mr-1"></i>
+            <span>Удалить</span>
+          </div>
+        </div>
+      </nav>
+
       <div class="card-content">
         <div class="media">
           <div class="media-left">
@@ -215,6 +215,7 @@
     <b-loading :is-full-page="false"
                v-model="loading"
                :can-cancel="false"/>
+
   </section>
 </template>
 

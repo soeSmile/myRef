@@ -4,7 +4,7 @@
 
       <div class="sm-mb-2 sm-color-dark sm-fnt w600 sm-flex middle wide">
         <h4>Быстрый доступ</h4>
-        <b-button type="is-success"
+        <b-button type="is-dark"
                   size="is-small"
                   icon-right="plus"
                   @click="addSearchUrl"/>
