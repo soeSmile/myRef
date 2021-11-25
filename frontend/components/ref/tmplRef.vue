@@ -4,7 +4,7 @@
        target="_blank"
        :title="myRef.title">
 
-      <h2 class="sm-ref-title sm-fnt bold">
+      <h2 class="sm-ref-title sm-fnt bold sm-p-1">
         {{ getTitle(myRef.title) }}
       </h2>
 
