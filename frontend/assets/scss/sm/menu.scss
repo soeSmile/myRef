@@ -75,7 +75,7 @@
   Search Menu
  */
 .#{$prefix}menu-search {
-  background: map-get($sm-colors, 'white');
+  background: map-get($sm-colors, 'fon');
   display: flex;
   flex-direction: column;
   width: 300px;

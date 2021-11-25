@@ -31,7 +31,7 @@
                   @click="register">
           Регистрация
         </b-button>
-        <b-button type="is-link"
+        <b-button type="is-light"
                   @click="reset">
           Сброс
         </b-button>
