@@ -43,7 +43,7 @@ final class ApiImageController
         $imgFile = Image::make($image->getRealPath());
         $dir = storage_path('app/public/screen');
 
-        $imgFile->resize(200, 200, function ($constraint) {
+        $imgFile->resize(500, 500, function ($constraint) {
             $constraint->aspectRatio();
         })->save($dir . '/' . $fileName);
 

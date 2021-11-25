@@ -37,17 +37,24 @@
             <figure class="image sm-wpx-200">
               <img :src="getImage(link.img)" alt="">
             </figure>
-            <div v-if="modeEdit"
-                 class="buttons">
-              <b-button title="Заменить изображение"
-                        type="is-primary"
-                        size="is-small"
-                        icon-right="swap-horizontal"/>
-              <b-button title="Удалить изображение"
-                        type="is-danger"
-                        size="is-small"
-                        icon-right="close"/>
-            </div>
+            <b-field v-if="modeEdit"
+                     class="file is-primary sm-mt-2">
+              <b-upload v-model="image"
+                        @input="updateImage(link.id)"
+                        class="file-label">
+              <span class="file-cta">
+                  <b-icon class="file-icon"
+                          icon="upload"></b-icon>
+                  <span class="file-label">
+                    Max 2Mb
+                  </span>
+              </span>
+              </b-upload>
+            </b-field>
+            <p v-if="errors.image"
+               class="help is-danger"
+               v-html="$messageToStr(errors.image)">
+            </p>
           </div>
           <div class="media-content">
             <b-input v-if="modeEdit"
@@ -292,6 +299,7 @@ export default {
       errors   : {},
       minDate  : new Date(),
       modeEdit : false,
+      image    : null
     }
   },
 
@@ -454,7 +462,46 @@ export default {
      */
     getImage(img) {
       return img ? '/screen/' + img : '/no-image.jpg'
-    }
+    },
+
+    /**
+     * @param id
+     */
+    updateImage(id) {
+      if (this.image.size > this.$const.MAX_NOTE_FILE) {
+        this.errors.image = 'Размер больше ' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
+        return;
+      }
+
+      let formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('id', this.link.id);
+
+      this.loading = true
+      this.errors.image = null;
+
+      this.$axios.post('api/images', formData)
+          .then((res) => {
+            this.$buefy.toast.open({
+              message: 'Success !',
+              type   : 'is-success'
+            })
+            this.link.img = res.data.data;
+            this.copyLink.img = res.data.data;
+            this.image = null;
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+            this.$buefy.toast.open({
+              type                    : 'is-danger',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
+            });
+          })
+          .finally(() => {
+            this.loading = false
+          });
+    },
   }
 }
 </script>
