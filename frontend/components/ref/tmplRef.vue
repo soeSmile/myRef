@@ -83,7 +83,7 @@ export default {
       let image = myRef.img ? '/screen/' + myRef.img : '/no-image.jpg'
 
       if (myRef.type === this.$const.TYPE_NOTE) {
-        image = '/note.jpg';
+        image = myRef.img === 'note' ? '/note.jpg' : '/screen/' + myRef.img;
       }
 
       return 'background-image: url(\'' + image + '\');'
