@@ -1,7 +1,7 @@
 export const state = () => (
     {
         token    : null,
-        expiresIn: null,
+        expiresIn: 3600,
         user     : {},
         errors   : {}
     }
@@ -14,13 +14,12 @@ export const mutations = {
      */
     SET_TOKEN(state, data = {}) {
         state.token = data.token;
-        state.expiresIn = data.expiresIn;
+        state.expiresIn = data.expiresIn ? data.expiresIn * 60 : 3600;
         // set site
         this.$axios.setToken(data.token, 'Bearer');
         // set cookie
-        let maxAge = data.expiresIn ? data.expiresIn * 60 : -1;
         this.$cookies.set('token', data.token, {
-            maxAge  : maxAge,
+            maxAge  : state.expiresIn,
             path    : '/',
             sameSite: 'lax'
         });
