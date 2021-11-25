@@ -34,22 +34,27 @@
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="image is-128x128">
+            <figure class="image sm-wpx-200">
               <img :src="getImage(note.img)" alt="">
             </figure>
-            <div v-if="modeEdit"
-                 class="buttons">
-              <b-button @click="updateImage(note.id)"
-                        title="Заменить изображение"
-                        type="is-primary"
-                        size="is-small"
-                        icon-right="swap-horizontal"/>
-              <b-button @click="destroyImage(note.id)"
-                        title="Удалить изображение"
-                        type="is-danger"
-                        size="is-small"
-                        icon-right="close"/>
-            </div>
+            <b-field v-if="modeEdit"
+                     class="file is-primary sm-mt-2">
+              <b-upload v-model="image"
+                        @input="updateImage(note.id)"
+                        class="file-label">
+              <span class="file-cta">
+                  <b-icon class="file-icon"
+                          icon="upload"></b-icon>
+                  <span class="file-label">
+                    Max 2Mb
+                  </span>
+              </span>
+              </b-upload>
+            </b-field>
+            <p v-if="errors.image"
+               class="help is-danger"
+               v-html="$messageToStr(errors.image)">
+            </p>
           </div>
           <div class="media-content">
             <b-input v-if="modeEdit"
@@ -290,6 +295,7 @@ export default {
         ['clean']
       ],
       file         : null,
+      image        : null
     }
   },
 
@@ -460,7 +466,7 @@ export default {
      */
     uploadAttache(val) {
       if (val.size > this.$const.MAX_NOTE_FILE) {
-        this.errors.file = 'Размер больше' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
+        this.errors.file = 'Размер больше ' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
         return;
       }
 
@@ -468,7 +474,8 @@ export default {
       formData.append('file', val);
       formData.append('id', this.note.id);
 
-      this.loading = true
+      this.loading = true;
+      this.errors.file = null;
 
       this.$axios.post('api/notes/attache', formData)
           .then((res) => {
@@ -540,7 +547,39 @@ export default {
      * @param id
      */
     updateImage(id) {
+      if (this.image.size > this.$const.MAX_NOTE_FILE) {
+        this.errors.image = 'Размер больше ' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
+        return;
+      }
 
+      let formData = new FormData();
+      formData.append('image', this.image);
+      formData.append('id', this.note.id);
+
+      this.loading = true
+      this.errors.image = null;
+
+      this.$axios.post('api/images', formData)
+          .then((res) => {
+            this.$buefy.toast.open({
+              message: 'Success !',
+              type   : 'is-success'
+            })
+            this.note.img = res.data.data;
+            this.copyNote.img = res.data.data;
+            this.image = null;
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+            this.$buefy.toast.open({
+              type                    : 'is-danger',
+              dangerouslyUseHTMLString: true,
+              message                 : this.$messageToStr(this.errors),
+            });
+          })
+          .finally(() => {
+            this.loading = false
+          });
     },
 
     /**

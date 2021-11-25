@@ -9,6 +9,8 @@ use App\Http\Requests\Image\ImageUpdateRequest;
 use App\Repository\LinkRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\Facades\Image;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 
 /**
@@ -30,11 +32,30 @@ final class ApiImageController
     }
 
     /**
-     * @param $id
      * @param ImageUpdateRequest $request
+     * @return JsonResponse
      */
-    public function update($id, ImageUpdateRequest $request)
+    public function store(ImageUpdateRequest $request): JsonResponse
     {
+        $image = $request->file('image');
+        $fileName = Uuid::uuid6()->toString() . '.' . $image->getClientOriginalExtension();
+
+        $imgFile = Image::make($image->getRealPath());
+        $dir = storage_path('app/public/screen');
+
+        $imgFile->resize(200, 200, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($dir . '/' . $fileName);
+
+        try {
+            $result = $this->linkRepository->updateImage($request->id, $fileName);
+        } catch (Throwable $exception) {
+            $result = false;
+            $data['error'] = 'Error! See logs!';
+            Log::error($exception->getMessage());
+        }
+
+        return response()->json(['data' => $fileName, 'errors' => $data['error'] ?? ''], $result ? 200 : 400);
     }
 
     /**

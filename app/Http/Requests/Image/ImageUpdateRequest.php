@@ -28,12 +28,12 @@ class ImageUpdateRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['id' => "string", 'file' => "string"])]
+    #[ArrayShape(['id' => "string", 'image' => "string"])]
     public function rules(): array
     {
         return [
-            'id'   => 'required|exists:links',
-            'file' => 'required|file'
+            'id'    => 'required|exists:links',
+            'image' => 'required|file|mimes:jpg,jpeg,png,gif,svg|max:' . Link::MAX_NOTE_FILE
         ];
     }
 }

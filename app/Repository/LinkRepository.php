@@ -163,6 +163,22 @@ final class LinkRepository extends AbstractRepository
 
     /**
      * @param $id
+     * @param string $image
+     * @return bool
+     */
+    public function updateImage($id, string $image): bool
+    {
+        $item = $this->newQuery()->find($id);
+
+        if ($item->img && $item->img !== 'note') {
+            \Storage::delete('public/screen/' . $item->img);
+        }
+
+        return $item && $item->update(['img' => $image]);
+    }
+
+    /**
+     * @param $id
      * @return bool
      */
     public function destroyImage($id): bool

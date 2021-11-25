@@ -34,7 +34,7 @@
       <div class="card-content">
         <div class="media">
           <div class="media-left">
-            <figure class="image is-128x128">
+            <figure class="image sm-wpx-200">
               <img :src="getImage(link.img)" alt="">
             </figure>
             <div v-if="modeEdit"

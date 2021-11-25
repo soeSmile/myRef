@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], static function () {
     Route::apiResource('notes', ApiNoteController::class)->only('store', 'update');
 
     // Images note and links
-    Route::apiResource('images', ApiImageController::class)->only('update', 'destroy');
+    Route::apiResource('images', ApiImageController::class)->only('store', 'destroy');
 
     /**
      * Client Routers
