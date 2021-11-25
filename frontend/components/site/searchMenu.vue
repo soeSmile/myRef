@@ -295,19 +295,23 @@ export default {
       for (let i in query) {
         switch (i) {
           case 'type' : {
-            this.request.type = parseInt(query[i] || 1, 10)
+            this.request.type = parseInt(query[i] || 1, 10);
             break;
           }
           case 'flag' : {
-            this.request.flag = parseInt(query[i] || 1, 10)
+            this.request.flag = parseInt(query[i] || 1, 10);
             break;
           }
           case 'cats' : {
-            this.request.cats = this.categories.filter(x => JSON.parse(query[i] || []).includes(x.id))
+            this.request.cats = this.categories.filter(x => JSON.parse(query[i] || []).includes(x.id));
             break;
           }
           case 'tags' : {
             this.setTags(JSON.parse(query[i] || []));
+            break;
+          }
+          case 'owner' : {
+            this.request.owner = query[i];
             break;
           }
         }
