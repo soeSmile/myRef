@@ -48,7 +48,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('links/getLinks', {})
+    this.$store.dispatch('links/getLinks', this.$route.query)
   },
 }
 </script>
