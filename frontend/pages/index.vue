@@ -32,6 +32,12 @@ export default {
     return {}
   },
 
+  watch: {
+    '$route.query'(to, from) {
+      this.$store.dispatch('links/getLinks', to)
+    }
+  },
+
   computed: {
     links() {
       return this.$store.getters['links/links'];
@@ -41,6 +47,8 @@ export default {
     }
   },
 
-  methods: {}
+  created() {
+    this.$store.dispatch('links/getLinks', {})
+  },
 }
 </script>
