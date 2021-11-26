@@ -34,7 +34,7 @@ export default {
 
   watch: {
     '$route.query'(to, from) {
-      this.$store.dispatch('links/getLinks', to)
+      this.$store.dispatch('links/getLinks', to);
     }
   },
 
@@ -48,7 +48,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('links/getLinks', this.$route.query)
+    this.$store.dispatch('links/getLinks', this.$route.query);
   },
 }
 </script>
