@@ -12,7 +12,7 @@
       <n-link v-for="(val,key) in user.links"
               :key="val.id"
               :to="{path : '/', query: JSON.parse(val.link)}"
-              class="item">
+              class="item sm-color-dark sm-hover-gray-2">
         <i class="mdi mdi-close remove"
            @click.stop="deleteSearchUrl(key)"></i>
         <i class="mdi mdi-pencil edit"
