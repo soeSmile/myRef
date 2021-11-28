@@ -18,10 +18,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request): JsonResponse
     {
-        if ($request->route('auth.me')) {
-            \Log::debug('me', $request->toArray());
-        }
-
         if (!$request->expectsJson()) {
             abort(404);
         }
