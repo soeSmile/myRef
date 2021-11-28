@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Middleware;
@@ -17,6 +18,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request): JsonResponse
     {
+        if ($request->route('auth.me')) {
+            \Log::debug('me', $request->toArray());
+        }
+
         if (!$request->expectsJson()) {
             abort(404);
         }
