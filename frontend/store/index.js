@@ -14,17 +14,12 @@ export const actions = {
      * @param redirect
      * @return {Promise<void>}
      */
-    async nuxtServerInit({commit}, {app, req, store, redirect}) {
+    async nuxtServerInit({commit}, {app, store, redirect}) {
 
         await store.dispatch('category/getCategories')
 
         // user && token
         const token = app.$cookies.get('token');
-
-        console.log(req.headers.cookie)
-        console.log(req.headers)
-        console.log(token)
-
 
         if (token) {
             commit('auth/SET_TOKEN', {token: token});

@@ -14,13 +14,12 @@ export const mutations = {
      */
     SET_TOKEN(state, data = {}) {
         state.token = data.token;
-        state.expiresIn = data.expiresIn ? data.expiresIn * 60 : 3600;
-        // set site
+        // set token
         this.$axios.setToken(data.token, 'Bearer');
         // set cookie
         this.$cookies.set('token', data.token, {
-            maxAge  : state.expiresIn,
             path    : '/',
+            maxAge  : 60 * 60 * 24 * 7,
             sameSite: 'lax'
         });
     },
