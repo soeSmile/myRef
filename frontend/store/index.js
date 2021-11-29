@@ -21,12 +21,7 @@ export const actions = {
         // user && token
         const token = app.$cookies.get('token');
 
-        if (req) {
-            if (req.headers.cookie) {
-                const cookie = req.headers.cookie.split(';');
-                console.log(cookie)
-            }
-        }
+        console.log(req.headers.cookie)
 
 
         if (token) {
