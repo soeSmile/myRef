@@ -22,7 +22,7 @@ export const actions = {
         const token = app.$cookies.get('token');
 
         console.log(req.headers.cookie)
-        console.log(req)
+        console.log(req.headers)
         console.log(token)
 
 
