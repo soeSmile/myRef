@@ -20,6 +20,7 @@ export const actions = {
 
         // user && token
         const token = app.$cookies.get('token');
+        console.log(token)
 
         if (token) {
             commit('auth/SET_TOKEN', {token: token});
