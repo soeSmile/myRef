@@ -14,13 +14,20 @@ export const actions = {
      * @param redirect
      * @return {Promise<void>}
      */
-    async nuxtServerInit({commit}, {app, store, redirect}) {
+    async nuxtServerInit({commit}, {app, req, store, redirect}) {
 
         await store.dispatch('category/getCategories')
 
         // user && token
         const token = app.$cookies.get('token');
-        console.log(token, document.cookie)
+
+        if (req) {
+            if (req.headers.cookie) {
+                const cookie = req.headers.cookie.split(';');
+                console.log(cookie)
+            }
+        }
+
 
         if (token) {
             commit('auth/SET_TOKEN', {token: token});
@@ -28,9 +35,7 @@ export const actions = {
             try {
                 const user = await this.$axios.post('api/me');
                 commit('auth/SET_USER', {user: user.data.data});
-                console.log(user.data.data)
             } catch (e) {
-                console.log(e)
                 commit('auth/SET_TOKEN');
                 redirect('/')
             }
