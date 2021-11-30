@@ -55,6 +55,8 @@ export default {
      * add ref
      */
     addRef() {
+      this.$parent.$emit('change', false);
+
       this.$buefy.modal.open({
         parent      : this,
         component   : addRef,
@@ -68,6 +70,8 @@ export default {
      * add note
      */
     addNote() {
+      this.$parent.$emit('change', false);
+
       this.$buefy.modal.open({
         parent      : this,
         component   : addNote,

@@ -3,7 +3,7 @@
        :class="{ 'active' : show }">
     <div class="sm-flex middle sm-p-5"
          :class="show ? 'right' : 'center'">
-      <i @click="show = !show"
+      <i @click="$emit('change', !show)"
          class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-danger"></i>
     </div>
 
@@ -56,7 +56,6 @@
     </div>
 
     <site-menu-main :show="show"/>
-
   </nav>
 </template>
 
@@ -75,9 +74,12 @@ export default {
     siteMenuMain
   },
 
+  props: {
+    show: false
+  },
+
   data() {
     return {
-      show: false,
       menu: {
         exit: 'Выход'
       }
