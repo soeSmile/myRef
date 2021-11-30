@@ -4,7 +4,8 @@
     <aside class="sm-layout-menu">
       <site-menu :show="showMainMenu"
                  @change="changeShowMainMenu"/>
-      <search-menu/>
+      <search-menu :show="showSearchMenu"
+                   @change="changeSearchMenu"/>
     </aside>
 
     <div @click="changeShowMainMenu(!showMainMenu)"
@@ -17,7 +18,7 @@
         <nav class="sm-nav sm-menu-head">
           <div class="sm-nav-start">
             <div class="sm-flex middle left sm-px-4">
-              <i @click="changeShowMainMenu"
+              <i @click="changeShowMainMenu(!showMainMenu)"
                  class="mdi mdi-menu sm-link sm-fnt size-4 sm-color-danger"></i>
             </div>
           </div>
@@ -28,7 +29,7 @@
           </div>
           <div class="sm-nav-end">
             <div class="sm-flex middle right sm-px-4">
-              <i @click="changeSearchMenu"
+              <i @click="changeSearchMenu(!showSearchMenu)"
                  class="mdi mdi-magnify sm-link sm-fnt size-4 sm-color-danger"></i>
             </div>
           </div>

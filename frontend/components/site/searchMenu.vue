@@ -1,5 +1,6 @@
 <template>
-  <nav class="sm-menu-search">
+  <nav class="sm-menu-search"
+       :class="{'active':show}">
     <div class="search">
       <b-field>
         <b-input placeholder="Глобальный поиск"
@@ -113,7 +114,9 @@ export default {
     SearchUserMenu
   },
 
-  props: {},
+  props: {
+    show: false
+  },
 
   data() {
     return {
@@ -264,6 +267,7 @@ export default {
      * search
      */
     searchRequest() {
+      this.$emit('change');
       this.$router.push({path: '/', query: this.makeRequest()});
     },
 
@@ -271,6 +275,7 @@ export default {
      * reset
      */
     resetRequest() {
+      this.$emit('change');
       this.request = {
         type : 3,
         flag : 1,
