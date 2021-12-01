@@ -13,12 +13,14 @@
       </div>
     </a>
 
-    <n-link v-if="myRef.category"
-            class="sm-ref-category sm-p-2"
-            :to="'/?type=3&cats=['+myRef.category.id+']'">
-      <i :class="'mdi '+ myRef.category.icon"></i>
-      {{ myRef.category.name }}
-    </n-link>
+    <div class="sm-ref-category">
+      <n-link v-if="myRef.category"
+              class="sm-p-2"
+              :to="'/?type=3&cats=['+myRef.category.id+']'">
+        <i :class="'mdi '+ myRef.category.icon"></i>
+        {{ myRef.category.name }}
+      </n-link>
+    </div>
 
     <footer class="card-footer sm-mt-2">
       <div class="card-footer-item">

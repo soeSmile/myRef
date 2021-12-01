@@ -32,8 +32,17 @@
       </nav>
 
       <div class="card-content">
+        <header class="sm-pt-2 sm-pb-4">
+          <b-input v-if="modeEdit"
+                   v-model="link.title"/>
+          <h1 v-else
+              class="title is-4">
+            {{ link.title }}
+          </h1>
+        </header>
+
         <div class="media">
-          <div class="media-left">
+          <div class="card-image">
             <figure class="image sm-wpx-200">
               <img :src="getImage(link.img)" alt="">
             </figure>
@@ -56,18 +65,9 @@
                v-html="$messageToStr(errors.image)">
             </p>
           </div>
-          <div class="media-content">
-            <b-input v-if="modeEdit"
-                     v-model="link.title"/>
-            <h1 v-else
-                class="title is-4">
-              {{ link.title }}
-            </h1>
-          </div>
         </div>
 
         <div class="content">
-
           <div class="sm-site-ref-item">
             <div class="ref-title">
               Описание

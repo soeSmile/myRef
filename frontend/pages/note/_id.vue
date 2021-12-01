@@ -32,8 +32,17 @@
       </nav>
 
       <div class="card-content">
+        <header class="sm-pt-2 sm-pb-4">
+          <b-input v-if="modeEdit"
+                   v-model="note.title"/>
+          <h1 v-else
+              class="title is-4">
+            {{ note.title }}
+          </h1>
+        </header>
+
         <div class="media">
-          <div class="media-left">
+          <div class="card-image">
             <figure class="image sm-wpx-200">
               <img :src="getImage(note.img)" alt="">
             </figure>
@@ -55,14 +64,6 @@
                class="help is-danger"
                v-html="$messageToStr(errors.image)">
             </p>
-          </div>
-          <div class="media-content">
-            <b-input v-if="modeEdit"
-                     v-model="note.title"/>
-            <h1 v-else
-                class="title is-4">
-              {{ note.title }}
-            </h1>
           </div>
         </div>
 
