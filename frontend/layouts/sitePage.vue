@@ -2,7 +2,7 @@
   <section class="sm-layout">
     <section class="sm-layout-wrap">
       <header class="sm-layout-header">
-        <nav class="sm-nav sm-menu-head">
+        <nav class="sm-nav sm-page-menu-head">
           <div class="sm-nav-start"></div>
           <div class="sm-nav-center">
             <n-link class="item sm-fnt 600"
