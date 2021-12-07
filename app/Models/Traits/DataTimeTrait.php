@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models\Traits;
@@ -13,6 +14,8 @@ use Carbon\Carbon;
  */
 trait DataTimeTrait
 {
+    private int $defaultTz = 3;
+
     /**
      * изменение поля created_at
      *
@@ -21,9 +24,9 @@ trait DataTimeTrait
      */
     public function getCreatedAtAttribute($date): string
     {
-        $tz = auth()->check() ? auth()->user()->time_zone : null;
+        $tz = auth()->check() ? auth()->user()->time_zone : $this->defaultTz;
 
-        return $date ? Carbon::parse($date)->timezone($tz ?? 3)->format('H:i:s d-m-Y') : '';
+        return $date ? Carbon::parse($date)->timezone($tz)->format('H:i:s d-m-Y') : '';
     }
 
 
@@ -35,8 +38,8 @@ trait DataTimeTrait
      */
     public function getUpdatedAtAttribute($date): string
     {
-        $tz = auth()->check() ? auth()->user()->time_zone : null;
+        $tz = auth()->check() ? auth()->user()->time_zone : $this->defaultTz;
 
-        return $date ? Carbon::parse($date)->timezone($tz ?? 3)->format('H:i:s d-m-Y') : '';
+        return $date ? Carbon::parse($date)->timezone($tz)->format('H:i:s d-m-Y') : '';
     }
 }

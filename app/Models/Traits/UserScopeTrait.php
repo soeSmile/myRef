@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 trait UserScopeTrait
 {
     /**
-     * выбор по пользователю поле user_id
+     * Выбор по пользователю поле user_id
      */
     protected static function bootUserScopeTrait(): void
     {

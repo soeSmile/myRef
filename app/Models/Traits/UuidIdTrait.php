@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 trait UuidIdTrait
 {
     /**
-     * генерация id
+     * Генерация id
      */
     protected static function bootUuidIdTrait(): void
     {

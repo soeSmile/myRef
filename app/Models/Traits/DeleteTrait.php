@@ -13,7 +13,7 @@ use ReflectionException;
 trait DeleteTrait
 {
     /**
-     * каскадное удаление
+     * Каскадное удаление
      * у модели должен быть массив deleted с данными связей для удаления
      * @throws ReflectionException
      */
