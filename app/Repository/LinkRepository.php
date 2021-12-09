@@ -100,6 +100,7 @@ final class LinkRepository extends AbstractRepository
             $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
         }
 
+        $this->getQuery()->latest();
 
         return $this->getQuery()->paginate($dto->getDataByKey('count') ?? self::COUNT);
     }
