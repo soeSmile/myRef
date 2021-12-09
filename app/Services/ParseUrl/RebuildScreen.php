@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\ParseUrl;
 
+use App\Models\Link;
 use App\Repository\Dto\LinkUpdateImageDto;
 use App\Repository\LinkRepository;
 
@@ -45,7 +47,7 @@ final class RebuildScreen
         $query = $this->linkRepository->getQuery();
 
         if ($ids !== []) {
-            $query->whereIn('id', $ids);
+            $query->whereIn('id', $ids)->where('type', Link::TYPE_LINK);
         }
 
         $query->chunk(self::CHUNK, function ($links) {

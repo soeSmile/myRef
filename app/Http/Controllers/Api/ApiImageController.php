@@ -38,14 +38,14 @@ final class ApiImageController
     public function store(ImageUpdateRequest $request): JsonResponse
     {
         $image = $request->file('image');
-        $fileName = Uuid::uuid6()->toString() . '.' . $image->getClientOriginalExtension();
+        $fileName = Uuid::uuid6()->toString() . '.webp';
 
         $imgFile = Image::make($image->getRealPath());
         $dir = storage_path('app/public/screen');
 
         $imgFile->resize(500, 500, function ($constraint) {
             $constraint->aspectRatio();
-        })->save($dir . '/' . $fileName);
+        })->save($dir . '/' . $fileName, 100, 'webp');
 
         try {
             $result = $this->linkRepository->updateImage($request->id, $fileName);

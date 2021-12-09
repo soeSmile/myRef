@@ -26,8 +26,10 @@ final class MakeScreen
 
         try {
             $response = $this->request($url);
-            // \file_put_contents($fullPath, $response->body());
-            Image::make($response->body())->save($fullPath,100, 'webp');
+            $imgFile = Image::make($response->body());
+            $imgFile->resize(500, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($fullPath, 100, 'webp');
         } catch (\Throwable $e) {
             Log::error('Error make screen', [$e->getMessage()]);
             $fileName = '';
@@ -71,6 +73,6 @@ final class MakeScreen
      */
     private function getFileName(): string
     {
-        return Uuid::uuid6()->toString();
+        return Uuid::uuid6()->toString() . '.webp';
     }
 }
