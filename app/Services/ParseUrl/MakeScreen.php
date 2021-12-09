@@ -6,6 +6,7 @@ namespace App\Services\ParseUrl;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Intervention\Image\Facades\Image;
 use Log;
 use Ramsey\Uuid\Uuid;
 
@@ -25,7 +26,8 @@ final class MakeScreen
 
         try {
             $response = $this->request($url);
-            \file_put_contents($fullPath, $response->body());
+            // \file_put_contents($fullPath, $response->body());
+            Image::make($response->body())->save($fullPath,100, 'webp');
         } catch (\Throwable $e) {
             Log::error('Error make screen', [$e->getMessage()]);
             $fileName = '';
@@ -69,6 +71,6 @@ final class MakeScreen
      */
     private function getFileName(): string
     {
-        return Uuid::uuid6()->toString() . '.jpg';
+        return Uuid::uuid6()->toString();
     }
 }
