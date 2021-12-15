@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Transactions;
@@ -31,6 +32,7 @@ final class LinkTransaction extends AbstractTransaction
 
         try {
             $item = $repository->store($dto);
+            $repository->setLinkToUser($dto->getDataByKey('user_id'), $item->id);
             $this->storeTag($dto, $repository, $item->id);
             $this->storeEvent($dto, $repository, $item->id);
             $this->moveFile($dto, $item->id);

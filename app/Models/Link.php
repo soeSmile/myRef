@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -13,12 +14,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
+ * @property string $id
+ * @property string $title
+ * @property string $desc
+ * @property string $url
+ * @property string $img
+ * @property int category_id
+ * @property string $user_id
+ * @property int $flag
+ * @property string $comment
+ * @property int $type
+ * @property string $body
+ * @property string $body_text
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $file
+ *
+ * @property-read BelongsTo $category
+ * @property-read BelongsTo $user
+ * @property-read BelongsToMany $tags
+ * @property-read HasOne $cache
+ * @property-read BelongsToMany $userLinks
+ *
  * Class Link
  * @package App\Models
  */
 class Link extends Model
 {
-    use HasFactory, DataTimeTrait, UuidIdTrait, DeleteTrait;
+    use DataTimeTrait;
+    use DeleteTrait;
+    use HasFactory;
+    use UuidIdTrait;
 
     /**
      * @var int
@@ -44,10 +70,16 @@ class Link extends Model
      * @var int
      */
     public const TYPE_LINK_AND_NOTE = 3;
+
     /**
      * @var string
      */
     public const TAG_TABLE = 'link_to_tag';
+
+    /**
+     * @var string
+     */
+    public const USER_LINK_TABLE = 'user_to_links';
 
     /**
      * @var int
@@ -110,6 +142,14 @@ class Link extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function userLinks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, self::USER_LINK_TABLE);
+    }
+
+    /**
      * @return bool
      */
     public function isOwner(): bool
@@ -131,5 +171,21 @@ class Link extends Model
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canDelete(): bool
+    {
+        $result = false;
+
+        if (auth()->check()) {
+            $result = $this->userLinks()
+                ->where('user_id', '<>', auth()->id())
+                ->exists();
+        }
+
+        return $result;
     }
 }

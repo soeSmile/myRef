@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
@@ -7,6 +8,7 @@ use App\Http\Requests\Link\LinkDestroyRequest;
 use App\Http\Requests\Link\LinkStoreRequest;
 use App\Http\Requests\Link\LinkUpdateRequest;
 use App\Http\Resources\Link\LinkResource;
+use App\Http\Resources\Link\LinkShowResource;
 use App\Jobs\MakeScreenJob;
 use App\Repository\Dto\LinkSearchDto;
 use App\Repository\Dto\LinkStoreDto;
@@ -57,11 +59,11 @@ final class ApiLinkController
 
     /**
      * @param $id
-     * @return LinkResource
+     * @return LinkShowResource
      */
-    public function show($id): LinkResource
+    public function show($id): LinkShowResource
     {
-        return new LinkResource($this->link->get($id));
+        return new LinkShowResource($this->link->get($id));
     }
 
     /**

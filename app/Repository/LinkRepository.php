@@ -10,6 +10,7 @@ use App\Repository\Transactions\LinkTransaction;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Throwable;
 
 /**
@@ -93,8 +94,9 @@ final class LinkRepository extends AbstractRepository
         // только свои все
         if (isClient() && $dto->hasKey('owner')) {
             $this->getQuery()
-                ->where('user_id', auth()->id())
-                ->whereIn('flag', [Link::FLAG_PRIVAT, Link::FLAG_PUBLIC]);
+                ->whereHas('userLinks', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
         } else {
             // остальным только публичные
             $this->getQuery()->where('flag', Link::FLAG_PUBLIC);
@@ -142,8 +144,7 @@ final class LinkRepository extends AbstractRepository
      */
     public function storeTag(array $linkToTag): bool
     {
-        return DB::table(Link::TAG_TABLE)
-            ->insert($linkToTag);
+        return DB::table(Link::TAG_TABLE)->insert($linkToTag);
     }
 
     /**
@@ -187,5 +188,32 @@ final class LinkRepository extends AbstractRepository
         $item = $this->newQuery()->find($id);
 
         return $item && $item->update(['img' => 'note']);
+    }
+
+    /**
+     * @param string $userId
+     * @param string $linkId
+     * @return bool
+     */
+    public function setLinkToUser(string $userId, string $linkId): bool
+    {
+        return DB::table(Link::USER_LINK_TABLE)
+            ->insert([
+                'user_id' => $userId,
+                'link_id' => $linkId
+            ]);
+    }
+
+    /**
+     * @param string $userId
+     * @param array $linksIds
+     * @return int
+     */
+    public function unsetLinksToUser(string $userId, array $linksIds): int
+    {
+        return DB::table(Link::USER_LINK_TABLE)
+            ->where('user_id', $userId)
+            ->whereIn('link_id', $linksIds)
+            ->delete();
     }
 }
