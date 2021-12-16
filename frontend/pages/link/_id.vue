@@ -28,7 +28,7 @@
             <i class="mdi mdi-delete sm-mr-1"></i>
             <span>Удалить</span>
           </div>
-          <div v-if="modeEdit && !note.canDelete"
+          <div v-if="modeEdit && !link.canDelete"
                class="sm-nav-item sm-ftn bold sm-color-warning">
             Удалить невоможно. Закладка добавлена в избранное.
           </div>
