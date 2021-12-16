@@ -22,7 +22,7 @@
             <i class="mdi mdi-close sm-mr-1"></i>
             <span>Отмена</span>
           </div>
-          <div v-if="modeEdit"
+          <div v-if="modeEdit && link.canDelete"
                @click="destroy"
                class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark">
             <i class="mdi mdi-delete sm-mr-1"></i>
@@ -257,49 +257,49 @@
 
 <script>
 export default {
-  name: "site_link_id",
+  name: 'site_link_id',
 
   layout: 'site',
 
-  head() {
+  head () {
     return {
-      title: this.link.title
+      title: this.link.title,
     }
   },
 
-  async fetch() {
+  async fetch () {
     if (this.$route.params.id) {
-      await this.$axios.get('api/links/' + this.$route.params.id)
-          .then(response => {
-            this.link = response.data.data;
-          });
+      await this.$axios.get('api/links/' + this.$route.params.id).then(response => {
+        this.link = response.data.data
+      })
     }
   },
 
-  data() {
+  data () {
     return {
-      loading  : false,
-      link     : {
-        title   : null,
-        desc    : null,
-        url     : null,
-        img     : null,
+      loading: false,
+      link: {
+        title: null,
+        desc: null,
+        url: null,
+        img: null,
         category: {},
-        user    : {},
-        tags    : [],
-        comment : null,
-        date    : null,
-        cache   : false,
-        canEdit : false,
-        flag    : null
+        user: {},
+        tags: [],
+        comment: null,
+        date: null,
+        cache: false,
+        canEdit: false,
+        canDelete: false,
+        flag: null,
       },
-      copyLink : {},
+      copyLink: {},
       selectTag: null,
-      tags     : [],
-      errors   : {},
-      minDate  : new Date(),
-      modeEdit : false,
-      image    : null
+      tags: [],
+      errors: {},
+      minDate: new Date(),
+      modeEdit: false,
+      image: null,
     }
   },
 
@@ -308,24 +308,24 @@ export default {
      * категории
      * @return {array}
      */
-    categories() {
-      return this.$store.getters['category/categories'];
-    }
+    categories () {
+      return this.$store.getters['category/categories']
+    },
   },
 
   methods: {
     /**
      * перевести в режим редактирования
      */
-    runEdit() {
-      this.copyLink = JSON.parse(JSON.stringify(this.link));
+    runEdit () {
+      this.copyLink = JSON.parse(JSON.stringify(this.link))
       this.modeEdit = true
     },
 
     /**
      * отмена редактирования
      */
-    cancelEdit() {
+    cancelEdit () {
       this.link = Object.assign({}, this.copyLink)
       this.modeEdit = false
     },
@@ -333,113 +333,105 @@ export default {
     /**
      * сохранить изменения
      */
-    store() {
+    store () {
       this.loading = true
 
-      this.$axios.put('api/links/' + this.link.id, this.prepareData(this.link))
-          .then(() => {
-            this.$buefy.toast.open({
-              message: 'Saved !',
-              type   : 'is-success'
-            });
+      this.$axios.put('api/links/' + this.link.id, this.prepareData(this.link)).then(() => {
+        this.$buefy.toast.open({
+          message: 'Saved !',
+          type: 'is-success',
+        })
 
-            this.copyLink = JSON.parse(JSON.stringify(this.link));
-          })
-          .catch(e => {
-            this.errors = e.response.data.errors;
-            this.$buefy.toast.open({
-              type                    : 'is-danger',
-              dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
-            });
-            this.cancelEdit()
-          })
-          .finally(() => {
-            this.loading = false
-            this.modeEdit = false
-          })
+        this.copyLink = JSON.parse(JSON.stringify(this.link))
+      }).catch(e => {
+        this.errors = e.response.data.errors
+        this.$buefy.toast.open({
+          type: 'is-danger',
+          dangerouslyUseHTMLString: true,
+          message: this.$messageToStr(this.errors),
+        })
+        this.cancelEdit()
+      }).finally(() => {
+        this.loading = false
+        this.modeEdit = false
+      })
     },
 
     /**
      * delete link
      */
-    destroy() {
+    destroy () {
       this.$buefy.dialog.confirm({
-        title      : 'Удалить',
-        message    : 'Удалить ссылку ?',
+        title: 'Удалить',
+        message: 'Удалить ссылку ?',
         confirmText: 'Да',
-        type       : 'is-danger',
-        hasIcon    : true,
-        onConfirm  : () => {
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
           this.loading = true
 
-          this.$axios.delete('api/links/' + this.link.id)
-              .then(() => {
-                this.$buefy.toast.open({
-                  message: 'Success !',
-                  type   : 'is-success'
-                })
-                this.$router.push('/')
-              })
-              .catch(e => {
-                this.errors = e.response.data.errors;
-                this.$buefy.toast.open({
-                  type                    : 'is-danger',
-                  dangerouslyUseHTMLString: true,
-                  message                 : this.$messageToStr(this.errors),
-                })
-                this.cancelEdit()
-              })
-              .finally(() => {
-                this.loading = false
-                this.modeEdit = false
-              })
-        }
-      });
+          this.$axios.delete('api/links/' + this.link.id).then(() => {
+            this.$buefy.toast.open({
+              message: 'Success !',
+              type: 'is-success',
+            })
+            this.$router.push('/')
+          }).catch(e => {
+            this.errors = e.response.data.errors
+            this.$buefy.toast.open({
+              type: 'is-danger',
+              dangerouslyUseHTMLString: true,
+              message: this.$messageToStr(this.errors),
+            })
+            this.cancelEdit()
+          }).finally(() => {
+            this.loading = false
+            this.modeEdit = false
+          })
+        },
+      })
     },
 
     /**
      * @return {{}}
      */
-    prepareData(ref) {
+    prepareData (ref) {
       return {
-        id        : ref.id,
-        title     : ref.title,
-        url       : ref.url,
-        desc      : ref.desc,
+        id: ref.id,
+        title: ref.title,
+        url: ref.url,
+        desc: ref.desc,
         categoryId: ref.category ? ref.category.id : null,
-        tags      : ref.tags.length === 0 ? null : ref.tags,
-        date      : ref.date,
-        comment   : ref.comment,
-        cache     : ref.cache,
-        flag      : ref.flag
+        tags: ref.tags.length === 0 ? null : ref.tags,
+        date: ref.date,
+        comment: ref.comment,
+        cache: ref.cache,
+        flag: ref.flag,
       }
     },
 
     /**
      * @param tag
      */
-    getTags(tag) {
+    getTags (tag) {
       if (tag.length >= this.$const.TAG_LENGTH) {
         this.tags = []
 
-        this.$axios.get('/api/tags', {params: {tag: tag}})
-            .then(response => {
-              if (response.data.data.length > 0) {
-                this.tags = response.data.data;
-              } else {
-                this.tags.push({id: tag, name: tag, new: true})
-              }
-            })
-            .catch(error => {
-            })
+        this.$axios.get('/api/tags', { params: { tag: tag } }).then(response => {
+          if (response.data.data.length > 0) {
+            this.tags = response.data.data
+          } else {
+            this.tags.push({ id: tag, name: tag, new: true })
+          }
+        }).catch(error => {
+        })
       }
     },
 
     /**
      * @param item
      */
-    insertTag(item) {
+    insertTag (item) {
       this.selectTag = null
       this.tags = []
       let id = this.link.tags.find(x => x.id === item.id)
@@ -452,7 +444,7 @@ export default {
     /**
      * @param key
      */
-    removeTag(key) {
+    removeTag (key) {
       this.link.tags.splice(key, 1)
     },
 
@@ -460,48 +452,45 @@ export default {
      * @param img
      * @return {string}
      */
-    getImage(img) {
+    getImage (img) {
       return img ? '/screen/' + img : '/no-image.jpg'
     },
 
     /**
      * @param id
      */
-    updateImage(id) {
+    updateImage (id) {
       if (this.image.size > this.$const.MAX_NOTE_FILE) {
-        this.errors.image = 'Размер больше ' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb';
-        return;
+        this.errors.image = 'Размер больше ' + Math.trunc(this.$const.MAX_NOTE_FILE / 1024 / 1024) + 'Mb'
+        return
       }
 
-      let formData = new FormData();
-      formData.append('image', this.image);
-      formData.append('id', this.link.id);
+      let formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('id', this.link.id)
 
       this.loading = true
-      this.errors.image = null;
+      this.errors.image = null
 
-      this.$axios.post('api/images', formData)
-          .then((res) => {
-            this.$buefy.toast.open({
-              message: 'Success !',
-              type   : 'is-success'
-            })
-            this.link.img = res.data.data;
-            this.copyLink.img = res.data.data;
-            this.image = null;
-          })
-          .catch(e => {
-            this.errors = e.response.data.errors;
-            this.$buefy.toast.open({
-              type                    : 'is-danger',
-              dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
-            });
-          })
-          .finally(() => {
-            this.loading = false
-          });
+      this.$axios.post('api/images', formData).then((res) => {
+        this.$buefy.toast.open({
+          message: 'Success !',
+          type: 'is-success',
+        })
+        this.link.img = res.data.data
+        this.copyLink.img = res.data.data
+        this.image = null
+      }).catch(e => {
+        this.errors = e.response.data.errors
+        this.$buefy.toast.open({
+          type: 'is-danger',
+          dangerouslyUseHTMLString: true,
+          message: this.$messageToStr(this.errors),
+        })
+      }).finally(() => {
+        this.loading = false
+      })
     },
-  }
+  },
 }
 </script>

@@ -22,7 +22,7 @@
             <i class="mdi mdi-close sm-mr-1"></i>
             <span>Отмена</span>
           </div>
-          <div v-if="modeEdit"
+          <div v-if="modeEdit && note.canDelete"
                @click="destroy"
                class="sm-nav-item sm-px-4 sm-py-2 sm-m-1 sm-radius-3 sm-link sm-hover-white sm-hover-bg-dark">
             <i class="mdi mdi-delete sm-mr-1"></i>
@@ -261,25 +261,26 @@ export default {
 
   data() {
     return {
-      loading      : false,
-      note         : {
-        title   : null,
+      loading: false,
+      note: {
+        title: null,
         category: {},
-        user    : {},
-        tags    : [],
-        date    : null,
-        body    : null,
-        flag    : null,
-        type    : null,
-        file    : null,
-        canEdit : false
+        user: {},
+        tags: [],
+        date: null,
+        body: null,
+        flag: null,
+        type: null,
+        file: null,
+        canEdit: false,
+        canDelete: false
       },
-      copyNote     : {},
-      selectTag    : null,
-      tags         : [],
-      errors       : {},
-      minDate      : new Date(),
-      modeEdit     : false,
+      copyNote: {},
+      selectTag: null,
+      tags: [],
+      errors: {},
+      minDate: new Date(),
+      modeEdit: false,
       customToolbar: [
         ['bold', 'italic', 'underline', 'strike'],
         ['blockquote', 'code-block'],
@@ -295,8 +296,8 @@ export default {
         [{'align': []}],
         ['clean']
       ],
-      file         : null,
-      image        : null
+      file: null,
+      image: null
     }
   },
 
@@ -331,7 +332,7 @@ export default {
     store() {
       this.loading = true
       let method = 'post',
-          link   = 'api/notes';
+          link = 'api/notes';
 
       if (this.note.id) {
         method = 'put';
@@ -348,7 +349,7 @@ export default {
 
             this.$message({
               message: 'Saved !',
-              type   : 'success'
+              type: 'success'
             })
 
             this.copyNote = JSON.parse(JSON.stringify(this.note));
@@ -356,9 +357,9 @@ export default {
           .catch(e => {
             this.errors = e.response.data.errors;
             this.$message({
-              type                    : 'error',
+              type: 'error',
               dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
+              message: this.$messageToStr(this.errors),
             })
             this.cancelEdit()
           })
@@ -373,28 +374,28 @@ export default {
      */
     destroy() {
       this.$buefy.dialog.confirm({
-        title      : 'Удалить',
-        message    : 'Удалить ссылку ?',
+        title: 'Удалить',
+        message: 'Удалить ссылку ?',
         confirmText: 'Да',
-        type       : 'is-danger',
-        hasIcon    : true,
-        onConfirm  : () => {
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
           this.loading = true
 
           this.$axios.delete('api/links/' + this.note.id)
               .then(() => {
                 this.$buefy.toast.open({
                   message: 'Success !',
-                  type   : 'is-success'
+                  type: 'is-success'
                 })
                 this.$router.push('/');
               })
               .catch(e => {
                 this.errors = e.response.data.errors;
                 this.$buefy.toast.open({
-                  type                    : 'is-danger',
+                  type: 'is-danger',
                   dangerouslyUseHTMLString: true,
-                  message                 : this.$messageToStr(this.errors),
+                  message: this.$messageToStr(this.errors),
                 });
                 this.cancelEdit();
               })
@@ -411,13 +412,13 @@ export default {
      */
     prepareData(ref) {
       return {
-        id        : ref.id,
-        title     : ref.title,
+        id: ref.id,
+        title: ref.title,
         categoryId: ref.category.id,
-        tags      : ref.tags.length === 0 ? null : ref.tags,
-        date      : ref.date,
-        body      : ref.body,
-        flag      : ref.flag
+        tags: ref.tags.length === 0 ? null : ref.tags,
+        date: ref.date,
+        body: ref.body,
+        flag: ref.flag
       }
     },
 
@@ -482,7 +483,7 @@ export default {
           .then((res) => {
             this.$buefy.toast.open({
               message: 'Success !',
-              type   : 'is-success'
+              type: 'is-success'
             })
             this.note.file = res.data.data;
             this.file = null;
@@ -490,9 +491,9 @@ export default {
           .catch(e => {
             this.errors = e.response.data.errors;
             this.$buefy.toast.open({
-              type                    : 'is-danger',
+              type: 'is-danger',
               dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
+              message: this.$messageToStr(this.errors),
             });
           })
           .finally(() => {
@@ -505,28 +506,28 @@ export default {
      */
     destroyAttache() {
       this.$buefy.dialog.confirm({
-        title      : 'Удалить',
-        message    : 'Удалить вложение?',
+        title: 'Удалить',
+        message: 'Удалить вложение?',
         confirmText: 'Да',
-        type       : 'is-danger',
-        hasIcon    : true,
-        onConfirm  : () => {
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
           this.loading = true
 
           this.$axios.delete('api/notes/attache/' + this.note.id)
               .then(() => {
                 this.$buefy.toast.open({
                   message: 'Success !',
-                  type   : 'is-success'
+                  type: 'is-success'
                 })
                 this.note.file = null;
               })
               .catch(e => {
                 this.errors = e.response.data.errors;
                 this.$buefy.toast.open({
-                  type                    : 'is-danger',
+                  type: 'is-danger',
                   dangerouslyUseHTMLString: true,
-                  message                 : this.$messageToStr(this.errors),
+                  message: this.$messageToStr(this.errors),
                 });
               })
               .finally(() => {
@@ -564,7 +565,7 @@ export default {
           .then((res) => {
             this.$buefy.toast.open({
               message: 'Success !',
-              type   : 'is-success'
+              type: 'is-success'
             })
             this.note.img = res.data.data;
             this.copyNote.img = res.data.data;
@@ -573,9 +574,9 @@ export default {
           .catch(e => {
             this.errors = e.response.data.errors;
             this.$buefy.toast.open({
-              type                    : 'is-danger',
+              type: 'is-danger',
               dangerouslyUseHTMLString: true,
-              message                 : this.$messageToStr(this.errors),
+              message: this.$messageToStr(this.errors),
             });
           })
           .finally(() => {
@@ -588,28 +589,28 @@ export default {
      */
     destroyImage(id) {
       this.$buefy.dialog.confirm({
-        title      : 'Удалить',
-        message    : 'Удалить изображение?',
+        title: 'Удалить',
+        message: 'Удалить изображение?',
         confirmText: 'Да',
-        type       : 'is-danger',
-        hasIcon    : true,
-        onConfirm  : () => {
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
           this.loading = true
 
           this.$axios.delete('api/images/' + this.note.id)
               .then(() => {
                 this.$buefy.toast.open({
                   message: 'Success !',
-                  type   : 'is-success'
+                  type: 'is-success'
                 })
                 this.note.img = 'note';
               })
               .catch(e => {
                 this.errors = e.response.data.errors;
                 this.$buefy.toast.open({
-                  type                    : 'is-danger',
+                  type: 'is-danger',
                   dangerouslyUseHTMLString: true,
-                  message                 : this.$messageToStr(this.errors),
+                  message: this.$messageToStr(this.errors),
                 });
               })
               .finally(() => {

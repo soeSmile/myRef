@@ -216,4 +216,24 @@ final class LinkRepository extends AbstractRepository
             ->whereIn('link_id', $linksIds)
             ->delete();
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id): mixed
+    {
+        $result = false;
+        $item = $this->newQuery()->find($id);
+
+        if ($item && $item->canDelete()) {
+            $result = $item->delete();
+            DB::table(Link::USER_LINK_TABLE)
+                ->where('link_id', $id)
+                ->where('user_id', auth()->id())
+                ->delete();
+        }
+
+        return $result;
+    }
 }

@@ -181,11 +181,12 @@ class Link extends Model
         $result = false;
 
         if (auth()->check()) {
-            $result = $this->userLinks()
+            $result = \DB::table(Link::USER_LINK_TABLE)
+                ->where('link_id', $this->id)
                 ->where('user_id', '<>', auth()->id())
                 ->exists();
         }
 
-        return $result;
+        return !$result;
     }
 }
