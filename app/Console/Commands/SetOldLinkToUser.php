@@ -23,9 +23,9 @@ class SetOldLinkToUser extends Command
     protected $description = 'Перенос старых ссылок в новую таблицу';
 
     /**
-     * @return int
+     * @return void
      */
-    public function handle(): int
+    public function handle(): void
     {
         $count = 0;
 
@@ -42,6 +42,6 @@ class SetOldLinkToUser extends Command
                 }
             });
 
-        return $count;
+        echo $count;
     }
 }
