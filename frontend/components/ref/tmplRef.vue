@@ -23,7 +23,8 @@
     </div>
 
     <footer class="card-footer sm-mt-2">
-      <div class="card-footer-item">
+      <div class="card-footer-item sm-link sm-hover-bg-link sm-hover-white"
+           title="Добавить себе в закладки">
         <i class="mdi mdi-star-outline"></i>
       </div>
       <div class="card-footer-item">
@@ -32,7 +33,8 @@
       <div class="card-footer-item">
         <i class="mdi mdi-comment-outline"></i>
       </div>
-      <div class="card-footer-item">
+      <div class="card-footer-item sm-link sm-hover-bg-link sm-hover-white"
+           title="Подробнее">
         <n-link class="sm-ref-link sm-fnt w600"
                 title="Подробнее"
                 :to="getLocalLink(myRef)">
@@ -46,17 +48,17 @@
 <script>
 
 export default {
-  name: "tmplRef",
+  name: 'tmplRef',
 
   props: {
-    myRef: {}
+    myRef: {},
   },
 
-  data() {
+  data () {
     return {
       img: [
-        'buf.jpg', 'lara.jpg', 'noimg.jpg', 'ya.jpg'
-      ]
+        'buf.jpg', 'lara.jpg', 'noimg.jpg', 'ya.jpg',
+      ],
     }
   },
 
@@ -65,27 +67,29 @@ export default {
      * @param title
      * @return {string}
      */
-    getTitle(title) {
-      return title ? title.trim().slice(0, this.$const.TITLE_LENGTH) + (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '') : '';
+    getTitle (title) {
+      return title ? title.trim().slice(0, this.$const.TITLE_LENGTH) +
+          (title.length >= this.$const.TITLE_LENGTH ? ' ...' : '') : ''
     },
 
     /**
      * @param desc
      * @return {string}
      */
-    getDesc(desc) {
-      return desc ? desc.trim().slice(0, this.$const.DESC_LENGTH) + (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '') : '';
+    getDesc (desc) {
+      return desc ? desc.trim().slice(0, this.$const.DESC_LENGTH) +
+          (desc.length >= this.$const.DESC_LENGTH ? ' ...' : '') : ''
     },
 
     /**
      * @return {string}
      * @param myRef
      */
-    getImage(myRef) {
+    getImage (myRef) {
       let image = myRef.img ? '/screen/' + myRef.img : '/no-image.jpg'
 
       if (myRef.type === this.$const.TYPE_NOTE) {
-        image = myRef.img === 'note' ? '/note.jpg' : '/screen/' + myRef.img;
+        image = myRef.img === 'note' ? '/note.jpg' : '/screen/' + myRef.img
       }
 
       return 'background-image: url(\'' + image + '\');'
@@ -95,29 +99,29 @@ export default {
      * @param myRef
      * @returns {string}
      */
-    getLink(myRef) {
-      let link = myRef.url;
+    getLink (myRef) {
+      let link = myRef.url
 
       if (myRef.type === this.$const.TYPE_NOTE) {
-        link = '/note/' + myRef.id;
+        link = '/note/' + myRef.id
       }
 
-      return link;
+      return link
     },
 
     /**
      * @param myRef
      * @returns {string}
      */
-    getLocalLink(myRef) {
-      let link = '/link/' + myRef.id;
+    getLocalLink (myRef) {
+      let link = '/link/' + myRef.id
 
       if (myRef.type === this.$const.TYPE_NOTE) {
-        link = '/note/' + myRef.id;
+        link = '/note/' + myRef.id
       }
 
-      return link;
-    }
-  }
+      return link
+    },
+  },
 }
 </script>
