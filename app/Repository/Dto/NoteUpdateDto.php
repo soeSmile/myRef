@@ -23,7 +23,7 @@ final class NoteUpdateDto extends AbstractDto
     public function getData(?AbstractRepository $abstractRepository = null): array
     {
         $this->setDataByKey('user_id', auth()->id());
-        $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVAT);
+        $this->setDataByKeyIfNull('flag', Link::FLAG_PRIVATE);
         $this->setDataByKey('type', Link::TYPE_NOTE);
         $this->setDataByKey('url', 'note');
 

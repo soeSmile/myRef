@@ -28,6 +28,7 @@ class LinkResource extends JsonResource
             'category' => new CategorySortResource($this->category),
             'flag'     => $this->flag,
             'type'     => $this->type,
+            'added'    => $this->user_links_count,
         ];
     }
 }

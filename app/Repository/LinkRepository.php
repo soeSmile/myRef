@@ -9,6 +9,7 @@ use App\Repository\Dto\AbstractDto;
 use App\Repository\Transactions\LinkTransaction;
 use DB;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Throwable;
@@ -54,12 +55,28 @@ final class LinkRepository extends AbstractRepository
     }
 
     /**
+     * @param array $data
+     * @param array $columns
+     * @return Collection|LengthAwarePaginator|array
+     */
+    public function all(array $data = [], array $columns = ['*']): Collection|LengthAwarePaginator|array
+    {
+        $this->getQuery()
+            ->with('category', 'user', 'tags', 'cache', 'userLinks')
+            ->withCount('userLinks');
+
+        return parent::all($data, $columns);
+    }
+
+    /**
      * @param AbstractDto $dto
      * @return LengthAwarePaginator
      */
     public function search(AbstractDto $dto): LengthAwarePaginator
     {
-        $this->getQuery()->with('category', 'user', 'tags', 'cache');
+        $this->getQuery()
+            ->with('category', 'user', 'tags', 'cache','userLinks')
+            ->withCount('userLinks');
 
         // выборка по категориям
         if ($dto->hasKey('cats')) {

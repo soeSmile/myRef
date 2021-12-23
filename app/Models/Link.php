@@ -49,7 +49,7 @@ class Link extends Model
     /**
      * @var int
      */
-    public const FLAG_PRIVAT = 1;
+    public const FLAG_PRIVATE = 1;
 
     /**
      * @var int

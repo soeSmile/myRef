@@ -80,6 +80,11 @@
                         v-slot="props">
           {{ props.row.flag === 1 ? 'Privat' : 'Public' }}
         </b-table-column>
+        <b-table-column field="added"
+                        label="Added"
+                        v-slot="props">
+          {{ props.row.added }}
+        </b-table-column>
       </b-table>
     </div>
   </section>
