@@ -23,7 +23,8 @@
     </div>
 
     <footer class="card-footer sm-mt-2">
-      <div class="card-footer-item sm-link sm-hover-bg-link sm-hover-white"
+      <div v-if="$store.getters['auth/isClient']"
+           class="card-footer-item sm-link sm-hover-bg-link sm-hover-white"
            title="Добавить себе в закладки">
         <i class="mdi mdi-star-outline"></i>
       </div>
