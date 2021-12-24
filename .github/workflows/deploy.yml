@@ -55,5 +55,3 @@ jobs:
       # Build
       - run: cd frontend && npm ci
       - run: cd frontend && npm run build --if-present
-      # Deploy 1
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@161.97.103.243:/home/web/temp/
