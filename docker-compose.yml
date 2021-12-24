@@ -88,7 +88,7 @@ services:
       - '3000:3000'
     environment:
       HOST: 0.0.0.0
-    command: bash -c "yarn && yarn dev"
+    command: bash -c "npm i && npm run dev"
   redis:
     image: redis
     container_name: ref-redis
